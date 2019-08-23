@@ -36,12 +36,14 @@ Route.group(() => {
 
   // Recipe store
   Route.get('recipes', 'RecipeController.list')
-  Route.get('recipes/download/:recipe', 'ServiceController.download')
+  Route.get('recipes/download/:recipe', 'RecipeController.download')
+  Route.get('recipes/search', 'RecipeController.search')
   Route.get('recipes/popular', 'StaticController.popularRecipes')
   Route.get('recipes/update', 'StaticController.emptyArray')
 
   // Workspaces
   Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth')
+  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware('auth')
   Route.post('workspace', 'WorkspaceController.create').middleware('auth')
   Route.get('workspace', 'WorkspaceController.list').middleware('auth')
 
@@ -52,6 +54,9 @@ Route.group(() => {
   Route.get('payment/plans', 'StaticController.plans')
   // Route.get('announcements/:version', 'StaticController.announcement')
 }).prefix('v1')
+
+// Dashboard
+Route.post('new', 'RecipeController.create')
 
 Route.get('/', () => {
   return {

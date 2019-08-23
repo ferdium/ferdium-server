@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create a new service</title>
+
+    <style>
+        input {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create a new service</h1>
+    <form action="new" method="post" enctype="multipart/form-data">
+        <label for="author">Author</label><br />
+        <input type="text" name="author" placeholder="Jon Doe" required><br />
+
+        <label for="name">Name</label><br />
+        <input type="text" name="name" placeholder="Sample Service" required><br />
+
+        <label for="id">Service ID</label><br />
+        <input type="text" name="id" placeholder="sample-service" required><br />
+
+        <label for="png">Link to PNG image</label><br />
+        <input type="text" name="png" placeholder="https://.../logo.png" required><br />
+
+        <label for="svg">Link to SVG image</label><br />
+        <input type="text" name="svg" placeholder="https://.../logo.svg" required><br />
+
+        <label for="package">Package</label><br />
+        *Please package your service into a .tar.gz file<br />
+        <input type="file" name="package" id="package"><br />
+
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

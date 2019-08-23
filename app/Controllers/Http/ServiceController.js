@@ -90,13 +90,6 @@ class ServiceController {
 
     return response.send(servicesArray)
   }
-
-  // Download a recipe (currently simply redirects to Franz's API)
-  download({ request, response, params }) {
-    const service = params.recipe;
-
-    response.redirect('https://api.franzinfra.com/v1/recipes/download/' + service)
-  }
 }
 
 module.exports = ServiceController

@@ -83,6 +83,33 @@ class WorkspaceController {
     })
   }
 
+  async delete({
+    request,
+    response,
+    auth,
+    params
+  }) {
+    try {
+      await auth.getUser()
+    } catch (error) {
+      return response.send('Missing or invalid api token')
+    }
+
+    const data = request.all();
+    const {
+      id
+    } = params;
+
+    // Update data in database
+    await (Workspace.query()
+      .where('workspaceId', id)
+      .where('userId', auth.user.id)).delete();
+
+    return response.send({
+      "message": "Successfully deleted workspace",
+    })
+  }
+
   // List all workspaces a user has created
   async list({
     request,
