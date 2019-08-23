@@ -23,7 +23,7 @@ class ServiceController {
     let serviceId;
     do {
       serviceId = uuid();
-    } while((await Service.all()).rows.length > 0)
+    } while((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0)
 
     const service = await Service.create({
       userId: auth.user.id,

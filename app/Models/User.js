@@ -38,6 +38,10 @@ class User extends Model {
   services () {
     return this.hasMany('App/Models/Service', 'id', 'userId')
   }
+
+  workspaces () {
+    return this.hasMany('App/Models/Workspace', 'id', 'userId')
+  }
 }
 
 module.exports = User
