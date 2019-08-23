@@ -2,8 +2,7 @@
 Unofficial Franz server replacement for use with the Ferdi Client.
 
 ## Features
-- [x] User registration
-- [ ] User login (not yet functional)
+- [x] User registration and login
 - [x] Service creation, download and listing
 - [ ] Service removing
 - [ ] Functioning service store
