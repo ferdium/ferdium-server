@@ -8,6 +8,7 @@ class ServiceSchema extends Schema {
     this.create('services', (table) => {
       table.increments()
       table.string('userId', 80).notNullable()
+      table.string('serviceId', 80).notNullable()
       table.string('name', 80).notNullable()
       table.string('recipeId', 254).notNullable()
       table.json('settings')

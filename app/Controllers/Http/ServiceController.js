@@ -2,6 +2,7 @@
 
 const User = use('App/Models/User');
 const Service = use('App/Models/Service');
+const uuid = require('uuid/v4');
 
 class ServiceController {
   // Create a new service for user
@@ -18,8 +19,15 @@ class ServiceController {
 
     const data = request.all();
 
+    // Get new, unused uuid
+    let serviceId;
+    do {
+      serviceId = uuid();
+    } while((await Service.all()).rows.length > 0)
+
     const service = await Service.create({
       userId: auth.user.id,
+      serviceId,
       name: data.name,
       recipeId: data.recipeId,
       settings: JSON.stringify(data)
@@ -28,7 +36,7 @@ class ServiceController {
     return response.send({
       "data": {
         userId: auth.user.id,
-        id: service.id,
+        id: serviceId,
         "isEnabled": true,
         "isNotificationEnabled": true,
         "isBadgeEnabled": true,
@@ -74,7 +82,7 @@ class ServiceController {
         "workspaces": [],
         "iconUrl": null,
         ...JSON.parse(service.settings),
-        "id": service.id,
+        "id": service.serviceId,
         "name": service.name,
         "recipeId": service.recipeId,
         "userId": auth.user.id,

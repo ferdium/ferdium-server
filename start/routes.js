@@ -42,7 +42,7 @@ Route.group(() => {
   Route.get('payment/plans', 'StaticController.plans')
   Route.get('recipes/popular', 'StaticController.popularRecipes')
   Route.get('recipes/update', 'StaticController.emptyArray')
-  Route.get('announcements/:version', 'StaticController.announcement')
+  // Route.get('announcements/:version', 'StaticController.announcement')
 }).prefix('v1')
 
 Route.get('/', () => {
