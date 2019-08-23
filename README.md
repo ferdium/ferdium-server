@@ -1,6 +1,13 @@
 # ferdi-server
 Unofficial Franz server replacement for use with the Ferdi Client.
 
+## Features
+- [x] User registration
+- [ ] User login (not yet functional)
+- [x] Service creation, download and listing
+- [ ] Service removing
+- [ ] Functioning service store
+
 ## Setup
 1. Clone this repository
 2. Install the [AdonisJS CLI](https://adonisjs.com/)
