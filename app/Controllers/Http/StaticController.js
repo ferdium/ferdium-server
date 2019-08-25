@@ -214,10 +214,11 @@ class StaticController {
   }
 
   // Show announcements
-  announcement({ response, params }) {
-    return response.send({
-      'en-US': 'You are using an unofficial Franz Server.'
-    });
+  announcement({
+    response,
+    params
+  }) {
+    return response.send('No announcement found.');
   }
 }
 
