@@ -6,7 +6,7 @@ const Drive = use('Drive')
 const fetch = require('node-fetch');
 const targz = require('targz');
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 const compress = (src, dest) => {
   return new Promise((resolve, reject) => {
@@ -51,19 +51,29 @@ class RecipeController {
   }) {
     const data = request.all();
 
+    if (!data.id) {
+      return response.send('Please provide an ID');
+    }
+
     // Check for invalid characters
     if (/\.{1,}/.test(data.id) || /\/{1,}/.test(data.id)) {
       return response.send('Invalid recipe name. Your recipe name may not contain "." or "/"');
     }
+
+    // Clear temporary recipe folder
+    await fs.emptyDir(Helpers.tmpPath('recipe'));
 
     // Move uploaded files to temporary path
     const files = request.file('files')
     await files.moveAll(Helpers.tmpPath('recipe'))
 
     // Compress files to .tar.gz file
+    const source = Helpers.tmpPath('recipe');
+    const destination = path.join(Helpers.appRoot(), '/recipes/' + data.id + '.tar.gz');
+    console.log('a', source, destination)
     compress(
-      Helpers.tmpPath('recipe'), 
-      path.join(Helpers.appRoot(), '/recipes/' + data.id + '.tar.gz')
+      source,
+      destination
     );
 
     // Create recipe in db

@@ -14,8 +14,9 @@ class UserController {
   }) {
     const data = request.only(['firstname', 'email', 'password']);
 
+    let user;
     try {
-      const user = await User.create({
+      user = await User.create({
         email: data.email,
         password: data.password,
         username: data.firstname
