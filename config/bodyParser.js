@@ -20,7 +20,7 @@ module.exports = {
     | is over 1mb it will not be processed.
     |
     */
-    limit: '1mb',
+    limit: '50mb',
 
     /*
     |--------------------------------------------------------------------------

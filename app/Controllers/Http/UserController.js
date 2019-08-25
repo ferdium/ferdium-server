@@ -13,11 +13,20 @@ class UserController {
     session
   }) {
     const data = request.only(['firstname', 'email', 'password']);
-    const user = await User.create({
-      email: data.email,
-      password: data.password,
-      username: data.firstname
-    });
+
+    try {
+      const user = await User.create({
+        email: data.email,
+        password: data.password,
+        username: data.firstname
+      });
+    } catch(e) {
+      return response.status(401).send({
+        "message": "E-Mail Address already in use",
+        "status": 401
+      })
+    }
+    
     const token = await auth.generate(user)
 
     return response.send({

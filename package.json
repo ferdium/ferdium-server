@@ -29,6 +29,7 @@
     "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
     "sqlite3": "^4.1.0",
+    "targz": "^1.0.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {},

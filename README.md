@@ -1,6 +1,8 @@
 # ferdi-server
 Unofficial Franz server replacement for use with the Ferdi Client.
 
+⚠️ Currently not to be used publicly/productively as there are no validations etc. yet.
+
 ## Features
 - [x] User registration and login
 - [x] Service creation, download and listing
