@@ -2,6 +2,10 @@
 
 const User = use('App/Models/User');
 const Service = use('App/Models/Service');
+const {
+  validateAll
+} = use('Validator');
+
 const uuid = require('uuid/v4');
 
 class ServiceController {
@@ -15,6 +19,18 @@ class ServiceController {
       await auth.getUser()
     } catch (error) {
       return response.send('Missing or invalid api token')
+    }
+
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      name: 'required|alpha',
+      recipeId: 'required',
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Invalid POST arguments",
+        "status": 401
+      })
     }
 
     const data = request.all();
@@ -65,7 +81,6 @@ class ServiceController {
     } catch (error) {
       return response.send('Missing or invalid api token')
     }
-
     
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants

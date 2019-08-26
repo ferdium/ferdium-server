@@ -3,6 +3,10 @@
 const Recipe = use('App/Models/Recipe');
 const Helpers = use('Helpers')
 const Drive = use('Drive')
+const {
+  validateAll
+} = use('Validator');
+
 const fetch = require('node-fetch');
 const targz = require('targz');
 const path = require('path');
@@ -49,6 +53,22 @@ class RecipeController {
     request,
     response
   }) {
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      name: 'required|alpha',
+      recipeId: 'required|unique:recipes,recipeId',
+      author: 'required|accepted',
+      png: 'required|url',
+      svg: 'required|url',
+      files: 'required',
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Invalid POST arguments",
+        "status": 401
+      })
+    }
+
     const data = request.all();
 
     if (!data.id) {
@@ -70,7 +90,7 @@ class RecipeController {
     // Compress files to .tar.gz file
     const source = Helpers.tmpPath('recipe');
     const destination = path.join(Helpers.appRoot(), '/recipes/' + data.id + '.tar.gz');
-    console.log('a', source, destination)
+    
     compress(
       source,
       destination
@@ -99,10 +119,21 @@ class RecipeController {
     request,
     response
   }) {
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      needle: 'required'
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Please provide a needle",
+        "status": 401
+      })
+    }
+
     const needle = request.input('needle')
 
     // Get results
-    const remoteResults = JSON.parse(await (await fetch('https://api.franzinfra.com/v1/recipes/search?needle=' + needle)).text());
+    const remoteResults = JSON.parse(await (await fetch('https://api.franzinfra.com/v1/recipes/search?needle=' + encodeURIComponent(needle))).text());
     const localResultsArray = (await Recipe.query().where('name', 'LIKE', '%' + needle + '%').fetch()).toJSON();
     const localResults = localResultsArray.map(recipe => ({
       "id": recipe.recipeId,
@@ -124,6 +155,17 @@ class RecipeController {
     response,
     params
   }) {
+    // Validate user input
+    const validation = await validateAll(params, {
+      recipe: 'required|accepted'
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Please provide a recipe ID",
+        "status": 401
+      })
+    }
+
     const service = params.recipe;
 
     // Check for invalid characters

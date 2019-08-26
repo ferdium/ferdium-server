@@ -1,6 +1,10 @@
 'use strict'
 
 const Workspace = use('App/Models/Workspace');
+const {
+  validateAll
+} = use('Validator');
+
 const uuid = require('uuid/v4');
 
 class WorkspaceController {
@@ -14,6 +18,17 @@ class WorkspaceController {
       await auth.getUser()
     } catch (error) {
       return response.send('Missing or invalid api token')
+    }
+
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      name: 'required|alpha',
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Invalid POST arguments",
+        "status": 401
+      })
     }
 
     const data = request.all();
@@ -56,6 +71,18 @@ class WorkspaceController {
       return response.send('Missing or invalid api token')
     }
 
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      name: 'required|alpha',
+      services: 'required|array'
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Invalid POST arguments",
+        "status": 401
+      })
+    }
+
     const data = request.all();
     const {
       id
@@ -95,7 +122,17 @@ class WorkspaceController {
       return response.send('Missing or invalid api token')
     }
 
-    const data = request.all();
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      id: 'required',
+    });
+    if (validation.fails()) {
+      return response.status(401).send({
+        "message": "Invalid POST arguments",
+        "status": 401
+      })
+    }
+
     const {
       id
     } = params;
