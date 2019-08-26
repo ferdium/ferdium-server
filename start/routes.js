@@ -31,9 +31,12 @@ Route.group(() => {
 
   // Service info
   Route.post('service', 'ServiceController.create').middleware('auth')
+  Route.put('service/:id', 'ServiceController.edit').middleware('auth')
   Route.get('me/services', 'ServiceController.list').middleware('auth')
+  Route.put('service/reorder', 'ServiceController.reorder').middleware('auth')
   Route.get('recipe', 'ServiceController.list').middleware('auth')
-
+  Route.post('recipes/update', 'ServiceController.update').middleware('auth')
+  
   // Recipe store
   Route.get('recipes', 'RecipeController.list')
   Route.get('recipes/download/:recipe', 'RecipeController.download')
@@ -57,6 +60,7 @@ Route.group(() => {
 
 // Dashboard
 Route.post('new', 'RecipeController.create')
+Route.get('new', ({ response }) => response.redirect('/new.html'))
 
 Route.get('/', () => {
   return {

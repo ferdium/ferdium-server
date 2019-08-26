@@ -27,6 +27,7 @@ class WorkspaceController {
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Invalid POST arguments",
+        "messages": validation.messages(),
         "status": 401
       })
     }
@@ -79,6 +80,7 @@ class WorkspaceController {
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Invalid POST arguments",
+        "messages": validation.messages(),
         "status": 401
       })
     }
@@ -129,6 +131,7 @@ class WorkspaceController {
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Invalid POST arguments",
+        "messages": validation.messages(),
         "status": 401
       })
     }
