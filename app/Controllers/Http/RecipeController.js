@@ -6,6 +6,7 @@ const Drive = use('Drive')
 const {
   validateAll
 } = use('Validator');
+const Env = use('Env')
 
 const fetch = require('node-fetch');
 const targz = require('targz');
@@ -53,18 +54,23 @@ class RecipeController {
     request,
     response
   }) {
+    // Check if recipe creation is enabled
+    if (Env.get('IS_CREATION_ENABLED') == 'false') {
+      return response.send('This server doesn\'t allow the creation of new recipes.');
+    }
+
     // Validate user input
     const validation = await validateAll(request.all(), {
       name: 'required|alpha',
-      recipeId: 'required|unique:recipes,recipeId',
+      id: 'required|unique:recipes,recipeId',
       author: 'required|accepted',
       png: 'required|url',
       svg: 'required|url',
-      files: 'required',
     });
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Invalid POST arguments",
+        "messages": validation.messages(),
         "status": 401
       })
     }
@@ -126,6 +132,7 @@ class RecipeController {
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Please provide a needle",
+        "messages": validation.messages(),
         "status": 401
       })
     }
@@ -162,6 +169,7 @@ class RecipeController {
     if (validation.fails()) {
       return response.status(401).send({
         "message": "Please provide a recipe ID",
+        "messages": validation.messages(),
         "status": 401
       })
     }
