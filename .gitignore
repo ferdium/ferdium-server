@@ -13,3 +13,5 @@ database/adonis.sqlite
 
 # Uploaded recipes
 recipes/
+
+.DS_Store

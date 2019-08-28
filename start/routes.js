@@ -61,6 +61,8 @@ Route.group(() => {
 // Dashboard
 Route.post('new', 'RecipeController.create')
 Route.get('new', ({ response }) => response.redirect('/new.html'))
+Route.post('import', 'UserController.import')
+Route.get('import', ({ response }) => response.redirect('/import.html'))
 
 Route.get('/', () => {
   return {
