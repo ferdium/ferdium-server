@@ -68,11 +68,4 @@ Route.get('import', ({ response }) => response.redirect('/import.html'))
 Route.get('terms', ({ response }) => response.redirect('/terms.html'))
 Route.get('privacy', ({ response }) => response.redirect('/privacy.html'))
 
-Route.get('/', () => {
-  return {
-    info: 'Franz Unofficial Server',
-    version: '1.0.0',
-    author: 'vantezzen',
-    repo: 'https://github.com/vantezzen/franz-server'
-  }
-})
+Route.get('/', ({ response }) => response.redirect('/index.html'))
