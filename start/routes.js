@@ -56,10 +56,6 @@ Route.group(() => {
   Route.get('news', 'StaticController.emptyArray')
   Route.get('payment/plans', 'StaticController.plans')
   Route.get('announcements/:version', 'StaticController.announcement')
-
-  // Legal documents
-  Route.get('terms', ({ response }) => response.redirect('/terms.html'))
-  Route.get('privacy', ({ response }) => response.redirect('/privacy.html'))
 }).prefix('v1')
 
 // Dashboard
@@ -67,6 +63,10 @@ Route.post('new', 'RecipeController.create')
 Route.get('new', ({ response }) => response.redirect('/new.html'))
 Route.post('import', 'UserController.import')
 Route.get('import', ({ response }) => response.redirect('/import.html'))
+
+// Legal documents
+Route.get('terms', ({ response }) => response.redirect('/terms.html'))
+Route.get('privacy', ({ response }) => response.redirect('/privacy.html'))
 
 Route.get('/', () => {
   return {
