@@ -56,6 +56,10 @@ Route.group(() => {
   Route.get('news', 'StaticController.emptyArray')
   Route.get('payment/plans', 'StaticController.plans')
   Route.get('announcements/:version', 'StaticController.announcement')
+
+  // Legal documents
+  Route.get('terms', ({ response }) => response.redirect('/terms.html'))
+  Route.get('privacy', ({ response }) => response.redirect('/privacy.html'))
 }).prefix('v1')
 
 // Dashboard
