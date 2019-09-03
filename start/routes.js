@@ -9,6 +9,7 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
+const Env = use('Env')
 
 // Health: Returning if all systems function correctly
 Route.get('health', ({
@@ -61,7 +62,13 @@ Route.group(() => {
 
 // Dashboard
 Route.post('new', 'RecipeController.create')
-Route.get('new', ({ response }) => response.redirect('/new.html'))
+Route.get('new', ({ response }) => {
+  if (Env.get('IS_CREATION_ENABLED') == 'false') {
+    return response.send('This server doesn\'t allow the creation of new recipes.\n\nIf you are the server owner, please set IS_CREATION_ENABLED to true to enable recipe creation.');
+  } else {
+    return response.redirect('/new.html')
+  }
+})
 Route.post('import', 'UserController.import')
 Route.get('import', ({ response }) => response.redirect('/import.html'))
 
