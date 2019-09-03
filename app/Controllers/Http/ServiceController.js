@@ -225,6 +225,23 @@ class ServiceController {
   }) {
     return response.send([])
   }
+
+  async delete({
+    request,
+    params,
+    auth,
+    response
+  }) {
+    // Update data in database
+    await (Service.query()
+      .where('serviceId', params.id)
+      .where('userId', auth.user.id)).delete()
+
+    return response.send({
+      "message": "Sucessfully deleted service",
+      "status": 200
+    })
+  }
 }
 
 module.exports = ServiceController
