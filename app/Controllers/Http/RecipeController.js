@@ -140,7 +140,10 @@ class RecipeController {
     const needle = request.input('needle')
 
     // Get results
-    const remoteResults = JSON.parse(await (await fetch('https://api.franzinfra.com/v1/recipes/search?needle=' + encodeURIComponent(needle))).text());
+    let remoteResults = [];
+    if (Env.get('CONNECT_WITH_FRANZ') == 'true') {
+      remoteResults = JSON.parse(await (await fetch('https://api.franzinfra.com/v1/recipes/search?needle=' + encodeURIComponent(needle))).text());
+    }
     const localResultsArray = (await Recipe.query().where('name', 'LIKE', '%' + needle + '%').fetch()).toJSON();
     const localResults = localResultsArray.map(recipe => ({
       "id": recipe.recipeId,
@@ -184,8 +187,13 @@ class RecipeController {
     // Check if recipe exists in recipes folder
     if (await Drive.exists(service + '.tar.gz')) {
       response.send(await Drive.get(service + '.tar.gz'))
-    } else {
+    } else if(Env.get('CONNECT_WITH_FRANZ') == 'true') {
       response.redirect('https://api.franzinfra.com/v1/recipes/download/' + service)
+    } else {
+      return response.status(400).send({
+        "message": "Recipe not found",
+        "code": "recipe-not-found"
+      })
     }
   }
 }

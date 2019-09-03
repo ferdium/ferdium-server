@@ -6,6 +6,7 @@ const Workspace = use('App/Models/Workspace');
 const {
   validateAll
 } = use('Validator');
+const Env = use('Env')
 
 const atob = require('atob');
 const btoa = require('btoa');
@@ -149,7 +150,7 @@ class UserController {
       emailValidated: true,
       features: {},
       firstname: "Franz",
-      id: "2acd2aa0-0869-4a91-adab-f700ac256dbe",
+      id: "82c1cf9d-ab58-4da2-b55e-aaa41d2142d8",
       isPremium: true,
       isSubscriptionOwner: true,
       lastname: "Franz",
@@ -188,6 +189,16 @@ class UserController {
     } = request.all()
 
     const hashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+    
+    if(Env.get('CONNECT_WITH_FRANZ') == 'false') {
+      await User.create({
+        email: userInf.email,
+        password: hashedPassword,
+        username: userInf.firstname
+      });
+
+      return response.send('Your account has been created but due to this server\'s configuration, we could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.')
+    }
 
     const base = 'https://api.franzinfra.com/v1/';
     const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
