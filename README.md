@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="./logo.png" alt="" width="300"/>  
+</p>
+
 # ferdi-server
 Unofficial Franz server replacement for use with the Ferdi Client.
 
