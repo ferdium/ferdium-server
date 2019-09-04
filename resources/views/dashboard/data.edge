@@ -1,0 +1,167 @@
+@layout('layouts.main')
+
+@section('content')
+<h2>Your Ferdi account data</h2>
+@if(flashMessage('error'))
+    <div class="alert">
+        {{ flashMessage('error') }} 
+    </div>
+@endif
+@if(old('message'))
+    <div class="alert">
+        {{ old('message') }}
+    </div>
+@endif
+
+<h4>General account data</h4>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Value
+        </th>
+    </tr>
+    <tr>
+        <td>
+            E-Mail
+        </td>
+        <td>
+            {{ mail }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Username
+        </td>
+        <td>
+            {{ username }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Created account on
+        </td>
+        <td>
+            {{ created }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Last account update on
+        </td>
+        <td>
+            {{ updated }}
+        </td>
+    </tr>
+</table>
+
+<h4>Your services</h4>
+<table>
+    <tr>
+        <th>
+            Service ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Recipe ID
+        </th>
+        <th>
+            Settings
+        </th>
+        <th>
+            Created
+        </th>
+        <th>
+            Last updated
+        </th>
+    </tr>
+
+    @each(service in services)
+      <tr>
+          <td>
+              {{ service.serviceId }}
+          </td>
+          <td>
+              {{ service.name }}
+          </td>
+          <td>
+              {{ service.recipeId }}
+          </td>
+          <td>
+              {{ service.settings }}
+          </td>
+          <td>
+              {{ service.created_at }}
+          </td>
+          <td>
+              {{ service.updated_at }}
+          </td>
+      </tr>
+    @endeach
+</table>
+
+
+<h4>Your workspaces</h4>
+<table>
+    <tr>
+        <th>
+            Service ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Order
+        </th>
+        <th>
+            Services
+        </th>
+        <th>
+            Data
+        </th>
+        <th>
+            Created
+        </th>
+        <th>
+            Last updated
+        </th>
+    </tr>
+
+    @each(workspace in workspaces)
+      <tr>
+          <td>
+              {{ workspace.workspaceId }}
+          </td>
+          <td>
+              {{ workspace.name }}
+          </td>
+          <td>
+              {{ workspace.order }}
+          </td>
+          <td>
+              {{ workspace.services }}
+          </td>
+          <td>
+              {{ workspace.data }}
+          </td>
+          <td>
+              {{ workspace.created_at }}
+          </td>
+          <td>
+              {{ workspace.updated_at }}
+          </td>
+      </tr>
+    @endeach
+</table>
+
+<div>
+    <a class="button" href="/user/account">Back to my account</a>
+</div>
+
+</div>
+
+@endsection

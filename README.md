@@ -1,6 +1,10 @@
 # ferdi-server
 Unofficial Franz server replacement for use with the Ferdi Client.
 
+## Why use a custom ferdi-server?
+A custom ferdi-server allows you to experience the full potential of the Ferdi client.
+
+
 ## Features
 - [x] User registration and login
 - [x] Service creation, download, listing and removing

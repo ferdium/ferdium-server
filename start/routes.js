@@ -60,7 +60,26 @@ Route.group(() => {
   Route.get('announcements/:version', 'StaticController.announcement')
 }).prefix('v1')
 
-// Dashboard
+// User dashboard
+Route.group(() => {
+  // Auth
+  Route.get('login', ({view}) => {
+    return view.render('dashboard.login');
+  }).middleware('guest');
+  Route.post('login', 'DashboardController.login').middleware('guest')
+
+  // Dashboard
+  Route.get('account', 'DashboardController.account').middleware('auth:session')
+  Route.post('account', 'DashboardController.edit').middleware('auth:session')
+  Route.get('data', 'DashboardController.data').middleware('auth:session')
+  Route.get('delete', ({view}) => {
+    return view.render('dashboard.delete');
+  }).middleware('auth:session');
+  Route.post('delete', 'DashboardController.delete').middleware('auth:session')
+  Route.get('logout', 'DashboardController.logout').middleware('auth:session')
+}).prefix('user').middleware('shield')
+
+// Recipe creation
 Route.post('new', 'RecipeController.create')
 Route.get('new', ({ response }) => {
   if (Env.get('IS_CREATION_ENABLED') == 'false') {
@@ -69,6 +88,8 @@ Route.get('new', ({ response }) => {
     return response.redirect('/new.html')
   }
 })
+
+// Franz account import
 Route.post('import', 'UserController.import')
 Route.get('import', ({ response }) => response.redirect('/import.html'))
 

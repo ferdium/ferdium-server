@@ -1,0 +1,31 @@
+@layout('layouts.main')
+
+@section('content')
+<h2>Delete Ferdi account</h2>
+@if(flashMessage('error'))
+    <div class="alert">
+        {{ flashMessage('error') }} 
+    </div>
+@endif
+@if(old('message'))
+    <div class="alert">
+        {{ old('message') }}
+    </div>
+@endif
+
+<form action="/user/delete" method="POST">
+    <p>Are you sure, that you want to delete your Ferdi account?</p>
+    <p>This will <b>permanently</b> delete all your account settings, services and workspaces.</p>
+    <div>
+        {{ csrfField() }}
+        <button style="background-color:#F6416C;margin-bottom:1rem;">Yes, delete account</button>
+    </div>
+</form>
+
+<div>
+    <a class="button" href="/user/account" style="background-color:#28C76F;">Cancel</a>
+</div>
+
+</div>
+
+@endsection

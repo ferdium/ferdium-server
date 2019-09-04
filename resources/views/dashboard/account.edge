@@ -1,0 +1,63 @@
+@layout('layouts.main')
+
+@section('content')
+<h2>Your Ferdi account</h2>
+@if(flashMessage('error'))
+    <div class="alert">
+        {{ flashMessage('error') }} 
+    </div>
+@endif
+@if(old('message'))
+    <div class="alert">
+        {{ old('message') }}
+    </div>
+@endif
+@if(flashMessage('notification'))
+    <div class="alert">
+        {{ flashMessage('notification.message') }}
+    </div>
+@endif
+@if(success === true)
+    <div class="alert" style="background-color:#28C76F;">
+        Sucessfully updated your user account
+    </div>
+@endif
+
+<form action="/user/account" method="POST">
+    {{ csrfField() }}
+    <div>
+        <label>Name</label>
+        <div>
+            <input type="text" value="{{ old('name', username) }}" placeholder="Name" name="username" required>
+        </div>
+    </div>
+    <div>
+        <label>E-Mail</label>
+        <div>
+            <input type="email" value="{{ old('email', email) }}" placeholder="E-Mail" name="email" required>
+        </div>
+    </div>
+    <div>
+        <label>Password</label>
+        <div>
+            <input type="password" placeholder="*********" name="password">
+        </div>
+    </div>
+    <div>
+        <button style="background-color:#28C76F;margin-bottom:1rem;">Change settings</button>
+    </div>
+</form>
+
+<div>
+    <a class="button" href="/user/delete" style="background-color:#F6416C;margin-bottom:1rem;">Delete my account</a>
+</div>
+<div>
+    <a class="button" href="/user/data" style="margin-bottom:1rem;">My account data</a>
+</div>
+<div>
+    <a class="button" href="/user/logout">Logout</a>
+</div>
+
+</div>
+
+@endsection

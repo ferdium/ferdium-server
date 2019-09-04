@@ -192,9 +192,9 @@ class UserController {
     
     if(Env.get('CONNECT_WITH_FRANZ') == 'false') {
       await User.create({
-        email: userInf.email,
+        email,
         password: hashedPassword,
-        username: userInf.firstname
+        username: 'Franz'
       });
 
       return response.send('Your account has been created but due to this server\'s configuration, we could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.')
@@ -231,10 +231,15 @@ class UserController {
     }
 
     // Get user information
-    let userInf;
+    let userInf = false;
     try {
       userInf = await franzRequest('me', 'GET', token)
+      console.log('A', userInf)
     } catch (e) {
+      const errorMessage = 'Could not get your user info from Franz. Please check your credentials or try again later.\nError: ' + e;
+      return response.status(401).send(errorMessage)
+    }
+    if (!userInf) {
       const errorMessage = 'Could not get your user info from Franz. Please check your credentials or try again later.\nError: ' + e;
       return response.status(401).send(errorMessage)
     }

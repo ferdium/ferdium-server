@@ -1,0 +1,42 @@
+@layout('layouts.main')
+
+@section('content')
+<h2>Login</h2>
+@if(flashMessage('error'))
+    <div class="alert">
+        {{ flashMessage('error') }} 
+    </div>
+@endif
+@if(old('message'))
+    <div class="alert">
+        {{ old('message') }}
+    </div>
+@endif
+<form action="/user/login" method="POST">
+    {{ csrfField() }}
+    <div>
+        <label>E-Mail</label>
+        <div>
+            <input type="email" value="{{ old('mail', '') }}" placeholder="E-Mail" name="mail">
+        </div>
+    </div>
+    <div>
+        <label>Password</label>
+        <div>
+            <input type="password" placeholder="*********" name="password">
+        </div>
+    </div>
+    <div>
+        <button>Login</button>
+        By logging in, you accept the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy policy</a>.
+
+    </div>
+    <div>
+        <p>Not a member yet? Register in the Ferdi app or <a href="../import">import your Franz account</a>.</p>
+    </div>
+</form>
+<br />
+
+</div>
+
+@endsection
