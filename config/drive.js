@@ -1,7 +1,4 @@
-'use strict'
-
-const Helpers = use('Helpers')
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -25,8 +22,8 @@ module.exports = {
     |
     */
     local: {
-      root: __dirname + '/../recipes',
-      driver: 'local'
+      root: `${__dirname}/../recipes`,
+      driver: 'local',
     },
 
     /*
@@ -42,7 +39,7 @@ module.exports = {
       key: Env.get('S3_KEY'),
       secret: Env.get('S3_SECRET'),
       bucket: Env.get('S3_BUCKET'),
-      region: Env.get('S3_REGION')
-    }
-  }
-}
+      region: Env.get('S3_REGION'),
+    },
+  },
+};

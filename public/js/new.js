@@ -1,12 +1,13 @@
+/* eslint-env browser */
 const elDrop = document.getElementById('dropzone');
 const submitBtn = document.getElementById('submitbutton');
 const fileInput = document.getElementById('files');
 
-elDrop.addEventListener('dragover', function (event) {
+elDrop.addEventListener('dragover', (event) => {
   event.preventDefault();
 });
 
-elDrop.addEventListener('drop', async function (event) {
+elDrop.addEventListener('drop', async (event) => {
   event.preventDefault();
 
   submitBtn.disabled = true;
@@ -19,5 +20,5 @@ elDrop.addEventListener('drop', async function (event) {
   submitBtn.disabled = false;
 });
 elDrop.addEventListener('click', () => {
-    fileInput.click();
-})
+  fileInput.click();
+});

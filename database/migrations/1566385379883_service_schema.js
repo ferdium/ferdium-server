@@ -1,24 +1,23 @@
-'use strict'
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class ServiceSchema extends Schema {
-  up () {
+  up() {
     this.create('services', (table) => {
-      table.increments()
-      table.string('userId', 80).notNullable()
-      table.string('serviceId', 80).notNullable()
-      table.string('name', 80).notNullable()
-      table.string('recipeId', 254).notNullable()
-      table.json('settings')
-      table.timestamps()
-    })
+      table.increments();
+      table.string('userId', 80).notNullable();
+      table.string('serviceId', 80).notNullable();
+      table.string('name', 80).notNullable();
+      table.string('recipeId', 254).notNullable();
+      table.json('settings');
+      table.timestamps();
+    });
   }
 
-  down () {
-    this.drop('services')
+  down() {
+    this.drop('services');
   }
 }
 
-module.exports = ServiceSchema
+module.exports = ServiceSchema;

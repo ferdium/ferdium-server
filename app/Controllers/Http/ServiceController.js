@@ -1,9 +1,6 @@
-'use strict'
-
-const User = use('App/Models/User');
 const Service = use('App/Models/Service');
 const {
-  validateAll
+  validateAll,
 } = use('Validator');
 
 const uuid = require('uuid/v4');
@@ -13,12 +10,12 @@ class ServiceController {
   async create({
     request,
     response,
-    auth
+    auth,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     // Validate user input
@@ -28,10 +25,10 @@ class ServiceController {
     });
     if (validation.fails()) {
       return response.status(401).send({
-        "message": "Invalid POST arguments",
-        "messages": validation.messages(),
-        "status": 401
-      })
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
     }
 
     const data = request.all();
@@ -40,83 +37,82 @@ class ServiceController {
     let serviceId;
     do {
       serviceId = uuid();
-    } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0)
+    } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
 
-    const service = await Service.create({
+    await Service.create({
       userId: auth.user.id,
       serviceId,
       name: data.name,
       recipeId: data.recipeId,
-      settings: JSON.stringify(data)
+      settings: JSON.stringify(data),
     });
 
     return response.send({
-      "data": {
+      data: {
         userId: auth.user.id,
         id: serviceId,
-        "isEnabled": true,
-        "isNotificationEnabled": true,
-        "isBadgeEnabled": true,
-        "isMuted": false,
-        "isDarkModeEnabled": "",
-        "spellcheckerLanguage": "",
-        "order": 1,
-        "customRecipe": false,
-        "hasCustomIcon": false,
-        "workspaces": [],
-        "iconUrl": null,
+        isEnabled: true,
+        isNotificationEnabled: true,
+        isBadgeEnabled: true,
+        isMuted: false,
+        isDarkModeEnabled: '',
+        spellcheckerLanguage: '',
+        order: 1,
+        customRecipe: false,
+        hasCustomIcon: false,
+        workspaces: [],
+        iconUrl: null,
         ...data,
       },
-      "status": ["created"]
-    })
+      status: ['created'],
+    });
   }
 
   // List all services a user has created
   async list({
-    request,
     response,
-    auth
+    auth,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
-    const servicesArray = services.map(service => ({
-      "customRecipe": false,
-      "hasCustomIcon": false,
-      "isBadgeEnabled": true,
-      "isDarkModeEnabled": "",
-      "isEnabled": true,
-      "isMuted": false,
-      "isNotificationEnabled": true,
-      "order": 1,
-      "spellcheckerLanguage": "",
-      "workspaces": [],
-      "iconUrl": null,
+    const servicesArray = services.map((service) => ({
+      customRecipe: false,
+      hasCustomIcon: false,
+      isBadgeEnabled: true,
+      isDarkModeEnabled: '',
+      isEnabled: true,
+      isMuted: false,
+      isNotificationEnabled: true,
+      order: 1,
+      spellcheckerLanguage: '',
+      workspaces: [],
+      iconUrl: null,
       ...JSON.parse(service.settings),
-      "id": service.serviceId,
-      "name": service.name,
-      "recipeId": service.recipeId,
-      "userId": auth.user.id,
-    }))
+      id: service.serviceId,
+      name: service.name,
+      recipeId: service.recipeId,
+      userId: auth.user.id,
+    }));
 
-    return response.send(servicesArray)
+    return response.send(servicesArray);
   }
 
   async edit({
     request,
     response,
     auth,
-    params
+    params,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     // Validate user input
@@ -125,15 +121,15 @@ class ServiceController {
     });
     if (validation.fails()) {
       return response.status(401).send({
-        "message": "Invalid POST arguments",
-        "messages": validation.messages(),
-        "status": 401
-      })
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
     }
 
     const data = request.all();
     const {
-      id
+      id,
     } = params;
 
     // Get current settings from db
@@ -141,7 +137,7 @@ class ServiceController {
       .where('serviceId', id)
       .where('userId', auth.user.id).fetch()).rows[0];
 
-    let settings = {
+    const settings = {
       ...JSON.parse(serviceData.settings),
       ...data,
     };
@@ -150,9 +146,9 @@ class ServiceController {
     await (Service.query()
       .where('serviceId', id)
       .where('userId', auth.user.id)).update({
-        name: data.name,
-        settings: JSON.stringify(settings)
-      });
+      name: data.name,
+      settings: JSON.stringify(settings),
+    });
 
     // Get updated row
     const service = (await Service.query()
@@ -160,88 +156,86 @@ class ServiceController {
       .where('userId', auth.user.id).fetch()).rows[0];
 
     return response.send({
-      "id": service.serviceId,
-      "name": data.name,
+      id: service.serviceId,
+      name: data.name,
       ...settings,
-      "userId": auth.user.id
-    })
+      userId: auth.user.id,
+    });
   }
 
   async reorder({
     request,
     response,
-    auth
+    auth,
   }) {
     const data = request.all();
 
-    for (const service in data) {
+    for (const service of Object.keys(data)) {
       // Get current settings from db
-      const serviceData = (await Service.query()
+      const serviceData = (await Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
         .where('userId', auth.user.id).fetch()).rows[0];
 
-      let settings = {
+      const settings = {
         ...JSON.parse(serviceData.settings),
-        order: data[service]
+        order: data[service],
       };
 
       // Update data in database
-      await (Service.query()
+      await (Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
         .where('userId', auth.user.id))
-      .update({
-        settings: JSON.stringify(settings)
-      });
+        .update({
+          settings: JSON.stringify(settings),
+        });
     }
 
     // Get new services
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
-    const servicesArray = services.map(service => ({
-      "customRecipe": false,
-      "hasCustomIcon": false,
-      "isBadgeEnabled": true,
-      "isDarkModeEnabled": "",
-      "isEnabled": true,
-      "isMuted": false,
-      "isNotificationEnabled": true,
-      "order": 1,
-      "spellcheckerLanguage": "",
-      "workspaces": [],
-      "iconUrl": null,
+    const servicesArray = services.map((service) => ({
+      customRecipe: false,
+      hasCustomIcon: false,
+      isBadgeEnabled: true,
+      isDarkModeEnabled: '',
+      isEnabled: true,
+      isMuted: false,
+      isNotificationEnabled: true,
+      order: 1,
+      spellcheckerLanguage: '',
+      workspaces: [],
+      iconUrl: null,
       ...JSON.parse(service.settings),
-      "id": service.serviceId,
-      "name": service.name,
-      "recipeId": service.recipeId,
-      "userId": auth.user.id,
-    }))
+      id: service.serviceId,
+      name: service.name,
+      recipeId: service.recipeId,
+      userId: auth.user.id,
+    }));
 
-    return response.send(servicesArray)
+    return response.send(servicesArray);
   }
 
   update({
-    request,
-    response
+    response,
   }) {
-    return response.send([])
+    return response.send([]);
   }
 
   async delete({
-    request,
     params,
     auth,
-    response
+    response,
   }) {
     // Update data in database
     await (Service.query()
       .where('serviceId', params.id)
-      .where('userId', auth.user.id)).delete()
+      .where('userId', auth.user.id)).delete();
 
     return response.send({
-      "message": "Sucessfully deleted service",
-      "status": 200
-    })
+      message: 'Sucessfully deleted service',
+      status: 200,
+    });
   }
 }
 
-module.exports = ServiceController
+module.exports = ServiceController;

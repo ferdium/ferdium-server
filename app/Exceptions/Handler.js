@@ -1,6 +1,5 @@
-'use strict'
 
-const BaseExceptionHandler = use('BaseExceptionHandler')
+const BaseExceptionHandler = use('BaseExceptionHandler');
 
 /**
  * This class handles all exceptions thrown during
@@ -20,14 +19,14 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async handle (error, { request, response }) {
+  async handle(error, { response }) {
     if (error.name === 'ValidationException') {
-      return response.status(400).send('Invalid arguments')
-    } else if (error.name === 'InvalidSessionException') {
+      return response.status(400).send('Invalid arguments');
+    } if (error.name === 'InvalidSessionException') {
       return response.status(401).redirect('/user/login');
     }
 
-    response.status(error.status).send(error.message)
+    return response.status(error.status).send(error.message);
   }
 
   /**
@@ -40,8 +39,9 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async report (error, { request }) {
+  async report() {
+    return true;
   }
 }
 
-module.exports = ExceptionHandler
+module.exports = ExceptionHandler;

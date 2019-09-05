@@ -1,8 +1,7 @@
-'use strict'
 
 const Workspace = use('App/Models/Workspace');
 const {
-  validateAll
+  validateAll,
 } = use('Validator');
 
 const uuid = require('uuid/v4');
@@ -12,12 +11,12 @@ class WorkspaceController {
   async create({
     request,
     response,
-    auth
+    auth,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     // Validate user input
@@ -26,10 +25,10 @@ class WorkspaceController {
     });
     if (validation.fails()) {
       return response.status(401).send({
-        "message": "Invalid POST arguments",
-        "messages": validation.messages(),
-        "status": 401
-      })
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
     }
 
     const data = request.all();
@@ -38,7 +37,7 @@ class WorkspaceController {
     let workspaceId;
     do {
       workspaceId = uuid();
-    } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0)
+    } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
 
     const order = (await auth.user.workspaces().fetch()).rows.length;
 
@@ -48,7 +47,7 @@ class WorkspaceController {
       name: data.name,
       order,
       services: JSON.stringify([]),
-      data: JSON.stringify(data)
+      data: JSON.stringify(data),
     });
 
     return response.send({
@@ -57,37 +56,37 @@ class WorkspaceController {
       id: workspaceId,
       order,
       workspaces: [],
-    })
+    });
   }
 
   async edit({
     request,
     response,
     auth,
-    params
+    params,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     // Validate user input
     const validation = await validateAll(request.all(), {
       name: 'required|alpha',
-      services: 'required|array'
+      services: 'required|array',
     });
     if (validation.fails()) {
       return response.status(401).send({
-        "message": "Invalid POST arguments",
-        "messages": validation.messages(),
-        "status": 401
-      })
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
     }
 
     const data = request.all();
     const {
-      id
+      id,
     } = params;
 
     // Update data in database
@@ -95,7 +94,7 @@ class WorkspaceController {
       .where('workspaceId', id)
       .where('userId', auth.user.id)).update({
       name: data.name,
-      services: JSON.stringify(data.services)
+      services: JSON.stringify(data.services),
     });
 
     // Get updated row
@@ -104,24 +103,24 @@ class WorkspaceController {
       .where('userId', auth.user.id).fetch()).rows[0];
 
     return response.send({
-      "id": workspace.workspaceId,
-      "name": data.name,
-      "order": workspace.order,
-      "services": data.services,
-      "userId": auth.user.id
-    })
+      id: workspace.workspaceId,
+      name: data.name,
+      order: workspace.order,
+      services: data.services,
+      userId: auth.user.id,
+    });
   }
 
   async delete({
     request,
     response,
     auth,
-    params
+    params,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     // Validate user input
@@ -130,14 +129,14 @@ class WorkspaceController {
     });
     if (validation.fails()) {
       return response.status(401).send({
-        "message": "Invalid POST arguments",
-        "messages": validation.messages(),
-        "status": 401
-      })
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
     }
 
     const {
-      id
+      id,
     } = params;
 
     // Update data in database
@@ -146,38 +145,37 @@ class WorkspaceController {
       .where('userId', auth.user.id)).delete();
 
     return response.send({
-      "message": "Successfully deleted workspace",
-    })
+      message: 'Successfully deleted workspace',
+    });
   }
 
   // List all workspaces a user has created
   async list({
-    request,
     response,
-    auth
+    auth,
   }) {
     try {
-      await auth.getUser()
+      await auth.getUser();
     } catch (error) {
-      return response.send('Missing or invalid api token')
+      return response.send('Missing or invalid api token');
     }
 
     const workspaces = (await auth.user.workspaces().fetch()).rows;
     // Convert to array with all data Franz wants
     let workspacesArray = [];
-    if(workspaces) {
-      workspacesArray = workspaces.map(workspace => ({
-          "id": workspace.workspaceId,
-          "name": workspace.name,
-          "order": workspace.order,
-          "services": JSON.parse(workspace.services),
-          "userId": auth.user.id
-      }))
+    if (workspaces) {
+      workspacesArray = workspaces.map((workspace) => ({
+        id: workspace.workspaceId,
+        name: workspace.name,
+        order: workspace.order,
+        services: JSON.parse(workspace.services),
+        userId: auth.user.id,
+      }));
     }
-    
 
-    return response.send(workspacesArray)
+
+    return response.send(workspacesArray);
   }
 }
 
-module.exports = WorkspaceController
+module.exports = WorkspaceController;

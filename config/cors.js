@@ -1,4 +1,3 @@
-'use strict'
 
 module.exports = {
   /*
@@ -83,5 +82,5 @@ module.exports = {
   | Define Access-Control-Allow-Max-Age
   |
   */
-  maxAge: 90
-}
+  maxAge: 90,
+};

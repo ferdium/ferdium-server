@@ -1,25 +1,24 @@
-'use strict'
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class WorkspaceSchema extends Schema {
-  up () {
+  up() {
     this.create('workspaces', (table) => {
-      table.increments()
-      table.string('workspaceId', 80).notNullable().unique()
-      table.string('userId', 80).notNullable()
-      table.string('name', 80).notNullable()
-      table.integer('order')
-      table.json('services')
-      table.json('data')
-      table.timestamps()
-    })
+      table.increments();
+      table.string('workspaceId', 80).notNullable().unique();
+      table.string('userId', 80).notNullable();
+      table.string('name', 80).notNullable();
+      table.integer('order');
+      table.json('services');
+      table.json('data');
+      table.timestamps();
+    });
   }
 
-  down () {
-    this.drop('workspaces')
+  down() {
+    this.drop('workspaces');
   }
 }
 
-module.exports = WorkspaceSchema
+module.exports = WorkspaceSchema;

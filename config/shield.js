@@ -1,4 +1,3 @@
-'use strict'
 
 module.exports = {
   /*
@@ -64,7 +63,7 @@ module.exports = {
     | if you want to know the behavior. https://github.com/helmetjs/helmet/pull/82
     |
     */
-    disableAndroid: true
+    disableAndroid: true,
   },
 
   /*
@@ -80,7 +79,7 @@ module.exports = {
   */
   xss: {
     enabled: true,
-    enableOnOldIE: false
+    enableOnOldIE: false,
   },
 
   /*
@@ -139,7 +138,7 @@ module.exports = {
       httpOnly: false,
       sameSite: true,
       path: '/',
-      maxAge: 7200
-    }
-  }
-}
+      maxAge: 7200,
+    },
+  },
+};
