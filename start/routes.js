@@ -77,6 +77,8 @@ Route.group(() => {
   }).middleware('auth:session');
   Route.post('delete', 'DashboardController.delete').middleware('auth:session')
   Route.get('logout', 'DashboardController.logout').middleware('auth:session')
+
+  Route.get('*', ({ response }) => response.redirect('/user/account'))
 }).prefix('user').middleware('shield')
 
 // Recipe creation
