@@ -83,20 +83,24 @@ Route.group(() => {
 
 // Recipe creation
 Route.post('new', 'RecipeController.create')
-Route.get('new', ({ response }) => {
+Route.get('new', ({ response, view }) => {
   if (Env.get('IS_CREATION_ENABLED') == 'false') {
     return response.send('This server doesn\'t allow the creation of new recipes.\n\nIf you are the server owner, please set IS_CREATION_ENABLED to true to enable recipe creation.');
   } else {
-    return response.redirect('/new.html')
+    return view.render('others.new')
   }
 })
 
 // Franz account import
 Route.post('import', 'UserController.import')
-Route.get('import', ({ response }) => response.redirect('/import.html'))
+Route.get('import', ({ view }) => view.render('others.import'))
 
 // Legal documents
 Route.get('terms', ({ response }) => response.redirect('/terms.html'))
 Route.get('privacy', ({ response }) => response.redirect('/privacy.html'))
 
-Route.get('/', ({ response }) => response.redirect('/index.html'))
+// Index
+Route.get('/', ({ view }) => view.render('others.index'))
+
+// 404 handler
+Route.get('/*', ({ response }) => response.redirect('/'))
