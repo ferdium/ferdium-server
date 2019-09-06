@@ -8,6 +8,9 @@ Unofficial Franz server replacement for use with the Ferdi Client.
 ## Why use a custom ferdi-server?
 A custom ferdi-server allows you to experience the full potential of the Ferdi client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [adding your own recipes](#creating-and-using-custom-recipes).
 
+## Demo
+You can try a demo of ferdi-server by settings your server to <https://ferdi.vantezzen.io>.
+
 ## Features
 - [x] User registration and login
 - [x] Service creation, download, listing and removing
