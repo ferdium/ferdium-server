@@ -20,7 +20,7 @@ class ServiceController {
 
     // Validate user input
     const validation = await validateAll(request.all(), {
-      name: 'required|alpha',
+      name: 'required|string',
       recipeId: 'required',
     });
     if (validation.fails()) {
