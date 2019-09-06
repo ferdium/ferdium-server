@@ -58,7 +58,7 @@ class RecipeController {
 
     // Validate user input
     const validation = await validateAll(request.all(), {
-      name: 'required|alpha',
+      name: 'required|string',
       id: 'required|unique:recipes,recipeId',
       author: 'required|accepted',
       png: 'required|url',
