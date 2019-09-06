@@ -137,21 +137,27 @@ class RecipeController {
     const needle = request.input('needle');
 
     // Get results
-    let remoteResults = [];
-    if (Env.get('CONNECT_WITH_FRANZ') == 'true' && needle !== 'ferdi:custom') { // eslint-disable-line eqeqeq
-      remoteResults = JSON.parse(await (await fetch(`https://api.franzinfra.com/v1/recipes/search?needle=${encodeURIComponent(needle)}`)).text());
-    }
-    const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
-    const localResults = localResultsArray.map((recipe) => ({
-      id: recipe.recipeId,
-      name: recipe.name,
-      ...JSON.parse(recipe.data),
-    }));
-
     let results;
+
     if (needle === 'ferdi:custom') {
-      results = localResults;
+      const dbResults = (await Recipe.all().fetch()).toJSON();
+      results = dbResults.map((recipe) => ({
+        id: recipe.recipeId,
+        name: recipe.name,
+        ...JSON.parse(recipe.data),
+      }));
     } else {
+      let remoteResults = [];
+      if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
+        remoteResults = JSON.parse(await (await fetch(`https://api.franzinfra.com/v1/recipes/search?needle=${encodeURIComponent(needle)}`)).text());
+      }
+      const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
+      const localResults = localResultsArray.map((recipe) => ({
+        id: recipe.recipeId,
+        name: recipe.name,
+        ...JSON.parse(recipe.data),
+      }));
+
       results = [
         ...localResults,
         ...remoteResults || [],
