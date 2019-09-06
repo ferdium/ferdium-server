@@ -182,9 +182,9 @@ class RecipeController {
 
     // Check if recipe exists in recipes folder
     if (await Drive.exists(`${service}.tar.gz`)) {
-      response.send(await Drive.get(`${service}.tar.gz`));
+      return response.send(await Drive.get(`${service}.tar.gz`));
     } else if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
-      response.redirect(`https://api.franzinfra.com/v1/recipes/download/${service}`);
+      return response.redirect(`https://api.franzinfra.com/v1/recipes/download/${service}`);
     }
     return response.status(400).send({
       message: 'Recipe not found',
