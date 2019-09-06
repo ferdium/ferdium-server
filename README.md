@@ -6,8 +6,7 @@
 Unofficial Franz server replacement for use with the Ferdi Client.
 
 ## Why use a custom ferdi-server?
-A custom ferdi-server allows you to experience the full potential of the Ferdi client.
-
+A custom ferdi-server allows you to experience the full potential of the Ferdi client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [adding your own recipes](#creating-and-using-custom-recipes).
 
 ## Features
 - [x] User registration and login
@@ -51,6 +50,9 @@ To add your recipe to ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in you
 - `Service ID`: Unique ID for this recipe. Does not contain spaces or special characters (e.g. `google-drive`)
 - `Link to PNG/SVG image`: Direct link to a 1024x1024 PNG image and SVG that is used as a logo inside the store. Please use jsDelivr when using a file uploaded to GitHub as raw.githubusercontent files won't load
 - `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+
+### Listing custom recipes
+Inside Ferdi, searching for `ferdi:custom` will list all your custom recipes.
 
 ## License
 ferdi-server is licensed under the MIT License

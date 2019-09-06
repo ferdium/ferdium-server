@@ -140,7 +140,7 @@ class RecipeController {
     let results;
 
     if (needle === 'ferdi:custom') {
-      const dbResults = (await Recipe.all().fetch()).toJSON();
+      const dbResults = (await Recipe.all()).toJSON();
       results = dbResults.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
