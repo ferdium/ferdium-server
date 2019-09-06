@@ -138,7 +138,7 @@ class RecipeController {
 
     // Get results
     let remoteResults = [];
-    if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
+    if (Env.get('CONNECT_WITH_FRANZ') == 'true' && needle !== 'ferdi:custom') { // eslint-disable-line eqeqeq
       remoteResults = JSON.parse(await (await fetch(`https://api.franzinfra.com/v1/recipes/search?needle=${encodeURIComponent(needle)}`)).text());
     }
     const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
@@ -148,10 +148,15 @@ class RecipeController {
       ...JSON.parse(recipe.data),
     }));
 
-    const results = [
-      ...localResults,
-      ...remoteResults,
-    ];
+    let results;
+    if (needle === 'ferdi:custom') {
+      results = localResults;
+    } else {
+      results = [
+        ...localResults,
+        ...remoteResults || [],
+      ];
+    }
 
     return response.send(results);
   }
