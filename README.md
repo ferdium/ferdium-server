@@ -13,6 +13,9 @@ A custom ferdi-server allows you to experience the full potential of the Ferdi c
 - [x] Service creation, download, listing and removing
 - [x] Workspace support
 - [x] Functioning service store
+- [x] User dashboard
+- [ ] Password recovery
+- [ ] Export/import data to other ferdi-servers
 
 ## Setup
 1. Clone this repository
