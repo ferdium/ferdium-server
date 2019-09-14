@@ -5,6 +5,9 @@
 # ferdi-server
 Unofficial Franz server replacement for use with the Ferdi Client.
 
+## Looking for a smaller alternative?
+[ferdi-slim-server](https://github.com/vantezzen/ferdi-slim-server) is a slim alternative to this project. Opposed to ferdi-server, ferdi-slim-server is only a wrapper around the Franz API that allows you to add custom recipes while still using the original Franz API.
+
 ## Why use a custom ferdi-server?
 A custom ferdi-server allows you to experience the full potential of the Ferdi client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [adding your own recipes](#creating-and-using-custom-recipes).
 
@@ -19,6 +22,7 @@ You can try a demo of ferdi-server by settings your server to <https://ferdi.van
 - [x] User dashboard
 - [ ] Password recovery
 - [ ] Export/import data to other ferdi-servers
+- [ ] Recipe update
 
 ## Setup
 1. Clone this repository
