@@ -55,7 +55,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
 	    -v <path to database>:/usr/src/app/database \
 	    -v <path to recipes>:/usr/src/app/recipes \
 	    --restart unless-stopped \
-	    xthursdayx/ferdi-server-docker
+	    getferdi/ferdi-server
     ```
 
     Alternatively, you can also use docker-compose v2 schemas
@@ -65,7 +65,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
     version: "2"
     services:
     ferdi-server:
-        image: xthursday/ferdi-server-docker
+        image: getferdi/ferdi-server
         container_name: ferdi-server
         environment:
         - NODE_ENV=development
