@@ -40,20 +40,22 @@ After setting up the docker container we recommend you to set up an NGINX revers
 
     ```sh
     docker create \
-        --name=ferdi-server \
-        -e NODE_ENV=development \
-        -e DB_CONNECTION=<database> \
-        -e DB_HOST=<yourdbhost> \
-        -e DB_PORT=<yourdbPORT> \
-        -e DB_USER=<yourdbuser> \
-        -e DB_PASSWORD=<yourdbpass> \
-        -e DB_DATABASE=<yourdbdatabase> \
-        -e IS_CREATION_ENABLED=true \
-        -e CONNECT_WITH_FRANZ=true \
-        -p <port>:80 \
-        -v <path to data>:/config \
-        --restart unless-stopped \
-        getferdi/ferdi-server
+      --name=ferdi-server \
+	    -e NODE_ENV=development \
+	    -e DB_CONNECTION=<database> \
+	    -e DB_HOST=<yourdbhost> \
+	    -e DB_PORT=<yourdbPORT> \
+	    -e DB_USER=<yourdbuser> \
+	    -e DB_PASSWORD=<yourdbpass> \
+	    -e DB_DATABASE=<yourdbdatabase> \
+	    -e IS_CREATION_ENABLED=true \
+	    -e CONNECT_WITH_FRANZ=true \
+	    -p <port>:80 \
+	    -v <path to data>:/config \
+	    -v <path to database>:/usr/src/app/database \
+	    -v <path to recipes>:/usr/src/app/recipes \
+	    --restart unless-stopped \
+	    xthursdayx/ferdi-server-docker
     ```
 
     Alternatively, you can also use docker-compose v2 schemas
@@ -77,6 +79,8 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - CONNECT_WITH_FRANZ=true/flase  
         volumes:
         - <path to data>:/config
+        - <path to database>:/usr/src/app/database
+        - <path to recipes>:/usr/src/app/recipes
         ports:
         - <port>:80
         restart: unless-stopped
