@@ -83,7 +83,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
     ```
 3. Optionally, you can now [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 
-For more information on configuring the Docker image, visit the Docker image repository at <https://github.com/getferdi/ferdi-server>.
+For more information on configuring the Docker image, visit the Docker image repository at <https://github.com/getferdi/server-docker>.
 
 ### Manual setup
 1. Clone this repository
