@@ -40,20 +40,22 @@ After setting up the docker container we recommend you to set up an NGINX revers
 
     ```sh
     docker create \
-        --name=ferdi-server \
-        -e NODE_ENV=development \
-        -e DB_CONNECTION=<database> \
-        -e DB_HOST=<yourdbhost> \
-        -e DB_PORT=<yourdbPORT> \
-        -e DB_USER=<yourdbuser> \
-        -e DB_PASSWORD=<yourdbpass> \
-        -e DB_DATABASE=<yourdbdatabase> \
-        -e IS_CREATION_ENABLED=true \
-        -e CONNECT_WITH_FRANZ=true \
-        -p <port>:80 \
-        -v <path to data>:/config \
-        --restart unless-stopped \
-        getferdi/ferdi-server
+      --name=ferdi-server \
+	    -e NODE_ENV=development \
+	    -e DB_CONNECTION=<database> \
+	    -e DB_HOST=<yourdbhost> \
+	    -e DB_PORT=<yourdbPORT> \
+	    -e DB_USER=<yourdbuser> \
+	    -e DB_PASSWORD=<yourdbpass> \
+	    -e DB_DATABASE=<yourdbdatabase> \
+	    -e IS_CREATION_ENABLED=true \
+	    -e CONNECT_WITH_FRANZ=true \
+	    -p <port>:80 \
+	    -v <path to data>:/config \
+	    -v <path to database>:/usr/src/app/database \
+	    -v <path to recipes>:/usr/src/app/recipes \
+	    --restart unless-stopped \
+	    getferdi/ferdi-server
     ```
 
     Alternatively, you can also use docker-compose v2 schemas
@@ -63,7 +65,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
     version: "2"
     services:
     ferdi-server:
-        image: xthursday/ferdi-server-docker
+        image: getferdi/ferdi-server
         container_name: ferdi-server
         environment:
         - NODE_ENV=development
@@ -77,13 +79,15 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - CONNECT_WITH_FRANZ=true/flase  
         volumes:
         - <path to data>:/config
+        - <path to database>:/usr/src/app/database
+        - <path to recipes>:/usr/src/app/recipes
         ports:
         - <port>:80
         restart: unless-stopped
     ```
 3. Optionally, you can now [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 
-For more information on configuring the Docker image, visit the Docker image repository at <https://github.com/getferdi/ferdi-server>.
+For more information on configuring the Docker image, visit the Docker image repository at <https://github.com/getferdi/server-docker>.
 
 ### Manual setup
 1. Clone this repository
