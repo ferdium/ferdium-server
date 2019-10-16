@@ -1,0 +1,34 @@
+{
+  "main": {
+    "headline": "Example Accouncement",
+    "subHeadline": "Configure your announcement here",
+    "image": {
+      "light": "https://api.getferdi.com/assets/feature/light.png",
+      "dark": "https://api.getferdi.com/assets/feature/dark.png"
+    },
+    "text": "Long description here",
+    "cta": {
+      "label": "Click here to do something",
+      "href": "/settings/app",
+      "analytics": {
+        "category": "announcements-main",
+        "action": "event",
+        "label": "This does not get used"
+      }
+    }
+  },
+  "spotlight": {
+    "title": "Spotlight:",
+    "subject": "Show another feature",
+    "text": "Show another feature in the spotlight",
+    "cta": {
+      "label": "Click here to do something",
+      "href": "/settings/team",
+      "analytics": {
+        "category": "announcements-spotlight",
+        "action": "event",
+        "label": "This does not get used"
+      }
+    }
+  }
+}

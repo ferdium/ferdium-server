@@ -2,6 +2,9 @@
 /**
  * Controller for routes with static responses
  */
+const Helpers = use('Helpers');
+const fs = require('fs-extra');
+const path = require('path');
 
 class StaticController {
   // Enable all features
@@ -214,9 +217,15 @@ class StaticController {
   }
 
   // Show announcements
-  announcement({
+  async announcement({
     response,
+    params,
   }) {
+    const announcement = path.join(Helpers.resourcesPath(), 'announcements', `${params.version}.json`);
+
+    if (await fs.pathExists(announcement)) {
+      return response.download(announcement);
+    }
     return response.send('No announcement found.');
   }
 }
