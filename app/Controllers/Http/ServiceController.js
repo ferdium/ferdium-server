@@ -93,7 +93,7 @@ class ServiceController {
       spellcheckerLanguage: '',
       workspaces: [],
       iconUrl: null,
-      ...JSON.parse(service.settings),
+      ...typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings,
       id: service.serviceId,
       name: service.name,
       recipeId: service.recipeId,
@@ -138,7 +138,7 @@ class ServiceController {
       .where('userId', auth.user.id).fetch()).rows[0];
 
     const settings = {
-      ...JSON.parse(serviceData.settings),
+      ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
       ...data,
     };
 
@@ -177,7 +177,7 @@ class ServiceController {
         .where('userId', auth.user.id).fetch()).rows[0];
 
       const settings = {
-        ...JSON.parse(serviceData.settings),
+        ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
         order: data[service],
       };
 
@@ -205,7 +205,7 @@ class ServiceController {
       spellcheckerLanguage: '',
       workspaces: [],
       iconUrl: null,
-      ...JSON.parse(service.settings),
+      ...typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings,
       id: service.serviceId,
       name: service.name,
       recipeId: service.recipeId,

@@ -35,7 +35,7 @@ class RecipeController {
     const customRecipes = customRecipesArray.map((recipe) => ({
       id: recipe.recipeId,
       name: recipe.name,
-      ...JSON.parse(recipe.data),
+      ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
     }));
 
     const recipes = [
@@ -144,7 +144,7 @@ class RecipeController {
       results = dbResults.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
-        ...JSON.parse(recipe.data),
+        ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
       }));
     } else {
       let remoteResults = [];
@@ -155,7 +155,7 @@ class RecipeController {
       const localResults = localResultsArray.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
-        ...JSON.parse(recipe.data),
+        ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
       }));
 
       results = [
