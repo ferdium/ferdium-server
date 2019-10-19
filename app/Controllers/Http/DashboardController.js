@@ -3,7 +3,11 @@ const {
   validateAll,
 } = use('Validator');
 
+const Service = use('App/Models/Service');
+const Workspace = use('App/Models/Workspace');
+
 const crypto = require('crypto');
+const uuid = require('uuid/v4');
 
 class DashboardController {
   async login({
@@ -133,6 +137,108 @@ class DashboardController {
       services,
       workspaces,
     });
+  }
+
+  async export({
+    auth,
+    response,
+  }) {
+    const general = auth.user;
+    const services = (await auth.user.services().fetch()).toJSON();
+    const workspaces = (await auth.user.workspaces().fetch()).toJSON();
+
+    const exportData = {
+      username: general.username,
+      mail: general.email,
+      services,
+      workspaces,
+    };
+
+    return response
+      .header('Content-Type', 'application/force-download')
+      .header('Content-disposition', 'attachment; filename=export.ferdi-data')
+      .send(exportData);
+  }
+
+  async import({
+    auth,
+    request,
+    session,
+    response,
+  }) {
+    let validation = await validateAll(request.all(), {
+      file: 'required',
+    });
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashExcept(['password']);
+      return response.redirect('back');
+    }
+
+    let file;
+    try {
+      file = JSON.parse(request.input('file'));
+    } catch(e) {
+      session.flash({ type: 'danger', message: 'Invalid Ferdi account file' })
+      return response.redirect('back');
+    }
+    console.log(file);
+
+    if(!file || !file.services || !file.workspaces) {
+      session.flash({ type: 'danger', message: 'Invalid Ferdi account file (2)' })
+      return response.redirect('back');
+    }
+
+    const serviceIdTranslation = {};
+
+    // Import services
+    try {
+      for (const service of file.services) {
+        // Get new, unused uuid
+        let serviceId;
+        do {
+          serviceId = uuid();
+        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+
+        await Service.create({ // eslint-disable-line no-await-in-loop
+          userId: auth.user.id,
+          serviceId,
+          name: service.name,
+          recipeId: service.recipeId,
+          settings: JSON.stringify(service.settings),
+        });
+
+        serviceIdTranslation[service.id] = serviceId;
+      }
+    } catch (e) {
+      const errorMessage = `Could not import your services into our system.\nError: ${e}`;
+      return response.status(401).send(errorMessage);
+    }
+
+    // Import workspaces
+    try {
+      for (const workspace of file.workspaces) {
+        let workspaceId;
+        do {
+          workspaceId = uuid();
+        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+
+        const services = workspace.services.map((service) => serviceIdTranslation[service]);
+
+        await Workspace.create({ // eslint-disable-line no-await-in-loop
+          userId: auth.user.id,
+          workspaceId,
+          name: workspace.name,
+          order: workspace.order,
+          services: JSON.stringify(services),
+          data: JSON.stringify(workspace.data),
+        });
+      }
+    } catch (e) {
+      const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
+      return response.status(401).send(errorMessage);
+    }
+
+    return response.send('Your account has been imported.');
   }
 
   logout({

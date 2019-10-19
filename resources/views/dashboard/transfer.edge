@@ -1,0 +1,52 @@
+@layout('layouts.main')
+
+@section('content')
+<h2>Import/Export data from another Ferdi server</h2>
+@if(flashMessage('error'))
+    <div class="alert">
+        {{ flashMessage('error') }} 
+    </div>
+@endif
+@if(old('message'))
+    <div class="alert">
+        {{ old('message') }}
+    </div>
+@endif
+@if(flashMessage('notification'))
+    <div class="alert">
+        {{ flashMessage('notification.message') }}
+    </div>
+@endif
+@if(success === true)
+    <div class="alert" style="background-color:#28C76F;">
+        Sucessfully imported your account data
+    </div>
+@endif
+
+<h3>Import data</h3>
+<div>
+  <label>Account data</label>
+  <div>
+    <input type="file" name="file" id="file" value="" accept=".json,.ferdi-data" required>
+  </div>
+</div>
+
+<form action="/user/transfer" method="POST">
+    {{ csrfField() }}
+    <input type="hidden" name="file" id="fileoutput" value="">
+    <div>
+        <button style="background-color:#28C76F;margin-bottom:1rem;" id="submit" disabled>Import data</button>
+    </div>
+</form>
+
+<h3>Export data</h3>
+<a class="button" style="background-color:#28C76F;margin-bottom:1rem;" href="/user/export">Export data</a>
+
+<div>
+  <a class="button" href="/user/account">Back to my account</a>
+</div>
+
+</div>
+<script src="/js/transfer.js"></script>
+
+@endsection

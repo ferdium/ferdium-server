@@ -67,6 +67,9 @@ Route.group(() => {
   Route.get('account', 'DashboardController.account').middleware('auth:session');
   Route.post('account', 'DashboardController.edit').middleware('auth:session');
   Route.get('data', 'DashboardController.data').middleware('auth:session');
+  Route.get('export', 'DashboardController.export').middleware('auth:session');
+  Route.post('transfer', 'DashboardController.import').middleware('auth:session');
+  Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
   Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
   Route.post('delete', 'DashboardController.delete').middleware('auth:session');
   Route.get('logout', 'DashboardController.logout').middleware('auth:session');
