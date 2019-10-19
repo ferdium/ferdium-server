@@ -29,10 +29,10 @@ Route.group(() => {
 
   // Service info
   Route.post('service', 'ServiceController.create').middleware('auth');
+  Route.put('service/reorder', 'ServiceController.reorder').middleware('auth');
   Route.put('service/:id', 'ServiceController.edit').middleware('auth');
   Route.delete('service/:id', 'ServiceController.delete').middleware('auth');
   Route.get('me/services', 'ServiceController.list').middleware('auth');
-  Route.put('service/reorder', 'ServiceController.reorder').middleware('auth');
   Route.get('recipe', 'ServiceController.list').middleware('auth');
   Route.post('recipes/update', 'ServiceController.update').middleware('auth');
 
