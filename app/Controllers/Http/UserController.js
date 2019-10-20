@@ -171,19 +171,24 @@ class UserController {
     await auth.user.save();
 
     return response.send({
-      accountType: 'individual',
-      beta: false,
-      donor: {},
-      email: auth.user.email,
-      emailValidated: true,
-      features: {},
-      firstname: 'Franz',
-      id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
-      isPremium: true,
-      isSubscriptionOwner: true,
-      lastname: 'Franz',
-      locale: 'en-US',
-      ...newSettings || {},
+      data: {
+        accountType: 'individual',
+        beta: false,
+        donor: {},
+        email: auth.user.email,
+        emailValidated: true,
+        features: {},
+        firstname: 'Franz',
+        id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
+        isPremium: true,
+        isSubscriptionOwner: true,
+        lastname: 'Franz',
+        locale: 'en-US',
+        ...newSettings || {},
+      },
+      status: [
+        'data-updated',
+      ]
     });
   }
 
