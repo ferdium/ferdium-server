@@ -133,6 +133,8 @@ class UserController {
       response.send('Missing or invalid api token');
     }
 
+    const settings = typeof auth.user.settings === 'string' ? JSON.parse(auth.user.settings) : auth.user.settings;
+
     return response.send({
       accountType: 'individual',
       beta: false,
@@ -146,7 +148,7 @@ class UserController {
       isSubscriptionOwner: true,
       lastname: 'Franz',
       locale: 'en-US',
-      ...auth.user.settings || {},
+      ...settings || {},
     });
   }
 
@@ -169,7 +171,19 @@ class UserController {
     await auth.user.save();
 
     return response.send({
-      status: 'success'
+      accountType: 'individual',
+      beta: false,
+      donor: {},
+      email: auth.user.email,
+      emailValidated: true,
+      features: {},
+      firstname: 'Franz',
+      id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
+      isPremium: true,
+      isSubscriptionOwner: true,
+      lastname: 'Franz',
+      locale: 'en-US',
+      ...newSettings || {},
     });
   }
 
