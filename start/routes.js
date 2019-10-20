@@ -26,6 +26,7 @@ Route.group(() => {
 
   // User info
   Route.get('me', 'UserController.me').middleware('auth');
+  Route.put('me', 'UserController.updateMe').middleware('auth');
 
   // Service info
   Route.post('service', 'ServiceController.create').middleware('auth');

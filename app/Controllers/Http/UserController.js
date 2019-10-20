@@ -146,6 +146,30 @@ class UserController {
       isSubscriptionOwner: true,
       lastname: 'Franz',
       locale: 'en-US',
+      ...auth.user.settings || {},
+    });
+  }
+
+  async updateMe({
+    request,
+    response,
+    auth
+  }) {
+    let settings = auth.user.settings || {};
+    if (typeof settings === 'string') {
+      settings = JSON.parse(settings);
+    }
+
+    let newSettings = {
+      ...settings,
+      ...request.all(),
+    }
+
+    auth.user.settings = JSON.stringify(newSettings);
+    await auth.user.save();
+
+    return response.send({
+      status: 'success'
     });
   }
 
