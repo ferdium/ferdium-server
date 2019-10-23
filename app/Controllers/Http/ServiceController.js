@@ -2,8 +2,12 @@ const Service = use('App/Models/Service');
 const {
   validateAll,
 } = use('Validator');
+const Env = use('Env');
+const Helpers = use('Helpers');
 
 const uuid = require('uuid/v4');
+const path = require('path');
+const fs = require('fs-extra');
 
 class ServiceController {
   // Create a new service for user
@@ -81,24 +85,28 @@ class ServiceController {
 
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
-    const servicesArray = services.map((service) => ({
-      customRecipe: false,
-      hasCustomIcon: false,
-      isBadgeEnabled: true,
-      isDarkModeEnabled: '',
-      isEnabled: true,
-      isMuted: false,
-      isNotificationEnabled: true,
-      order: 1,
-      spellcheckerLanguage: '',
-      workspaces: [],
-      iconUrl: null,
-      ...typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings,
-      id: service.serviceId,
-      name: service.name,
-      recipeId: service.recipeId,
-      userId: auth.user.id,
-    }));
+    const servicesArray = services.map((service) => {
+      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+
+      return {
+        customRecipe: false,
+        hasCustomIcon: false,
+        isBadgeEnabled: true,
+        isDarkModeEnabled: '',
+        isEnabled: true,
+        isMuted: false,
+        isNotificationEnabled: true,
+        order: 1,
+        spellcheckerLanguage: '',
+        workspaces: [],
+        ...settings,
+        iconUrl: settings.iconId ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}` : null,
+        id: service.serviceId,
+        name: service.name,
+        recipeId: service.recipeId,
+        userId: auth.user.id,
+      }
+    });
 
     return response.send(servicesArray);
   }
@@ -115,52 +123,131 @@ class ServiceController {
       return response.send('Missing or invalid api token');
     }
 
-    // Validate user input
-    const validation = await validateAll(request.all(), {
-      name: 'required',
-    });
-    if (validation.fails()) {
-      return response.status(401).send({
-        message: 'Invalid POST arguments',
-        messages: validation.messages(),
-        status: 401,
+    if (request.file('icon')) {
+      // Upload custom service icon
+      const icon = request.file('icon', {
+        types: ['image'],
+        size: '2mb'
+      });
+      const {
+        id,
+      } = params;
+      const service = (await Service.query()
+        .where('serviceId', id)
+        .where('userId', auth.user.id).fetch()).rows[0];
+      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+
+      let iconId;
+      do {
+        iconId = uuid() + uuid();
+      } while(await fs.exists(path.join(Helpers.tmpPath('uploads'), iconId)));
+      
+      await icon.move(Helpers.tmpPath('uploads'), {
+        name: iconId,
+        overwrite: true
+      })
+
+      if (!icon.moved()) {
+        return response.status(500).send(icon.error());
+      }
+
+      const newSettings = {
+        ...settings,
+        ...{
+          iconId,
+          customIconVersion: settings && settings.customIconVersion ? settings.customIconVersion + 1 : 1,
+        },
+      };
+
+      // Update data in database
+      await (Service.query()
+        .where('serviceId', id)
+        .where('userId', auth.user.id)).update({
+        name: service.name,
+        settings: JSON.stringify(newSettings),
+      });
+
+      return response.send({
+        data: {
+          id,
+          name: service.name,
+          ...newSettings,
+          iconUrl: `${Env.get('APP_URL')}/v1/icon/${newSettings.iconId}`,
+          userId: auth.user.id,
+        },
+        status: ["updated"]
+      });
+    } else {
+      // Update service info
+      const validation = await validateAll(request.all(), {
+        name: 'required',
+      });
+      if (validation.fails()) {
+        return response.status(401).send({
+          message: 'Invalid POST arguments',
+          messages: validation.messages(),
+          status: 401,
+        });
+      }
+
+      const data = request.all();
+      const {
+        id,
+      } = params;
+
+      // Get current settings from db
+      const serviceData = (await Service.query()
+        .where('serviceId', id)
+        .where('userId', auth.user.id).fetch()).rows[0];
+
+      const settings = {
+        ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
+        ...data,
+      };
+
+      // Update data in database
+      await (Service.query()
+        .where('serviceId', id)
+        .where('userId', auth.user.id)).update({
+        name: data.name,
+        settings: JSON.stringify(settings),
+      });
+
+      // Get updated row
+      const service = (await Service.query()
+        .where('serviceId', id)
+        .where('userId', auth.user.id).fetch()).rows[0];
+
+      return response.send({
+        data: {
+          id,
+          name: service.name,
+          ...settings,
+          iconUrl: `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`,
+          userId: auth.user.id,
+        },
+        status: ["updated"]
       });
     }
+  }
 
-    const data = request.all();
+  async icon({
+    params,
+    response,
+    auth
+  }) {
     const {
       id,
     } = params;
 
-    // Get current settings from db
-    const serviceData = (await Service.query()
-      .where('serviceId', id)
-      .where('userId', auth.user.id).fetch()).rows[0];
+    const iconPath = path.join(Helpers.tmpPath('uploads'), id);
+    if (!await fs.exists(iconPath)) {
+      return response.status(404).send({
+        status: 'Icon doesn\'t exist'
+      });
+    }
 
-    const settings = {
-      ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
-      ...data,
-    };
-
-    // Update data in database
-    await (Service.query()
-      .where('serviceId', id)
-      .where('userId', auth.user.id)).update({
-      name: data.name,
-      settings: JSON.stringify(settings),
-    });
-
-    // Get updated row
-    const service = (await Service.query()
-      .where('serviceId', id)
-      .where('userId', auth.user.id).fetch()).rows[0];
-
-    return response.send({
-      id: service.serviceId,
-      name: data.name,
-      ...settings,
-      userId: auth.user.id,
-    });
+    return response.download(iconPath);
   }
 
   async reorder({
@@ -185,32 +272,36 @@ class ServiceController {
       await (Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
         .where('userId', auth.user.id))
-        .update({
-          settings: JSON.stringify(settings),
-        });
+      .update({
+        settings: JSON.stringify(settings),
+      });
     }
 
     // Get new services
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
-    const servicesArray = services.map((service) => ({
-      customRecipe: false,
-      hasCustomIcon: false,
-      isBadgeEnabled: true,
-      isDarkModeEnabled: '',
-      isEnabled: true,
-      isMuted: false,
-      isNotificationEnabled: true,
-      order: 1,
-      spellcheckerLanguage: '',
-      workspaces: [],
-      iconUrl: null,
-      ...typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings,
-      id: service.serviceId,
-      name: service.name,
-      recipeId: service.recipeId,
-      userId: auth.user.id,
-    }));
+    const servicesArray = services.map((service) => {
+      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+
+      return {
+        customRecipe: false,
+        hasCustomIcon: false,
+        isBadgeEnabled: true,
+        isDarkModeEnabled: '',
+        isEnabled: true,
+        isMuted: false,
+        isNotificationEnabled: true,
+        order: 1,
+        spellcheckerLanguage: '',
+        workspaces: [],
+        ...settings,
+        iconUrl: settings.iconId ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}` : null,
+        id: service.serviceId,
+        name: service.name,
+        recipeId: service.recipeId,
+        userId: auth.user.id,
+      }
+    });
 
     return response.send(servicesArray);
   }

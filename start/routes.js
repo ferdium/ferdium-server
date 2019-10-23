@@ -36,6 +36,7 @@ Route.group(() => {
   Route.get('me/services', 'ServiceController.list').middleware('auth');
   Route.get('recipe', 'ServiceController.list').middleware('auth');
   Route.post('recipes/update', 'ServiceController.update').middleware('auth');
+  Route.get('icon/:id', 'ServiceController.icon');
 
   // Recipe store
   Route.get('recipes', 'RecipeController.list');
