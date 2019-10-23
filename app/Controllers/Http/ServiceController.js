@@ -90,7 +90,7 @@ class ServiceController {
 
       return {
         customRecipe: false,
-        hasCustomIcon: false,
+        hasCustomIcon: !!settings.iconId,
         isBadgeEnabled: true,
         isDarkModeEnabled: '',
         isEnabled: true,
@@ -234,7 +234,6 @@ class ServiceController {
   async icon({
     params,
     response,
-    auth
   }) {
     const {
       id,
@@ -285,7 +284,7 @@ class ServiceController {
 
       return {
         customRecipe: false,
-        hasCustomIcon: false,
+        hasCustomIcon: !!settings.iconId,
         isBadgeEnabled: true,
         isDarkModeEnabled: '',
         isEnabled: true,
