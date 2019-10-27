@@ -1,8 +1,8 @@
 {
   "name": "ferdi-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "adonis-version": "4.1.0",
-  "description": "Unofficial Ferdi server to replace the default Franz server.",
+  "description": "Ferdi server to replace the default Franz server.",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
