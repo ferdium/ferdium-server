@@ -226,7 +226,7 @@ class StaticController {
     if (await fs.pathExists(announcement)) {
       return response.download(announcement);
     }
-    return response.send('No announcement found.');
+    return response.send({});
   }
 }
 
