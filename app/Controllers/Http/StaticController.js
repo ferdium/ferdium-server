@@ -13,16 +13,24 @@ class StaticController {
   }) {
     return response.send({
       needToWaitToProceed: false,
-      isSpellcheckerPremiumFeature: true,
+      isSpellcheckerPremiumFeature: false,
+      isSpellcheckerIncludedInCurrentPlan: true,
       isServiceProxyEnabled: true,
+      isServiceProxyIncludedInCurrentPlan: true,
       isServiceProxyPremiumFeature: true,
-      isWorkspacePremiumFeature: true,
+      isWorkspacePremiumFeature: false,
       isWorkspaceEnabled: true,
       isAnnouncementsEnabled: true,
       isSettingsWSEnabled: false,
       isServiceLimitEnabled: false,
       serviceLimitCount: 0,
       isCommunityRecipesPremiumFeature: false,
+      isCommunityRecipesIncludedInCurrentPlan: true,
+      isCustomUrlIncludedInCurrentPlan: true,
+      isMagicBarEnabled: true,
+      isTeamManagementIncludedInCurrentPlan: true,
+      isTodosEnabled: true,
+      isTodosIncludedInCurrentPlan: true,
     });
   }
 
