@@ -1,3 +1,5 @@
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: 'https://34e9a42c1de24048b7bfc980211dd7c8@sentry.io/1838449' });
 
 /*
 |--------------------------------------------------------------------------

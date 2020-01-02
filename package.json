@@ -29,6 +29,7 @@
     "@adonisjs/session": "^1.0.29",
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
+    "@sentry/node": "^5.9.0",
     "atob": "^2.1.2",
     "btoa": "^1.2.1",
     "fs-extra": "^8.1.0",

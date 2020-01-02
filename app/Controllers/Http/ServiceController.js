@@ -179,17 +179,6 @@ class ServiceController {
       });
     } else {
       // Update service info
-      const validation = await validateAll(request.all(), {
-        name: 'required',
-      });
-      if (validation.fails()) {
-        return response.status(401).send({
-          message: 'Invalid POST arguments',
-          messages: validation.messages(),
-          status: 401,
-        });
-      }
-
       const data = request.all();
       const {
         id,
