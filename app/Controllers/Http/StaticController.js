@@ -31,6 +31,44 @@ class StaticController {
       isTeamManagementIncludedInCurrentPlan: true,
       isTodosEnabled: true,
       isTodosIncludedInCurrentPlan: true,
+      defaultTrialPlan: "franz-pro-yearly",
+      subscribeURL: "https://getferdi.com",
+      planSelectionURL: "https://getferdi.com",
+      isMagicBarEnabled: true,
+      hasInlineCheckout: true,
+      isPlanSelectionEnabled: false,
+      isTrialStatusBarEnabled: false,
+      canSkipTrial: true,
+      pricingConfig: {
+        currency: "$",
+        currencyID: "USD",
+        plans: {
+          personal: {
+            monthly: {
+              id: "ferdi-free",
+              price: 0,
+              billed: 0
+            },
+            yearly: {
+              id: "ferdi-completely-free",
+              price: 0,
+              billed: 0
+            }
+          },
+          pro: {
+            monthly: {
+              id: "ferdi-still-free",
+              price: 0,
+              billed: 0
+            },
+            yearly: {
+              id: "ferdi-forever-free",
+              price: 0,
+              billed: 0
+            }
+          }
+        }
+      }
     });
   }
 
