@@ -1,5 +1,6 @@
 
 const BaseExceptionHandler = use('BaseExceptionHandler');
+const Sentry = require('@sentry/node');
 
 /**
  * This class handles all exceptions thrown during
@@ -39,7 +40,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async report() {
+  async report(error) {
+    Sentry.captureException(error);
     return true;
   }
 }
