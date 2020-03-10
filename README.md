@@ -78,6 +78,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - IS_CREATION_ENABLED=true/false
         - CONNECT_WITH_FRANZ=true/false  
         - IS_REGISTRATION_ENABLED=true/false  
+        - IS_DASHBOARD_ENABLED=true/false  
         volumes:
         - <path to data>:/config
         - <path to database>:/usr/src/app/database
@@ -108,6 +109,7 @@ For more information on configuring the Docker image, visit the Docker image rep
 franz-server's configuration is saved inside the `.env` file. Besides AdonisJS's settings, ferdi-server has the following custom settings:
 - `IS_CREATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the [creation of custom recipes](#creating-and-using-custom-recipes)
 - `IS_REGISTRATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the creation of new user accounts
+- `IS_DASHBOARD_ENABLED` (`true` or `false`, default: `true`): Whether to enable the user dashboard
 - `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, ferdi-server can:
   - Show the full Franz recipe library instead of only custom recipes
   - Import Franz accounts

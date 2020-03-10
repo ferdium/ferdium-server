@@ -60,24 +60,32 @@ Route.group(() => {
 }).prefix('v1');
 
 // User dashboard
-Route.group(() => {
-  // Auth
-  Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
-  Route.post('login', 'DashboardController.login').middleware('guest');
-
-  // Dashboard
-  Route.get('account', 'DashboardController.account').middleware('auth:session');
-  Route.post('account', 'DashboardController.edit').middleware('auth:session');
-  Route.get('data', 'DashboardController.data').middleware('auth:session');
-  Route.get('export', 'DashboardController.export').middleware('auth:session');
-  Route.post('transfer', 'DashboardController.import').middleware('auth:session');
-  Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
-  Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
-  Route.post('delete', 'DashboardController.delete').middleware('auth:session');
-  Route.get('logout', 'DashboardController.logout').middleware('auth:session');
-
-  Route.get('*', ({ response }) => response.redirect('/user/account'));
-}).prefix('user').middleware('shield');
+if (Env.get('IS_DASHBOARD_ENABLED') != 'false') {
+  Route.group(() => {
+    // Auth
+    Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
+    Route.post('login', 'DashboardController.login').middleware('guest');
+  
+    // Dashboard
+    Route.get('account', 'DashboardController.account').middleware('auth:session');
+    Route.post('account', 'DashboardController.edit').middleware('auth:session');
+    Route.get('data', 'DashboardController.data').middleware('auth:session');
+    Route.get('export', 'DashboardController.export').middleware('auth:session');
+    Route.post('transfer', 'DashboardController.import').middleware('auth:session');
+    Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
+    Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
+    Route.post('delete', 'DashboardController.delete').middleware('auth:session');
+    Route.get('logout', 'DashboardController.logout').middleware('auth:session');
+  
+    Route.get('*', ({ response }) => response.redirect('/user/account'));
+  }).prefix('user').middleware('shield');
+} else {
+  Route.group(() => {
+    Route.get('*', ({
+      response,
+    }) => response.send('The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.'))
+  }).prefix('user');
+}
 
 // Recipe creation
 Route.post('new', 'RecipeController.create');
