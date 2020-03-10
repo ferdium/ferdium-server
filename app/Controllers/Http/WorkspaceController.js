@@ -168,7 +168,7 @@ class WorkspaceController {
         id: workspace.workspaceId,
         name: workspace.name,
         order: workspace.order,
-        services: typeof workspace.services === "string" ? JSON.parse(workspace.services) : workspace.services,
+        services: typeof workspace.services === 'string' ? JSON.parse(workspace.services) : workspace.services,
         userId: auth.user.id,
       }));
     }

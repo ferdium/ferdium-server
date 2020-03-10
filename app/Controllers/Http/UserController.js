@@ -155,17 +155,17 @@ class UserController {
   async updateMe({
     request,
     response,
-    auth
+    auth,
   }) {
     let settings = auth.user.settings || {};
     if (typeof settings === 'string') {
       settings = JSON.parse(settings);
     }
 
-    let newSettings = {
+    const newSettings = {
       ...settings,
       ...request.all(),
-    }
+    };
 
     auth.user.settings = JSON.stringify(newSettings);
     await auth.user.save();
@@ -188,7 +188,7 @@ class UserController {
       },
       status: [
         'data-updated',
-      ]
+      ],
     });
   }
 

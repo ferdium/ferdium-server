@@ -166,7 +166,7 @@ class DashboardController {
     session,
     response,
   }) {
-    let validation = await validateAll(request.all(), {
+    const validation = await validateAll(request.all(), {
       file: 'required',
     });
     if (validation.fails()) {
@@ -177,14 +177,14 @@ class DashboardController {
     let file;
     try {
       file = JSON.parse(request.input('file'));
-    } catch(e) {
-      session.flash({ type: 'danger', message: 'Invalid Ferdi account file' })
+    } catch (e) {
+      session.flash({ type: 'danger', message: 'Invalid Ferdi account file' });
       return response.redirect('back');
     }
     console.log(file);
 
-    if(!file || !file.services || !file.workspaces) {
-      session.flash({ type: 'danger', message: 'Invalid Ferdi account file (2)' })
+    if (!file || !file.services || !file.workspaces) {
+      session.flash({ type: 'danger', message: 'Invalid Ferdi account file (2)' });
       return response.redirect('back');
     }
 
