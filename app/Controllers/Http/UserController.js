@@ -38,6 +38,13 @@ class UserController {
     response,
     auth,
   }) {
+    if (Env.get('IS_REGISTRATION_ENABLED') == 'false') { // eslint-disable-line eqeqeq
+      return response.status(401).send({
+        message: 'Registration is disabled on this server',
+        status: 401,
+      });
+    }
+
     // Validate user input
     const validation = await validateAll(request.all(), {
       firstname: 'required',
@@ -197,6 +204,13 @@ class UserController {
     request,
     response,
   }) {
+    if (Env.get('IS_REGISTRATION_ENABLED') == 'false') { // eslint-disable-line eqeqeq
+      return response.status(401).send({
+        message: 'Registration is disabled on this server',
+        status: 401,
+      });
+    }
+
     // Validate user input
     const validation = await validateAll(request.all(), {
       email: 'required|email|unique:users,email',

@@ -181,7 +181,6 @@ class DashboardController {
       session.flash({ type: 'danger', message: 'Invalid Ferdi account file' });
       return response.redirect('back');
     }
-    console.log(file);
 
     if (!file || !file.services || !file.workspaces) {
       session.flash({ type: 'danger', message: 'Invalid Ferdi account file (2)' });

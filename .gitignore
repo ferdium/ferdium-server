@@ -20,3 +20,4 @@ public/privacy.html
 
 resources/announcements/*.json
 !resources/announcements/version.json
+npm-debug.log
