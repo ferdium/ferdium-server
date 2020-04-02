@@ -65,16 +65,37 @@ if (Env.get('IS_DASHBOARD_ENABLED') != 'false') {
     // Auth
     Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
     Route.post('login', 'DashboardController.login').middleware('guest').as('login');
-  
+    
+    // Reset password
+    Route.get('forgot', ({ view }) => view.render('dashboard.forgotPassword')).middleware('guest');
+    Route.post('forgot', 'DashboardController.forgotPassword').middleware('guest');
+
+    Route.get('reset', ({ view, request }) => {
+      const token = request.get().token;
+      if (token) {
+        return view.render('dashboard.resetPassword', { token })
+      } else {
+        return view.render('others.message', {
+          heading: 'Invalid token',
+          text: 'Please make sure you are using a valid and recent link to reset your password.',
+        });
+      }
+    }).middleware('guest');
+    Route.post('reset', 'DashboardController.resetPassword').middleware('guest');
+
     // Dashboard
     Route.get('account', 'DashboardController.account').middleware('auth:session');
     Route.post('account', 'DashboardController.edit').middleware('auth:session');
+
     Route.get('data', 'DashboardController.data').middleware('auth:session');
+
     Route.get('export', 'DashboardController.export').middleware('auth:session');
     Route.post('transfer', 'DashboardController.import').middleware('auth:session');
     Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
+   
     Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
     Route.post('delete', 'DashboardController.delete').middleware('auth:session');
+   
     Route.get('logout', 'DashboardController.logout').middleware('auth:session');
   
     Route.get('*', ({ response }) => response.redirect('/user/account'));

@@ -20,6 +20,8 @@ const providers = [
   '@adonisjs/framework/providers/ViewProvider',
   '@adonisjs/session/providers/SessionProvider',
   '@adonisjs/shield/providers/ShieldProvider',
+  '@adonisjs/persona/providers/PersonaProvider',
+  '@adonisjs/mail/providers/MailProvider',
 ];
 
 /*

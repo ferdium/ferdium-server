@@ -5,6 +5,7 @@ const {
 
 const Service = use('App/Models/Service');
 const Workspace = use('App/Models/Workspace');
+const Persona = use('Persona');
 
 const crypto = require('crypto');
 const uuid = require('uuid/v4');
@@ -45,6 +46,66 @@ class DashboardController {
       return response.redirect('back');
     }
     return response.redirect('/user/account');
+  }
+
+  async forgotPassword({
+    request,
+    view,
+  }) {
+    const validation = await validateAll(request.all(), {
+      mail: 'required|email',
+    });
+    if (validation.fails()) {
+      return view.render('others.message', {
+        heading: 'Cannot reset your password',
+        text: 'If your provided E-Mail address is linked to an account, we have just sent an E-Mail to that address.',
+      });
+    }
+    try {
+      await Persona.forgotPassword(request.input('mail'));
+    } catch(e) {}
+
+    return view.render('others.message', {
+      heading: 'Reset password',
+      text: 'If your provided E-Mail address is linked to an account, we have just sent an E-Mail to that address.',
+    });
+  }
+
+  async resetPassword({
+    request,
+    view,
+  }) {
+    const validation = await validateAll(request.all(), {
+      password: 'required',
+      password_confirmation: 'required',
+      token: 'required',
+    });
+    if (validation.fails()) {
+      session.withErrors({
+        type: 'danger',
+        message: 'Passwords do not match',
+      });
+      return response.redirect('back');
+    }
+
+    const payload = {
+      password: crypto.createHash('sha256').update(request.input('password')).digest('base64'),
+      password_confirmation: crypto.createHash('sha256').update(request.input('password_confirmation')).digest('base64'),
+    }
+
+    try {
+      await Persona.updatePasswordByToken(request.input('token'), payload);
+    } catch(e) {
+      return view.render('others.message', {
+        heading: 'Cannot reset your password',
+        text: 'Please make sure you are using a valid and recent link to reset your password and that your passwords entered match.',
+      });
+    }
+
+    return view.render('others.message', {
+      heading: 'Reset password',
+      text: 'Successfully reset your password. You can now login to your account using your new password.',
+    });
   }
 
   async account({
