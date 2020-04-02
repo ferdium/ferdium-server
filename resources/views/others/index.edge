@@ -4,18 +4,18 @@
 <div class="leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
 
   <div class="h-screen bg-right bg-cover">
+    <div class="flex justify-center">
+      <img class="h-20 my-10" src="{{ assetsUrl('img/icon.png') }}">
+    </div>
     <!--Main-->
-    <div class="container pt-10 md:pt-14 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+    <div class="container px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 
       <!--Left Col-->
       <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
         <h1
-          class="my-4 text-3xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">
+          class="my-4 text-3xl md:text-5xl text-gray-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">
           Ferdi Server
         </h1>
-        <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">
-          You are accessing a custom <a href="https://github.com/getferdi/ferdi">Ferdi</a> server.
-        </p>
 
         <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in">
           Setup your client
@@ -44,7 +44,7 @@
         <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in pt-8">
           Manage your account
         </p>
-        <a href="https://getferdi.com" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+        <a href="/user/account" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
           Go to account dashboard
         </a>
 
@@ -78,38 +78,4 @@
 
   </div>
 </div>
-@endsection
-
-
-@section('nothing')
-<style>
-  ol,
-  p {
-    margin: 0.5rem 0;
-  }
-
-  img {
-    height: 200px;
-    margin: 0;
-  }
-
-</style>
-
-<img src="https://github.com/getferdi/ferdi/raw/develop/build-helpers/images/icon.png" alt="Ferdi logo">
-
-<h1>Ferdi Server</h1>
-<p>You are accessing a custom <a href="https://github.com/getferdi/ferdi">Ferdi</a> server.</p>
-<p>
-  To use this server in your Ferdi client, <a href="ferdi://settings/app">open Ferdi's settings</a> and as the
-  <code>server</code>, enter <code id="server"></code>
-</p>
-<p>
-  Alternatively, you can manage your account in the <a href="/user/account">account dashboard</a>.
-</p>
-
-<br />
-<small>
-  <a href="https://github.com/getferdi/server">ferdi-server</a> is a project by <a
-    href="https://getferdi.com">the Ferdi Team</a>.
-</small>
 @endsection

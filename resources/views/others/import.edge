@@ -1,19 +1,67 @@
-@layout('layouts.main')
+@layout('layouts.v2')
 
 @section('content')
-<h1>Import a Franz account</h1>
-<p>Please login using your Franz account. We will create a new Ferdi account with the same credentials.</p>
-<form action="import" method="post">
-  <label for="email">E-Mail address</label><br />
-  <input type="email" name="email" placeholder="joe@example.com" required><br />
+<div class="w-screen h-screen bg-purple-200 flex items-center justify-center">
+<form class="w-full max-w-sm bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  action="/import" method="POST">
+    <h1 class="text-gray-700 text-center text-2xl pb-5">
+      Import your Franz account
+    </h1>
+    <p class="text-gray-600 text-sm text-center py-2">
+      Please login using your Franz account. We will create a new Ferdi account with the same credentials.
+    </p>
 
-  <label for="password">Password</label><br />
-  <input type="password" name="password" placeholder="********" required><br />
+    @if(flashMessage('error'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('error') }}
+    </div>
+    @endif
+    @if(old('message'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ old('message') }}
+    </div>
+    @endif
 
-  <button type="submit" id="submitbutton">Import Franz account</button>
-  <small>
-    By importing your Franz account, you accept the <a href="/terms">Terms of service</a> and <a href="/privacy">Privacy
-      policy</a>
-  </small>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        E-Mail
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="email"
+        name="email"
+        type="text"
+        placeholder="E-Mail"
+        value="{{ old('email', '') }}"
+        required>
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input
+        class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+        id="password"
+        type="password"
+        name="password"
+        placeholder="*****"
+        autocomplete="current-password"
+        required>
+    </div>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      type="submit">
+      Import account
+    </button>
+    <p class="text-gray-600 text-sm text-center py-2">
+      By importing your Franz account, you accept the <a href="/terms">Terms of service</a> and <a href="/privacy">Privacy
+        policy</a>  
+    </p>
+    <div class="text-center">
+      <a class="w-full font-bold text-sm text-blue-500 hover:text-blue-800" href="/user/login">
+        Login to an existing account
+      </a>
+    </div>
 </form>
+</div>
 @endsection

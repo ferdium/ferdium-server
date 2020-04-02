@@ -1,0 +1,20 @@
+@layout('layouts.v2')
+
+@section('content')
+<div class="w-screen h-screen bg-purple-200 flex items-center justify-center">
+  <div class="w-full max-w-sm bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/import" method="POST">
+    <h1 class="text-gray-700 text-center text-2xl pb-5">
+      {{ heading }}
+    </h1>
+    <p class="text-gray-600 text-sm text-center py-2">
+      {{ text }}
+    </p>
+
+    <div class="text-center">
+      <a class="w-full font-bold text-sm text-blue-500 hover:text-blue-800" href="#" onclick="window.history.back()">
+        Go back
+      </a>
+    </div>
+  </div>
+</div>
+@endsection

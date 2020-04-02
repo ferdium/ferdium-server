@@ -64,7 +64,7 @@ if (Env.get('IS_DASHBOARD_ENABLED') != 'false') {
   Route.group(() => {
     // Auth
     Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
-    Route.post('login', 'DashboardController.login').middleware('guest');
+    Route.post('login', 'DashboardController.login').middleware('guest').as('login');
   
     // Dashboard
     Route.get('account', 'DashboardController.account').middleware('auth:session');

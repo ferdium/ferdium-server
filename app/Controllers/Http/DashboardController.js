@@ -134,6 +134,7 @@ class DashboardController {
       mail: general.email,
       created: general.created_at,
       updated: general.updated_at,
+      stringify: JSON.stringify,
       services,
       workspaces,
     });
@@ -165,6 +166,7 @@ class DashboardController {
     request,
     session,
     response,
+    view,
   }) {
     const validation = await validateAll(request.all(), {
       file: 'required',
@@ -210,7 +212,10 @@ class DashboardController {
       }
     } catch (e) {
       const errorMessage = `Could not import your services into our system.\nError: ${e}`;
-      return response.status(401).send(errorMessage);
+      return view.render('others.message', {
+        heading: 'Error while importing',
+        text: errorMessage,
+      });
     }
 
     // Import workspaces
@@ -234,10 +239,16 @@ class DashboardController {
       }
     } catch (e) {
       const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
-      return response.status(401).send(errorMessage);
+      return view.render('others.message', {
+        heading: 'Error while importing',
+        text: errorMessage,
+      });
     }
 
-    return response.send('Your account has been imported.');
+    return view.render('others.message', {
+      heading: 'Successfully imported',
+      text: 'Your account has been imported, you can now login as usual!',
+    });
   }
 
   logout({

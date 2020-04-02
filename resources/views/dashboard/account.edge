@@ -1,66 +1,75 @@
-@layout('layouts.main')
+@layout('layouts.v2')
 
 @section('content')
-<h2>Your Ferdi account</h2>
-@if(flashMessage('error'))
-    <div class="alert">
-        {{ flashMessage('error') }} 
+<div class="w-screen h-screen bg-purple-200 flex items-center justify-center">
+  <div class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-gray-700 text-center text-2xl pb-5">
+      Your Ferdi account
+    </h1>
+    @if(flashMessage('error'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('error') }}
     </div>
-@endif
-@if(old('message'))
-    <div class="alert">
-        {{ old('message') }}
+    @endif
+    @if(old('message'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ old('message') }}
     </div>
-@endif
-@if(flashMessage('notification'))
-    <div class="alert">
-        {{ flashMessage('notification.message') }}
+    @endif
+    @if(flashMessage('notification'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('notification.message') }}
     </div>
-@endif
-@if(success === true)
-    <div class="alert" style="background-color:#28C76F;">
-        Sucessfully updated your user account
+    @endif
+    @if(success === true)
+    <div class="bg-green-100 border-l-4 border-green-500 text-white p-4" style="background-color:#28C76F;">
+      Sucessfully updated your user account
     </div>
-@endif
+    @endif
 
-<form action="/user/account" method="POST">
-    {{ csrfField() }}
-    <div>
-        <label>Name</label>
+    <form action="/user/account" method="POST">
+      {{ csrfField() }}
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
         <div>
-            <input type="text" value="{{ old('name', username) }}" placeholder="Name" name="username" required>
+          <input
+            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            type="text" value="{{ old('name', username) }}" placeholder="Name" name="username" required>
         </div>
-    </div>
-    <div>
-        <label>E-Mail</label>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">E-Mail</label>
         <div>
-            <input type="email" value="{{ old('email', email) }}" placeholder="E-Mail" name="email" required>
+          <input
+            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            type="email" value="{{ old('email', email) }}" placeholder="E-Mail" name="email" required>
         </div>
-    </div>
-    <div>
-        <label>Password</label>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
         <div>
-            <input type="password" placeholder="*********" name="password">
+          <input
+            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            type="password" placeholder="*********" name="password">
         </div>
-    </div>
-    <div>
+      </div>
+      <div>
         <button style="background-color:#28C76F;margin-bottom:1rem;">Change settings</button>
+      </div>
+    </form>
+    <div class="text-center">
+        <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3"
+        href="/user/data">My account data</a>
+        <br />
+        <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3"
+        href="/user/transfer">Import/Export account data</a>
+        <br />
+        <a class="w-full font-bold text-sm text-red-500 hover:text-red-800 mb-3"
+        href="/user/delete">Delete my account</a>
+        <br />
+    <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3"
+    href="/user/logout">Logout</a>
     </div>
-</form>
-
-<div>
-    <a class="button" href="/user/delete" style="background-color:#F6416C;margin-bottom:1rem;">Delete my account</a>
+  </div>
 </div>
-<div>
-    <a class="button" href="/user/data" style="margin-bottom:1rem;">My account data</a>
-</div>
-<div>
-    <a class="button" href="/user/transfer" style="margin-bottom:1rem;">Import/Export account data</a>
-</div>
-<div>
-    <a class="button" href="/user/logout">Logout</a>
-</div>
-
-</div>
-
 @endsection

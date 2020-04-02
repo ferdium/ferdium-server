@@ -1,52 +1,55 @@
-@layout('layouts.main')
+@layout('layouts.v2')
 
 @section('content')
-<h2>Import/Export data from another Ferdi server</h2>
-@if(flashMessage('error'))
-    <div class="alert">
-        {{ flashMessage('error') }} 
+<div class="w-screen h-screen bg-purple-200 flex items-center justify-center">
+  <div class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-gray-700 text-center text-2xl pb-5">Import/Export data from another Ferdi server</h1>
+    @if(flashMessage('error'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('error') }}
     </div>
-@endif
-@if(old('message'))
-    <div class="alert">
-        {{ old('message') }}
+    @endif
+    @if(old('message'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ old('message') }}
     </div>
-@endif
-@if(flashMessage('notification'))
-    <div class="alert">
-        {{ flashMessage('notification.message') }}
+    @endif
+    @if(flashMessage('notification'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('notification.message') }}
     </div>
-@endif
-@if(success === true)
-    <div class="alert" style="background-color:#28C76F;">
-        Sucessfully imported your account data
+    @endif
+    @if(success === true)
+    <div class="bg-green-100 border-l-4 border-green-500 text-white p-4" style="background-color:#28C76F;">
+      Sucessfully imported your account data
     </div>
-@endif
+    @endif
 
-<h3>Import data</h3>
-<div>
-  <label>Account data</label>
-  <div>
-    <input type="file" name="file" id="file" value="" accept=".json,.ferdi-data" required>
-  </div>
-</div>
-
-<form action="/user/transfer" method="POST">
-    {{ csrfField() }}
-    <input type="hidden" name="file" id="fileoutput" value="">
+    <h3 class="text-gray-600 text-xl">Import data</h3>
     <div>
-        <button style="background-color:#28C76F;margin-bottom:1rem;" id="submit" disabled>Import data</button>
+      <div>
+        <input type="file" name="file" id="file" value="" accept=".json,.ferdi-data" required>
+      </div>
     </div>
-</form>
 
-<h3>Export data</h3>
-<a class="button" style="background-color:#28C76F;margin-bottom:1rem;" href="/user/export">Export data</a>
+    <form action="/user/transfer" method="POST">
+      {{ csrfField() }}
+      <input type="hidden" name="file" id="fileoutput" value="">
+      <div>
+        <button style="background-color:#28C76F;margin-bottom:1rem;" id="submit" disabled>Import data</button>
+      </div>
+    </form>
 
-<div>
-  <a class="button" href="/user/account">Back to my account</a>
+    <h3 class="text-gray-600 text-xl">Export data</h3>
+    <a class="button" style="background-color:#28C76F;margin-bottom:1rem;" href="/user/export">Export data</a>
+
+    <div class="text-center">
+      <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/user/account">Back to My
+        Account</a>
+    </div>
+
+  </div>
+  <script src="/js/transfer.js"></script>
 </div>
-
 </div>
-<script src="/js/transfer.js"></script>
-
 @endsection

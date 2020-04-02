@@ -1,31 +1,36 @@
-@layout('layouts.main')
+@layout('layouts.v2')
 
 @section('content')
-<h2>Delete Ferdi account</h2>
-@if(flashMessage('error'))
-    <div class="alert">
-        {{ flashMessage('error') }} 
+<div class="w-screen h-screen bg-purple-200 flex items-center justify-center">
+  <div class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-gray-700 text-center text-2xl pb-5">Delete your account</h1>
+    @if(flashMessage('error'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ flashMessage('error') }}
     </div>
-@endif
-@if(old('message'))
-    <div class="alert">
-        {{ old('message') }}
+    @endif
+    @if(old('message'))
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
+      {{ old('message') }}
     </div>
-@endif
+    @endif
 
-<form action="/user/delete" method="POST">
-    <p>Are you sure, that you want to delete your Ferdi account?</p>
-    <p>This will <b>permanently</b> delete all your account settings, services and workspaces.</p>
-    <div>
+    <form action="/user/delete" method="POST">
+      <p>Are you sure, that you want to delete your Ferdi account?</p>
+      <p>This will <b>permanently</b> delete all your account settings, services and workspaces.</p>
+      <div class="pt-8">
         {{ csrfField() }}
         <button style="background-color:#F6416C;margin-bottom:1rem;">Yes, delete account</button>
+      </div>
+    </form>
+
+    <div class="text-center">
+      <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/user/account">Back to My
+        Account</a>
     </div>
-</form>
 
-<div>
-    <a class="button" href="/user/account" style="background-color:#28C76F;">Cancel</a>
+  </div>
+  <script src="/js/transfer.js"></script>
 </div>
-
 </div>
-
 @endsection

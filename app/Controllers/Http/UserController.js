@@ -203,6 +203,7 @@ class UserController {
   async import({
     request,
     response,
+    view,
   }) {
     if (Env.get('IS_REGISTRATION_ENABLED') == 'false') { // eslint-disable-line eqeqeq
       return response.status(401).send({
@@ -227,7 +228,10 @@ class UserController {
           errorMessage += `${message.message}\n`;
         }
       }
-      return response.status(401).send(errorMessage);
+      return view.render('others.message', {
+        heading: 'Error while importing',
+        text: errorMessage,
+      });
     }
 
     const {
