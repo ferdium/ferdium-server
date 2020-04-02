@@ -86,7 +86,7 @@ class ServiceController {
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
     const servicesArray = services.map((service) => {
-      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+      const settings = typeof service.settings === 'string' ? JSON.parse(service.settings) : service.settings;
 
       return {
         customRecipe: false,
@@ -105,7 +105,7 @@ class ServiceController {
         name: service.name,
         recipeId: service.recipeId,
         userId: auth.user.id,
-      }
+      };
     });
 
     return response.send(servicesArray);
@@ -127,7 +127,7 @@ class ServiceController {
       // Upload custom service icon
       const icon = request.file('icon', {
         types: ['image'],
-        size: '2mb'
+        size: '2mb',
       });
       const {
         id,
@@ -135,17 +135,17 @@ class ServiceController {
       const service = (await Service.query()
         .where('serviceId', id)
         .where('userId', auth.user.id).fetch()).rows[0];
-      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+      const settings = typeof service.settings === 'string' ? JSON.parse(service.settings) : service.settings;
 
       let iconId;
       do {
         iconId = uuid() + uuid();
-      } while(await fs.exists(path.join(Helpers.tmpPath('uploads'), iconId)));
-      
+      } while (await fs.exists(path.join(Helpers.tmpPath('uploads'), iconId)));
+
       await icon.move(Helpers.tmpPath('uploads'), {
         name: iconId,
-        overwrite: true
-      })
+        overwrite: true,
+      });
 
       if (!icon.moved()) {
         return response.status(500).send(icon.error());
@@ -175,49 +175,48 @@ class ServiceController {
           iconUrl: `${Env.get('APP_URL')}/v1/icon/${newSettings.iconId}`,
           userId: auth.user.id,
         },
-        status: ["updated"]
-      });
-    } else {
-      // Update service info
-      const data = request.all();
-      const {
-        id,
-      } = params;
-
-      // Get current settings from db
-      const serviceData = (await Service.query()
-        .where('serviceId', id)
-        .where('userId', auth.user.id).fetch()).rows[0];
-
-      const settings = {
-        ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
-        ...data,
-      };
-
-      // Update data in database
-      await (Service.query()
-        .where('serviceId', id)
-        .where('userId', auth.user.id)).update({
-        name: data.name,
-        settings: JSON.stringify(settings),
-      });
-
-      // Get updated row
-      const service = (await Service.query()
-        .where('serviceId', id)
-        .where('userId', auth.user.id).fetch()).rows[0];
-
-      return response.send({
-        data: {
-          id,
-          name: service.name,
-          ...settings,
-          iconUrl: `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`,
-          userId: auth.user.id,
-        },
-        status: ["updated"]
+        status: ['updated'],
       });
     }
+    // Update service info
+    const data = request.all();
+    const {
+      id,
+    } = params;
+
+    // Get current settings from db
+    const serviceData = (await Service.query()
+      .where('serviceId', id)
+      .where('userId', auth.user.id).fetch()).rows[0];
+
+    const settings = {
+      ...typeof serviceData.settings === 'string' ? JSON.parse(serviceData.settings) : serviceData.settings,
+      ...data,
+    };
+
+    // Update data in database
+    await (Service.query()
+      .where('serviceId', id)
+      .where('userId', auth.user.id)).update({
+      name: data.name,
+      settings: JSON.stringify(settings),
+    });
+
+    // Get updated row
+    const service = (await Service.query()
+      .where('serviceId', id)
+      .where('userId', auth.user.id).fetch()).rows[0];
+
+    return response.send({
+      data: {
+        id,
+        name: service.name,
+        ...settings,
+        iconUrl: `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`,
+        userId: auth.user.id,
+      },
+      status: ['updated'],
+    });
   }
 
   async icon({
@@ -231,7 +230,7 @@ class ServiceController {
     const iconPath = path.join(Helpers.tmpPath('uploads'), id);
     if (!await fs.exists(iconPath)) {
       return response.status(404).send({
-        status: 'Icon doesn\'t exist'
+        status: 'Icon doesn\'t exist',
       });
     }
 
@@ -252,7 +251,7 @@ class ServiceController {
         .where('userId', auth.user.id).fetch()).rows[0];
 
       const settings = {
-        ...typeof serviceData.settings === "string" ? JSON.parse(serviceData.settings) : serviceData.settings,
+        ...typeof serviceData.settings === 'string' ? JSON.parse(serviceData.settings) : serviceData.settings,
         order: data[service],
       };
 
@@ -260,16 +259,16 @@ class ServiceController {
       await (Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
         .where('userId', auth.user.id))
-      .update({
-        settings: JSON.stringify(settings),
-      });
+        .update({
+          settings: JSON.stringify(settings),
+        });
     }
 
     // Get new services
     const services = (await auth.user.services().fetch()).rows;
     // Convert to array with all data Franz wants
     const servicesArray = services.map((service) => {
-      const settings = typeof service.settings === "string" ? JSON.parse(service.settings) : service.settings;
+      const settings = typeof service.settings === 'string' ? JSON.parse(service.settings) : service.settings;
 
       return {
         customRecipe: false,
@@ -288,7 +287,7 @@ class ServiceController {
         name: service.name,
         recipeId: service.recipeId,
         userId: auth.user.id,
-      }
+      };
     });
 
     return response.send(servicesArray);

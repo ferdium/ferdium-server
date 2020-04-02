@@ -35,7 +35,7 @@ class RecipeController {
     const customRecipes = customRecipesArray.map((recipe) => ({
       id: recipe.recipeId,
       name: recipe.name,
-      ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
+      ...typeof recipe.data === 'string' ? JSON.parse(recipe.data) : recipe.data,
     }));
 
     const recipes = [
@@ -144,7 +144,7 @@ class RecipeController {
       results = dbResults.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
-        ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
+        ...typeof recipe.data === 'string' ? JSON.parse(recipe.data) : recipe.data,
       }));
     } else {
       let remoteResults = [];
@@ -155,7 +155,7 @@ class RecipeController {
       const localResults = localResultsArray.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
-        ...typeof recipe.data === "string" ? JSON.parse(recipe.data) : recipe.data,
+        ...typeof recipe.data === 'string' ? JSON.parse(recipe.data) : recipe.data,
       }));
 
       results = [
@@ -194,7 +194,8 @@ class RecipeController {
     // Check if recipe exists in recipes folder
     if (await Drive.exists(`${service}.tar.gz`)) {
       return response.send(await Drive.get(`${service}.tar.gz`));
-    } else if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
+    }
+    if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
       return response.redirect(`https://api.franzinfra.com/v1/recipes/download/${service}`);
     }
     return response.status(400).send({

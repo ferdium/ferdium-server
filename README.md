@@ -3,16 +3,25 @@
 </p>
 
 # ferdi-server
-Unofficial Franz server replacement for use with the Ferdi Client.
+Official Server software for the [Ferdi Messaging Browser](https://getferdi.com)
 
-## Looking for a smaller alternative?
-[ferdi-slim-server](https://github.com/vantezzen/ferdi-slim-server) is a slim alternative to this project. Opposed to ferdi-server, ferdi-slim-server is only a wrapper around the Franz API that allows you to add custom recipes while still using the original Franz API.
+- [ferdi-server](#ferdi-server)
+  - [Why use a custom Ferdi server?](#why-use-a-custom-ferdi-server)
+  - [Features](#features)
+  - [Setup](#setup)
+    - [with Docker](#with-docker)
+    - [Manual setup](#manual-setup)
+  - [Configuration](#configuration)
+  - [Importing your Franz account](#importing-your-franz-account)
+  - [Transferring user data](#transferring-user-data)
+  - [Creating and using custom recipes](#creating-and-using-custom-recipes)
+    - [Listing custom recipes](#listing-custom-recipes)
+  - [License](#license)
 
-## Why use a custom ferdi-server?
-A custom ferdi-server allows you to experience the full potential of the Ferdi client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [adding your own recipes](#creating-and-using-custom-recipes).
+## Why use a custom Ferdi server?
+A custom server allows you to manage the data of all registered users yourself and add your own recipes to the repository.
 
-## Demo
-You can find Ferdi's official API running this software at <https://api.getferdi.com>
+If you are not interested in doing this you can use our official instance of Ferdi server at <https://api.getferdi.com>.
 
 ## Features
 - [x] User registration and login
@@ -20,13 +29,13 @@ You can find Ferdi's official API running this software at <https://api.getferdi
 - [x] Workspace support
 - [x] Functioning service store
 - [x] User dashboard
+- [x] Export/import data to other ferdi-servers
 - [ ] Password recovery
-- [ ] Export/import data to other ferdi-servers
 - [ ] Recipe update
 
 ## Setup
 ### with Docker
-The easiest way to set up ferdi-server on your server is with Docker.
+The easiest way to set up Ferdi server on your server is with Docker.
 
 The Docker image can be run as is, with the default sqlite database or you can modifying your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). 
 After setting up the docker container we recommend you to set up an NGINX reverse proxy to access ferdi-server outside of your home network and protect it with an SSL certificate.
@@ -76,7 +85,9 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - DB_PASSWORD=<yourdbpass>
         - DB_DATABASE=<yourdbdatabase>
         - IS_CREATION_ENABLED=true/false
-        - CONNECT_WITH_FRANZ=true/flase  
+        - CONNECT_WITH_FRANZ=true/false  
+        - IS_REGISTRATION_ENABLED=true/false  
+        - IS_DASHBOARD_ENABLED=true/false  
         volumes:
         - <path to data>:/config
         - <path to database>:/usr/src/app/database
@@ -106,6 +117,8 @@ For more information on configuring the Docker image, visit the Docker image rep
 ## Configuration
 franz-server's configuration is saved inside the `.env` file. Besides AdonisJS's settings, ferdi-server has the following custom settings:
 - `IS_CREATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the [creation of custom recipes](#creating-and-using-custom-recipes)
+- `IS_REGISTRATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the creation of new user accounts
+- `IS_DASHBOARD_ENABLED` (`true` or `false`, default: `true`): Whether to enable the user dashboard
 - `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, ferdi-server can:
   - Show the full Franz recipe library instead of only custom recipes
   - Import Franz accounts
@@ -114,6 +127,9 @@ franz-server's configuration is saved inside the `.env` file. Besides AdonisJS's
 ferdi-server allows you to import your full Franz account, including all its settings.
 
 To import your Franz account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz account details. ferdi-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
+
+## Transferring user data
+Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-between-servers>
 
 ## Creating and using custom recipes
 ferdi-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
