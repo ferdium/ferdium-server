@@ -16,7 +16,7 @@ console.log('Sending message', body);
   try {
     await Mail.raw(body, (message) => {
       message.subject('[Ferdi] Reset your password')
-      message.from('noreply@getferdi.com')
+      message.from(Env.get('MAIL_SENDER'))
       message.to(user.email)
     });
   } catch(e) {}
