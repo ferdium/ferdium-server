@@ -1,6 +1,87 @@
-@layout('layouts.main')
+@layout('layouts.v2')
 
 @section('content')
+<div class="leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
+
+  <div class="h-screen bg-right bg-cover">
+    <!--Main-->
+    <div class="container pt-10 md:pt-14 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+
+      <!--Left Col-->
+      <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+        <h1
+          class="my-4 text-3xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">
+          Ferdi Server
+        </h1>
+        <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">
+          You are accessing a custom <a href="https://github.com/getferdi/ferdi">Ferdi</a> server.
+        </p>
+
+        <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in">
+          Setup your client
+        </p>
+        <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
+          <ol class="list-decimal list-inside">
+            <li>
+              Logout of Ferdi, if you are currently logged in
+            </li>
+            <li>
+              Choose "Change Server" to get to the settings screen
+            </li>
+            <li>
+              Enter <code id="server"></code>
+            </li>
+          </ol>
+        </div>
+
+        <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in pt-8">
+          Don't have Ferdi yet?
+        </p>
+        <a href="https://getferdi.com" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+          Get Ferdi now
+        </a>
+
+        <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in pt-8">
+          Manage your account
+        </p>
+        <a href="https://getferdi.com" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+          Go to account dashboard
+        </a>
+
+      </div>
+
+      <!--Right Col-->
+      <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
+        <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ assetsUrl('img/hero.png') }}">
+      </div>
+
+      <!--Footer-->
+      <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+        <a class="text-gray-500 no-underline hover:no-underline" href="https://github.com/getferdi">
+          Ferdi server is a project by The Ferdi Team
+        </a>
+      </div>
+
+    </div>
+
+    <script>
+      // Get server URL for current location
+      let server = location.href.replace('/index.html', '');
+      if (server[server.length - 1] == '/') {
+        server = server.substr(0, server.length - 1)
+      }
+    
+      // Show on page
+      document.getElementById('server').innerText = server;
+    
+    </script>
+
+  </div>
+</div>
+@endsection
+
+
+@section('nothing')
 <style>
   ol,
   p {
@@ -23,16 +104,4 @@
   <a href="https://github.com/vantezzen/ferdi-server">ferdi-server</a> is a project by <a
     href="https://vantezzen.io">vantezzen</a>.
 </small>
-
-<script>
-  // Get server URL for current location
-  let server = location.href.replace('/index.html', '');
-  if (server[server.length - 1] == '/') {
-    server = server.substr(0, server.length - 1)
-  }
-
-  // Show on page
-  document.getElementById('server').innerText = server;
-
-</script>
 @endsection
