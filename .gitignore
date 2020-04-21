@@ -15,8 +15,6 @@ database/adonis.sqlite
 recipes/
 
 .DS_Store
-public/terms.html
-public/privacy.html
 
 resources/announcements/*.json
 !resources/announcements/version.json
