@@ -21,13 +21,17 @@ module.exports = {
   |
   | Here we define configuration for sending emails via SMTP.
   |
+  | https://nodemailer.com/smtp/
+  |
   */
   smtp: {
     driver: 'smtp',
     pool: true,
+    name: Env.get('EXTERNAL_DOMAIN'),
     port: Env.get('SMTP_PORT', 2525),
     host: Env.get('SMTP_HOST'),
-    secure: false,
+    secure: Env.get('SSL', false), // true for 465, false for other ports,
+    authMethod: 'LOGIN',
     auth: {
       user: Env.get('MAIL_USERNAME'),
       pass: Env.get('MAIL_PASSWORD')
