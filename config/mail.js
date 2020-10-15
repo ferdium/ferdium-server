@@ -30,7 +30,7 @@ module.exports = {
     name: Env.get('EXTERNAL_DOMAIN'),
     port: Env.get('SMTP_PORT', 2525),
     host: Env.get('SMTP_HOST'),
-    secure: Env.get('SSL', false), // true for 465, false for other ports,
+    secure: JSON.parse(Env.get("MAIL_SSL", Env.get('SSL', false))),
     authMethod: 'LOGIN',
     auth: {
       user: Env.get('MAIL_USERNAME'),
