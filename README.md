@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
     <img src="./logo.png" alt="" width="300"/>  
 </p>
 
@@ -57,8 +57,10 @@ After setting up the docker container we recommend you to set up an NGINX revers
 	    -e DB_USER=<yourdbuser> \
 	    -e DB_PASSWORD=<yourdbpass> \
 	    -e DB_DATABASE=<yourdbdatabase> \
+	    -e DB_SSL=false \
 	    -e IS_CREATION_ENABLED=true \
 	    -e CONNECT_WITH_FRANZ=true \
+      -e MAIL_SSL=true/false \
 	    -p <port>:80 \
 	    -v <path to data>:/config \
 	    -v <path to database>:/usr/src/app/database \
@@ -84,10 +86,12 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - DB_USER=<yourdbuser>
         - DB_PASSWORD=<yourdbpass>
         - DB_DATABASE=<yourdbdatabase>
+        - DB_SSL=true/false
         - IS_CREATION_ENABLED=true/false
         - CONNECT_WITH_FRANZ=true/false  
         - IS_REGISTRATION_ENABLED=true/false  
-        - IS_DASHBOARD_ENABLED=true/false  
+        - IS_DASHBOARD_ENABLED=true/false
+        - MAIL_SSL=true/false  
         volumes:
         - <path to data>:/config
         - <path to database>:/usr/src/app/database
@@ -104,14 +108,23 @@ For more information on configuring the Docker image, visit the Docker image rep
 1. Clone this repository
 2. Install the [AdonisJS CLI](https://adonisjs.com/)
 3. Copy `.env.example` to `.env` and edit the [configuration](#configuration) to your needs
-4. Run `npm install` to install local dependencies
-5. Run the database migrations with
+4. Have env DB_SSL=true only if your database is postgres and it is hosted online on platforms like GCP, AWS, etc
+5. Run `npm install` to install local dependencies
+6. Run the database migrations with
     ```js
     adonis migration:run
     ```
-6. Start the server with
+7. Start the server with
     ```js
     adonis serve --dev
+    ```
+8. If on previous step it does not run the server then run with
+    ```js
+    npm start
+    ```
+    or 
+    ```js
+    node server.js
     ```
 
 ## Configuration
