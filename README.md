@@ -47,26 +47,35 @@ After setting up the docker container we recommend you to set up an NGINX revers
     ```
 2. Create a new Docker container with your desired configuration
 
-    ```sh
-    docker create \
-      --name=ferdi-server \
+    ```sh   
+	    docker create \
+	    --name=ferdi-server \
 	    -e NODE_ENV=development \
+	    -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \  
 	    -e DB_CONNECTION=<database> \
 	    -e DB_HOST=<yourdbhost> \
-	    -e DB_PORT=<yourdbPORT> \
+	    -e DB_PORT=<yourdbport> \
 	    -e DB_USER=<yourdbuser> \
 	    -e DB_PASSWORD=<yourdbpass> \
 	    -e DB_DATABASE=<yourdbdatabase> \
 	    -e DB_SSL=false \
+	    -e MAIL_CONNECTION=smtp \
+	    -e SMPT_HOST=<smtpmailserver> \
+	    -e SMTP_PORT=<smtpport> \
+	    -e MAIL_SSL=true/false \
+	    -e MAIL_USERNAME=<yourmailusername> \
+	    -e MAIL_PASSWORD=<yourmailpassword> \
+	    -e MAIL_SENDER=<sendemailaddress> \
 	    -e IS_CREATION_ENABLED=true \
+	    -e IS_DASHBOARD_ENABLED=true \
+	    -e IS_REGISTRATION_ENABLED=true \
 	    -e CONNECT_WITH_FRANZ=true \
-      -e MAIL_SSL=true/false \
 	    -p <port>:80 \
 	    -v <path to data>:/config \
-	    -v <path to database>:/usr/src/app/database \
-	    -v <path to recipes>:/usr/src/app/recipes \
+	    -v <path to database>:/app/database \
+	    -v <path to recipes>:/app/recipes \
 	    --restart unless-stopped \
-	    getferdi/ferdi-server
+	    getferdi/ferdi-server	    
     ```
 
     Alternatively, you can also use docker-compose v2 schemas
@@ -80,6 +89,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
         container_name: ferdi-server
         environment:
         - NODE_ENV=development
+        - EXTERNAL_DOMAIN=<ferdi-serverdomain>	 
         - DB_CONNECTION=<database>
         - DB_HOST=<yourdbhost>
         - DB_PORT=<yourdbPORT>
@@ -87,15 +97,21 @@ After setting up the docker container we recommend you to set up an NGINX revers
         - DB_PASSWORD=<yourdbpass>
         - DB_DATABASE=<yourdbdatabase>
         - DB_SSL=true/false
+        - MAIL_CONNECTION=<mailsender>
+        - SMPT_HOST=<smtpmailserver>
+        - SMTP_PORT=<smtpport>
+        - MAIL_SSL=true/false
+        - MAIL_USERNAME=<yourmailusername>
+        - MAIL_PASSWORD=<yourmailpassword>
+        - MAIL_SENDER=<sendemailaddress>
         - IS_CREATION_ENABLED=true/false
-        - CONNECT_WITH_FRANZ=true/false  
-        - IS_REGISTRATION_ENABLED=true/false  
         - IS_DASHBOARD_ENABLED=true/false
-        - MAIL_SSL=true/false  
+        - IS_REGISTRATION_ENABLED=true/false
+        - CONNECT_WITH_FRANZ=true/false
         volumes:
         - <path to data>:/config
-        - <path to database>:/usr/src/app/database
-        - <path to recipes>:/usr/src/app/recipes
+        - <path to database>:/app/database
+        - <path to recipes>:/app/recipes
         ports:
         - <port>:80
         restart: unless-stopped
