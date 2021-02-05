@@ -59,6 +59,8 @@ RUN \
   cd / && \
   rm -Rf "node-v$NODE_VERSION" && \
   rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
+
+COPY . /app
   
 RUN \
   apk add --no-cache --virtual .build-deps-ferdi \
@@ -69,9 +71,6 @@ RUN \
   npm config set unsafe-perm true && \
   npm install -g npm@latest && \
   find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf && \
-  echo "**** install ferdi server ****" && \
-  mkdir -p /ferdi && \
-  curl -o /ferdi/ferdi.tar.gz -L "https://github.com/getferdi/server/archive/master.tar.gz" && \
   echo "**** cleanup ****" && \
   apk del .build-deps-ferdi && \
   rm -rf \
@@ -88,7 +87,7 @@ RUN \
    /usr/lib/node_modules/npm/html \
    /usr/lib/node_modules/npm/scripts
   
-COPY root/ /
+COPY docker/root/ /
 
 USER root
 

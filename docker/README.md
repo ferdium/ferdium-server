@@ -202,11 +202,10 @@ Below are the instructions for updating the container to get the most recent ver
 
 ## Building locally
 
-If you want to make local modifications to this image for development purposes or just to customize the logic:
+If you want to build this image locally, please run this command from root of [ferdi server repository](https://github.com/getferdi/server/tree/master/):
 ```
-git clone https://github.com/getferdi/server-docker.git
-cd server-docker
 docker build \
+  -f docker/Dockerfile \
   --no-cache \
   --pull \
   -t getferdi/ferdi-server:latest .

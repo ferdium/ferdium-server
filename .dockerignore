@@ -11,3 +11,11 @@
 *.md
 !README*.md
 README-secret.md
+
+# ignore other directories
+docker
+!docker/root
+node_modules
+
+
+

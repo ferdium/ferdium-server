@@ -32,16 +32,6 @@ if [ -n "${TEST_RUN}" ]; then
 	echo '**** [services.d] done ****'
 fi
 
-# install ferdi-server if necessary
-[[ -f /ferdi/ferdi.tar.gz ]] && \
- echo "**** Installing Ferdi-server ****" && \
- tar xf \
- 	/ferdi/ferdi.tar.gz -C \
-	/app --strip-components=1 && \
- rm -rf \
-    /ferdi && \
- chown -R abc:abc /app	
-
 # set ferdi-server status
 echo " "
 echo "**** Checking Ferdi-server settings ****"
