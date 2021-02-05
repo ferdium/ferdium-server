@@ -1,0 +1,13 @@
+.DS_Store
+
+# ignore .git and .cache folders
+.git
+.gitignore
+.github
+.gitattributes
+.cache
+
+# ignore all markdown files (md) beside all README*.md other than README-secret.md
+*.md
+!README*.md
+README-secret.md
