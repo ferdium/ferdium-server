@@ -76,11 +76,12 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/)	
 ## Configuration
 
 Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 3333:80` would expose port `80` from inside the container to be accessible from the host's IP on port `3333` outside the container. 
-After the first run, Ferdi-server's configuration is saved inside the `config.txt` file inside your persistent data directory (`/config` in the container).
+After the first run, Ferdi-server's default configuration is saved inside the `config.txt` file inside your persistent data directory (`/config` in the container).
+If any environmental parameter is not passed to the container, its value will be taken from the `config.txt` file. You can also edit the `config.txt` file, but it is advisable to send the environment parameters to the container.
 
 | Parameter | Function |
 | :----: | --- |
-| `-p <port>:80` | will map the container's port 80 to a port on the host, default is 3333 |
+| `-p <port>:3333` | will map the container's port 80 to a port on the host, default is 3333 |
 | `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development |
 | `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying external domain address of the ferdi server |
 | `-e DB_CONNECTION=sqlite` | for specifying the database being used, default is sqlite |
