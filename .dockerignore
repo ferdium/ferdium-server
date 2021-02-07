@@ -14,7 +14,7 @@ README-secret.md
 
 # ignore other directories
 docker
-!docker/root
+!docker/entrypoint.sh
 node_modules
 
 
