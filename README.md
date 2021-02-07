@@ -78,45 +78,7 @@ After setting up the docker container we recommend you to set up an NGINX revers
 	    getferdi/ferdi-server	    
     ```
 
-    Alternatively, you can also use docker-compose v2 schemas
-
-    ```sh
-    ---
-    version: "2"
-    services:
-    ferdi-server:
-        image: getferdi/ferdi-server
-        container_name: ferdi-server
-        environment:
-        - NODE_ENV=development
-        - EXTERNAL_DOMAIN=<ferdi-serverdomain>	 
-        - DB_CONNECTION=<database>
-        - DB_HOST=<yourdbhost>
-        - DB_PORT=<yourdbPORT>
-        - DB_USER=<yourdbuser>
-        - DB_PASSWORD=<yourdbpass>
-        - DB_DATABASE=<yourdbdatabase>
-        - DB_SSL=true/false
-        - MAIL_CONNECTION=<mailsender>
-        - SMPT_HOST=<smtpmailserver>
-        - SMTP_PORT=<smtpport>
-        - MAIL_SSL=true/false
-        - MAIL_USERNAME=<yourmailusername>
-        - MAIL_PASSWORD=<yourmailpassword>
-        - MAIL_SENDER=<sendemailaddress>
-        - IS_CREATION_ENABLED=true/false
-        - IS_DASHBOARD_ENABLED=true/false
-        - IS_REGISTRATION_ENABLED=true/false
-        - CONNECT_WITH_FRANZ=true/false
-        volumes:
-        - <path to data>:/config
-        - <path to database>:/app/database
-        - <path to recipes>:/app/recipes
-        ports:
-        - <port>:80
-        restart: unless-stopped
-    ```
-   You can also use sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) file.
+    Alternatively, you can also use docker-compose v2 schemas. An example can be found in [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) file.
 
 3. Optionally, you can now [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 

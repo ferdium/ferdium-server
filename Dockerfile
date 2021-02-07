@@ -18,7 +18,6 @@ ENV HOST=0.0.0.0 PORT=3333
 RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl"]
 
 COPY --from=build /server-build /app
-RUN ["touch", ".env"]
 RUN ["npm", "i", "-g", "@adonisjs/cli"]
 
 HEALTHCHECK --interval=5m --timeout=3s CMD curl -sSf http://localhost:${PORT}/health

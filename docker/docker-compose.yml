@@ -24,10 +24,10 @@ services:
       - IS_DASHBOARD_ENABLED=true
       - IS_REGISTRATION_ENABLED=true
       - CONNECT_WITH_FRANZ=false
-      - DATA_DIR=/database
+      - DATA_DIR=my-database
     volumes:
       - ferdi-config-vol:/config
-      - ferdi-database-vol:/database
+      - ferdi-database-vol:/app/my-database
       - ferdi-recipes-vol:/app/recipes
     ports:
       - 3333:3333

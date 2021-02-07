@@ -33,7 +33,7 @@ elif [ -f "/config/FERDI_APP_KEY.txt" ];
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
 fi
 
-export APP_KEY=$APP_KEY
+export APP_KEY
 
 node ace migration:run --force
 

@@ -101,6 +101,7 @@ After the first run, Ferdi-server's configuration is saved inside the `config.tx
 | `-e IS_DASHBOARD_ENABLED=true` | for specifying whether to enable the Ferdi-server dashboard, default is true |
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
+| `-e DATA_DIR=database` | for specifying sql-lite database folder, default is database |
 | `-v <path to data>:/config` | this will store persistent ENV  data on the docker host |
 | `-v <path to database>:/app/database` | this will strore Ferdi-server's database on the docker host for persistence |
 | `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
