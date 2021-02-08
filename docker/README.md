@@ -56,6 +56,7 @@ To create the docker container with the proper parameters:
 	  -e IS_DASHBOARD_ENABLED=true \
 	  -e IS_REGISTRATION_ENABLED=true \
 	  -e CONNECT_WITH_FRANZ=true \
+	  -e DATA_DIR=data \
 	  -p <port>:80 \
 	  -v <path to data>:/config \
 	  -v <path to database>:/app/database \
@@ -102,7 +103,7 @@ If any environmental parameter is not passed to the container, its value will be
 | `-e IS_DASHBOARD_ENABLED=true` | for specifying whether to enable the Ferdi-server dashboard, default is true |
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
-| `-e DATA_DIR=database` | for specifying sql-lite database folder, default is database. Currently you need to use folder inside `/app` directory |
+| `-e DATA_DIR=data` | for specifying sql-lite database folder, default is database. |
 | `-v <path to data>:/config` | this will store persistent ENV  data on the docker host |
 | `-v <path to database>:/app/database` | this will strore Ferdi-server's database on the docker host for persistence |
 | `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
@@ -207,7 +208,6 @@ Below are the instructions for updating the container to get the most recent ver
 If you want to build this image locally, please run this command from root of [ferdi server repository](https://github.com/getferdi/server/tree/master/):
 ```
 docker build \
-  -f docker/Dockerfile \
   --no-cache \
   --pull \
   -t getferdi/ferdi-server:latest .
