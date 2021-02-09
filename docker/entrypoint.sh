@@ -14,17 +14,11 @@ Support our Open Collective at:
 https://opencollective.com/getferdi/
 EOL
 
-# if config.txt doesn't exist then create one with default values
-if [ ! -f /config/config.txt ]; then	
-	cp /app/.env.example /config/config.txt
-fi
-
-# use config.txt default values as .env file	
-if [ -f /app/.env ]; then	
-	rm /app/.env	
-	ln -s /config/config.txt /app/.env	
-elif [ ! -f /app/.env ]; then	
-	ln -s /config/config.txt /app/.env	
+# use config.txt or .env.example parameter values as default if they are not passed to container	
+if [ -f /config/config.txt ]; then
+    cp /config/config.txt /app/.env
+else
+    cp /app/.env.example /app/.env
 fi
 
 # Create APP key if needed

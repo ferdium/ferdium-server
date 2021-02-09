@@ -7,10 +7,11 @@
 .gitattributes
 .cache
 
-# ignore all markdown files (md) beside all README*.md other than README-secret.md
+# ignore all markdown files
 *.md
-!README*.md
-README-secret.md
+
+# Ignore database files
+*.sqlite
 
 # ignore other directories
 docker

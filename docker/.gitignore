@@ -4,10 +4,6 @@ node_modules
 # Adonis directory for storing tmp files
 tmp
 
-# The development sqlite file
-database/development.sqlite
-database/adonis.sqlite
-
 # Uploaded recipes
 recipes/
 

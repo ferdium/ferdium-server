@@ -76,9 +76,11 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/)	
 
 ## Configuration
 
-Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 3333:80` would expose port `80` from inside the container to be accessible from the host's IP on port `3333` outside the container. 
-After the first run, Ferdi-server's default configuration is saved inside the `config.txt` file inside your persistent data directory (`/config` in the container).
-If any environmental parameter is not passed to the container, its value will be taken from the `config.txt` file. You can also edit the `config.txt` file, but it is advisable to send the environment parameters to the container.
+Container images are configured using parameters passed at runtime (such as those above). 
+
+**Warning ,using `config.txt` will be deprecated in the future releases.** 
+
+If any of environmental parameters is not passed to the container, its value will be taken from the `/config/config.txt` file. **The previous functionality of saving container parameters in this file is now removed.**
 
 | Parameter | Function |
 | :----: | --- |
@@ -212,14 +214,6 @@ docker build \
   --pull \
   -t getferdi/ferdi-server:latest .
 ```
-
-## Versions
-
-* **05.02.21:** - Repository moved to ferdi-server repository
-* **19.01.21:** - Updated Mail SSL and DB SLL settings
-* **20.09.20:** - Updated SMTP Mailer settings for password reset.
-* **21.06.20:** - Rebase to Alpine 3.11 and added Mailer settings.
-* **25.09.19:** - Initial Release.
 
 ## License
 Ferdi-server-docker and ferdi-server are licensed under the MIT License.
