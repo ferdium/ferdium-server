@@ -1,7 +1,3 @@
-<p align="center">
-    <img src="./logo.png" alt="" width="300"/>  
-</p>
-
 # Ferdi-server-docker
 [Ferdi](https://github.com/getferdi/ferdi) is a hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted ones. Ferdi-server is an unofficial replacement of the Franz server for use with the Ferdi Client. 
 
