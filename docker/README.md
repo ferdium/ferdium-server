@@ -20,7 +20,7 @@ A custom ferdi-server allows you to experience the full potential of the Ferdi c
 
 Here are some example snippets to help you get started creating a container.
 
-The docker can be run as is, with the default sqlite database, or you can modifying your ENV variables to use an external database (e.g. MYSql, MariaDB, Postgres, etc). After setting up the docker container you will need to create a NGINX reverse proxy to access Ferdi-server outside of your home network. 
+The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will likely need to create a reverse proxy to access Ferdi-server outside of your home network, using for example NGINX.
 
 ### docker
 
