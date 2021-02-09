@@ -78,7 +78,7 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/)	
 
 Container images are configured using parameters passed at runtime (such as those above). 
 
-**Warning ,using `config.txt` will be deprecated in the future releases.** 
+**Warning, using `config.txt` will be deprecated in the future releases.** 
 
 If any of environmental parameters is not passed to the container, its value will be taken from the `/config/config.txt` file. **The previous functionality of saving container parameters in this file is now removed.**
 
