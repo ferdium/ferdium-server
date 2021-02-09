@@ -134,7 +134,7 @@ To use a different email sender than the default, SMTP, enter the correct inform
 | SMTP | SMTP_PORT, SMTP_HOST, MAIL_USERNAME, MAIL_PASSWORD, MAIL_SSL |
 | SparkPost | SPARKPOST_API_KEY |
 | Mailgun | MAILGUN_DOMAIN, MAILGUN_API_REGION, MAILGUN_API_KEY |
-| Ethereal | A disposable account is created automatically if you choose this option. |
+| (**Deprecated**) Ethereal | A disposable account is created automatically if you choose this option. |
  
 ## NGINX config block
 To access Ferdi-server from outside of your home network on a subdomain use this server block:
