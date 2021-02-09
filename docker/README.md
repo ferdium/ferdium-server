@@ -116,8 +116,7 @@ To use a different database than the default, SQLite, enter the driver code belo
 
 | Database | Driver |
 | :----: | --- |
-| MariaDB | mysql |
-| MySQL | mysql |
+| MariaDB/MySQL | mysql |
 | PostgreSQL | pg |
 | SQLite3 | sqlite |
 
