@@ -262,12 +262,19 @@ class UserController {
     let token;
     try {
       const basicToken = btoa(`${email}:${hashedPassword}`);
+      const loginBody = {
+        isZendeskLogin: false
+      };
 
       const rawResponse = await fetch(`${base}auth/login`, {
         method: 'POST',
+        body: JSON.stringify(loginBody),
         headers: {
           Authorization: `Basic ${basicToken}`,
           'User-Agent': userAgent,
+          'Content-Type': 'application/json',
+          'accept': '*/*',
+          'x-franz-source': 'Web'
         },
       });
       const content = await rawResponse.json();
