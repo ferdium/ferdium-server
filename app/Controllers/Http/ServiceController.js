@@ -140,6 +140,7 @@ class ServiceController {
       let iconId;
       do {
         iconId = uuid() + uuid();
+      // eslint-disable-next-line no-await-in-loop
       } while (await fs.exists(path.join(Helpers.tmpPath('uploads'), iconId)));
 
       await icon.move(Helpers.tmpPath('uploads'), {

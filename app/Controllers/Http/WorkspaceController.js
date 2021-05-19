@@ -112,7 +112,8 @@ class WorkspaceController {
   }
 
   async delete({
-    request,
+    // eslint-disable-next-line no-unused-vars
+    _request,
     response,
     auth,
     params,

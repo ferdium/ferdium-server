@@ -12,12 +12,14 @@ ${Env.get('APP_URL')}/user/reset?token=${encodeURIComponent(token)}
 
 This message was sent automatically. Please do not reply.
 `;
-console.log('Sending message', body);
+  console.log('Sending message', body);
   try {
     await Mail.raw(body, (message) => {
-      message.subject('[Ferdi] Reset your password')
-      message.from(Env.get('MAIL_SENDER'))
-      message.to(user.email)
+      message.subject('[Ferdi] Reset your password');
+      message.from(Env.get('MAIL_SENDER'));
+      message.to(user.email);
     });
-  } catch(e) {}
+  } catch (e) {
+    console.log(`Couldn't send mail: ${e}`);
+  }
 });

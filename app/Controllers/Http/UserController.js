@@ -177,6 +177,7 @@ class UserController {
       ...request.all(),
     };
 
+    // eslint-disable-next-line no-param-reassign
     auth.user.settings = JSON.stringify(newSettings);
     await auth.user.save();
 
@@ -249,7 +250,7 @@ class UserController {
         email,
         password: hashedPassword,
         username: 'Franz',
-        lastname: 'Franz'
+        lastname: 'Franz',
       });
 
       return response.send('Your account has been created but due to this server\'s configuration, we could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.');
@@ -263,7 +264,7 @@ class UserController {
     try {
       const basicToken = btoa(`${email}:${hashedPassword}`);
       const loginBody = {
-        isZendeskLogin: false
+        isZendeskLogin: false,
       };
 
       const rawResponse = await fetch(`${base}auth/login`, {
@@ -273,8 +274,8 @@ class UserController {
           Authorization: `Basic ${basicToken}`,
           'User-Agent': userAgent,
           'Content-Type': 'application/json',
-          'accept': '*/*',
-          'x-franz-source': 'Web'
+          accept: '*/*',
+          'x-franz-source': 'Web',
         },
       });
       const content = await rawResponse.json();
@@ -312,7 +313,7 @@ class UserController {
         email: userInf.email,
         password: hashedPassword,
         username: userInf.firstname,
-        lastname: userInf.lastname
+        lastname: userInf.lastname,
       });
     } catch (e) {
       const errorMessage = `Could not create your user in our system.\nError: ${e}`;

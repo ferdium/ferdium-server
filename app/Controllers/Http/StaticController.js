@@ -34,7 +34,6 @@ class StaticController {
       defaultTrialPlan: 'franz-pro-yearly',
       subscribeURL: 'https://getferdi.com',
       planSelectionURL: 'https://getferdi.com',
-      isMagicBarEnabled: true,
       hasInlineCheckout: true,
       isPlanSelectionEnabled: false,
       isTrialStatusBarEnabled: false,
@@ -101,9 +100,11 @@ class StaticController {
   }) {
     return response.send(
       fs
-      .readJsonSync(path.join(
-        Helpers.appRoot(), "officialrecipes", "recipes", "all.json"))
-      .filter((recipe) => recipe.featured));
+        .readJsonSync(path.join(
+          Helpers.appRoot(), 'officialrecipes', 'recipes', 'all.json',
+        ))
+        .filter((recipe) => recipe.featured),
+    );
   }
 
   // Show announcements
