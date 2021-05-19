@@ -8,8 +8,8 @@ tmp
 .env
 
 # The development sqlite file
-database/development.sqlite
-database/adonis.sqlite
+data*/development.sqlite
+data*/adonis.sqlite
 
 # Uploaded recipes
 recipes/
