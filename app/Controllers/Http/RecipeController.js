@@ -61,7 +61,6 @@ class RecipeController {
       name: 'required|string',
       id: 'required|unique:recipes,recipeId',
       author: 'required|accepted',
-      png: 'required|url',
       svg: 'required|url',
     });
     if (validation.fails()) {
@@ -108,7 +107,6 @@ class RecipeController {
         featured: false,
         version: '1.0.0',
         icons: {
-          png: data.png,
           svg: data.svg,
         },
       }),
