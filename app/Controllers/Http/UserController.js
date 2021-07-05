@@ -48,9 +48,11 @@ class UserController {
     // Validate user input
     const validation = await validateAll(request.all(), {
       firstname: 'required',
+      lastname: 'required',
       email: 'required|email|unique:users,email',
       password: 'required',
     });
+
     if (validation.fails()) {
       return response.status(401).send({
         message: 'Invalid POST arguments',
@@ -59,7 +61,7 @@ class UserController {
       });
     }
 
-    const data = request.only(['firstname', 'email', 'password']);
+    const data = request.only(['firstname', 'lastname', 'email', 'password']);
 
     // Create user in DB
     let user;
@@ -68,6 +70,7 @@ class UserController {
         email: data.email,
         password: data.password,
         username: data.firstname,
+        lastname: data.lastname,
       });
     } catch (e) {
       return response.status(401).send({
@@ -149,13 +152,13 @@ class UserController {
       email: auth.user.email,
       emailValidated: true,
       features: {},
-      firstname: 'Franz',
+      firstname: auth.user.username,
       id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
       isPremium: true,
       isSubscriptionOwner: true,
-      lastname: 'Franz',
+      lastname: auth.user.lastname,
       locale: 'en-US',
-      ...settings || {},
+      ...settings || {},
     });
   }
 
@@ -174,6 +177,7 @@ class UserController {
       ...request.all(),
     };
 
+    // eslint-disable-next-line no-param-reassign
     auth.user.settings = JSON.stringify(newSettings);
     await auth.user.save();
 
@@ -185,13 +189,13 @@ class UserController {
         email: auth.user.email,
         emailValidated: true,
         features: {},
-        firstname: 'Franz',
+        firstname: auth.user.username,
         id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
         isPremium: true,
         isSubscriptionOwner: true,
-        lastname: 'Franz',
+        lastname: auth.user.lastname,
         locale: 'en-US',
-        ...newSettings || {},
+        ...newSettings || {},
       },
       status: [
         'data-updated',
@@ -246,6 +250,7 @@ class UserController {
         email,
         password: hashedPassword,
         username: 'Franz',
+        lastname: 'Franz',
       });
 
       return response.send('Your account has been created but due to this server\'s configuration, we could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.');
@@ -258,12 +263,19 @@ class UserController {
     let token;
     try {
       const basicToken = btoa(`${email}:${hashedPassword}`);
+      const loginBody = {
+        isZendeskLogin: false,
+      };
 
       const rawResponse = await fetch(`${base}auth/login`, {
         method: 'POST',
+        body: JSON.stringify(loginBody),
         headers: {
           Authorization: `Basic ${basicToken}`,
           'User-Agent': userAgent,
+          'Content-Type': 'application/json',
+          accept: '*/*',
+          'x-franz-source': 'Web',
         },
       });
       const content = await rawResponse.json();
@@ -301,6 +313,7 @@ class UserController {
         email: userInf.email,
         password: hashedPassword,
         username: userInf.firstname,
+        lastname: userInf.lastname,
       });
     } catch (e) {
       const errorMessage = `Could not create your user in our system.\nError: ${e}`;

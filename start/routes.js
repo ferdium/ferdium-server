@@ -60,26 +60,25 @@ Route.group(() => {
 }).prefix('v1');
 
 // User dashboard
-if (Env.get('IS_DASHBOARD_ENABLED') != 'false') {
+if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
   Route.group(() => {
     // Auth
     Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
     Route.post('login', 'DashboardController.login').middleware('guest').as('login');
-    
+
     // Reset password
     Route.get('forgot', ({ view }) => view.render('dashboard.forgotPassword')).middleware('guest');
     Route.post('forgot', 'DashboardController.forgotPassword').middleware('guest');
 
     Route.get('reset', ({ view, request }) => {
-      const token = request.get().token;
+      const { token } = request.get();
       if (token) {
-        return view.render('dashboard.resetPassword', { token })
-      } else {
-        return view.render('others.message', {
-          heading: 'Invalid token',
-          text: 'Please make sure you are using a valid and recent link to reset your password.',
-        });
+        return view.render('dashboard.resetPassword', { token });
       }
+      return view.render('others.message', {
+        heading: 'Invalid token',
+        text: 'Please make sure you are using a valid and recent link to reset your password.',
+      });
     }).middleware('guest');
     Route.post('reset', 'DashboardController.resetPassword').middleware('guest');
 
@@ -92,19 +91,19 @@ if (Env.get('IS_DASHBOARD_ENABLED') != 'false') {
     Route.get('export', 'DashboardController.export').middleware('auth:session');
     Route.post('transfer', 'DashboardController.import').middleware('auth:session');
     Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
-   
+
     Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
     Route.post('delete', 'DashboardController.delete').middleware('auth:session');
-   
+
     Route.get('logout', 'DashboardController.logout').middleware('auth:session');
-  
+
     Route.get('*', ({ response }) => response.redirect('/user/account'));
   }).prefix('user').middleware('shield');
 } else {
   Route.group(() => {
     Route.get('*', ({
       response,
-    }) => response.send('The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.'))
+    }) => response.send('The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.'));
   }).prefix('user');
 }
 

@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Persona
@@ -92,7 +90,5 @@ module.exports = {
   | An object of validation messages to be used when validation fails.
   |
   */
-  validationMessages: () => {
-    return {}
-  }
-}
+  validationMessages: () => ({}),
+};

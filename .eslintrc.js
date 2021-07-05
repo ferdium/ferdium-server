@@ -10,7 +10,12 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    use: 'readonly'
+    use: 'readonly',
+    window: 'readonly',
+    document: 'readonly',
+    ENV: 'readonly',
+    session: 'readonly',
+    response: 'readonly',
   },
   parserOptions: {
     ecmaVersion: 2018,
@@ -18,5 +23,6 @@ module.exports = {
   rules: {
     "class-methods-use-this": 'off',
     "no-restricted-syntax": 'off',
+    "max-len": 0,
   },
 };

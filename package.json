@@ -4,10 +4,16 @@
   "adonis-version": "4.1.0",
   "description": "Ferdi server to replace the default Franz server.",
   "main": "index.js",
+  "engines": {
+    "node": "^14.16",
+    "npm": "^6.14",
+    "node-gyp": "^8.0"
+  },
   "scripts": {
+    "prepare": "husky install",
     "start": "node server.js",
     "test": "node ace test",
-    "lint": "eslint --fix ./"
+    "lint": "eslint --quiet --fix ./"
   },
   "keywords": [
     "adonisjs",
@@ -48,7 +54,8 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^1.7.0"
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^6.0.0"
   },
   "autoload": {
     "App": "./app"

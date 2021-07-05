@@ -63,7 +63,8 @@ class DashboardController {
     }
     try {
       await Persona.forgotPassword(request.input('mail'));
-    } catch(e) {}
+    // eslint-disable-next-line no-empty
+    } catch (e) {}
 
     return view.render('others.message', {
       heading: 'Reset password',
@@ -91,11 +92,11 @@ class DashboardController {
     const payload = {
       password: crypto.createHash('sha256').update(request.input('password')).digest('base64'),
       password_confirmation: crypto.createHash('sha256').update(request.input('password_confirmation')).digest('base64'),
-    }
+    };
 
     try {
       await Persona.updatePasswordByToken(request.input('token'), payload);
-    } catch(e) {
+    } catch (e) {
       return view.render('others.message', {
         heading: 'Cannot reset your password',
         text: 'Please make sure you are using a valid and recent link to reset your password and that your passwords entered match.',
@@ -122,6 +123,7 @@ class DashboardController {
     return view.render('dashboard.account', {
       username: auth.user.username,
       email: auth.user.email,
+      lastname: auth.user.lastname,
     });
   }
 
@@ -135,6 +137,7 @@ class DashboardController {
     let validation = await validateAll(request.all(), {
       username: 'required',
       email: 'required',
+      lastname: 'required',
     });
     if (validation.fails()) {
       session.withErrors(validation.messages()).flashExcept(['password']);
@@ -168,6 +171,7 @@ class DashboardController {
     // Update user account
     const { user } = auth;
     user.username = request.input('username');
+    user.lastname = request.input('lastname');
     user.email = request.input('email');
     if (request.input('password')) {
       const hashedPassword = crypto.createHash('sha256').update(request.input('password')).digest('base64');
@@ -192,6 +196,7 @@ class DashboardController {
 
     return view.render('dashboard.data', {
       username: general.username,
+      lastname: general.lastname,
       mail: general.email,
       created: general.created_at,
       updated: general.updated_at,
@@ -211,6 +216,7 @@ class DashboardController {
 
     const exportData = {
       username: general.username,
+      lastname: general.lastname,
       mail: general.email,
       services,
       workspaces,
