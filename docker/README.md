@@ -80,7 +80,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p <port>:80` | Will map the container's port 80 to a port on the host, default is 3333 |
+| `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333 |
 | `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed** |
 | `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying the external domain address of the Ferdi-server |
 | `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is sqlite, see [below](#supported-databases-and-drivers) for other options |
