@@ -4,7 +4,7 @@
 This is a dockerized version of [Ferdi-server](https://github.com/getferdi/server) running on Alpine Linux and Node.js (v10.16.3).
 
 ## Why use a custom Ferdi-server?
-A custom ferdi-server allows you to experience the full potential of the Ferdi client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [adding your own recipes](#creating-and-using-custom-recipes).
+A custom ferdi-server allows you to experience the full potential of the Ferdi Client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [add your own recipes](#creating-and-using-custom-recipes).
 
 ## Features
 - [x] User registration and login
@@ -20,7 +20,7 @@ A custom ferdi-server allows you to experience the full potential of the Ferdi c
 
 Here are some example snippets to help you get started creating a container.
 
-The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will likely need to create a reverse proxy to access Ferdi-server outside of your home network, using for example NGINX.
+The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will likely need to create a reverse proxy to access Ferdi-server outside of your home network, using a webserver such as NGINX.
 
 ### docker
 
@@ -62,38 +62,38 @@ To create the docker container with the proper parameters:
 
 ### docker-compose
 
-  You can use sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml).
-  This will pull latest image from Docker Hub or use local image which you can build using instructions in [Building locally section](#Building-locally).
+  You can use the provided sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) if you are happy with the default environmental variables. This will pull the latest image from Docker Hub or use a local copy of the image which you can build using the instructions provided in the [Building locally section](#building-locally).
   
   To start the application, use
 		
 		docker-compose up
 The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
 
+**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default sqlite database name and location, please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
+
 ## Configuration
 
 Container images are configured using parameters passed at runtime (such as those above). 
 
-**Warning, using `config.txt` will be deprecated in the future releases.** 
-
-If any of environmental parameters is not passed to the container, its value will be taken from the `/config/config.txt` file. **The previous functionality of saving container parameters in this file is now removed.**
+**Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime.** 
+<strike>If any environmental parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike> 
 
 | Parameter | Function |
 | :----: | --- |
-| `-p <port>:3333` | will map the container's port 80 to a port on the host, default is 3333 |
-| `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development |
-| `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying external domain address of the ferdi server |
-| `-e DB_CONNECTION=sqlite` | for specifying the database being used, default is sqlite |
+| `-p <port>:80` | Will map the container's port 80 to a port on the host, default is 3333 |
+| `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed** |
+| `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying the external domain address of the Ferdi-server |
+| `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is sqlite, see [below](#supported-databases-and-drivers) for other options |
 | `-e DB_HOST=<yourdbhost>` | for specifying the database host, default is 127.0.0.1 |
 | `-e DB_PORT=<yourdbport>` | for specifying the database port, default is 3306 |
 | `-e DB_USER=<yourdbuser>` | for specifying the database user, default is root |
 | `-e DB_PASSWORD=<yourdbpass>` | for specifying the database password, default is password |
-| `-e DB_DATABASE=adonis` | for specifying the database to be used, adonis |
-| `-e DB_SSL=false` | true only if your database is postgres and it is hosted online on platforms like GCP, AWS, etc |
+| `-e DB_DATABASE=<databasename>` | for specifying the database name to be used, default is database |
+| `-e DB_SSL=false` | true only if your database is postgres and it is hosted online, on platforms like GCP, AWS, etc |
 | `-e MAIL_CONNECTION=<mailsender>` | for specifying the mail sender to be used, default is smtp |
 | `-e SMPT_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
 | `-e SMTP_PORT=<smtpport>` | for specifying the mail port to be used, default is 2525 |
-| `-e MAIL_SSL=true/false` | for specifying SMTP mail secuirty, default is false |
+| `-e MAIL_SSL=true/false` | for specifying SMTP mail security, default is false |
 | `-e MAIL_USERNAME=<yourmailusername>` | for specifying your mail username to be used, default is username |
 | `-e MAIL_PASSWORD=<yourmailpassword>` | for specifying your mail password to be used, default is password |
 | `-e MAIL_SENDER=<sendemailaddress` | for specifying the mail sender address to be used, default is noreply@getferdi.com |
@@ -101,10 +101,10 @@ If any of environmental parameters is not passed to the container, its value wil
 | `-e IS_DASHBOARD_ENABLED=true` | for specifying whether to enable the Ferdi-server dashboard, default is true |
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
-| `-e DATA_DIR=data` | for specifying sql-lite database folder, default is database. |
+| `-e DATA_DIR=data` | for specifying the SQLite database folder, default is database |
 | `-v <path to data>:/config` | this will store persistent ENV  data on the docker host |
-| `-v <path to database>:/app/database` | this will strore Ferdi-server's database on the docker host for persistence |
-| `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
+| `-v <path to database>:/app/data` | this will store Ferdi-server's database on the docker host for persistence |
+| `-v <path to recipes>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
 
 By enabling the `CONNECT_WITH_FRANZ` option, Ferdi-server can:
     - Show the full Franz recipe library instead of only custom recipes
@@ -112,7 +112,7 @@ By enabling the `CONNECT_WITH_FRANZ` option, Ferdi-server can:
 
 ## Supported databases and drivers
 
-To use a different database than the default, SQLite, enter the driver code below in your ENV configuration. 
+To use a different database than the default, SQLite3, enter the driver code below in your ENV configuration. 
 
 | Database | Driver |
 | :----: | --- |
@@ -189,7 +189,7 @@ Below are the instructions for updating the container to get the most recent ver
 * Update the image: `docker pull getferdi/ferdi-server`
 * Stop the running container: `docker stop ferdi-server`
 * Delete the container: `docker rm ferdi-server`
-* Recreate a new container with the same docker create parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and your ENV settings will be preserved)
+* Recreate a new container with the same docker create parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and ENV settings will be preserved)
 * Start the new container: `docker start ferdi-server`
 * You can also remove the old dangling images: `docker image prune`
 
