@@ -14,7 +14,7 @@ Support our Open Collective at:
 https://opencollective.com/getferdi/
 EOL
 
-# use config.txt or .env.example parameter values as default if they are not passed to container	
+# Use of config.txt in this image is deprecated. Users should include the environmental variables listed in the README.md when the running the container or use docker compose with an .env file based on the included .env.example.
 #if [ -f /config/config.txt ]; then
 #    cp /config/config.txt /app/.env
 #else
