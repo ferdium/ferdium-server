@@ -15,11 +15,11 @@ https://opencollective.com/getferdi/
 EOL
 
 # use config.txt or .env.example parameter values as default if they are not passed to container	
-if [ -f /config/config.txt ]; then
-    cp /config/config.txt /app/.env
-else
-    cp /app/.env.example /app/.env
-fi
+#if [ -f /config/config.txt ]; then
+#    cp /config/config.txt /app/.env
+#else
+#    cp /app/.env.example /app/.env
+#fi
 
 # Create APP key if needed
 if [ ! -f "/config/FERDI_APP_KEY.txt" ];
