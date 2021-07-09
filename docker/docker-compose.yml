@@ -11,7 +11,7 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_DATABASE=adonis
+      - DB_DATABASE=database
       - DB_SSL=false
       - MAIL_CONNECTION=smtp
       - SMPT_HOST=127.0.0.1
