@@ -107,7 +107,6 @@ class RecipeController {
         featured: false,
         version: '1.0.0',
         icons: {
-          png: data.png,
           svg: data.svg,
         },
       }),
