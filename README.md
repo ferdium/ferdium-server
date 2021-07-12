@@ -2,10 +2,10 @@
     <img src="./logo.png" alt="" width="300"/>
 </p>
 
-# ferdi-server
+# Ferdi-server
 Official Server software for the [Ferdi Messaging Browser](https://getferdi.com)
 
-- [ferdi-server](#ferdi-server)
+- [Ferdi-server](#ferdi-server)
   - [Why use a custom Ferdi server?](#why-use-a-custom-ferdi-server)
   - [Features](#features)
   - [Setup](#setup)
@@ -16,7 +16,7 @@ Official Server software for the [Ferdi Messaging Browser](https://getferdi.com)
   - [Transferring user data](#transferring-user-data)
   - [Creating and using custom recipes](#creating-and-using-custom-recipes)
     - [Listing custom recipes](#listing-custom-recipes)
-  - [Contributing to ferdi-server's development](#contributing-to-ferdi-servers-development)
+  - [Contributing to Ferdi-server's development](#contributing-to-ferdi-servers-development)
   - [License](#license)
 
 ## Why use a custom Ferdi server?
@@ -30,7 +30,7 @@ If you are not interested in doing this you can use our official instance of Fer
 - [x] Workspace support
 - [x] Functioning service store
 - [x] User dashboard
-- [x] Export/import data to other ferdi-servers
+- [x] Export/import data to other Ferdi-servers
 - [ ] Password recovery
 - [ ] Recipe update
 
@@ -39,7 +39,9 @@ If you are not interested in doing this you can use our official instance of Fer
 The easiest way to set up Ferdi server on your server is with Docker.
 
 The Docker image can be run as is, with the default sqlite database or you can modifying your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc).
-After setting up the docker container we recommend you to set up an NGINX reverse proxy to access ferdi-server outside of your home network and protect it with an SSL certificate.
+After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdi-server outside of your home network and protect it with an SSL certificate.
+
+**Warning**, please note that the use of the previous `config.txt` is now deprecated. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user please see [the Ferdi docker documentation](./docker/README.md) for more information.
 
 1. Pull the Docker image
 
@@ -126,26 +128,26 @@ Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-betwee
 
 ## Creating and using custom recipes
 
-ferdi-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
+Ferdi-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
 
 For documentation on how to create a recipe, please visit [the official guide by Franz](https://github.com/meetfranz/plugins/blob/master/docs/integration.md).
 
-To add your recipe to ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in your browser. You can now define the following settings:
+To add your recipe to Ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in your browser. You can now define the following settings:
 
 - `Author`: Author who created the recipe
 - `Name`: Name for your new service. Can contain spaces and unicode characters
 - `Service ID`: Unique ID for this recipe. Does not contain spaces or special characters (e.g. `google-drive`)
 - `Link to SVG image`: Direct link to a 1024x1024 SVG image that is used as a logo inside the store. Please use jsDelivr when using a file uploaded to GitHub as raw.githubusercontent files won't load
-- `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+- `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
 
 ### Listing custom recipes
 
-Inside Ferdi, searching for `ferdi:custom` will list all your custom recipes.
+Inside Ferdi, searching for `ferdi:custom` will list all of your custom recipes.
 
-## Contributing to ferdi-server's development
+## Contributing to Ferdi-server's development
 
 We welcome all contributors. Please read the [contributing guidelines](CONTRIBUTING.md) to setup your development machine and proceed.
 
 ## License
 
-ferdi-server is licensed under the MIT License
+Ferdi-server is licensed under the MIT License
