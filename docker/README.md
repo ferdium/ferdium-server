@@ -4,7 +4,7 @@
 This is a dockerized version of [Ferdi-server](https://github.com/getferdi/server) running on Alpine Linux and Node.js (v10.16.3).
 
 ## Why use a custom Ferdi-server?
-A custom ferdi-server allows you to experience the full potential of the Ferdi Client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [add your own recipes](#creating-and-using-custom-recipes).
+A custom Ferdi-server allows you to experience the full potential of the Ferdi Client. It allows you to use all Premium features (e.g. Workspaces and custom URL recipes) and [add your own recipes](#creating-and-using-custom-recipes).
 
 ## Features
 - [x] User registration and login
@@ -13,7 +13,7 @@ A custom ferdi-server allows you to experience the full potential of the Ferdi C
 - [x] Functioning service store
 - [x] User dashboard
 - [x] Password recovery
-- [x] Export/import data to other ferdi-servers
+- [x] Export/import data to other Ferdi-servers
 - [ ] Recipe update
 
 ## Installation & Setup
@@ -171,7 +171,7 @@ To add your recipe to Ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in you
 - `Name`: Name for your new service. Can contain spaces and unicode characters
 - `Service ID`: Unique ID for this recipe. Does not contain spaces or special characters (e.g. `google-drive`)
 - `Link to PNG/SVG image`: Direct link to a 1024x1024 PNG image and SVG that is used as a logo inside the store. Please use jsDelivr when using a file uploaded to GitHub as raw.githubusercontent files won't load
-- `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+- `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
 
 ### Listing custom recipes
 Inside Ferdi, searching for `ferdi:custom` will list all your custom recipes.
@@ -202,7 +202,7 @@ Below are the instructions for updating the container to get the most recent ver
 
 ## Building locally
 
-If you want to build this image locally, please run this command from root of [ferdi server repository](https://github.com/getferdi/server/tree/master/):
+If you want to build this image locally, please run this command from root of [Ferdi-server repository](https://github.com/getferdi/server/tree/master/):
 ```
 docker build \
   --no-cache \
@@ -211,4 +211,4 @@ docker build \
 ```
 
 ## License
-Ferdi-server-docker and ferdi-server are licensed under the MIT License.
+Ferdi-server-docker and Ferdi-server are licensed under the MIT License.
