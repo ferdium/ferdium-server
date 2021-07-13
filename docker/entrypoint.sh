@@ -14,13 +14,6 @@ Support our Open Collective at:
 https://opencollective.com/getferdi/
 EOL
 
-# Use of config.txt in this image is deprecated. Users should include the environmental variables listed in the README.md when the running the container or use docker compose with an .env file based on the included .env.example.
-#if [ -f /config/config.txt ]; then
-#    cp /config/config.txt /app/.env
-#else
-#    cp /app/.env.example /app/.env
-#fi
-
 # Create APP key if needed
 if [ ! -f "/config/FERDI_APP_KEY.txt" ];
 	then
@@ -30,13 +23,11 @@ if [ ! -f "/config/FERDI_APP_KEY.txt" ];
 	APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
 	echo $APP_KEY > /config/FERDI_APP_KEY.txt
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
-	sed -i "s/APP_KEY=/APP_KEY=$APP_KEY/g" /config/config.txt
 elif [ -f "/config/FERDI_APP_KEY.txt" ];
 	then
 	echo " "
 	echo "**** App Key found ****"
 	APP_KEY=$(cat /config/FERDI_APP_KEY.txt)
-	sed -i "s/APP_KEY=.*/APP_KEY=$APP_KEY/g" /config/config.txt
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
 fi
 
