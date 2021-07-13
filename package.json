@@ -5,7 +5,7 @@
   "description": "Ferdi server to replace the default Franz server.",
   "main": "index.js",
   "engines": {
-    "node": "^14.16",
+    "node": "^14.17",
     "npm": "^6.14",
     "node-gyp": "^8.0"
   },
