@@ -73,15 +73,15 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/)	
 
 ## Configuration
 
-Container images are configured using parameters passed at runtime (such as those above). 
+Container images are configured using parameters passed at runtime (such as those above). An explanaition of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
 
 **Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime.** 
 <strike>If any environmental parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike> 
 
 | Parameter | Function |
 | :----: | --- |
-| `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333 |
-| `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed** |
+| `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333. See the [Docker docs](https://docs.docker.com/config/containers/container-networking/) for more information on port mapping |
+| `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed**. See the [Docker docs](https://docs.docker.com/) for more information on the use of environmental variables in [Command-line](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) and [Docker Compose](https://docs.docker.com/compose/environment-variables/) |
 | `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying the external domain address of the Ferdi-server |
 | `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is sqlite, see [below](#supported-databases-and-drivers) for other options |
 | `-e DB_HOST=<yourdbhost>` | for specifying the database host, default is 127.0.0.1 |
@@ -102,7 +102,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
 | `-e DATA_DIR=data` | for specifying the SQLite database folder, default is database |
-| `-v <path to data>:/config` | this will store persistent ENV  data on the docker host |
+| `-v <path to data>:/config` | this will store persistent configuration data on the docker host. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
 | `-v <path to database>:/app/data` | this will store Ferdi-server's database on the docker host for persistence |
 | `-v <path to recipes>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
 
