@@ -11,7 +11,7 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_DATABASE=database # existing Ferdi-server users who use the built-in sqlite database should use the database name "development"
+      - DB_DATABASE=ferdi # existing Ferdi-server users who use the built-in sqlite database should use the database name "development"
       - DB_SSL=false
       - MAIL_CONNECTION=smtp
       - SMPT_HOST=127.0.0.1
