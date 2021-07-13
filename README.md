@@ -48,7 +48,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
     ```sh
     docker pull getferdi/ferdi-server
     ```
-2. Create a new Docker container with your desired configuration
+2. Create a *new* Docker container with your desired configuration **Existing users please seee the warning above.**
 
     ```sh
 	    docker create \
@@ -73,6 +73,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    -e IS_DASHBOARD_ENABLED=true \
 	    -e IS_REGISTRATION_ENABLED=true \
 	    -e CONNECT_WITH_FRANZ=true \
+      -e DATA_DIR=data \
 	    -p <port>:3333 \
 	    -v <path to data>:/config \
 	    -v <path to database>:/app/database \
