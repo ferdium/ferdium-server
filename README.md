@@ -41,7 +41,7 @@ The easiest way to set up Ferdi server on your server is with Docker.
 The Docker image can be run as is, with the default SQLite database or you can modifying your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc).
 After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdi-server outside of your home network and protect it with an SSL certificate.
 
-**Warning**, please note that the use of the previous `config.txt` is now deprecated. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user please see [the Ferdi docker documentation](./docker/README.md) for more information.
+**Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environmental variables have changed, specifically the default database name and local, the internal contianer port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user please see [the Ferdi docker documentation](./docker/README.md) and the example [docker-compose.yml](./docker/docker-compose.yml) for more information.
 
 1. Pull the Docker image
 
@@ -73,7 +73,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    -e IS_DASHBOARD_ENABLED=true \
 	    -e IS_REGISTRATION_ENABLED=true \
 	    -e CONNECT_WITH_FRANZ=true \
-	    -p <port>:80 \
+	    -p <port>:3333 \
 	    -v <path to data>:/config \
 	    -v <path to database>:/app/database \
 	    -v <path to recipes>:/app/recipes \
