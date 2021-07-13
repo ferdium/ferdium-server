@@ -15,7 +15,7 @@ https://opencollective.com/getferdi/
 EOL
 
 # Create APP key if needed
-if  [[ -f "/app/adata/FERDI_APP_KEY.txt" ]]; then
+if  [[ -f "${DATA_DIR}/FERDI_APP_KEY.txt" ]]; then
 	echo " "
 	echo "**** App Key found ****"
 	APP_KEY=$(echo "${APP_KEY}")
