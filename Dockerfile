@@ -13,7 +13,7 @@ FROM node:lts-alpine
 WORKDIR /app
 LABEL maintainer="xthursdayx"
 
-ENV HOST=0.0.0.0 PORT=3333
+ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
 
 RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl"]
 
