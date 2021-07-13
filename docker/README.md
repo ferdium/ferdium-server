@@ -69,7 +69,7 @@ To create the docker container with the proper parameters:
 		docker-compose up
 The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
 
-**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
+**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal containeer port. Please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
 
 ## Configuration
 
@@ -80,7 +80,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333. See the [Docker docs](https://docs.docker.com/config/containers/container-networking/) for more information on port mapping |
+| `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333. See the [Docker docs](https://docs.docker.com/config/containers/container-networking/) for more information about port mapping |
 | `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed**. See the [Docker docs](https://docs.docker.com/) for more information on the use of environmental variables in [Command-line](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) and [Docker Compose](https://docs.docker.com/compose/environment-variables/) |
 | `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying the external domain address of the Ferdi-server |
 | `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is sqlite, see [below](#supported-databases-and-drivers) for other options |
