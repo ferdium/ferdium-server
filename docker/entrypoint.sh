@@ -24,7 +24,7 @@ elif [[ -z "${APP_KEY}" ]]; then
 	echo "**** Generating Ferdi-server app key for first run ****"
 	adonis key:generate
 	APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
-	echo $APP_KEY > /app/data/FERDI_APP_KEY.txt
+	echo "${APP_KEY}" > "${DATA_DIR}/FERDI_APP_KEY.txt"
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
 fi
 
