@@ -32,7 +32,7 @@ module.exports = {
   sqlite: {
     client: 'sqlite3',
     connection: {
-      filename: path.join(Env.get('DATA_DIR', 'data'), `${Env.get('DB_DATABASE', 'ferdi')}.sqlite`),
+      filename: path.join(Env.get('DATA_DIR', '/data'), `${Env.get('DB_DATABASE', 'ferdi')}.sqlite`),
     },
     useNullAsDefault: true,
     debug: Env.get('DB_DEBUG', false),
