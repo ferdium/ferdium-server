@@ -62,7 +62,7 @@ To create the docker container with the proper parameters:
 
 ### docker-compose
 
-  You can use the provided sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) if you are happy with the default environmental variables. This will pull the latest image from Docker Hub or use a local copy of the image which you can build using the instructions provided in the [Building locally section](#building-locally).
+  You can use the provided sample [docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) if you are happy with the default environmental variables. This will pull the latest image from Docker Hub or use a local copy of the image which you can build using the instructions provided in the [Building locally section](#building-locally).
   
   To start the application, use
 		
