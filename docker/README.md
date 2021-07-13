@@ -69,7 +69,7 @@ To create the docker container with the proper parameters:
 		docker-compose up
 The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
 
-**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default sqlite database name and location, please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
+**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
 
 ## Configuration
 
@@ -88,7 +88,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e DB_PORT=<yourdbport>` | for specifying the database port, default is 3306 |
 | `-e DB_USER=<yourdbuser>` | for specifying the database user, default is root |
 | `-e DB_PASSWORD=<yourdbpass>` | for specifying the database password, default is password |
-| `-e DB_DATABASE=<databasename>` | for specifying the database name to be used, default is database |
+| `-e DB_DATABASE=<databasename>` | for specifying the database name to be used, default is ferdi |
 | `-e DB_SSL=false` | true only if your database is postgres and it is hosted online, on platforms like GCP, AWS, etc |
 | `-e MAIL_CONNECTION=<mailsender>` | for specifying the mail sender to be used, default is smtp |
 | `-e SMPT_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
@@ -101,7 +101,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IS_DASHBOARD_ENABLED=true` | for specifying whether to enable the Ferdi-server dashboard, default is true |
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
-| `-e DATA_DIR=data` | for specifying the SQLite database folder, default is database |
+| `-e DATA_DIR=data` | for specifying the SQLite database folder, default is data |
 | `-v <path to data>:/config` | this will store persistent configuration data on the docker host. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
 | `-v <path to database>:/app/data` | this will store Ferdi-server's database on the docker host for persistence |
 | `-v <path to recipes>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
