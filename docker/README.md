@@ -53,7 +53,7 @@ To create the docker container with the proper parameters:
 	  -e IS_REGISTRATION_ENABLED=true \
 	  -e CONNECT_WITH_FRANZ=true \
 	  -e DATA_DIR=/data \
-	  -p <port>:80 \
+	  -p <port>:3333 \
 	  -v <path to data>:/config \
 	  -v <path to database>:/app/database \
 	  -v <path to recipes>:/app/recipes \
