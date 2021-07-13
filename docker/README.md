@@ -54,8 +54,7 @@ To create the docker container with the proper parameters:
 	  -e CONNECT_WITH_FRANZ=true \
 	  -e DATA_DIR=/data \
 	  -p <port>:3333 \
-	  -v <path to data>:/config \
-	  -v <path to database>:/app/database \
+	  -v <path to data>:/data \
 	  -v <path to recipes>:/app/recipes \
 	  --restart unless-stopped \
 	  getferdi/ferdi-server
