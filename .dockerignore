@@ -13,6 +13,7 @@
 # ignore other directories
 docker
 !docker/entrypoint.sh
+!docker/.env
 node_modules
 
 
