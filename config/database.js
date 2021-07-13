@@ -1,3 +1,4 @@
+const path = require("path");
 
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env');
