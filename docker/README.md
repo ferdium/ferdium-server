@@ -52,7 +52,7 @@ To create the docker container with the proper parameters:
 	  -e IS_DASHBOARD_ENABLED=true \
 	  -e IS_REGISTRATION_ENABLED=true \
 	  -e CONNECT_WITH_FRANZ=true \
-	  -e DATA_DIR=data \
+	  -e DATA_DIR=/data \
 	  -p <port>:80 \
 	  -v <path to data>:/config \
 	  -v <path to database>:/app/database \
