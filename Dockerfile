@@ -9,7 +9,7 @@ COPY . /server-build
 RUN ["npm", "ci", "--production", "--build-from-source", "--sqlite=/usr/local"]
 
 FROM node:lts-alpine
- # TODO  implement process to run ferdi-server as non-root user. See comments on https://github.com/getferdi/server/pull/48/
+# TODO:  implement process to run ferdi-server as non-root user. See comments on https://github.com/getferdi/server/pull/48/
 WORKDIR /app
 LABEL maintainer="xthursdayx"
 
@@ -23,4 +23,5 @@ RUN ["npm", "i", "-g", "@adonisjs/cli"]
 HEALTHCHECK --interval=5m --timeout=3s CMD curl -sSf http://localhost:${PORT}/health
 
 COPY docker/entrypoint.sh /entrypoint.sh
+COPY docker/.env /app/.env
 CMD ["/entrypoint.sh"]
