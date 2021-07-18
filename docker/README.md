@@ -22,7 +22,7 @@ Here are some example snippets to help you get started creating a container.
 
 The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will need to create a reverse proxy to access Ferdi-server outside of your home network, using a webserver such as NGINX.
 
-**Existing users, please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal containeer port. Please see the comments in the [Migration section](#migrating-from-an-existing-ferdi-server) below in order to continue using your existing Ferdi-server database.
+**Existing users, please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal container port. The new container port is `3333`. If you would like to keep your existing SQLite database, you will need to add the `DATA_DIR` variable and change it to `/app/database`, to match your existing data volume. You will also need to change the `DB_DATABASE` variable to `development` to match your existing database. Please see the parameters in the [Migration section](#migrating-from-an-existing-ferdi-server) below.
 
 ### docker
 
@@ -101,8 +101,8 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
 | `-e DATA_DIR=data` | for specifying the SQLite database folder, default is data |
-| `-v <path to data>:/data` | this will store Ferdi-server's data (its database, among other things) on the docker host for persistence. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
-| `-v <path to recipes>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
+| `-v <path to data on host>:/data` | this will store Ferdi-server's data (its database, among other things) on the docker host for persistence. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
+| `-v <path to recipes on host>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
 
 By enabling the `CONNECT_WITH_FRANZ` option, Ferdi-server can:
     - Show the full Franz recipe library instead of only custom recipes
@@ -136,7 +136,7 @@ To use a different email sender than the default, SMTP, enter the correct inform
 | `-p 3333:3333` | existing Ferdi-server users will need to update their port mappings from `80:3333` to `3333:3333` |
 | `-e DB_PASSWORD=development` | existing Ferdi-server users who use the built-in sqlite database should use the database name `development` |
 | `-e DATA_DIR=/app/database` | existing Ferdi-server users should ensure that they add this variable to ensure data persistence |
-| `-v <path to data>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
+| `-v <path to data on host>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
  
 ## NGINX config block
 To access Ferdi-server from outside of your home network on a subdomain use this server block:
