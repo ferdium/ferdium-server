@@ -20,7 +20,9 @@ A custom Ferdi-server allows you to experience the full potential of the Ferdi C
 
 Here are some example snippets to help you get started creating a container.
 
-The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will likely need to create a reverse proxy to access Ferdi-server outside of your home network, using a webserver such as NGINX.
+The docker can be run as is, with the default sqlite database, or you can modify your environment variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc). After setting up the docker container you will need to create a reverse proxy to access Ferdi-server outside of your home network, using a webserver such as NGINX.
+
+**Existing users, please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal containeer port. Please see the comments in the [Migration section](#migrating-from-an-existing-ferdi-server) below in order to continue using your existing Ferdi-server database.
 
 ### docker
 
@@ -68,14 +70,12 @@ To create the docker container with the proper parameters:
 		docker-compose up -d
 The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
 
-**Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal containeer port. Please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
-
 ## Configuration
 
 Container images are configured using parameters passed at runtime (such as those above). An explanaition of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
 
-**Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime.** 
 <strike>If any environmental parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike> 
+**Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime. ** 
 
 | Parameter | Function |
 | :----: | --- |
@@ -128,6 +128,15 @@ To use a different email sender than the default, SMTP, enter the correct inform
 | SparkPost | SPARKPOST_API_KEY |
 | Mailgun | MAILGUN_DOMAIN, MAILGUN_API_REGION, MAILGUN_API_KEY |
 | (**Deprecated**) Ethereal | A disposable account is created automatically if you choose this option. |
+
+## Migrating from an existing Ferdi-server
+
+| Parameter | Function |
+| :----: | --- |
+| `-p 3333:3333` | existing Ferdi-server users will need to update their port mappings from `80:3333` to `3333:3333` |
+| `-e DB_PASSWORD=development` | existing Ferdi-server users who use the built-in sqlite database should use the database name `development` |
+| `-e DATA_DIR=/app/database` | existing Ferdi-server users should ensure that they add this variable to ensure data persistence |
+| `-v <path to data>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
  
 ## NGINX config block
 To access Ferdi-server from outside of your home network on a subdomain use this server block:
