@@ -23,5 +23,5 @@ RUN ["npm", "i", "-g", "@adonisjs/cli"]
 HEALTHCHECK --interval=5m --timeout=3s CMD curl -sSf http://localhost:${PORT}/health
 
 COPY docker/entrypoint.sh /entrypoint.sh
-COPY docker/.env /data/.env
+COPY docker/.env /app/.env
 CMD ["/entrypoint.sh"]
