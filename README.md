@@ -30,7 +30,7 @@ If you are not interested in doing this you can use our official instance of Fer
 - [x] Workspace support
 - [x] Functioning service store
 - [x] User dashboard
-- [x] Export/import data to other Ferdi servers
+- [x] Export/import data to other Ferdi-servers
 - [ ] Password recovery
 - [ ] Recipe update
 
@@ -39,7 +39,7 @@ If you are not interested in doing this you can use our official instance of Fer
 The easiest way to set up Ferdi-server on your server is with Docker.
 
 The Docker image can be run as is, with the default SQLite database or you can modify your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc).
-After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdi server outside of your home network and protect it with an SSL certificate.
+After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdi-server outside of your home network and protect it with an SSL certificate.
 
 **Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environmental variables have changed, specifically the default database name and location, the internal container port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user please see [the Ferdi docker documentation](./docker/README.md) and the example [docker-compose.yml](./docker/docker-compose.yml) for more information about migrating to the new image.
 
@@ -85,7 +85,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 
 3. Optionally, you can [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 
-For more information on configuring the Docker image, please read [the ferdi docker documentation](./docker/README.md).
+For more information on configuring the Docker image, please read [the Ferdi docker documentation](./docker/README.md).
 
 ### Manual setup
 
@@ -120,7 +120,7 @@ franz-server's configuration is saved inside an `.env` file. Besides AdonisJS's 
 
 Ferdi-server allows you to import your full Franz account, including all its settings.
 
-To import your Franz account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz account details. ferdi-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
+To import your Franz account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz account details. Ferdi-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
 
 ## Transferring user data
 
