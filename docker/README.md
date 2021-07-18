@@ -129,14 +129,30 @@ To use a different email sender than the default, SMTP, enter the correct inform
 
 ## Migrating from an existing Ferdi-server
 
+If you are an existing Ferdi-server user using the built-in `SQlite` database, you should include the following variables:
 | Parameter | Function |
 | :----: | --- |
-| `-p 3333:3333` | existing Ferdi-server users will need to update their port mappings from `80:3333` to `3333:3333` |
+| `-p 3333:3333` | existing Ferdi-server users will need to update their container port mappings from `80:3333` to `3333:3333` |
 | `-e DB_PASSWORD=development` | existing Ferdi-server users who use the built-in sqlite database should use the database name `development` |
-| `-e DATA_DIR=/app/database` | existing Ferdi-server users should add this environmental variable to ensure data persistence |
+| `-e DATA_DIR=/app/database` | existing Ferdi-server users who use the built-in sqlite database should add this environmental variable to ensure data persistence |
 | `-v <path to data on host>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
+
+If you are an existing Ferdi-server user who usees an external database or different variables for the built-in `SQlite` database, you should updatae your parameterse acordingly. For exaple, if you aree using an exterenal MariaDB or MYSql  database your unique parameters might look like this:
+| Parameter | Function |
+| :----: | --- |
+| `-e DB_CONNECTION=mysql` | for specifying the database being used |
+| `-e DB_HOST=192.168.10.1` | for specifying the database host machine IP |
+| `-e DB_PORT=3306` | for specifying the database port |
+| `-e DB_USER=ferdi` | for specifying the database user |
+| `-e DB_PASSWORD=ferdipw` | for specifying the database password|
+| `-e DB_DATABASE=adonis` | for specifying the database to be used|
+| `-v <path to database>:/app/database` | this will strore Ferdi-server's database on the docker host for persistence |
+| `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
+
+**In eithr case, pleasee be sure to pass the correct variables to the new Ferdi-server container in order maintain access to your existing database.**
  
 ## NGINX config block
+
 To access Ferdi-server from outside of your home network on a subdomain use this server block:
 
 ```
@@ -159,14 +175,17 @@ server {
 ```
 
 ## Importing your Franz account
+
 Ferdi-server allows you to import your full Franz account, including all its settings.
 
 To import your Franz account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz account details. Ferdi-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
 
 ## Transferring user data
+
 Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-between-servers>
 
 ## Creating and using custom recipes
+
 Ferdi-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
 
 For documentation on how to create a recipe, please visit [the official guide by Franz](https://github.com/meetfranz/plugins/blob/master/docs/integration.md).
@@ -179,6 +198,7 @@ To add your recipe to Ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in you
 - `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
 
 ### Listing custom recipes
+
 Inside Ferdi, searching for `ferdi:custom` will list all your custom recipes.
 
 ## Support Info
@@ -191,6 +211,7 @@ Inside Ferdi, searching for `ferdi:custom` will list all your custom recipes.
 Below are the instructions for updating the container to get the most recent version of Ferdi-server:
 
 ### Via Docker Run/Create
+
 * Update the image: `docker pull getferdi/ferdi-server`
 * Stop the running container: `docker stop ferdi-server`
 * Delete the container: `docker rm ferdi-server`
@@ -199,6 +220,7 @@ Below are the instructions for updating the container to get the most recent ver
 * You can also remove the old dangling images: `docker image prune`
 
 ### Via Docker Compose
+
 * Update all images: `docker-compose pull`
   * or update a single image: `docker-compose pull ferdi-server`
 * Let compose update all containers as necessary: `docker-compose up -d`
