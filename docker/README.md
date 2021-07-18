@@ -65,7 +65,7 @@ To create the docker container with the proper parameters:
   
   To start the application, use
 		
-		docker-compose up
+		docker-compose up -d
 The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
 
 **Existing users please note:** The latest updates to Ferdi-server and the Ferdi-server Docker image introduce changes to the default SQLite database name and location, as well as the internal containeer port. Please see the comments in the sample [./docker/docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) in order to continue using your existing database.
