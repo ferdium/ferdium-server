@@ -24,7 +24,7 @@ services:
       - IS_DASHBOARD_ENABLED=true
       - IS_REGISTRATION_ENABLED=true
       - CONNECT_WITH_FRANZ=false
-      - DATA_DIR=/data # existing Ferdi-server users should ensure that they add this variable to ensure data persistence.
+      - DATA_DIR=/data
     volumes:
       - ferdi-database-vol:/data # existing Ferdi-server users who use the built-in sqlite database should use the volume name "/app/database"
       - ferdi-recipes-vol:/app/recipes
