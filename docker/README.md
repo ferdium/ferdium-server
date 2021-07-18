@@ -64,11 +64,9 @@ To create the docker container with the proper parameters:
 ### docker-compose
 
   You can use the provided sample [docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) if you are happy with the default environmental variables. This will pull the latest image from Docker Hub or use a local copy of the image which you can build using the instructions provided in the [Building locally section](#building-locally).
-  
-  To start the application, use
-		
-		docker-compose up -d
-The server will be launched at [http://localhost:3333/](http://localhost:3333/)	address.
+
+  To start the application, use `docker-compose up -d`.
+The server will be launched at [http://localhost:3333/](http://localhost:3333/) address.
 
 ## Configuration
 
@@ -135,7 +133,7 @@ To use a different email sender than the default, SMTP, enter the correct inform
 | :----: | --- |
 | `-p 3333:3333` | existing Ferdi-server users will need to update their port mappings from `80:3333` to `3333:3333` |
 | `-e DB_PASSWORD=development` | existing Ferdi-server users who use the built-in sqlite database should use the database name `development` |
-| `-e DATA_DIR=/app/database` | existing Ferdi-server users should ensure that they add this variable to ensure data persistence |
+| `-e DATA_DIR=/app/database` | existing Ferdi-server users should add this environmental variable to ensure data persistence |
 | `-v <path to data on host>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
  
 ## NGINX config block
