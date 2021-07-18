@@ -29,7 +29,7 @@ services:
       - ferdi-database-vol:/data
       - ferdi-recipes-vol:/app/recipes
     ports:
-      - 3333:3333 # existing Ferdi-server users will neeed to update their portt mappings from 80:3333 to 3333:3333.
+      - 3333:3333
     restart: unless-stopped
 volumes:
   ferdi-database-vol:
