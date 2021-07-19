@@ -14,7 +14,7 @@
 docker
 !docker/entrypoint.sh
 !docker/.env
-#node_modules
+node_modules
 
 
 
