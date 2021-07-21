@@ -9,7 +9,7 @@ COPY . /server-build
 RUN ["npm", "ci", "--production", "--build-from-source", "--sqlite=/usr/local"]
 
 FROM node:lts-alpine
-# TODO:  implement process to run ferdi-server as non-root user. See comments on https://github.com/getferdi/server/pull/48/
+
 WORKDIR /app
 LABEL maintainer="xthursdayx"
 
