@@ -13,9 +13,9 @@ FROM node:lts-alpine
 WORKDIR /app
 LABEL maintainer="xthursdayx"
 
-ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
+ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data" 
 
-RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl"]
+RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl", "su-exec"]
 
 COPY --from=build /server-build /app
 RUN ["npm", "i", "-g", "@adonisjs/cli"]
