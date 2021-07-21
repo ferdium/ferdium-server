@@ -32,4 +32,6 @@ export APP_KEY
 
 node ace migration:run --force
 
-exec node server.js
+chown -R ${PUID:-1000}:${PGID:-1000) $DATA_DIR /app
+
+su-exec ${PUID:-1000}:${PGID:-1000} node server.js
