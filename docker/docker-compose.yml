@@ -25,6 +25,8 @@ services:
       - IS_REGISTRATION_ENABLED=true
       - CONNECT_WITH_FRANZ=false
       - DATA_DIR=/data
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ferdi-database-vol:/data
       - ferdi-recipes-vol:/app/recipes
