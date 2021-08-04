@@ -1,40 +1,34 @@
-
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 
 const Service = use('App/Models/Service');
 const Workspace = use('App/Models/Workspace');
 const Persona = use('Persona');
 
 const crypto = require('crypto');
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 class DashboardController {
-  async login({
-    request,
-    response,
-    auth,
-    session,
-  }) {
+  async login({ request, response, auth, session }) {
     const validation = await validateAll(request.all(), {
       mail: 'required|email',
       password: 'required',
     });
     if (validation.fails()) {
-      session.withErrors({
-        type: 'danger',
-        message: 'Invalid mail or password',
-      }).flashExcept(['password']);
+      session
+        .withErrors({
+          type: 'danger',
+          message: 'Invalid mail or password',
+        })
+        .flashExcept(['password']);
       return response.redirect('back');
     }
 
-    const {
-      mail,
-      password,
-    } = request.all();
+    const { mail, password } = request.all();
 
-    const hashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(password)
+      .digest('base64');
 
     try {
       await auth.authenticator('session').attempt(mail, hashedPassword);
@@ -48,10 +42,7 @@ class DashboardController {
     return response.redirect('/user/account');
   }
 
-  async forgotPassword({
-    request,
-    view,
-  }) {
+  async forgotPassword({ request, view }) {
     const validation = await validateAll(request.all(), {
       mail: 'required|email',
     });
@@ -63,7 +54,7 @@ class DashboardController {
     }
     try {
       await Persona.forgotPassword(request.input('mail'));
-    // eslint-disable-next-line no-empty
+      // eslint-disable-next-line no-empty
     } catch (e) {}
 
     return view.render('others.message', {
@@ -72,10 +63,7 @@ class DashboardController {
     });
   }
 
-  async resetPassword({
-    request,
-    view,
-  }) {
+  async resetPassword({ request, view }) {
     const validation = await validateAll(request.all(), {
       password: 'required',
       password_confirmation: 'required',
@@ -90,8 +78,14 @@ class DashboardController {
     }
 
     const payload = {
-      password: crypto.createHash('sha256').update(request.input('password')).digest('base64'),
-      password_confirmation: crypto.createHash('sha256').update(request.input('password_confirmation')).digest('base64'),
+      password: crypto
+        .createHash('sha256')
+        .update(request.input('password'))
+        .digest('base64'),
+      password_confirmation: crypto
+        .createHash('sha256')
+        .update(request.input('password_confirmation'))
+        .digest('base64'),
     };
 
     try {
@@ -109,11 +103,7 @@ class DashboardController {
     });
   }
 
-  async account({
-    auth,
-    view,
-    response,
-  }) {
+  async account({ auth, view, response }) {
     try {
       await auth.check();
     } catch (error) {
@@ -127,13 +117,7 @@ class DashboardController {
     });
   }
 
-  async edit({
-    auth,
-    request,
-    session,
-    view,
-    response,
-  }) {
+  async edit({ auth, request, session, view, response }) {
     let validation = await validateAll(request.all(), {
       username: 'required',
       email: 'required',
@@ -174,7 +158,10 @@ class DashboardController {
     user.lastname = request.input('lastname');
     user.email = request.input('email');
     if (request.input('password')) {
-      const hashedPassword = crypto.createHash('sha256').update(request.input('password')).digest('base64');
+      const hashedPassword = crypto
+        .createHash('sha256')
+        .update(request.input('password'))
+        .digest('base64');
       user.password = hashedPassword;
     }
     user.save();
@@ -186,10 +173,7 @@ class DashboardController {
     });
   }
 
-  async data({
-    auth,
-    view,
-  }) {
+  async data({ auth, view }) {
     const general = auth.user;
     const services = (await auth.user.services().fetch()).toJSON();
     const workspaces = (await auth.user.workspaces().fetch()).toJSON();
@@ -206,10 +190,7 @@ class DashboardController {
     });
   }
 
-  async export({
-    auth,
-    response,
-  }) {
+  async export({ auth, response }) {
     const general = auth.user;
     const services = (await auth.user.services().fetch()).toJSON();
     const workspaces = (await auth.user.workspaces().fetch()).toJSON();
@@ -228,13 +209,7 @@ class DashboardController {
       .send(exportData);
   }
 
-  async import({
-    auth,
-    request,
-    session,
-    response,
-    view,
-  }) {
+  async import({ auth, request, session, response, view }) {
     const validation = await validateAll(request.all(), {
       file: 'required',
     });
@@ -252,7 +227,10 @@ class DashboardController {
     }
 
     if (!file || !file.services || !file.workspaces) {
-      session.flash({ type: 'danger', message: 'Invalid Ferdi account file (2)' });
+      session.flash({
+        type: 'danger',
+        message: 'Invalid Ferdi account file (2)',
+      });
       return response.redirect('back');
     }
 
@@ -265,9 +243,13 @@ class DashboardController {
         let serviceId;
         do {
           serviceId = uuid();
-        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          (await Service.query().where('serviceId', serviceId).fetch()).rows
+            .length > 0
+        ); // eslint-disable-line no-await-in-loop
 
-        await Service.create({ // eslint-disable-line no-await-in-loop
+        await Service.create({
+          // eslint-disable-line no-await-in-loop
           userId: auth.user.id,
           serviceId,
           name: service.name,
@@ -291,11 +273,17 @@ class DashboardController {
         let workspaceId;
         do {
           workspaceId = uuid();
-        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          (await Workspace.query().where('workspaceId', workspaceId).fetch())
+            .rows.length > 0
+        ); // eslint-disable-line no-await-in-loop
 
-        const services = workspace.services.map((service) => serviceIdTranslation[service]);
+        const services = workspace.services.map(
+          service => serviceIdTranslation[service],
+        );
 
-        await Workspace.create({ // eslint-disable-line no-await-in-loop
+        await Workspace.create({
+          // eslint-disable-line no-await-in-loop
           userId: auth.user.id,
           workspaceId,
           name: workspace.name,
@@ -318,18 +306,12 @@ class DashboardController {
     });
   }
 
-  logout({
-    auth,
-    response,
-  }) {
+  logout({ auth, response }) {
     auth.authenticator('session').logout();
     return response.redirect('/user/login');
   }
 
-  delete({
-    auth,
-    response,
-  }) {
+  delete({ auth, response }) {
     auth.user.delete();
     auth.authenticator('session').logout();
     return response.redirect('/user/login');

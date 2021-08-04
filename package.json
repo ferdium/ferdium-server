@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "start": "node server.js",
     "test": "node ace test",
-    "lint": "eslint --quiet --fix ./"
+    "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix"
   },
   "keywords": [
     "adonisjs",
@@ -45,17 +45,14 @@
     "pg": "^7.18.2",
     "sqlite3": "^4.1.0",
     "targz": "^1.0.1",
-    "uuid": "^3.3.3"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^6.3.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^6.0.0"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "husky": "^7.0.1",
+    "prettier": "2.3.2"
   },
   "autoload": {
     "App": "./app"

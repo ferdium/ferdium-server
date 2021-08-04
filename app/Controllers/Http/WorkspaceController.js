@@ -1,18 +1,11 @@
-
 const Workspace = use('App/Models/Workspace');
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 class WorkspaceController {
   // Create a new workspace for user
-  async create({
-    request,
-    response,
-    auth,
-  }) {
+  async create({ request, response, auth }) {
     try {
       await auth.getUser();
     } catch (error) {
@@ -37,7 +30,10 @@ class WorkspaceController {
     let workspaceId;
     do {
       workspaceId = uuid();
-    } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+    } while (
+      (await Workspace.query().where('workspaceId', workspaceId).fetch()).rows
+        .length > 0
+    ); // eslint-disable-line no-await-in-loop
 
     const order = (await auth.user.workspaces().fetch()).rows.length;
 
@@ -59,12 +55,7 @@ class WorkspaceController {
     });
   }
 
-  async edit({
-    request,
-    response,
-    auth,
-    params,
-  }) {
+  async edit({ request, response, auth, params }) {
     try {
       await auth.getUser();
     } catch (error) {
@@ -85,22 +76,24 @@ class WorkspaceController {
     }
 
     const data = request.all();
-    const {
-      id,
-    } = params;
+    const { id } = params;
 
     // Update data in database
-    await (Workspace.query()
+    await Workspace.query()
       .where('workspaceId', id)
-      .where('userId', auth.user.id)).update({
-      name: data.name,
-      services: JSON.stringify(data.services),
-    });
+      .where('userId', auth.user.id)
+      .update({
+        name: data.name,
+        services: JSON.stringify(data.services),
+      });
 
     // Get updated row
-    const workspace = (await Workspace.query()
-      .where('workspaceId', id)
-      .where('userId', auth.user.id).fetch()).rows[0];
+    const workspace = (
+      await Workspace.query()
+        .where('workspaceId', id)
+        .where('userId', auth.user.id)
+        .fetch()
+    ).rows[0];
 
     return response.send({
       id: workspace.workspaceId,
@@ -136,14 +129,13 @@ class WorkspaceController {
       });
     }
 
-    const {
-      id,
-    } = params;
+    const { id } = params;
 
     // Update data in database
-    await (Workspace.query()
+    await Workspace.query()
       .where('workspaceId', id)
-      .where('userId', auth.user.id)).delete();
+      .where('userId', auth.user.id)
+      .delete();
 
     return response.send({
       message: 'Successfully deleted workspace',
@@ -151,10 +143,7 @@ class WorkspaceController {
   }
 
   // List all workspaces a user has created
-  async list({
-    response,
-    auth,
-  }) {
+  async list({ response, auth }) {
     try {
       await auth.getUser();
     } catch (error) {
@@ -165,15 +154,17 @@ class WorkspaceController {
     // Convert to array with all data Franz wants
     let workspacesArray = [];
     if (workspaces) {
-      workspacesArray = workspaces.map((workspace) => ({
+      workspacesArray = workspaces.map(workspace => ({
         id: workspace.workspaceId,
         name: workspace.name,
         order: workspace.order,
-        services: typeof workspace.services === 'string' ? JSON.parse(workspace.services) : workspace.services,
+        services:
+          typeof workspace.services === 'string'
+            ? JSON.parse(workspace.services)
+            : workspace.services,
         userId: auth.user.id,
       }));
     }
-
 
     return response.send(workspacesArray);
   }

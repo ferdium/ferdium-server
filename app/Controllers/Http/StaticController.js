@@ -1,4 +1,3 @@
-
 /**
  * Controller for routes with static responses
  */
