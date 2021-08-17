@@ -1,0 +1,38 @@
+version: "2"
+services:
+  ferdi-server:
+    image: getferdi/ferdi-server
+    container_name: ferdi-server
+    environment:
+      - NODE_ENV=development
+      - EXTERNAL_DOMAIN=localhost
+      - DB_CONNECTION=sqlite
+      - DB_HOST=127.0.0.1
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_DATABASE=ferdi
+      - DB_SSL=false
+      - MAIL_CONNECTION=smtp
+      - SMPT_HOST=127.0.0.1
+      - SMTP_PORT=2525
+      - MAIL_SSL=false
+      - MAIL_USERNAME=username
+      - MAIL_PASSWORD=password
+      - MAIL_SENDER=noreply@getferdi.com
+      - IS_CREATION_ENABLED=true
+      - IS_DASHBOARD_ENABLED=true
+      - IS_REGISTRATION_ENABLED=true
+      - CONNECT_WITH_FRANZ=false
+      - DATA_DIR=/data
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ferdi-database-vol:/data
+      - ferdi-recipes-vol:/app/recipes
+    ports:
+      - 3333:3333
+    restart: unless-stopped
+volumes:
+  ferdi-database-vol:
+  ferdi-recipes-vol:
