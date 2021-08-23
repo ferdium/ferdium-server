@@ -18,7 +18,7 @@ EOL
 if  [[ -f "${DATA_DIR}/FERDI_APP_KEY.txt" ]]; then
 	echo " "
 	echo "**** App Key found ****"
-	APP_KEY=$(echo "${APP_KEY}")
+	APP_KEY=$(cat /data/FERDI_APP_KEY.txt)
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
 elif [[ -z "${APP_KEY}" ]]; then
 	echo "**** Generating Ferdi-server app key for first run ****"
