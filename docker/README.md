@@ -161,15 +161,15 @@ server {
         listen 443 ssl http2;
         server_name ferdi.my.website;
 
-       	# all ssl related config moved to ssl.conf
+        # all ssl related config moved to ssl.conf
         include /config/nginx/ssl.conf;
 
         location / {
-             proxy_pass              http://<Ferdi-IP>:3333;
-             proxy_set_header        X-Real-IP            $remote_addr;
-             proxy_set_header        X-Forwarded-For	  $proxy_add_x_forwarded_for;
-             proxy_set_header        Host                 $host;
-             proxy_set_header        X-Forwarded-Proto    $scheme;
+          proxy_pass http://<Ferdi-IP>:3333;
+          proxy_set_header  X-Real-IP  $remote_addr;
+          proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+          proxy_set_header  Host  $host;
+          proxy_set_header  X-Forwarded-Proto  $scheme;
         }
 }
 ```
