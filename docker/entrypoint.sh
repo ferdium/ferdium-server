@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-echo << EOL
+cat << EOL
 -------------------------------------
           ____           ___
          / __/__ _______/ (_)
@@ -15,16 +15,13 @@ https://opencollective.com/getferdi/
 EOL
 
 # Create APP key if needed
-if  [[ -f "${DATA_DIR}/FERDI_APP_KEY.txt" ]]; then
-	echo " "
-	echo "**** App Key found ****"
-	APP_KEY=$(cat "${DATA_DIR}/FERDI_APP_KEY.txt")
-	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
-elif [[ -z "${APP_KEY}" ]]; then
+if [[ -z ${APP_KEY} && ! -f "${DATA_DIR}/FERDI_APP_KEY.txt" ]]; then
 	echo "**** Generating Ferdi-server app key for first run ****"
 	adonis key:generate
 	APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
 	echo "${APP_KEY}" > "${DATA_DIR}/FERDI_APP_KEY.txt"
+	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
+else APP_KEY=$(cat "${DATA_DIR}/FERDI_APP_KEY.txt")
 	echo "**** App Key set to $APP_KEY you can modify FERDI_APP_KEY.txt to update your key ****"
 fi
 
@@ -32,6 +29,6 @@ export APP_KEY
 
 node ace migration:run --force
 
-chown -R ${PUID:-1000}:${PGID:-1000} $DATA_DIR /app
+chown -R "${PUID:-1000}":"${PGID:-1000}" "$DATA_DIR" /app
 
-su-exec ${PUID:-1000}:${PGID:-1000} node server.js
+su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js#!/bin/bash
