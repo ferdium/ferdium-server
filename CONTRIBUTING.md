@@ -17,6 +17,7 @@
       - [Git](#git)
     - [Clone repository with submodule](#clone-repository-with-submodule)
     - [Install dependencies](#install-dependencies)
+    - [Start development app](#start-development-app)
     - [Styleguide](#styleguide)
       - [Git Commit Messages format](#git-commit-messages-format)
       - [Javascript Coding style-checker](#javascript-coding-style-checker)
@@ -87,7 +88,7 @@ cd server
 git submodule update --init --recursive
 ```
 
-It is important you execute the last command to get the required submodules (recipes, server).
+It is important you execute the last command to get the required submodules (recipes).
 
 ### Install dependencies
 
@@ -121,14 +122,6 @@ node ace migration:refresh
 ```
 
 - To get the full functionality, you will need to have an SMTP server running for local development.
-
-<!-- ### Package recipe repository
-
-Ferdi requires its recipes to be packaged before it can use it. When running Ferdi as a development instance, you'll need to package the local recipes before you can create any services inside Ferdi.
-
-```bash
-cd recipes && npm i && npm run package
-``` -->
 
 ### Start development app
 
