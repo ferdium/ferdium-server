@@ -1,4 +1,4 @@
-FROM node:lts-alpine as build
+FROM node:14.17-alpine as build
 
 WORKDIR /server-build
 
@@ -8,12 +8,12 @@ COPY . /server-build
 
 RUN ["npm", "ci", "--production", "--build-from-source", "--sqlite=/usr/local"]
 
-FROM node:lts-alpine
+FROM node:14.17-alpine
 
 WORKDIR /app
 LABEL maintainer="xthursdayx"
 
-ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data" 
+ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
 
 RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl", "su-exec"]
 
