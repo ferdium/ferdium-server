@@ -116,9 +116,9 @@ mkdir -p data
 
 - Run the database migrations with
 
-  ```bash
-  node ace migration:refresh
-  ```
+```bash
+node ace migration:refresh
+```
 
 - To get the full functionality, you will need to have an SMTP server running for local development.
 
@@ -132,9 +132,9 @@ cd recipes && npm i && npm run package
 
 ### Start development app
 
-  ```bash
-  npm start --dev
-  ```
+```bash
+npm start --dev
+```
 
 ### Styleguide
 

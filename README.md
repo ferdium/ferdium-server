@@ -6,7 +6,7 @@
 Official Server software for the [Ferdi Messaging Browser](https://getferdi.com)
 
 - [Ferdi-server](#ferdi-server)
-  - [Why use a custom Ferdi server?](#why-use-a-custom-ferdi-server)
+  - [Why use a custom Ferdi-server?](#why-use-a-custom-ferdi-server)
   - [Features](#features)
   - [Setup](#setup)
     - [with Docker](#with-docker)
@@ -89,7 +89,7 @@ For more information on configuring the Docker image, please read [the Ferdi doc
 
 ### Manual setup
 
-1. Clone this repository
+1. Clone repository with submodule
 2. Install the [AdonisJS CLI](https://adonisjs.com/)
 3. Copy `.env.example` to `.env` and edit the [configuration](#configuration) to your needs
 4. Have env DB_SSL=true only if your database is postgres and it is hosted online on platforms like GCP, AWS, etc
