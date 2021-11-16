@@ -1,7 +1,7 @@
 name: Build and Publish
 
 on:
-#  push:
+  push:
 #    branches:
 #      - 'main'
     tags:
@@ -23,8 +23,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ github.repository }}
-            ghcr.io/${{ github.repository }}
+            getferdi/ferdi-server
+#            ghcr.io/getferdi/ferdi-server
           tags: |
             type=ref,event=branch
             type=ref,event=pr
