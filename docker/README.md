@@ -1,5 +1,5 @@
 # Ferdi-server-docker
-[Ferdi](https://github.com/getferdi/ferdi) is a hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted ones. Ferdi-server is an unofficial replacement of the Franz server for use with the Ferdi Client. 
+[Ferdi](https://github.com/getferdi/ferdi) is a hard-fork of [Franz](https://github.com/meetfranz/franz), adding awesome features and removing unwanted ones. Ferdi-server is an unofficial replacement of the Franz server for use with the Ferdi Client.
 
 This is a dockerized version of [Ferdi-server](https://github.com/getferdi/server) running on Alpine Linux and Node.js (v10.16.3).
 
@@ -35,7 +35,7 @@ To create the docker container with the proper parameters:
 	docker create \
 	  --name=ferdi-server \
 	  -e NODE_ENV=development \
-	  -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \  
+	  -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \
 	  -e DB_CONNECTION=<database> \
 	  -e DB_HOST=<yourdbhost> \
 	  -e DB_PORT=<yourdbport> \
@@ -65,15 +65,15 @@ To create the docker container with the proper parameters:
 
   You can use the provided sample [docker-compose.yml](https://github.com/getferdi/server/tree/master/docker/docker-compose.yml) if you are happy with the default environmental variables. This will pull the latest image from Docker Hub or use a local copy of the image which you can build using the instructions provided in the [Building locally section](#building-locally).
 
-  To start the application, use `docker-compose up -d`.
+  To start the application, use `docker-compose -f docker/docker-compose.yml up -d`.
 The server will be launched at [http://localhost:3333/](http://localhost:3333/) address.
 
 ## Configuration
 
 Container images are configured using parameters passed at runtime (such as those above). An explanaition of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
 
-<strike>If any environmental parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike> 
-**Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime. ** 
+<strike>If any environmental parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike>
+**Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environmental variables to your container at runtime. **
 
 | Parameter | Function |
 | :----: | --- |
@@ -108,7 +108,7 @@ By enabling the `CONNECT_WITH_FRANZ` option, Ferdi-server can:
 
 ## Supported databases and drivers
 
-To use a different database than the default, SQLite3, enter the driver code below in your ENV configuration. 
+To use a different database than the default, SQLite3, enter the driver code below in your ENV configuration.
 
 | Database | Driver |
 | :----: | --- |
@@ -150,7 +150,7 @@ If you are an existing Ferdi-server user who usees an external database or diffe
 | `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
 
 **In eithr case, pleasee be sure to pass the correct variables to the new Ferdi-server container in order maintain access to your existing database.**
- 
+
 ## NGINX config block
 
 To access Ferdi-server from outside of your home network on a subdomain use this server block:
@@ -158,19 +158,19 @@ To access Ferdi-server from outside of your home network on a subdomain use this
 ```
 # Ferdi-server
 server {
-        listen 443 ssl http2;
-        server_name ferdi.my.website;
+  listen 443 ssl http2;
+  server_name ferdi.my.website;
 
-       	# all ssl related config moved to ssl.conf
-        include /config/nginx/ssl.conf;
+  # all ssl related config moved to ssl.conf
+  include /config/nginx/ssl.conf;
 
-        location / {
-             proxy_pass              http://<Ferdi-IP>:3333;
-             proxy_set_header        X-Real-IP            $remote_addr;
-             proxy_set_header        X-Forwarded-For	  $proxy_add_x_forwarded_for;
-             proxy_set_header        Host                 $host;
-             proxy_set_header        X-Forwarded-Proto    $scheme;
-        }
+  location / {
+    proxy_pass http://<Ferdi-IP>:3333;
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+    proxy_set_header  Host  $host;
+    proxy_set_header  X-Forwarded-Proto  $scheme;
+  }
 }
 ```
 
@@ -217,15 +217,13 @@ Below are the instructions for updating the container to get the most recent ver
 * Delete the container: `docker rm ferdi-server`
 * Recreate a new container with the same docker create parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and ENV settings will be preserved)
 * Start the new container: `docker start ferdi-server`
-* You can also remove the old dangling images: `docker image prune`
 
 ### Via Docker Compose
 
-* Update all images: `docker-compose pull`
-  * or update a single image: `docker-compose pull ferdi-server`
-* Let compose update all containers as necessary: `docker-compose up -d`
-  * or update a single container: `docker-compose up -d ferdi-server`
-* You can also remove the old dangling images: `docker image prune`
+* Update all images: `docker-compose -f docker/docker-compose.yml pull`
+  * or update a single image: `docker-compose -f docker/docker-compose.yml pull ferdi-server`
+* Let compose update all containers as necessary: `docker-compose -f docker/docker-compose.yml up -d`
+  * or update a single container: `docker-compose -f docker/docker-compose.yml up -d ferdi-server`
 
 ## Building locally
 
