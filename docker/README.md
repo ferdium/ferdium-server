@@ -137,7 +137,7 @@ If you are an existing Ferdi-server user using the built-in `SQlite` database, y
 | `-e DATA_DIR=/app/database` | existing Ferdi-server users who use the built-in sqlite database should add this environmental variable to ensure data persistence |
 | `-v <path to data on host>=/app/databases` | existing Ferdi-server users who use the built-in sqlite database should use the volume name `/app/database` |
 
-If you are an existing Ferdi-server user who usees an external database or different variables for the built-in `SQlite` database, you should updatae your parameterse acordingly. For exaple, if you aree using an exterenal MariaDB or MYSql  database your unique parameters might look like this:
+If you are an existing Ferdi-server user who uses an external database or different variables for the built-in `SQlite` database, you should updatae your parameterse acordingly. For example, if you aree using an exterenal MariaDB or MySql  database your unique parameters might look like this:
 | Parameter | Function |
 | :----: | --- |
 | `-e DB_CONNECTION=mysql` | for specifying the database being used |
@@ -149,7 +149,7 @@ If you are an existing Ferdi-server user who usees an external database or diffe
 | `-v <path to database>:/app/database` | this will strore Ferdi-server's database on the docker host for persistence |
 | `-v <path to recipes>:/app/recipes` | this will strore Ferdi-server's recipes on the docker host for persistence |
 
-**In eithr case, pleasee be sure to pass the correct variables to the new Ferdi-server container in order maintain access to your existing database.**
+**In either case, please be sure to pass the correct variables to the new Ferdi-server container in order maintain access to your existing database.**
 
 ## NGINX config block
 
