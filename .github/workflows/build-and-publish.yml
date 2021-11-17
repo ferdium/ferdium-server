@@ -32,7 +32,7 @@ jobs:
         with:
           images: |
             getferdi/ferdi-server
-            ghcr.io/getferdi/ferdi-server
+#            ghcr.io/getferdi/ferdi-server
           tags: |
             type=ref,event=branch
             type=ref,event=pr
