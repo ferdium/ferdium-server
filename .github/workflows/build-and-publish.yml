@@ -1,14 +1,22 @@
-name: Build and Publish
+name: Build and Publish Docker Image
 
 on:
   push:
-#    branches:
-#      - 'main'
+    branches:
+      - 'main'
+    paths-ignore:
+      - '**.md'
+      - '**.png'
     tags:
       - 'v*.*.*'
-#  pull_request:
-#    branches:
-#      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+    paths-ignore:
+      - '**.md'
+      - '**.png'
+  release:
+    types: [published]  
   workflow_dispatch:
 
 jobs:
