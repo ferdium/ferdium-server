@@ -32,7 +32,7 @@ jobs:
         with:
           images: |
             getferdi/ferdi-server
-#            ghcr.io/getferdi/ferdi-server
+            ghcr.io/getferdi/ferdi-server
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -69,8 +69,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}, getferdi/ferdi-server:latest
+          tags: ${{ steps.meta.outputs.tags }}, getferdi/ferdi-server:latest
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
