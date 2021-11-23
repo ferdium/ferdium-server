@@ -5,8 +5,8 @@ const Env = use('Env');
 Event.on('forgot::password', async ({ user, token }) => {
   const body = `
 Hello ${user.username},
-we just received a request to reset your password of your Ferdi account.
-Use the link below to reset your password. If you havn't requested this, please ignore this message.
+we received a request to reset your Ferdi account password.
+Use the link below to reset your password. If you didn't requested that your password be reset, please ignore this message.
 
 ${Env.get('EXTERNAL_DOMAIN')}/user/reset?token=${encodeURIComponent(token)}
 
