@@ -63,7 +63,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    -e DB_DATABASE=<yourdbdatabase> \
 	    -e DB_SSL=false \
 	    -e MAIL_CONNECTION=smtp \
-	    -e SMPT_HOST=<smtpmailserver> \
+	    -e SMTP_HOST=<smtpmailserver> \
 	    -e SMTP_PORT=<smtpport> \
 	    -e MAIL_SSL=true/false \
 	    -e MAIL_USERNAME=<yourmailusername> \
