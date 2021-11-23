@@ -98,7 +98,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IS_DASHBOARD_ENABLED=true` | for specifying whether to enable the Ferdi-server dashboard, default is true |
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is true |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is true |
-| `-e DATA_DIR=data` | for specifying the SQLite database folder, default is data |
+| `-e DATA_DIR=/data` | for specifying the SQLite database folder, default is /data |
 | `-v <path to data on host>:/data` | this will store Ferdi-server's data (its database, among other things) on the docker host for persistence. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
 | `-v <path to recipes on host>:/app/recipes` | this will store Ferdi-server's recipes on the docker host for persistence |
 
