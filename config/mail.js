@@ -26,9 +26,9 @@ module.exports = {
     driver: 'smtp',
     pool: true,
     name: Env.get('EXTERNAL_DOMAIN'),
-    port: Env.get('SMTP_PORT', 2525),
-    host: Env.get('SMTP_HOST'),
-    secure: JSON.parse(Env.get('MAIL_SSL', Env.get('SSL', false))),
+    port: Env.get('SMTP_PORT', '2525'),
+    host: Env.get('SMTP_HOST', 'localhost'),
+    secure: JSON.parse(Env.get('MAIL_SSL', 'false')),
     authMethod: 'LOGIN',
     auth: {
       user: Env.get('MAIL_USERNAME'),
