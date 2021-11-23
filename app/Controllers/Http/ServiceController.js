@@ -98,7 +98,7 @@ class ServiceController {
         workspaces: [],
         ...settings,
         iconUrl: settings.iconId
-          ? `${Env.get('EXTERNAL_DOMAIN')}/v1/icon/${settings.iconId}`
+          ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`
           : null,
         id: service.serviceId,
         name: service.name,
@@ -176,7 +176,7 @@ class ServiceController {
           id,
           name: service.name,
           ...newSettings,
-          iconUrl: `${Env.get('EXTERNAL_DOMAIN')}/v1/icon/${newSettings.iconId}`,
+          iconUrl: `${Env.get('APP_URL')}/v1/icon/${newSettings.iconId}`,
           userId: auth.user.id,
         },
         status: ['updated'],
@@ -223,7 +223,7 @@ class ServiceController {
         id,
         name: service.name,
         ...settings,
-        iconUrl: `${Env.get('EXTERNAL_DOMAIN')}/v1/icon/${settings.iconId}`,
+        iconUrl: `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`,
         userId: auth.user.id,
       },
       status: ['updated'],
@@ -293,7 +293,7 @@ class ServiceController {
         workspaces: [],
         ...settings,
         iconUrl: settings.iconId
-          ? `${Env.get('EXTERNAL_DOMAIN')}/v1/icon/${settings.iconId}`
+          ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`
           : null,
         id: service.serviceId,
         name: service.name,

@@ -54,7 +54,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    docker create \
 	    --name=ferdi-server \
 	    -e NODE_ENV=development \
-	    -e EXTERNAL_DOMAIN=https://<ferdi-serverdomain> \
+	    -e APP_URL=<ferdi-server-url> \
 	    -e DB_CONNECTION=<database> \
 	    -e DB_HOST=<yourdbhost> \
 	    -e DB_PORT=<yourdbport> \

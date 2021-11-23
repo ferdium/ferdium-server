@@ -5,7 +5,7 @@ services:
     container_name: ferdi-server
     environment:
       - NODE_ENV=development
-      - EXTERNAL_DOMAIN=localhost
+      - APP_URL=localhost
       - DB_CONNECTION=sqlite
       - DB_HOST=127.0.0.1
       - DB_PORT=3306

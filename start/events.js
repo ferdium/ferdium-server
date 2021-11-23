@@ -8,7 +8,7 @@ Hello ${user.username},
 we received a request to reset your Ferdi account password.
 Use the link below to reset your password. If you didn't requested that your password be reset, please ignore this message.
 
-${Env.get('EXTERNAL_DOMAIN')}/user/reset?token=${encodeURIComponent(token)}
+${Env.get('APP_URL')}/user/reset?token=${encodeURIComponent(token)}
 
 This message was sent automatically. Please do not reply.
 `;
