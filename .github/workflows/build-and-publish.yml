@@ -21,13 +21,14 @@ jobs:
         with:
           images: |
             getferdi/ferdi-server
-#            ghcr.io/getferdi/ferdi-server
+            ghcr.io/getferdi/ferdi-server
           tags: |
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+          labels: org.opencontainers.image.title=Ferdi-server
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
