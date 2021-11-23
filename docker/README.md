@@ -35,7 +35,7 @@ To create the docker container with the proper parameters:
 	docker create \
 	  --name=ferdi-server \
 	  -e NODE_ENV=development \
-	  -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \
+	  -e EXTERNAL_DOMAIN=https://<ferdi-serverdomain> \
 	  -e DB_CONNECTION=<database> \
 	  -e DB_HOST=<yourdbhost> \
 	  -e DB_PORT=<yourdbport> \
