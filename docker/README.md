@@ -44,7 +44,7 @@ To create the docker container with the proper parameters:
 	  -e DB_DATABASE=<yourdbdatabase> \
 	  -e DB_SSL=false \
 	  -e MAIL_CONNECTION=smtp \
-	  -e SMPT_HOST=<smtpmailserver> \
+	  -e SMTP_HOST=<smtpmailserver> \
 	  -e SMTP_PORT=<smtpport> \
 	  -e MAIL_SSL=true/false \
 	  -e MAIL_USERNAME=<yourmailusername> \
@@ -88,7 +88,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e DB_DATABASE=<databasename>` | for specifying the database name to be used, default is ferdi |
 | `-e DB_SSL=false` | true only if your database is postgres and it is hosted online, on platforms like GCP, AWS, etc |
 | `-e MAIL_CONNECTION=<mailsender>` | for specifying the mail sender to be used, default is smtp |
-| `-e SMPT_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
+| `-e SMTP_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
 | `-e SMTP_PORT=<smtpport>` | for specifying the mail port to be used, default is 2525 |
 | `-e MAIL_SSL=true/false` | for specifying SMTP mail security, default is false |
 | `-e MAIL_USERNAME=<yourmailusername>` | for specifying your mail username to be used, default is username |
