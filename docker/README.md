@@ -35,7 +35,7 @@ To create the docker container with the proper parameters:
 	docker create \
 	  --name=ferdi-server \
 	  -e NODE_ENV=development \
-	  -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \
+	  -e APP_URL=<ferdi-server-url> \
 	  -e DB_CONNECTION=<database> \
 	  -e DB_HOST=<yourdbhost> \
 	  -e DB_PORT=<yourdbport> \
@@ -44,7 +44,7 @@ To create the docker container with the proper parameters:
 	  -e DB_DATABASE=<yourdbdatabase> \
 	  -e DB_SSL=false \
 	  -e MAIL_CONNECTION=smtp \
-	  -e SMPT_HOST=<smtpmailserver> \
+	  -e SMTP_HOST=<smtpmailserver> \
 	  -e SMTP_PORT=<smtpport> \
 	  -e MAIL_SSL=true/false \
 	  -e MAIL_USERNAME=<yourmailusername> \
@@ -79,7 +79,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | :----: | --- |
 | `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333. See the [Docker docs](https://docs.docker.com/config/containers/container-networking/) for more information about port mapping |
 | `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed**. See the [Docker docs](https://docs.docker.com/) for more information on the use of environmental variables in [Command-line](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) and [Docker Compose](https://docs.docker.com/compose/environment-variables/) |
-| `-e EXTERNAL_DOMAIN=<ferdi-serverdomain>` | for specifying the external domain address of the Ferdi-server |
+| `-e APP_URL=<ferdi-server-url>` | for specifying the URL of the Ferdi-server, including `http://` or `https://` as relevant. |
 | `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is sqlite, see [below](#supported-databases-and-drivers) for other options |
 | `-e DB_HOST=<yourdbhost>` | for specifying the database host, default is 127.0.0.1 |
 | `-e DB_PORT=<yourdbport>` | for specifying the database port, default is 3306 |
@@ -88,7 +88,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e DB_DATABASE=<databasename>` | for specifying the database name to be used, default is ferdi |
 | `-e DB_SSL=false` | true only if your database is postgres and it is hosted online, on platforms like GCP, AWS, etc |
 | `-e MAIL_CONNECTION=<mailsender>` | for specifying the mail sender to be used, default is smtp |
-| `-e SMPT_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
+| `-e SMTP_HOST=<smtpmailserver>` | for specifying the mail host to be used, default is 127.0.0.1 |
 | `-e SMTP_PORT=<smtpport>` | for specifying the mail port to be used, default is 2525 |
 | `-e MAIL_SSL=true/false` | for specifying SMTP mail security, default is false |
 | `-e MAIL_USERNAME=<yourmailusername>` | for specifying your mail username to be used, default is username |

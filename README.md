@@ -54,7 +54,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    docker create \
 	    --name=ferdi-server \
 	    -e NODE_ENV=development \
-	    -e EXTERNAL_DOMAIN=<ferdi-serverdomain> \
+	    -e APP_URL=<ferdi-server-url> \
 	    -e DB_CONNECTION=<database> \
 	    -e DB_HOST=<yourdbhost> \
 	    -e DB_PORT=<yourdbport> \
@@ -63,7 +63,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    -e DB_DATABASE=<yourdbdatabase> \
 	    -e DB_SSL=false \
 	    -e MAIL_CONNECTION=smtp \
-	    -e SMPT_HOST=<smtpmailserver> \
+	    -e SMTP_HOST=<smtpmailserver> \
 	    -e SMTP_PORT=<smtpport> \
 	    -e MAIL_SSL=true/false \
 	    -e MAIL_USERNAME=<yourmailusername> \

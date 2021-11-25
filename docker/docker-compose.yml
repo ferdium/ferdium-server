@@ -5,7 +5,7 @@ services:
     container_name: ferdi-server
     environment:
       - NODE_ENV=development
-      - EXTERNAL_DOMAIN=localhost
+      - APP_URL=localhost
       - DB_CONNECTION=sqlite
       - DB_HOST=127.0.0.1
       - DB_PORT=3306
@@ -14,7 +14,7 @@ services:
       - DB_DATABASE=ferdi
       - DB_SSL=false
       - MAIL_CONNECTION=smtp
-      - SMPT_HOST=127.0.0.1
+      - SMTP_HOST=127.0.0.1
       - SMTP_PORT=2525
       - MAIL_SSL=false
       - MAIL_USERNAME=username
