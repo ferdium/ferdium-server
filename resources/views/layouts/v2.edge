@@ -13,7 +13,23 @@
 </head>
 
 <body>
-    @!section('content')
+    <div class="flex flex-col h-screen">
+      <div class="bg-black">
+        <div class="flex flex-row items-center container px-20 mx-auto">
+          <a href="/"><img width="50" class="my-4 mr-10" src="https://github.com/getferdi/server/raw/master/logo.png"></a>
+          <a class="github-button" href="https://github.com/getferdi/server" data-icon="octicon-star" data-show-count="true" aria-label="Star getferdi/server on GitHub">Star</a>
+        </div>
+      </div>
+      <div class="flex flex-1">
+        @!section('content')
+      </div>
+      <div class="bg-black">
+        <div class="container px-20 py-3 text-sm text-white mx-auto text-center">
+          2021 © All rights reserved - <a href="/terms" style="color: #d772fe">Terms of service</a> and <a href="/privacy" style="color: #d772fe">privacy policy</a>.
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>

@@ -1,14 +1,8 @@
 @layout('layouts.v2')
 
 @section('content')
-<div class="leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
-
-  <div class="h-screen bg-right bg-cover">
-    <div class="flex justify-center">
-      <img class="h-20 my-10" src="{{ assetsUrl('img/icon.png') }}">
-    </div>
     <!--Main-->
-    <div class="container px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+    <div class="container px-20 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 
       <!--Left Col-->
       <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
@@ -38,7 +32,7 @@
           Don't have Ferdi yet?
         </p>
         <a href="https://getferdi.com" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
-          Get Ferdi now
+          Get Ferdi
         </a>
 
         <p class="text-gray-700 font-bold pb-8 lg:pb-6 text-center md:text-left fade-in pt-8">
@@ -55,13 +49,6 @@
         <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ assetsUrl('img/hero.png') }}">
       </div>
 
-      <!--Footer-->
-      <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-        <a class="text-gray-500 no-underline hover:no-underline" href="https://github.com/getferdi">
-          Ferdi server is a project by The Ferdi Team
-        </a>
-      </div>
-
     </div>
 
     <script>
@@ -70,12 +57,9 @@
       if (server[server.length - 1] == '/') {
         server = server.substr(0, server.length - 1)
       }
-    
+
       // Show on page
       document.getElementById('server').innerText = server;
-    
-    </script>
 
-  </div>
-</div>
+    </script>
 @endsection
