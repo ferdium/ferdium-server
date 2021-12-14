@@ -65,7 +65,6 @@ class WorkspaceController {
     // Validate user input
     const validation = await validateAll(request.all(), {
       name: 'required',
-      services: 'required|array',
     });
     if (validation.fails()) {
       return response.status(401).send({
