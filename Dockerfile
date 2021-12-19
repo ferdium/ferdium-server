@@ -20,7 +20,7 @@ RUN ["apk", "add", "--no-cache", "sqlite-libs", "curl", "su-exec"]
 COPY --from=build /server-build /app
 RUN ["npm", "i", "-g", "@adonisjs/cli"]
 
-HEALTHCHECK --interval=5m --timeout=3s CMD curl -sSf http://localhost:${PORT}/health
+HEALTHCHECK --start-period=5s --interval=30s --retries=5 --timeout=3s CMD curl -sSf http://localhost:${PORT}/health
 
 COPY docker/entrypoint.sh /entrypoint.sh
 COPY docker/.env /app/.env
