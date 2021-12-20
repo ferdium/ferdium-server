@@ -3,6 +3,9 @@
 </p>
 
 # Ferdi-server
+
+[![Build and Publish Docker Image](https://github.com/getferdi/server/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/getferdi/server/actions/workflows/build-and-publish.yml)
+
 Official Server software for the [Ferdi Messaging Browser](https://getferdi.com)
 
 - [Ferdi-server](#ferdi-server)
