@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "reggermont",
+      "name": "Romain Eggermont",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14902909?v=4",
+      "profile": "https://gitlab.com/reggermont/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "server",
+  "projectOwner": "getferdi",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
