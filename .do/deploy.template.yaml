@@ -1,0 +1,47 @@
+spec:
+  alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
+  databases:
+  - engine: PG
+    name: ferdi-db
+    num_nodes: 1
+    size: db-s-dev-database
+    version: "12"
+  name: ferdi-server
+  region: lon
+  services:
+  - dockerfile_path: Dockerfile
+    github:
+      branch: master
+      deploy_on_push: true
+      repo: getferdi/server
+    envs:
+    - key: DB_HOST
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.HOSTNAME}
+    - key: DB_PORT
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.PORT}
+    - key: DB_USER
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.USERNAME}
+    - key: DB_PASSWORD
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.PASSWORD}
+    - key: DB_DATABASE
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.DATABASE}
+    - key: DB_CA_CERT
+      scope: RUN_AND_BUILD_TIME
+      value: ${ferdi-db.CA_CERT}
+    - key: DB_CONNECTION
+      scope: RUN_AND_BUILD_TIME
+      value: pg
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: ferdi-server
+    routes:
+    - path: /
+    source_dir: /

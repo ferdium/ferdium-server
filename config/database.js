@@ -78,7 +78,10 @@ module.exports = {
       user: Env.get('DB_USER', 'root'),
       password: Env.get('DB_PASSWORD', ''),
       database: Env.get('DB_DATABASE', 'ferdi'),
-      ssl: JSON.parse(Env.get('DB_SSL', 'true')),
+      ssl: Env.get('DB_CA_CERT') ? {
+        rejectUnauthorized: false,
+        ca: Env.get('DB_CA_CERT'),
+      } : JSON.parse(Env.get('DB_SSL', 'true')),
     },
     debug: Env.get('DB_DEBUG', false),
   },
