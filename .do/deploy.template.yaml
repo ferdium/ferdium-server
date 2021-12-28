@@ -12,10 +12,9 @@ spec:
   region: lon
   services:
   - dockerfile_path: Dockerfile
-    github:
+    git:
       branch: master
-      deploy_on_push: true
-      repo: getferdi/server
+      repo_clone_url: https://github.com/getferdi/server.git
     envs:
     - key: DB_HOST
       scope: RUN_AND_BUILD_TIME
