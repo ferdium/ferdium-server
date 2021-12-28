@@ -33,7 +33,7 @@ A custom server allows you to manage the data of all registered users yourself a
 - [x] Functioning service store
 - [x] User dashboard
 - [x] Export/import data to other Ferdi-servers
-- [ ] Password recovery
+- [x] Password recovery
 - [ ] Recipe update
 
 <details>
