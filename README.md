@@ -40,7 +40,7 @@ A custom server allows you to manage the data of all registered users yourself a
 
 Click this button to deploy the app to the DigitalOcean App Platform.
 
-[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/getferdi/server/tree/master)
+[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/getferdi/server/tree/master&refcode=5292301af793)
 
 
 <details>
