@@ -93,14 +93,13 @@ class StaticController {
     });
   }
 
-  // Return list of popular recipes (copy of the response Franz's API is returning)
   popularRecipes({
     response,
   }) {
     return response.send(
       fs
         .readJsonSync(path.join(
-          Helpers.appRoot(), 'officialrecipes', 'recipes', 'all.json',
+          Helpers.appRoot(), 'recipes', 'all.json',
         ))
         .filter((recipe) => recipe.featured),
     );

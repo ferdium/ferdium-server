@@ -29,7 +29,7 @@ class RecipeController {
   async list({
     response,
   }) {
-    const officialRecipes = JSON.parse(await (await fetch('https://api.franzinfra.com/v1/recipes')).text());
+    const officialRecipes = fs.readJsonSync(path.join(Helpers.appRoot(), 'recipes', 'all.json'));
     const customRecipesArray = (await Recipe.all()).rows;
     const customRecipes = customRecipesArray.map((recipe) => ({
       id: recipe.recipeId,
@@ -144,21 +144,12 @@ class RecipeController {
         ...typeof recipe.data === 'string' ? JSON.parse(recipe.data) : recipe.data,
       }));
     } else {
-      let remoteResults = [];
-      if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
-        remoteResults = JSON.parse(await (await fetch(`https://api.franzinfra.com/v1/recipes/search?needle=${encodeURIComponent(needle)}`)).text());
-      }
       const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
-      const localResults = localResultsArray.map((recipe) => ({
+      results = localResultsArray.map((recipe) => ({
         id: recipe.recipeId,
         name: recipe.name,
         ...typeof recipe.data === 'string' ? JSON.parse(recipe.data) : recipe.data,
       }));
-
-      results = [
-        ...localResults,
-        ...remoteResults || [],
-      ];
     }
 
     return response.send(results);
@@ -191,9 +182,6 @@ class RecipeController {
     // Check if recipe exists in recipes folder
     if (await Drive.exists(`${service}.tar.gz`)) {
       return response.send(await Drive.get(`${service}.tar.gz`));
-    }
-    if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
-      return response.redirect(`https://api.franzinfra.com/v1/recipes/download/${service}`);
     }
     return response.status(400).send({
       message: 'Recipe not found',
