@@ -6,7 +6,6 @@ const {
 } = use('Validator');
 const Env = use('Env');
 
-const fetch = require('node-fetch');
 const targz = require('targz');
 const path = require('path');
 const fs = require('fs-extra');
@@ -90,7 +89,7 @@ class RecipeController {
 
     // Compress files to .tar.gz file
     const source = Helpers.tmpPath('recipe');
-    const destination = path.join(Helpers.appRoot(), `/recipes/${data.id}.tar.gz`);
+    const destination = path.join(Helpers.appRoot(), `/recipes/recipes/${data.id}.tar.gz`);
 
     compress(
       source,
@@ -155,6 +154,22 @@ class RecipeController {
     return response.send(results);
   }
 
+  popularRecipes({
+    response,
+  }) {
+    return response.send(
+      fs
+        .readJsonSync(path.join(
+          Helpers.appRoot(), 'recipes', 'all.json',
+        ))
+        .filter((recipe) => recipe.featured),
+    );
+  }
+
+  update({ response }) {
+    return response.send([]);
+  }
+
   // Download a recipe
   async download({
     response,
@@ -181,8 +196,9 @@ class RecipeController {
 
     // Check if recipe exists in recipes folder
     if (await Drive.exists(`${service}.tar.gz`)) {
-      return response.send(await Drive.get(`${service}.tar.gz`));
+      return response.type('.tar.gz').send(await Drive.get(`${service}.tar.gz`));
     }
+
     return response.status(400).send({
       message: 'Recipe not found',
       code: 'recipe-not-found',

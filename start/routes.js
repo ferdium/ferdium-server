@@ -34,15 +34,14 @@ Route.group(() => {
   Route.delete('service/:id', 'ServiceController.delete').middleware('auth');
   Route.get('me/services', 'ServiceController.list').middleware('auth');
   Route.get('recipe', 'ServiceController.list').middleware('auth');
-  Route.post('recipes/update', 'ServiceController.update').middleware('auth');
   Route.get('icon/:id', 'ServiceController.icon');
 
   // Recipe store
   Route.get('recipes', 'RecipeController.list');
-  Route.get('recipes/download/:recipe', 'RecipeController.download');
   Route.get('recipes/search', 'RecipeController.search');
-  Route.get('recipes/popular', 'StaticController.popularRecipes');
-  Route.get('recipes/update', 'StaticController.emptyArray');
+  Route.get('recipes/popular', 'RecipeController.popularRecipes');
+  Route.get('recipes/download/:recipe', 'RecipeController.download');
+  Route.post('recipes/update', 'RecipeController.update');
 
   // Workspaces
   Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth');

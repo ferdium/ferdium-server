@@ -93,18 +93,6 @@ class StaticController {
     });
   }
 
-  popularRecipes({
-    response,
-  }) {
-    return response.send(
-      fs
-        .readJsonSync(path.join(
-          Helpers.appRoot(), 'recipes', 'all.json',
-        ))
-        .filter((recipe) => recipe.featured),
-    );
-  }
-
   // Show announcements
   async announcement({
     response,

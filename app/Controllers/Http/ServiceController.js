@@ -305,10 +305,6 @@ class ServiceController {
     return response.send(servicesArray);
   }
 
-  update({ response }) {
-    return response.send([]);
-  }
-
   async delete({ params, auth, response }) {
     // Update data in database
     await Service.query()
