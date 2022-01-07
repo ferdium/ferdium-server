@@ -34,7 +34,7 @@ A custom server allows you to manage the data of all registered users yourself a
 - [x] User dashboard
 - [x] Export/import data to other Ferdi-servers
 - [x] Password recovery
-- [ ] Recipe update
+- [x] Recipe update
 
 ## Deploying the App
 

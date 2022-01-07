@@ -9,6 +9,7 @@ const Env = use('Env');
 const targz = require('targz');
 const path = require('path');
 const fs = require('fs-extra');
+const semver = require('semver');
 
 const compress = (src, dest) => new Promise((resolve, reject) => {
   targz.compress({
@@ -166,8 +167,24 @@ class RecipeController {
     );
   }
 
-  update({ response }) {
-    return response.send([]);
+  update({ request, response }) {
+    const updates = [];
+    const recipes = request.all();
+    const allJson = fs.readJsonSync(path.join(
+      Helpers.appRoot(), 'recipes', 'all.json',
+    ));
+
+    for (const recipe of Object.keys(recipes)) {
+      const version = recipes[recipe];
+
+      // Find recipe in local recipe repository
+      const localRecipe = allJson.find(r => r.id === recipe);
+      if (localRecipe && semver.lt(version, localRecipe.version)) {
+        updates.push(recipe);
+      }
+    }
+
+    return response.send(updates);
   }
 
   // Download a recipe
