@@ -90,7 +90,7 @@ class RecipeController {
 
     // Compress files to .tar.gz file
     const source = Helpers.tmpPath('recipe');
-    const destination = path.join(Helpers.appRoot(), `/recipes/recipes/${data.id}.tar.gz`);
+    const destination = path.join(Helpers.appRoot(), `/recipes/archives/${data.id}.tar.gz`);
 
     compress(
       source,
