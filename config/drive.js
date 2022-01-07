@@ -22,7 +22,7 @@ module.exports = {
     |
     */
     local: {
-      root: `${__dirname}/../recipes`,
+      root: `${__dirname}/../recipes/archives`,
       driver: 'local',
     },
 
