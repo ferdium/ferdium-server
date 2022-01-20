@@ -7,15 +7,6 @@
   "badgeTemplate": "<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-<%= contributors.length %>-default.svg?logo=github' alt='Contributors'/></a>",
   "contributors": [
     {
-      "login": "reggermont",
-      "name": "Romain Eggermont",
-      "avatar_url": "https://avatars.githubusercontent.com/u/14902909?v=4",
-      "profile": "https://gitlab.com/reggermont/",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
       "login": "HuggableSquare",
       "name": "nick",
       "avatar_url": "https://avatars.githubusercontent.com/u/5242865?v=4",

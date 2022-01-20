@@ -172,7 +172,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://gitlab.com/reggermont/"><img src="https://avatars.githubusercontent.com/u/14902909?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Romain Eggermont</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=reggermont" title="Code">💻</a></td>
     <td align="center"><a href="https://pogonip.pw/"><img src="https://avatars.githubusercontent.com/u/5242865?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nick</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=HuggableSquare" title="Code">💻</a></td>
     <td align="center"><a href="http://code-addict.pl"><img src="https://avatars.githubusercontent.com/u/6313392?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Kostewicz</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=k0staa" title="Code">💻</a></td>
     <td align="center"><a href="https://gitlab.com/cromefire_"><img src="https://avatars.githubusercontent.com/u/26320625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cromefire_</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=cromefire" title="Code">💻</a></td>
