@@ -7,10 +7,9 @@
 <p>
   <a href="https://github.com/getferdi/server/actions/workflows/builds.yml"><img alt="Build Status" src="https://github.com/getferdi/server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-5-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-4-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="#backers-via-opencollective"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective"></a>
-  <a href="https://gitter.im/getferdi/community"><img alt="Gitter Chat Room" src="https://img.shields.io/gitter/room/getferdi/community"></a>
 </p>
 
 > 👨🏾‍🍳 Server for [Ferdi](https://getferdi.com) that you can re-use to run your own
@@ -37,11 +36,6 @@ A custom server allows you to manage the data of all registered users yourself a
 - [x] Recipe update
 
 ## Deploying the App
-
-Click this button to deploy the app to the DigitalOcean App Platform.
-
-[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/getferdi/server/tree/master&refcode=5292301af793)
-
 
 <details>
 <summary>Setup with Docker</summary>
