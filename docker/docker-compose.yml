@@ -1,7 +1,7 @@
 version: "2"
 services:
   ferdi-server:
-    image: getferdi/ferdi-server
+    image: ghcr.io/ferdium/ferdium-server
     container_name: ferdi-server
     environment:
       - NODE_ENV=development
