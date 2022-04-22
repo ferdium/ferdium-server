@@ -48,7 +48,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 1. Pull the Docker image
 
     ```sh
-    docker pull getferdi/ferdi-server
+    docker pull ghcr.io/ferdium/ferdium-server
     ```
 2. Create a *new* Docker container with your desired configuration **Existing users please seee the warning above.**
 
@@ -80,7 +80,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    -v <path to data>:/data \
 	    -v <path to recipes>:/app/recipes \
 	    --restart unless-stopped \
-	    getferdi/ferdi-server
+	    ghcr.io/ferdium/ferdium-server
     ```
 
     Alternatively, you can also use docker-compose v2 schema. An example can be found [in the docker folder](./docker/docker-compose.yml).

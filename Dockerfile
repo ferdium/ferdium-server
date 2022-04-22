@@ -11,7 +11,7 @@ RUN ["npm", "ci", "--production", "--build-from-source", "--sqlite=/usr/local"]
 FROM node:14.17-alpine
 
 WORKDIR /app
-LABEL maintainer="xthursdayx"
+LABEL maintainer="ferdium"
 
 ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
 
