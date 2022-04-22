@@ -5,13 +5,13 @@
 # Server
 
 <p>
-  <a href="https://github.com/getferdi/server/actions/workflows/builds.yml"><img alt="Build Status" src="https://github.com/getferdi/server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
+  <a href="https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml"><img alt="Build Status" src="https://github.com/getferdi/server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href='#contributors-'><img src='https://img.shields.io/badge/contributors-4-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
-> 👨🏾‍🍳 Server for [Ferdi](https://getferdi.com) that you can re-use to run your own
+> 👨🏾‍🍳 Server for [Ferdium](https://ferdium.org) that you can re-use to run your own
 
 ## Why use a custom server?
 
@@ -20,7 +20,7 @@ _Find answers to other frequently asked questions on [getferdi.com/faq](https://
 <details>
 <summary>Toggle answer</summary>
 
-A custom server allows you to manage the data of all registered users yourself and add your own recipes to the repository. If you are not interested in doing this you can use our official instance of the server at [api.getferdi.com](https://api.getferdi.com).
+A custom server allows you to manage the data of all registered users yourself and add your own recipes to the repository. If you are not interested in doing this you can use our official instance of the server at [api.ferdium.org](https://api.ferdium.org).
 
 </details>
 
@@ -41,9 +41,9 @@ A custom server allows you to manage the data of all registered users yourself a
 The easiest way to set up Ferdi-server on your server is with Docker.
 
 The Docker image can be run as is, with the default SQLite database or you can modify your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc).
-After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdi-server outside of your home network and protect it with an SSL certificate.
+After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdium-server outside of your home network and protect it with an SSL certificate.
 
-**Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environmental variables have changed, specifically the default database name and location, the internal container port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user, please see [the Ferdi docker documentation](./docker/README.md) for more information about migrating to the new image.
+**Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environmental variables have changed, specifically the default database name and location, the internal container port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user, please see [the Ferdium docker documentation](./docker/README.md) for more information about migrating to the new image.
 
 1. Pull the Docker image
 
@@ -54,7 +54,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 
     ```sh
 	    docker create \
-	    --name=ferdi-server \
+	    --name=ferdium-server \
 	    -e NODE_ENV=development \
 	    -e APP_URL=<ferdi-server-url> \
 	    -e DB_CONNECTION=<database> \
@@ -123,9 +123,9 @@ franz-server's configuration is saved inside an `.env` file. Besides AdonisJS's 
 <details>
 <summary>Importing your Franz account</summary>
 
-Ferdi-server allows you to import your full Franz account, including all its settings.
+Ferdium-server allows you to import your full Franz (or Ferdi) account, including all its settings.
 
-To import your Franz account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz account details. Ferdi-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
+To import your Franz/Ferdi account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz/Ferdi account details. Ferdium-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
 </details>
 <details>
 <summary>Transferring user data</summary>
@@ -134,11 +134,11 @@ Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-betwee
 </details>
 <details>
 <summary>Creating and using custom recipes</summary>
-Ferdi-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
+Ferdium-server allows to extends the Franz/Ferdi recipe catalogue with custom Ferdium recipes.
 
 For documentation on how to create a recipe, please visit [the official guide by Franz](https://github.com/meetfranz/plugins/blob/master/docs/integration.md).
 
-To add your recipe to Ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in your browser. You can now define the following settings:
+To add your recipe to Ferdium-server, open `http://[YOUR FERDI-SERVER]/new` in your browser. You can now define the following settings:
 
 - `Author`: Author who created the recipe
 - `Name`: Name for your new service. Can contain spaces and unicode characters
@@ -149,7 +149,7 @@ To add your recipe to Ferdi-server, open `http://[YOUR FERDI-SERVER]/new` in you
 <details>
 <summary>Listing custom recipes</summary>
 
-Inside Ferdi, searching for `ferdi:custom` will list all of your custom recipes.
+Inside Ferdium, searching for `ferdium:custom` will list all of your custom recipes.
 </details>
 
 ## Contributing
