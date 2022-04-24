@@ -26,7 +26,7 @@
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Ferdium Code of Conduct](https://github.com/ferdium/ferdium-app/blob/develop/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [help@ferdium.org](mailto:help@ferdium.org).
+This project and everyone participating in it is governed by the [Ferdium Code of Conduct](https://github.com/ferdium/ferdium-app/blob/develop/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [hello@ferdium.org](mailto:hello@ferdium.org).
 
 ## What should I know before I get started?
 
