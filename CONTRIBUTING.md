@@ -1,12 +1,12 @@
-# Contributing to ferdi-server
+# Contributing to ferdium-server
 
-:tada: First off, thanks for taking the time and your effort to make Ferdi better! :tada:
+:tada: First off, thanks for taking the time and your effort to make Ferdium better! :tada:
 
 ## Table of contents
 
 <!-- TOC depthFrom:2 depthTo:2 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Contributing to ferdi-server](#contributing-to-ferdi-server)
+- [Contributing to ferdium-server](#contributing-to-ferdium-server)
   - [Table of contents](#table-of-contents)
   - [Code of Conduct](#code-of-conduct)
   - [What should I know before I get started?](#what-should-i-know-before-i-get-started)
@@ -26,15 +26,15 @@
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Ferdi Code of Conduct](https://github.com/getferdi/ferdi/blob/develop/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [stefan@adlk.io](mailto:stefan@adlk.io).
+This project and everyone participating in it is governed by the [Ferdium Code of Conduct](https://github.com/ferdium/ferdium-app/blob/develop/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [help@ferdium.org](mailto:help@ferdium.org).
 
 ## What should I know before I get started?
 
-For the moment, Ferdi's development is a bit slow but all contributions are highly appreciated. [Check this issue for discussion](https://github.com/getferdi/ferdi/issues/956).
+For the moment, Ferdium's development is just getting started but all contributions (code, testing, bug-logging, feature-suggestions) are highly appreciated.
 
 ## How Can I Contribute?
 
-As a basic rule, before filing issues, feature requests or anything else. Take a look at the issues and check if this has not already been reported by another user. If so, engage in the already existing discussion.
+As a basic rule, before filing issues, feature requests or anything else, please take a look at the issues and check if this has not already been reported by another user. If so, engage in the already existing discussion.
 
 ## Setting up your Development machine
 
@@ -83,16 +83,16 @@ npm i -g windows-build-tools --vs2015
 ### Clone repository with submodule
 
 ```bash
-git clone https://github.com/getferdi/server.git
-cd server
-git submodule update --init --recursive
+git clone https://github.com/ferdium/ferdium-server.git
+cd ferdium-server
+git submodule update --init --recursive --remote --rebase --force
 ```
 
 It is important you execute the last command to get the required submodules (recipes).
 
 ### Install dependencies
 
-- Run the following command to install all dependencies, and link sibling modules with ferdi-server.
+- Run the following command to install all dependencies, and link sibling modules with ferdium-server.
 
 ```bash
 npm i

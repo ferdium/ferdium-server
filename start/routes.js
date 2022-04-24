@@ -114,7 +114,7 @@ Route.get('new', ({ response, view }) => {
   return view.render('others.new');
 });
 
-// Franz account import
+// Franz/Ferdi account import
 Route.post('import', 'UserController.import');
 Route.get('import', ({ view }) => view.render('others.import'));
 

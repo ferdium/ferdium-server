@@ -9,12 +9,10 @@ cat << EOL
      / __/__ _____  _____ ____
     _\ \/ -_) __/ |/ / -_) __/
    /___/\__/_/  |___/\__/_/
-Brought to you by getferdi.com
-Support our Open Collective at:
-https://opencollective.com/getferdi/
+Brought to you by ferdium.org
 EOL
 
-key_file="${DATA_DIR}/FERDI_APP_KEY.txt"
+key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
 print_app_key_message() {
   app_key=$1
@@ -25,7 +23,7 @@ print_app_key_message() {
 # Create APP key if needed
 if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
 then
-  echo '**** Generating Ferdi-server app key for first run ****'
+  echo '**** Generating Ferdium-server app key for first run ****'
   adonis key:generate
   APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
   echo ${APP_KEY} > ${key_file}

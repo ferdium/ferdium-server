@@ -5,7 +5,7 @@
 # Server
 
 <p>
-  <a href="https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml"><img alt="Build Status" src="https://github.com/getferdi/server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
+  <a href="https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml"><img alt="Build Status" src="https://github.com/ferdium/ferdium-server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href='#contributors-'><img src='https://img.shields.io/badge/contributors-4-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -15,7 +15,7 @@
 
 ## Why use a custom server?
 
-_Find answers to other frequently asked questions on [getferdi.com/faq](https://getferdi.com/faq/)._
+_Find answers to other frequently asked questions on [ferdium.org/faq](https://ferdium.org/faq/)._
 
 <details>
 <summary>Toggle answer</summary>
@@ -30,7 +30,7 @@ A custom server allows you to manage the data of all registered users yourself a
 - [x] Workspace support
 - [x] Functioning service store
 - [x] User dashboard
-- [x] Export/import data to other Ferdi-servers
+- [x] Export/import data to other Ferdium-servers
 - [x] Password recovery
 - [x] Recipe update
 
@@ -38,12 +38,12 @@ A custom server allows you to manage the data of all registered users yourself a
 
 <details>
 <summary>Setup with Docker</summary>
-The easiest way to set up Ferdi-server on your server is with Docker.
+The easiest way to set up Ferdium-server on your server is with Docker.
 
 The Docker image can be run as is, with the default SQLite database or you can modify your ENV variables to use an external database (e.g. MySQL, MariaDB, Postgres, etc).
 After setting up the docker container we recommend you set up an NGINX reverse proxy to access Ferdium-server outside of your home network and protect it with an SSL certificate.
 
-**Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environmental variables have changed, specifically the default database name and location, the internal container port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environmental variables to your container at runtime. If you are an existing Ferdi-server user, please see [the Ferdium docker documentation](./docker/README.md) for more information about migrating to the new image.
+**Warning**, please note that the use of the previous `config.txt` is now deprecated and a number of environment variables have changed, specifically the default database name and location, the internal container port, and an additional `DATA_DIR` variable has been added. Make sure to pass the correct environment variables to your container at runtime. If you are an existing Ferdium-server user, please see [the Ferdium docker documentation](./docker/README.md) for more information about migrating to the new image.
 
 1. Pull the Docker image
 
@@ -56,7 +56,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 	    docker create \
 	    --name=ferdium-server \
 	    -e NODE_ENV=development \
-	    -e APP_URL=<ferdi-server-url> \
+	    -e APP_URL=<ferdium-server-url> \
 	    -e DB_CONNECTION=<database> \
 	    -e DB_HOST=<yourdbhost> \
 	    -e DB_PORT=<yourdbport> \
@@ -87,7 +87,7 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 
 3. Optionally, you can [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 
-For more information on configuring the Docker image, please read [the Ferdi docker documentation](./docker/README.md).
+For more information on configuring the Docker image, please read [the Ferdium docker documentation](./docker/README.md).
 </details>
 <details>
 <summary>Manual setup</summary>
@@ -112,20 +112,20 @@ For more information on configuring the Docker image, please read [the Ferdi doc
 <details>
 <summary>Configuration</summary>
 
-franz-server's configuration is saved inside an `.env` file. Besides AdonisJS's settings, Ferdi-server has the following custom settings:
+Ferdium-server's configuration is saved inside an `.env` file. Besides AdonisJS's settings, Ferdium-server has the following custom settings:
 - `IS_CREATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the [creation of custom recipes](#creating-and-using-custom-recipes)
 - `IS_REGISTRATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the creation of new user accounts
 - `IS_DASHBOARD_ENABLED` (`true` or `false`, default: `true`): Whether to enable the user dashboard
-- `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, Ferdi-server can:
+- `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, Ferdium-server can:
   - Show the full Franz recipe library instead of only custom recipes
   - Import Franz accounts
 </details>
 <details>
-<summary>Importing your Franz account</summary>
+<summary>Importing your Franz/Ferdi account</summary>
 
-Ferdium-server allows you to import your full Franz (or Ferdi) account, including all its settings.
+Ferdium-server allows you to import your full Franz/Ferdi account, including all its settings.
 
-To import your Franz/Ferdi account, open `http://[YOUR FERDI-SERVER]/import` in your browser and login using your Franz/Ferdi account details. Ferdium-server will create a new user with the same credentials and copy your Franz settings, services and workspaces.
+To import your Franz/Ferdi account, open `http://[YOUR FERDIUM-SERVER]/import` in your browser and login using your Franz/Ferdi account details. Ferdium-server will create a new user with the same credentials and copy your Franz/Ferdi settings, services and workspaces.
 </details>
 <details>
 <summary>Transferring user data</summary>
@@ -136,15 +136,16 @@ Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-betwee
 <summary>Creating and using custom recipes</summary>
 Ferdium-server allows to extends the Franz/Ferdi recipe catalogue with custom Ferdium recipes.
 
-For documentation on how to create a recipe, please visit [the official guide by Franz](https://github.com/meetfranz/plugins/blob/master/docs/integration.md).
+For documentation on how to create a recipe, please visit [the official guide](https://github.com/ferdium/ferdium-recipes/blob/master/docs/integration.md).
 
-To add your recipe to Ferdium-server, open `http://[YOUR FERDI-SERVER]/new` in your browser. You can now define the following settings:
+To add your recipe to Ferdium-server, open `http://[YOUR FERDIUM-SERVER]/new` in your browser. You can now define the following settings:
 
 - `Author`: Author who created the recipe
 - `Name`: Name for your new service. Can contain spaces and unicode characters
 - `Service ID`: Unique ID for this recipe. Does not contain spaces or special characters (e.g. `google-drive`)
 - `Link to SVG image`: Direct link to a 1024x1024 SVG image that is used as a logo inside the store. Please use jsDelivr when using a file uploaded to GitHub as raw.githubusercontent files won't load
-- `Recipe files`: Recipe files that you created using the [Franz recipe creation guide](https://github.com/meetfranz/plugins/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdi-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+- `Recipe files`: Recipe files that you created using the [recipe creation guide](https://github.com/ferdium/ferdium-recipes/blob/master/docs/integration.md). Please do _not_ package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdium-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+
 </details>
 <details>
 <summary>Listing custom recipes</summary>
@@ -165,10 +166,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://pogonip.pw/"><img src="https://avatars.githubusercontent.com/u/5242865?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nick</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=HuggableSquare" title="Code">💻</a></td>
-    <td align="center"><a href="http://code-addict.pl"><img src="https://avatars.githubusercontent.com/u/6313392?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Kostewicz</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=k0staa" title="Code">💻</a></td>
-    <td align="center"><a href="https://gitlab.com/cromefire_"><img src="https://avatars.githubusercontent.com/u/26320625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cromefire_</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=cromefire" title="Code">💻</a></td>
-    <td align="center"><a href="https://omkaragrawal.dev"><img src="https://avatars.githubusercontent.com/u/10913160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>OMKAR AGRAWAL</b></sub></a><br /><a href="https://github.com/getferdi/server/commits?author=Omkaragrawal" title="Code">💻</a></td>
+    <td align="center"><a href="https://pogonip.pw/"><img src="https://avatars.githubusercontent.com/u/5242865?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nick</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=HuggableSquare" title="Code">💻</a></td>
+    <td align="center"><a href="http://code-addict.pl"><img src="https://avatars.githubusercontent.com/u/6313392?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Kostewicz</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=k0staa" title="Code">💻</a></td>
+    <td align="center"><a href="https://gitlab.com/cromefire_"><img src="https://avatars.githubusercontent.com/u/26320625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cromefire_</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=cromefire" title="Code">💻</a></td>
+    <td align="center"><a href="https://omkaragrawal.dev"><img src="https://avatars.githubusercontent.com/u/10913160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>OMKAR AGRAWAL</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=Omkaragrawal" title="Code">💻</a></td>
   </tr>
 </table>
 
