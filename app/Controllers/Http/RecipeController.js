@@ -136,7 +136,7 @@ class RecipeController {
     // Get results
     let results;
 
-    if (needle === 'ferdi:custom') {
+    if (needle === 'ferdium:custom') {
       const dbResults = (await Recipe.all()).toJSON();
       results = dbResults.map((recipe) => ({
         id: recipe.recipeId,

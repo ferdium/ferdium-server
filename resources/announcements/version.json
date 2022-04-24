@@ -1,10 +1,10 @@
 {
   "main": {
-    "headline": "Example Accouncement",
+    "headline": "Example Announcement",
     "subHeadline": "Configure your announcement here",
     "image": {
-      "light": "https://api.getferdi.com/assets/feature/light.png",
-      "dark": "https://api.getferdi.com/assets/feature/dark.png"
+      "light": "https://api.ferdium.org/assets/feature/light.png",
+      "dark": "https://api.ferdium.org/assets/feature/dark.png"
     },
     "text": "Long description here",
     "cta": {

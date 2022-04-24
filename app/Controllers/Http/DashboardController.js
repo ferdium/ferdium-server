@@ -222,14 +222,14 @@ class DashboardController {
     try {
       file = JSON.parse(request.input('file'));
     } catch (e) {
-      session.flash({ type: 'danger', message: 'Invalid Ferdi account file' });
+      session.flash({ type: 'danger', message: 'Invalid Ferdium account file' });
       return response.redirect('back');
     }
 
     if (!file || !file.services || !file.workspaces) {
       session.flash({
         type: 'danger',
-        message: 'Invalid Ferdi account file (2)',
+        message: 'Invalid Ferdium account file (2)',
       });
       return response.redirect('back');
     }

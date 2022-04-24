@@ -44,8 +44,8 @@
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "server",
-  "projectOwner": "getferdi",
+  "projectName": "ferdium-server",
+  "projectOwner": "ferdium",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true

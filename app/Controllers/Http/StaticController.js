@@ -31,8 +31,8 @@ class StaticController {
       isTodosEnabled: true,
       isTodosIncludedInCurrentPlan: true,
       defaultTrialPlan: 'franz-pro-yearly',
-      subscribeURL: 'https://getferdi.com',
-      planSelectionURL: 'https://getferdi.com',
+      subscribeURL: 'https://ferdium.org',
+      planSelectionURL: 'https://ferdium.org',
       hasInlineCheckout: true,
       isPlanSelectionEnabled: false,
       isTrialStatusBarEnabled: false,
@@ -43,24 +43,24 @@ class StaticController {
         plans: {
           personal: {
             monthly: {
-              id: 'ferdi-free',
+              id: 'ferdium-free',
               price: 0,
               billed: 0,
             },
             yearly: {
-              id: 'ferdi-completely-free',
+              id: 'ferdium-completely-free',
               price: 0,
               billed: 0,
             },
           },
           pro: {
             monthly: {
-              id: 'ferdi-still-free',
+              id: 'ferdium-still-free',
               price: 0,
               billed: 0,
             },
             yearly: {
-              id: 'ferdi-forever-free',
+              id: 'ferdium-forever-free',
               price: 0,
               billed: 0,
             },

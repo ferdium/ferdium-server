@@ -10,11 +10,12 @@ const fetch = require('node-fetch');
 const { v4: uuid } = require('uuid');
 const crypto = require('crypto');
 
+// TODO: This whole controller needs to be changed such that it can support importing from both Franz and Ferdi
 const franzRequest = (route, method, auth) =>
   new Promise((resolve, reject) => {
     const base = 'https://api.franzinfra.com/v1/';
     const user =
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Franz/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
 
     try {
       fetch(base + route, {
@@ -247,7 +248,7 @@ class UserController {
 
     const base = 'https://api.franzinfra.com/v1/';
     const userAgent =
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Franz/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
 
     // Try to get an authentication token
     let token;
@@ -377,7 +378,7 @@ class UserController {
     }
 
     return response.send(
-      'Your account has been imported. You can now use your Franz account in Ferdi.',
+      'Your account has been imported. You can now use your Franz/Ferdi account in Ferdium.',
     );
   }
 }
