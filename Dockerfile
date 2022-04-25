@@ -1,14 +1,15 @@
-FROM node:14.17-alpine as build
+FROM node:16.14-alpine as build
 
 WORKDIR /server-build
 
-RUN ["apk", "add", "--no-cache", "python", "make", "gcc", "g++", "libc-dev", "sqlite-dev"]
+RUN ["apk", "add", "--no-cache", "python3", "make", "gcc", "g++", "libc-dev", "sqlite-dev"]
 
 COPY . /server-build
 
+RUN npm i -g npm@8.7.0
 RUN ["npm", "ci", "--production", "--build-from-source", "--sqlite=/usr/local"]
 
-FROM node:14.17-alpine
+FROM node:16.4-alpine
 
 WORKDIR /app
 LABEL maintainer="ferdium"

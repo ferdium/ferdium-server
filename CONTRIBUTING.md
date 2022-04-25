@@ -48,11 +48,11 @@ Currently, these are the combinations of system dependencies that work on an int
 
 ```bash
 node -v
-v14.17.3
+v16.14.2
 npm -v
-6.14.12
+8.7.0
 node-gyp -v
-v8.0.0
+8.7.0
 ```
 
 #### Git
