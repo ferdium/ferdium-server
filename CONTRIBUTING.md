@@ -51,6 +51,7 @@ $ jq --null-input '[inputs.engines] | add' < ./package.json < ./recipes/package.
 {
   "node": "16.14.2",
   "npm": "8.7.0",
+  "pnpm": "6.32.8"
 }
 ```
 
