@@ -42,17 +42,16 @@ As a basic rule, before filing issues, feature requests or anything else, please
 
 #### Node.js, npm, node-gyp
 
-Please make sure you are running the exact node version used by the developers/contributors as specified in the [nvmrc file](./.nvmrc).
+Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [`package.json`](./package.json#engines) and [`recipes/package.json`](./recipes/package.json#engine) files.
 
-Currently, these are the combinations of system dependencies that work on an intel-based machines for MacOS/Linux/Windows (building on an ARM-based machine is still a work-in-progress due to node-sass native dependencies)
+Currently, these are the combinations of system dependencies that work for MacOS/Linux/Windows:
 
 ```bash
-node -v
-v16.14.2
-npm -v
-8.7.0
-node-gyp -v
-8.7.0
+$ jq --null-input '[inputs.engines] | add' < ./package.json < ./recipes/package.json
+{
+  "node": "16.14.2",
+  "npm": "8.7.0",
+}
 ```
 
 #### Git
