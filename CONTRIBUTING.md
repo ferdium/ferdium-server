@@ -13,7 +13,7 @@
   - [How Can I Contribute?](#how-can-i-contribute)
   - [Setting up your Development machine](#setting-up-your-development-machine)
     - [Install System-level dependencies](#install-system-level-dependencies)
-      - [Node.js, npm, node-gyp](#nodejs-npm-node-gyp)
+      - [Node.js, npm](#nodejs-npm)
       - [Git](#git)
     - [Clone repository with submodule](#clone-repository-with-submodule)
     - [Install dependencies](#install-dependencies)
@@ -40,19 +40,19 @@ As a basic rule, before filing issues, feature requests or anything else, please
 
 ### Install System-level dependencies
 
-#### Node.js, npm, node-gyp
+#### Node.js, npm
 
-Please make sure you are running the exact node version used by the developers/contributors as specified in the [nvmrc file](./.nvmrc).
+Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [`package.json`](./package.json#engines) and [`recipes/package.json`](./recipes/package.json#engine) files.
 
-Currently, these are the combinations of system dependencies that work on an intel-based machines for MacOS/Linux/Windows (building on an ARM-based machine is still a work-in-progress due to node-sass native dependencies)
+Currently, these are the combinations of system dependencies that work for MacOS/Linux/Windows:
 
 ```bash
-node -v
-v14.17.3
-npm -v
-6.14.12
-node-gyp -v
-v8.0.0
+$ jq --null-input '[inputs.engines] | add' < ./package.json < ./recipes/package.json
+{
+  "node": "16.14.2",
+  "npm": "8.7.0",
+  "pnpm": "6.32.8"
+}
 ```
 
 #### Git
