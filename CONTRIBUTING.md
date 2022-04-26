@@ -13,7 +13,7 @@
   - [How Can I Contribute?](#how-can-i-contribute)
   - [Setting up your Development machine](#setting-up-your-development-machine)
     - [Install System-level dependencies](#install-system-level-dependencies)
-      - [Node.js, npm, node-gyp](#nodejs-npm-node-gyp)
+      - [Node.js, npm](#nodejs-npm)
       - [Git](#git)
     - [Clone repository with submodule](#clone-repository-with-submodule)
     - [Install dependencies](#install-dependencies)
@@ -40,7 +40,7 @@ As a basic rule, before filing issues, feature requests or anything else, please
 
 ### Install System-level dependencies
 
-#### Node.js, npm, node-gyp
+#### Node.js, npm
 
 Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [`package.json`](./package.json#engines) and [`recipes/package.json`](./recipes/package.json#engine) files.
 
