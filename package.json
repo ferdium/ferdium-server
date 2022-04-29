@@ -9,7 +9,7 @@
     "npm": "8.7.0"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
     "start": "node server.js",
     "test": "node ace test",
     "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix"
