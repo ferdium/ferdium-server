@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat << EOL
+cat << "EOF"
 -------------------------------------
        ______              ___
       / ____/__  _________/ (_)_  ______ ___
@@ -14,7 +14,7 @@ cat << EOL
     ___/ /  __/ /   | |/ /  __/ /
    /____/\___/_/    |___/\___/_/
 Brought to you by ferdium.org
-EOL
+EOF
 
 key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
