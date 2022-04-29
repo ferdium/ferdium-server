@@ -294,7 +294,7 @@ class UserController {
 
       if (!content.message || content.message !== 'Successfully logged in') {
         const errorMessage =
-          'Could not login into Franz/Ferdi with your supplied credentials. Please check and try again';
+          'Could not login into Franz with your supplied credentials. Please check and try again';
         return response.status(401).send(errorMessage);
       }
 
@@ -399,7 +399,7 @@ class UserController {
     }
 
     return response.send(
-      'Your account has been imported. You can now use your Franz/Ferdi account in Ferdium.',
+      'Your account has been imported. You can now use your Franz account in Ferdium.',
     );
   }
 
@@ -476,7 +476,7 @@ class UserController {
           'User-Agent': userAgent,
           'Content-Type': 'application/json',
           accept: '*/*',
-          'x-franz-source': 'Web',
+          'x-ferdi-source': 'Web',
         },
       });
       const content = await rawResponse.json();
