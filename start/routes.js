@@ -115,8 +115,11 @@ Route.get('new', ({ response, view }) => {
 });
 
 // Franz/Ferdi account import
-Route.post('import', 'UserController.import');
-Route.get('import', ({ view }) => view.render('others.import'));
+Route.post('importFranz', 'UserController.importFranz');
+Route.get('importFranz', ({ view }) => view.render('others.importFranz'));
+
+Route.post('importFerdi', 'UserController.importFerdi');
+Route.get('importFerdi', ({ view }) => view.render('others.importFerdi'));
 
 // Legal documents
 Route.get('terms', ({ response }) => response.redirect('/terms.html'));
