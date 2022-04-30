@@ -5,11 +5,9 @@
 # Server
   [![Docker Build and Publish](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml/badge.svg)](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml)
 
-<p>
-  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-13-default.svg?logo=github' alt='Contributors'/></a>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-16-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-</p>
 
 > 👨🏾‍🍳 Server for [Ferdium](https://ferdium.org) that you can re-use to run your own
 
@@ -181,6 +179,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href='https://github.com/dqos' title='Tamer: design'><img src='https://avatars.githubusercontent.com/u/8611981?v=4' alt='dqos' style='width:100px;'/></a></td>
     <td align="center"><a href='https://github.com/Gibby' title='Gibby: infra, doc'><img src='https://avatars.githubusercontent.com/u/503761?v=4' alt='Gibby' style='width:100px;'/></a></td>
     <td align="center"><a href='https://github.com/palepinkdot' title='MG: review'><img src='https://avatars.githubusercontent.com/u/55257671?v=4' alt='palepinkdot' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/xthursdayx' title='thursday: infra'><img src='https://avatars.githubusercontent.com/u/18044308?v=4' alt='xthursdayx' style='width:100px;'/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href='https://vantezzen.io/' title='Bennett: code'><img src='https://avatars.githubusercontent.com/u/10333196?v=4' alt='vantezzen' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://gitlab.com/reggermont/' title='Romain Eggermont: infra'><img src='https://avatars.githubusercontent.com/u/14902909?v=4' alt='reggermont' style='width:100px;'/></a></td>
   </tr>
 </table>
 

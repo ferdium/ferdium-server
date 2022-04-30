@@ -133,6 +133,33 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "xthursdayx",
+      "name": "thursday",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18044308?v=4",
+      "profile": "https://github.com/xthursdayx",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "vantezzen",
+      "name": "Bennett",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10333196?v=4",
+      "profile": "https://vantezzen.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "reggermont",
+      "name": "Romain Eggermont",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14902909?v=4",
+      "profile": "https://gitlab.com/reggermont/",
+      "contributions": [
+        "infra"
+      ]
     }
   ]
 }
