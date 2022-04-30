@@ -9,7 +9,7 @@
     "npm": "8.7.0"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "is-ci || husky install",
     "start": "node server.js",
     "test": "node ace test",
     "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix"
@@ -53,6 +53,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
     "husky": "^7.0.1",
+    "is-ci": "3.0.1",
     "prettier": "2.3.2"
   },
   "autoload": {
