@@ -7,7 +7,7 @@
 
 <p>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-5-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-13-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
@@ -166,19 +166,21 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://pogonip.pw/"><img src="https://avatars.githubusercontent.com/u/5242865?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nick</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=HuggableSquare" title="Code">💻</a></td>
-    <td align="center"><a href="http://code-addict.pl"><img src="https://avatars.githubusercontent.com/u/6313392?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Kostewicz</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=k0staa" title="Code">💻</a></td>
-    <td align="center"><a href="https://gitlab.com/cromefire_"><img src="https://avatars.githubusercontent.com/u/26320625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cromefire_</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=cromefire" title="Code">💻</a></td>
-    <td align="center"><a href="https://omkaragrawal.dev"><img src="https://avatars.githubusercontent.com/u/10913160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>OMKAR AGRAWAL</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=Omkaragrawal" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.nathanaelhoun.fr"><img src="https://avatars.githubusercontent.com/u/45119518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nathanaël Houn</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/pulls?q=is%3Apr+reviewed-by%3Anathanaelhoun" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/ericreeves"><img src="https://avatars.githubusercontent.com/u/1744930?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Reeves</b></sub></a><br /><a href="#infra-ericreeves" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/SpecialAro"><img src="https://avatars.githubusercontent.com/u/37463445?v=4?s=100" width="100px;" alt=""/><br /><sub><b>André Oliveira</b></sub></a><br /><a href="#infra-SpecialAro" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#design-SpecialAro" title="Design">🎨</a></td>
-    <td align="center"><a href="https://mydarkstar.net"><img src="https://avatars.githubusercontent.com/u/17343993?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mydarkstar</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/pulls?q=is%3Apr+reviewed-by%3Amydarkstar" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://santhosh.cyou"><img src="https://avatars.githubusercontent.com/u/20743451?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Santhosh C</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=santhosh-chinnasamy" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/vraravam"><img src="https://avatars.githubusercontent.com/u/69629?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vijay Aravamudhan</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/pulls?q=is%3Apr+reviewed-by%3Avraravam" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ferdium/ferdium-server/commits?author=vraravam" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/dqos"><img src="https://avatars.githubusercontent.com/u/8611981?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tamer</b></sub></a><br /><a href="#design-dqos" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/Gibby"><img src="https://avatars.githubusercontent.com/u/503761?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gibby</b></sub></a><br /><a href="#infra-Gibby" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/ferdium/ferdium-server/commits?author=Gibby" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/palepinkdot"><img src="https://avatars.githubusercontent.com/u/55257671?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MG</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/pulls?q=is%3Apr+reviewed-by%3Apalepinkdot" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href='https://pogonip.pw/' title='nick: code'><img src='https://avatars.githubusercontent.com/u/5242865?v=4' alt='HuggableSquare' style='width:100px;'/></a></td>
+    <td align="center"><a href='http://code-addict.pl' title='Michał Kostewicz: code'><img src='https://avatars.githubusercontent.com/u/6313392?v=4' alt='k0staa' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://gitlab.com/cromefire_' title='Cromefire_: code'><img src='https://avatars.githubusercontent.com/u/26320625?v=4' alt='cromefire' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://omkaragrawal.dev' title='OMKAR AGRAWAL: code'><img src='https://avatars.githubusercontent.com/u/10913160?v=4' alt='Omkaragrawal' style='width:100px;'/></a></td>
+    <td align="center"><a href='http://www.nathanaelhoun.fr' title='Nathanaël Houn: review'><img src='https://avatars.githubusercontent.com/u/45119518?v=4' alt='nathanaelhoun' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/ericreeves' title='Eric Reeves: infra'><img src='https://avatars.githubusercontent.com/u/1744930?v=4' alt='ericreeves' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/SpecialAro' title='André Oliveira: infra, design'><img src='https://avatars.githubusercontent.com/u/37463445?v=4' alt='SpecialAro' style='width:100px;'/></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href='https://mydarkstar.net' title='mydarkstar: review'><img src='https://avatars.githubusercontent.com/u/17343993?v=4' alt='mydarkstar' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://santhosh.cyou' title='Santhosh C: code'><img src='https://avatars.githubusercontent.com/u/20743451?v=4' alt='santhosh-chinnasamy' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/vraravam' title='Vijay Aravamudhan: review, code'><img src='https://avatars.githubusercontent.com/u/69629?v=4' alt='vraravam' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/dqos' title='Tamer: design'><img src='https://avatars.githubusercontent.com/u/8611981?v=4' alt='dqos' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/Gibby' title='Gibby: infra, doc'><img src='https://avatars.githubusercontent.com/u/503761?v=4' alt='Gibby' style='width:100px;'/></a></td>
+    <td align="center"><a href='https://github.com/palepinkdot' title='MG: review'><img src='https://avatars.githubusercontent.com/u/55257671?v=4' alt='palepinkdot' style='width:100px;'/></a></td>
   </tr>
 </table>
 

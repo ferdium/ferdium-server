@@ -12,13 +12,15 @@
     "prepare": "is-ci || husky install",
     "start": "node server.js",
     "test": "node ace test",
-    "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix"
+    "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix",
+    "contributors": "all-contributors"
   },
   "keywords": [
     "adonisjs",
     "adonis-app"
   ],
   "author": "",
+  "homepage": "https://github.com/ferdium/ferdium-server",
   "license": "MIT License",
   "private": true,
   "dependencies": {
@@ -49,6 +51,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.20.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
