@@ -7,7 +7,7 @@
 
 <p>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-4-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-5-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
@@ -170,6 +170,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://code-addict.pl"><img src="https://avatars.githubusercontent.com/u/6313392?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Kostewicz</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=k0staa" title="Code">💻</a></td>
     <td align="center"><a href="https://gitlab.com/cromefire_"><img src="https://avatars.githubusercontent.com/u/26320625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cromefire_</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=cromefire" title="Code">💻</a></td>
     <td align="center"><a href="https://omkaragrawal.dev"><img src="https://avatars.githubusercontent.com/u/10913160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>OMKAR AGRAWAL</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/commits?author=Omkaragrawal" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/palepinkdot"><img src="https://avatars.githubusercontent.com/u/55257671?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MG</b></sub></a><br /><a href="https://github.com/ferdium/ferdium-server/pulls?q=is%3Apr+reviewed-by%3Apalepinkdot" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
