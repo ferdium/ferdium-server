@@ -41,6 +41,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nathanaelhoun",
+      "name": "Nathanaël Houn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45119518?v=4",
+      "profile": "http://www.nathanaelhoun.fr",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
