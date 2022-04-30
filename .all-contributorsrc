@@ -41,6 +41,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Gibby",
+      "name": "Gibby",
+      "avatar_url": "https://avatars.githubusercontent.com/u/503761?v=4",
+      "profile": "https://github.com/Gibby",
+      "contributions": [
+        "infra",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
