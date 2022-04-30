@@ -41,6 +41,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "palepinkdot",
+      "name": "MG",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55257671?v=4",
+      "profile": "https://github.com/palepinkdot",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
