@@ -41,6 +41,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "SpecialAro",
+      "name": "André Oliveira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37463445?v=4",
+      "profile": "https://github.com/SpecialAro",
+      "contributions": [
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
