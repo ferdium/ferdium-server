@@ -41,6 +41,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mydarkstar",
+      "name": "mydarkstar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17343993?v=4",
+      "profile": "https://mydarkstar.net",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
