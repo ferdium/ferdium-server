@@ -3,9 +3,9 @@
 </p>
 
 # Server
+  [![Docker Build and Publish](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml/badge.svg)](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml)
 
 <p>
-  <a href="https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml"><img alt="Build Status" src="https://github.com/ferdium/ferdium-server/actions/workflows/builds.yml/badge.svg?branch=master&event=push"></a>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href='#contributors-'><img src='https://img.shields.io/badge/contributors-4-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
