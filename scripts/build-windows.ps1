@@ -136,12 +136,10 @@ if ($ACTUAL_PNPM_VERSION -ne $EXPECTED_PNPM_VERSION) {
 if ((Test-Path -Path ".\pnpm-lock.yaml") -and (Get-Command -ErrorAction Ignore -Type Application pnpm))
 {
   $BASE_CMD="pnpm"
-  $env:EXEC_CMD="pnpm dlx"
 }
 else
 {
   $BASE_CMD="npm"
-  $env:EXEC_CMD="npx"
 }
 
 $ENV_FILE = ".env"
@@ -149,7 +147,7 @@ if (-not (Test-Path -Path $ENV_FILE)) {
   Copy-Item .env.example -Destination $ENV_FILE
   $APP_KEY = ("!@#$%^&*0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".tochararray() | sort {Get-Random})[0..32] -join ''
   # SAVE APP_KEY TO .env FILE
-  (Get-Content $ENV_FILE -Raw) -replace 'APP_KEY', "APP_KEY=$APP_KEY" |  Set-Content $ENV_FILE
+  (Get-Content $ENV_FILE -Raw) -replace 'APP_KEY=', "APP_KEY=$APP_KEY" | Set-Content $ENV_FILE
 }
 
 if (-not (Test-Path -Path "data")) {
