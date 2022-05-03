@@ -28,7 +28,7 @@ The docker can be run as is, with the default sqlite database, or you can modify
 
 Pull the docker image:
 
-    docker pull ghcr.io/ferdium/ferdium-server
+    docker pull ferdium/ferdium-server:latest
 
 To create the docker container with the proper parameters:
 
@@ -59,7 +59,7 @@ To create the docker container with the proper parameters:
 	  -v <path to data>:/data \
 	  -v <path to recipes>:/app/recipes \
 	  --restart unless-stopped \
-	  ghcr.io/ferdium/ferdium-server
+	  ferdium/ferdium-server:latest
 
 ### docker-compose
 
@@ -212,7 +212,7 @@ Below are the instructions for updating the container to get the most recent ver
 
 ### Via Docker Run/Create
 
-* Update the image: `docker pull ghcr.io/ferdium/ferdium-server`
+* Update the image: `docker pull ferdium/ferdium-server:latest`
 * Stop the running container: `docker stop ferdium-server`
 * Delete the container: `docker rm ferdium-server`
 * Recreate a new container with the same docker create parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and ENV settings will be preserved)
@@ -232,7 +232,7 @@ If you want to build this image locally, please run this command from root of [F
 docker build \
   --no-cache \
   --pull \
-  -t ghcr.io/ferdium/ferdium-server:latest .
+  -t ferdium/ferdium-server:latest .
 ```
 
 ## License
