@@ -1,7 +1,7 @@
 version: "2"
 services:
   ferdium-server:
-    image: ghcr.io/ferdium/ferdium-server
+    image: ferdium/ferdium-server:latest
     container_name: ferdium-server
     environment:
       - NODE_ENV=development
