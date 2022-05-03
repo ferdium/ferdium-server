@@ -13,7 +13,7 @@ spec:
   services:
   - dockerfile_path: Dockerfile
     git:
-      branch: master
+      branch: main
       repo_clone_url: https://github.com/ferdium/ferdium-server.git
     envs:
     - key: DB_HOST

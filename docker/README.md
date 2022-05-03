@@ -63,7 +63,7 @@ To create the docker container with the proper parameters:
 
 ### docker-compose
 
-You can use the provided sample [docker-compose.yml](https://github.com/ferdium/ferdium-server/tree/master/docker/docker-compose.yml) if you are happy with the default environment variables. This will pull the latest image from Docker Hub or use a local copy of the image, which you can build using the instructions provided in the [Building locally section](#building-locally).
+You can use the provided sample [docker-compose.yml](https://github.com/ferdium/ferdium-server/tree/main/docker/docker-compose.yml) if you are happy with the default environment variables. This will pull the latest image from Docker Hub or use a local copy of the image, which you can build using the instructions provided in the [Building locally section](#building-locally).
 
 To start the application, use `docker-compose -f docker/docker-compose.yml up -d`.
 The server will be launched at [http://localhost:3333/](http://localhost:3333/) address.
@@ -188,14 +188,14 @@ Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-betwee
 
 Ferdium-server allows to extends the Franz recipe catalogue with custom Ferdi recipes.
 
-For documentation on how to create a recipe, please visit [the official guide](https://github.com/ferdium/ferdium-recipes/blob/master/docs/integration.md).
+For documentation on how to create a recipe, please visit [the official guide](https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md).
 
 To add your recipe to Ferdium-server, open `http://[YOUR FERDIUM-SERVER]/new` in your browser. You can now define the following settings:
 - `Author`: Author who created the recipe
 - `Name`: Name for your new service. Can contain spaces and unicode characters
 - `Service ID`: Unique ID for this recipe. Does not contain spaces or special characters (e.g. `google-drive`)
 - `Link to PNG/SVG image`: Direct link to a 1024x1024 PNG image and SVG that is used as a logo inside the store. Please use jsDelivr when using a file uploaded to GitHub as raw.githubusercontent files won't load
-- `Recipe files`: Recipe files that you created using the [recipe creation guide](https://github.com/ferdium/ferdium-recipes/blob/master/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdium-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
+- `Recipe files`: Recipe files that you created using the [recipe creation guide](https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md). Please do *not* package your files beforehand - upload the raw files (you can drag and drop multiple files). Ferdium-server will automatically package and store the recipe in the right format. Please also do not drag and drop or select the whole folder, select the individual files.
 
 ### Listing custom recipes
 
@@ -227,7 +227,7 @@ Below are the instructions for updating the container to get the most recent ver
 
 ## Building locally
 
-If you want to build this image locally, please run this command from root of [Ferdium-server repository](https://github.com/ferdium/ferdium-server/tree/master/):
+If you want to build this image locally, please run this command from root of [Ferdium-server repository](https://github.com/ferdium/ferdium-server/tree/main/):
 ```
 docker build \
   --no-cache \
