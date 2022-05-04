@@ -86,6 +86,62 @@ class UserController {
     });
   }
 
+  // Register a new user via web
+  async websignup({ request, response, auth }) {
+    if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {
+      // eslint-disable-line eqeqeq
+      return response.status(401).send({
+        message: 'Registration is disabled on this server',
+        status: 401,
+      });
+    }
+
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      firstname: 'required',
+      lastname: 'required',
+      email: 'required|email|unique:users,email',
+      password: 'required',
+    });
+
+    if (validation.fails()) {
+      return response.status(401).send({
+        message: 'Invalid POST arguments',
+        messages: validation.messages(),
+        status: 401,
+      });
+    }
+
+    const data = request.only(['firstname', 'lastname', 'email', 'password']);
+
+    // Hash password
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(data.password)
+      .digest('base64');
+
+    // Create user in DB
+    let user;
+    try {
+      user = await User.create({
+        email: data.email,
+        password: hashedPassword,
+        username: data.firstname,
+        lastname: data.lastname,
+      });
+    } catch (e) {
+      return response.status(401).send({
+        message: 'E-Mail Address already in use',
+        status: 401,
+      });
+    }
+
+    await auth.generate(user);
+
+    // Redirect user to login page, confirmaiton would be nice
+    return response.redirect('/user/login');
+  }
+
   // Login using an existing user
   async login({ request, response, auth }) {
     if (!request.header('Authorization')) {
