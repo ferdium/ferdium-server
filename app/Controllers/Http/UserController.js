@@ -90,10 +90,9 @@ class UserController {
   async websignup({ request, response, auth }) {
     if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {
       // eslint-disable-line eqeqeq
-      return response.status(401).send({
-        message: 'Registration is disabled on this server',
-        status: 401,
-      });
+      return response.status(401).send(
+        'Registration is disabled on this server'
+      );
     }
 
     // Validate user input
@@ -105,11 +104,7 @@ class UserController {
     });
 
     if (validation.fails()) {
-      return response.status(401).send({
-        message: 'Invalid POST arguments',
-        messages: validation.messages(),
-        status: 401,
-      });
+      return response.redirect('/websignupretry');
     }
 
     const data = request.only(['firstname', 'lastname', 'email', 'password']);
@@ -130,16 +125,15 @@ class UserController {
         lastname: data.lastname,
       });
     } catch (e) {
-      return response.status(401).send({
-        message: 'E-Mail Address already in use',
-        status: 401,
-      });
+      return response.status(401).send(
+        'E-Mail Address already in use'
+      );
     }
 
     await auth.generate(user);
 
     // Redirect user to login page, confirmaiton would be nice
-    return response.redirect('/user/login');
+    return response.redirect('/user/signuplogin');
   }
 
   // Login using an existing user
