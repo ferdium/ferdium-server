@@ -91,7 +91,7 @@ class UserController {
     if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {
       // eslint-disable-line eqeqeq
       return response.status(401).send(
-        'Registration is disabled on this server'
+        'Registration is disabled on this server',
       );
     }
 
@@ -126,7 +126,7 @@ class UserController {
       });
     } catch (e) {
       return response.status(401).send(
-        'E-Mail Address already in use'
+        'E-Mail Address already in use',
       );
     }
 
