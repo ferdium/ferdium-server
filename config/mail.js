@@ -29,6 +29,7 @@ module.exports = {
     port: Env.get('SMTP_PORT', '2525'),
     host: Env.get('SMTP_HOST', 'localhost'),
     secure: JSON.parse(Env.get('MAIL_SSL', 'false')),
+    requireTLS: JSON.parse(Env.get('MAIL_REQUIRE_TLS', 'false')),
     authMethod: 'LOGIN',
     auth: {
       user: Env.get('MAIL_USERNAME'),
