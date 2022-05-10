@@ -5,7 +5,7 @@
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "main": "index.js",
   "engines": {
-    "node": "16.14.2",
+    "node": "16.15.0",
     "npm": "8.7.0"
   },
   "scripts": {
