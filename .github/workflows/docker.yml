@@ -45,7 +45,7 @@ jobs:
           # Due to build time, only building the one currently needed.
           # If needed, we can add more platforms when requested.
           platforms: "linux/amd64"
-          # Push pull requests so they can be tested
-          #push: ${{ github.event_name != 'pull_request' }}
+          # Do not push pull requests
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
