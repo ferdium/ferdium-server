@@ -22,8 +22,7 @@ npm i -gf pnpm@7.0.1
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
-  # git clone --branch main https://github.com/ferdium/ferdium-server recipes # THIS LINE DOESN'T WORK, BUT IT WORKS ON MY FORK (NEXT LINE IS ON SAME COMMIT). SOMETHING IS WRONG...
-  git clone --branch main https://github.com/SpecialAro/ferdium-recipes recipes
+  git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
 else
   echo '**** Updating recipes ****'
   chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
