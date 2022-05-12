@@ -16,6 +16,29 @@ cat << "EOL"
 Brought to you by ferdium.org
 EOL
 
+# Update recipes from official git repository
+npm i -gf pnpm@7.0.1
+
+if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
+then
+  echo '**** Generating recipes for first run ****'
+  # git clone --branch main https://github.com/ferdium/ferdium-server recipes # THIS LINE DOESN'T WORK, BUT IT WORKS ON MY FORK (NEXT LINE IS ON SAME COMMIT). SOMETHING IS WRONG...
+  git clone --branch main https://github.com/SpecialAro/ferdium-recipes recipes
+else
+  echo '**** Updating recipes ****'
+  chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
+  cd recipes
+  git stash
+  git pull -r
+  git stash pop
+  cd ..
+fi
+
+cd recipes
+pnpm i
+pnpm package
+cd ..
+
 key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
 print_app_key_message() {
@@ -41,6 +64,6 @@ export APP_KEY
 
 node ace migration:run --force
 
-chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app
+chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app # This is the cause of the problem on line 29/32
 
 su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js

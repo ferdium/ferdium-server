@@ -16,3 +16,6 @@ docker
 !docker/.env
 node_modules
 .husky
+
+# Ignore recipes folder (it is pulled in the image by git)
+recipes
