@@ -28,7 +28,7 @@ else
   echo '**** Updating recipes ****'
   chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
   cd recipes
-  git stash
+  git stash -u
   git pull -r
   git stash pop
   cd ..
