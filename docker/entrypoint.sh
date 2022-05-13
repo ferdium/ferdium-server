@@ -34,6 +34,7 @@ else
 fi
 
 cd recipes
+git config --global --add safe.directory /app/recipes
 pnpm i
 pnpm package
 cd ..
