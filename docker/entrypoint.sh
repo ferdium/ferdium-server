@@ -17,7 +17,7 @@ Brought to you by ferdium.org
 EOL
 
 # Update recipes from official git repository
-npm i -gf pnpm@7.0.1
+npm i -gf pnpm@7.1.2
 
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
