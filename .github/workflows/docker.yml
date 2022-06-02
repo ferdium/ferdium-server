@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - 'main'
+  # Manual trigger from the UI
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Message for build"
+        required: true
 
 jobs:
   docker:
