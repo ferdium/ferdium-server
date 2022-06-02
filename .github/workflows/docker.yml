@@ -92,6 +92,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
+        if: ${{ (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[main]')) }}
         uses: docker/build-push-action@v3
         with:
           context: .
