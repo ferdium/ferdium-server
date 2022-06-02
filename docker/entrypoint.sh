@@ -17,8 +17,6 @@ Brought to you by ferdium.org
 EOL
 
 # Update recipes from official git repository
-npm i -gf pnpm@7.1.2
-
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
@@ -35,6 +33,8 @@ fi
 
 cd recipes
 git config --global --add safe.directory /app/recipes
+EXPECTED_PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm')
+npm i -gf pnpm@$EXPECTED_PNPM_VERSION
 pnpm i
 pnpm package
 cd ..
