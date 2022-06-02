@@ -43,12 +43,7 @@ jobs:
             git push origin main --no-verify
             git tag -f $TAG_NAME
             git push origin --tags --no-verify
-
-            git checkout main
           fi
-
-          echo "Merge with fast-forward from 'origin/main'"
-          git merge --ff-only origin/main --no-verify
 
           echo "Number of changes: $CHANGES_COUNT"
           if [ $CHANGES_COUNT -eq 0 ] && [ $MANUAL_REBUILD != "true" ]; then
