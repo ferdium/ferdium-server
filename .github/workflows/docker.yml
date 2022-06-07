@@ -49,6 +49,7 @@ jobs:
             git push origin main --no-verify
             git tag -f $TAG_NAME
             git push origin --tags --no-verify
+            echo "TAG_NAME=${TAG_NAME:1}" >> $GITHUB_ENV
           fi
 
           echo "Number of changes: $CHANGES_COUNT"
@@ -71,7 +72,7 @@ jobs:
           # generate Docker tags based on the following events/attributes
           tags: |
             latest
-            type=semver,pattern={{version}}
+            type=raw,value=$${{ env.TAG_NAME }}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
