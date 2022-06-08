@@ -71,8 +71,8 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
+            ${{ env.TAG_NAME }}
             latest
-            type=raw,value=$${{ env.TAG_NAME }}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
