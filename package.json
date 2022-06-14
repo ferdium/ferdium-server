@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prepare": "is-ci || husky install",
-    "start": "node server.js",
+    "start": "touch .env && node server.js",
     "test": "node ace test",
     "lint": "eslint \"{app,public,start}/**/*.js\" --quiet --fix",
     "contributors": "all-contributors"
