@@ -48,7 +48,7 @@ cd ..
 mkdir -p "${DATA_DIR}"
 
 print_app_key_message() {
-  printf '**** App key is %s. You can modify `%s` to update the app key ****\n' ${1} ${2}
+  printf '**** App key is %s. You can modify `%s` to update the app key ****\n' "${1}" "${2}"
 }
 
 if [ x"${HEROKU_ENV}" = "x" ]; then
@@ -61,15 +61,15 @@ if [ x"${HEROKU_ENV}" = "x" ]; then
     adonis key:generate
     APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
     echo ${APP_KEY} > ${key_file}
-    print_app_key_message ${APP_KEY} ${key_file}
+    print_app_key_message "${APP_KEY}" "${key_file}"
   else
     APP_KEY=$(cat ${key_file})
-    print_app_key_message ${APP_KEY} ${key_file}
+    print_app_key_message "${APP_KEY}" "${key_file}"
   fi
 
   export APP_KEY
 else
-  print_app_key_message ${APP_KEY} "Config vars on Heroku"
+  print_app_key_message "${APP_KEY}" "Config vars on Heroku"
 fi
 
 node ace migration:run --force
