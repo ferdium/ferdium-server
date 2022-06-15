@@ -10,12 +10,12 @@ const Route = use('Route');
 const Env = use('Env');
 
 // Health: Returning if all systems function correctly
-Route.get('health', ({
-  response,
-}) => response.send({
-  api: 'success',
-  db: 'success',
-}));
+Route.get('health', ({ response }) =>
+  response.send({
+    api: 'success',
+    db: 'success',
+  }),
+);
 
 // API is grouped under '/v1/' route
 Route.group(() => {
@@ -45,7 +45,9 @@ Route.group(() => {
 
   // Workspaces
   Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth');
-  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware('auth');
+  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware(
+    'auth',
+  );
   Route.post('workspace', 'WorkspaceController.create').middleware('auth');
   Route.get('workspace', 'WorkspaceController.list').middleware('auth');
 
@@ -61,12 +63,20 @@ Route.group(() => {
 if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
   Route.group(() => {
     // Auth
-    Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
-    Route.post('login', 'DashboardController.login').middleware('guest').as('login');
+    Route.get('login', ({ view }) => view.render('dashboard.login')).middleware(
+      'guest',
+    );
+    Route.post('login', 'DashboardController.login')
+      .middleware('guest')
+      .as('login');
 
     // Reset password
-    Route.get('forgot', ({ view }) => view.render('dashboard.forgotPassword')).middleware('guest');
-    Route.post('forgot', 'DashboardController.forgotPassword').middleware('guest');
+    Route.get('forgot', ({ view }) =>
+      view.render('dashboard.forgotPassword'),
+    ).middleware('guest');
+    Route.post('forgot', 'DashboardController.forgotPassword').middleware(
+      'guest',
+    );
 
     Route.get('reset', ({ view, request }) => {
       const { token } = request.get();
@@ -78,38 +88,63 @@ if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
         text: 'Please make sure you are using a valid and recent link to reset your password.',
       });
     }).middleware('guest');
-    Route.post('reset', 'DashboardController.resetPassword').middleware('guest');
+    Route.post('reset', 'DashboardController.resetPassword').middleware(
+      'guest',
+    );
 
     // Dashboard
-    Route.get('account', 'DashboardController.account').middleware('auth:session');
-    Route.post('account', 'DashboardController.edit').middleware('auth:session');
+    Route.get('account', 'DashboardController.account').middleware(
+      'auth:session',
+    );
+    Route.post('account', 'DashboardController.edit').middleware(
+      'auth:session',
+    );
 
     Route.get('data', 'DashboardController.data').middleware('auth:session');
 
-    Route.get('export', 'DashboardController.export').middleware('auth:session');
-    Route.post('transfer', 'DashboardController.import').middleware('auth:session');
-    Route.get('transfer', ({ view }) => view.render('dashboard.transfer')).middleware('auth:session');
+    Route.get('export', 'DashboardController.export').middleware(
+      'auth:session',
+    );
+    Route.post('transfer', 'DashboardController.import').middleware(
+      'auth:session',
+    );
+    Route.get('transfer', ({ view }) =>
+      view.render('dashboard.transfer'),
+    ).middleware('auth:session');
 
-    Route.get('delete', ({ view }) => view.render('dashboard.delete')).middleware('auth:session');
-    Route.post('delete', 'DashboardController.delete').middleware('auth:session');
+    Route.get('delete', ({ view }) =>
+      view.render('dashboard.delete'),
+    ).middleware('auth:session');
+    Route.post('delete', 'DashboardController.delete').middleware(
+      'auth:session',
+    );
 
-    Route.get('logout', 'DashboardController.logout').middleware('auth:session');
+    Route.get('logout', 'DashboardController.logout').middleware(
+      'auth:session',
+    );
 
     Route.get('*', ({ response }) => response.redirect('/user/account'));
-  }).prefix('user').middleware('shield');
+  })
+    .prefix('user')
+    .middleware('shield');
 } else {
   Route.group(() => {
-    Route.get('*', ({
-      response,
-    }) => response.send('The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.'));
+    Route.get('*', ({ response }) =>
+      response.send(
+        'The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.',
+      ),
+    );
   }).prefix('user');
 }
 
 // Recipe creation
 Route.post('new', 'RecipeController.create');
 Route.get('new', ({ response, view }) => {
-  if (Env.get('IS_CREATION_ENABLED') == 'false') { // eslint-disable-line eqeqeq
-    return response.send('This server doesn\'t allow the creation of new recipes.\n\nIf you are the server owner, please set IS_CREATION_ENABLED to true to enable recipe creation.');
+  if (Env.get('IS_CREATION_ENABLED') == 'false') {
+    // eslint-disable-line eqeqeq
+    return response.send(
+      "This server doesn't allow the creation of new recipes.\n\nIf you are the server owner, please set IS_CREATION_ENABLED to true to enable recipe creation.",
+    );
   }
   return view.render('others.new');
 });

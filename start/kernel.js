@@ -56,7 +56,6 @@ const serverMiddleware = [
   'App/Middleware/HandleDoubleSlash',
 ];
 
-Server
-  .registerGlobal(globalMiddleware)
+Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(serverMiddleware);

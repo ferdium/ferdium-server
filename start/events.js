@@ -14,7 +14,7 @@ This message was sent automatically. Please do not reply.
 `;
   console.log('Sending message', body);
   try {
-    await Mail.raw(body, (message) => {
+    await Mail.raw(body, message => {
       message.subject('[Ferdium] Reset your password');
       message.from(Env.get('MAIL_SENDER'));
       message.to(user.email);

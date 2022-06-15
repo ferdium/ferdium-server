@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env');
@@ -32,7 +32,10 @@ module.exports = {
   sqlite: {
     client: 'sqlite3',
     connection: {
-      filename: path.join(Env.get('DATA_DIR', 'data'), `${Env.get('DB_DATABASE', 'ferdium')}.sqlite`),
+      filename: path.join(
+        Env.get('DATA_DIR', 'data'),
+        `${Env.get('DB_DATABASE', 'ferdium')}.sqlite`,
+      ),
     },
     useNullAsDefault: true,
     debug: Env.get('DB_DEBUG', false),
@@ -78,10 +81,12 @@ module.exports = {
       user: Env.get('DB_USER', 'root'),
       password: Env.get('DB_PASSWORD', ''),
       database: Env.get('DB_DATABASE', 'ferdium'),
-      ssl: Env.get('DB_CA_CERT') ? {
-        rejectUnauthorized: false,
-        ca: Env.get('DB_CA_CERT'),
-      } : JSON.parse(Env.get('DB_SSL', 'true')),
+      ssl: Env.get('DB_CA_CERT')
+        ? {
+            rejectUnauthorized: false,
+            ca: Env.get('DB_CA_CERT'),
+          }
+        : JSON.parse(Env.get('DB_SSL', 'true')),
     },
     debug: Env.get('DB_DEBUG', false),
   },

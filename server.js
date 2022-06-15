@@ -1,6 +1,8 @@
 const Sentry = require('@sentry/node');
 
-Sentry.init({ dsn: 'https://fe581d50b11842b68b8e43e08b9c6ad9@o1288292.ingest.sentry.io/6504914' });
+Sentry.init({
+  dsn: 'https://fe581d50b11842b68b8e43e08b9c6ad9@o1288292.ingest.sentry.io/6504914',
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,4 @@ Sentry.init({ dsn: 'https://fe581d50b11842b68b8e43e08b9c6ad9@o1288292.ingest.sen
 const { Ignitor } = require('@adonisjs/ignitor');
 const fold = require('@adonisjs/fold');
 
-new Ignitor(fold)
-  .appRoot(__dirname)
-  .fireHttpServer()
-  .catch(console.error); // eslint-disable-line no-console
+new Ignitor(fold).appRoot(__dirname).fireHttpServer().catch(console.error); // eslint-disable-line no-console

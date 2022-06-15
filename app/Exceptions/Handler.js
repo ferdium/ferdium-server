@@ -22,7 +22,8 @@ class ExceptionHandler extends BaseExceptionHandler {
   async handle(error, { response }) {
     if (error.name === 'ValidationException') {
       return response.status(400).send('Invalid arguments');
-    } if (error.name === 'InvalidSessionException') {
+    }
+    if (error.name === 'InvalidSessionException') {
       return response.status(401).redirect('/user/login');
     }
 

@@ -1,10 +1,9 @@
-
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema');
 
 class ServiceSchema extends Schema {
   up() {
-    this.create('services', (table) => {
+    this.create('services', table => {
       table.increments();
       table.string('userId', 80).notNullable();
       table.string('serviceId', 80).notNullable();

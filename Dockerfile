@@ -17,7 +17,7 @@ WORKDIR /app
 LABEL maintainer="ferdium"
 
 # TODO: Shouldn't we set 'NODE_ENV=production' when running in production mode?
-ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
+ENV HOST=0.0.0.0 DATA_DIR="/data"
 
 RUN apk add --no-cache sqlite-libs curl su-exec
 RUN apk add --no-cache python3 make g++ py3-pip git py3-pip

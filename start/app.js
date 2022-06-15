@@ -32,9 +32,7 @@ const providers = [
 | Providers for migrations, tests etc.
 |
 */
-const aceProviders = [
-  '@adonisjs/lucid/providers/MigrationsProvider',
-];
+const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider'];
 
 /*
 |--------------------------------------------------------------------------
@@ -61,5 +59,8 @@ const aliases = {};
 const commands = [];
 
 module.exports = {
-  providers, aceProviders, aliases, commands,
+  providers,
+  aceProviders,
+  aliases,
+  commands,
 };

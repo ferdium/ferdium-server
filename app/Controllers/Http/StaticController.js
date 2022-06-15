@@ -7,9 +7,7 @@ const path = require('path');
 
 class StaticController {
   // Enable all features
-  features({
-    response,
-  }) {
+  features({ response }) {
     return response.send({
       needToWaitToProceed: false,
       isSpellcheckerPremiumFeature: false,
@@ -71,16 +69,12 @@ class StaticController {
   }
 
   // Return an empty array
-  emptyArray({
-    response,
-  }) {
+  emptyArray({ response }) {
     return response.send([]);
   }
 
   // Payment plans availible
-  plans({
-    response,
-  }) {
+  plans({ response }) {
     return response.send({
       month: {
         id: 'franz-supporter-license',
@@ -94,11 +88,12 @@ class StaticController {
   }
 
   // Show announcements
-  async announcement({
-    response,
-    params,
-  }) {
-    const announcement = path.join(Helpers.resourcesPath(), 'announcements', `${params.version}.json`);
+  async announcement({ response, params }) {
+    const announcement = path.join(
+      Helpers.resourcesPath(),
+      'announcements',
+      `${params.version}.json`,
+    );
 
     if (await fs.pathExists(announcement)) {
       return response.download(announcement);

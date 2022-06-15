@@ -3,11 +3,11 @@ const elDrop = document.getElementById('dropzone');
 const submitBtn = document.getElementById('submitbutton');
 const fileInput = document.getElementById('files');
 
-elDrop.addEventListener('dragover', (event) => {
+elDrop.addEventListener('dragover', event => {
   event.preventDefault();
 });
 
-elDrop.addEventListener('drop', async (event) => {
+elDrop.addEventListener('drop', async event => {
   event.preventDefault();
 
   submitBtn.disabled = true;

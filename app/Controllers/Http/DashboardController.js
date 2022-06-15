@@ -222,7 +222,10 @@ class DashboardController {
     try {
       file = JSON.parse(request.input('file'));
     } catch (e) {
-      session.flash({ type: 'danger', message: 'Invalid Ferdium account file' });
+      session.flash({
+        type: 'danger',
+        message: 'Invalid Ferdium account file',
+      });
       return response.redirect('back');
     }
 

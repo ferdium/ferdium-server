@@ -12,9 +12,7 @@ class HandleDoubleSlash {
   async handle({ request, response }, next) {
     // Redirect requests that contain duplicate slashes to the right path
     if (request.url().includes('//')) {
-      return response.redirect(
-        request.url().replace(/\/{2,}/g, '/'),
-      );
+      return response.redirect(request.url().replace(/\/{2,}/g, '/'));
     }
 
     await next();

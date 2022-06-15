@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ x"${HEROKU_ENV}" != "x" ]; then
+  echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
+  env > .env
+fi
+
 cat << "EOL"
 -------------------------------------
        ______              ___
@@ -23,7 +28,8 @@ then
   git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
 else
   echo '**** Updating recipes ****'
-  chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
+  # TODO: in docker check another way to do this
+  #chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
   cd recipes
   git stash -u
   git pull -r
@@ -39,31 +45,39 @@ pnpm i
 pnpm package
 cd ..
 
-key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
+mkdir -p "${DATA_DIR}"
 
 print_app_key_message() {
-  app_key=$1
-  printf '**** App key is %s. ' ${app_key}
-  printf 'You can modify `%s` to update the app key ****\n' ${key_file}
+  printf '**** App key is %s. You can modify `%s` to update the app key ****\n' ${1} ${2}
 }
 
-# Create APP key if needed
-if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
-then
-  echo '**** Generating Ferdium-server app key for first run ****'
-  adonis key:generate
-  APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
-  echo ${APP_KEY} > ${key_file}
-  print_app_key_message ${APP_KEY}
-else
-  APP_KEY=$(cat ${key_file})
-  print_app_key_message ${APP_KEY}
-fi
+if [ x"${HEROKU_ENV}" = "x" ]; then
+  key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
-export APP_KEY
+  # Create APP key if needed
+  if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
+  then
+    echo '**** Generating Ferdium-server app key for first run ****'
+    adonis key:generate
+    APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
+    echo ${APP_KEY} > ${key_file}
+    print_app_key_message ${APP_KEY} ${key_file}
+  else
+    APP_KEY=$(cat ${key_file})
+    print_app_key_message ${APP_KEY} ${key_file}
+  fi
+
+  export APP_KEY
+else
+  print_app_key_message ${APP_KEY} "Config vars on Heroku"
+fi
 
 node ace migration:run --force
 
-chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app # This is the cause of the problem on line 29/32
+# TODO: why do this in docker container?
+#chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app # This is the cause of the problem on line 29/32
 
-su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js
+# TODO: why do this in docker container?
+#su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js
+
+node server.js

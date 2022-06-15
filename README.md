@@ -3,10 +3,13 @@
 </p>
 
 # Server
-  [![Docker Build and Publish](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml/badge.svg)](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml)
+
+[![Docker Build and Publish](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml/badge.svg)](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 <a href='#contributors-'><img src='https://img.shields.io/badge/contributors-16-default.svg?logo=github' alt='Contributors'/></a>
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 > 👨🏾‍🍳 Server for [Ferdium](https://ferdium.org) that you can re-use to run your own
@@ -23,6 +26,7 @@ A custom server allows you to manage the data of all registered users yourself a
 </details>
 
 ## Features
+
 - [x] User registration and login
 - [x] Service creation, download, listing and removing
 - [x] Workspace support
@@ -45,90 +49,96 @@ After setting up the docker container we recommend you set up an NGINX reverse p
 
 1. Pull the Docker image
 
-    ```sh
-    docker pull ferdium/ferdium-server:latest
-    ```
-2. Create a *new* Docker container with your desired configuration **Existing users please seee the warning above.**
+   ```sh
+   docker pull ferdium/ferdium-server:latest
+   ```
 
-    ```sh
-	    docker create \
-	    --name=ferdium-server \
-	    -e NODE_ENV=development \
-	    -e APP_URL=<ferdium-server-url> \
-	    -e DB_CONNECTION=<database> \
-	    -e DB_HOST=<yourdbhost> \
-	    -e DB_PORT=<yourdbport> \
-	    -e DB_USER=<yourdbuser> \
-	    -e DB_PASSWORD=<yourdbpass> \
-	    -e DB_DATABASE=<yourdbdatabase> \
-	    -e DB_SSL=false \
-	    -e MAIL_CONNECTION=smtp \
-	    -e SMTP_HOST=<smtpmailserver> \
-	    -e SMTP_PORT=<smtpport> \
-	    -e MAIL_SSL=true/false \
-	    -e MAIL_USERNAME=<yourmailusername> \
-	    -e MAIL_PASSWORD=<yourmailpassword> \
-	    -e MAIL_SENDER=<sendemailaddress> \
-	    -e IS_CREATION_ENABLED=true \
-	    -e IS_DASHBOARD_ENABLED=true \
-	    -e IS_REGISTRATION_ENABLED=true \
-	    -e CONNECT_WITH_FRANZ=true \
-      -e DATA_DIR=data \
-	    -p <port>:3333 \
-	    -v <path to data>:/data \
-	    -v <path to recipes>:/app/recipes \
-	    --restart unless-stopped \
-	    ferdium/ferdium-server:latest
-    ```
+2. Create a _new_ Docker container with your desired configuration **Existing users please seee the warning above.**
 
-    Alternatively, you can also use docker-compose v2 schema. An example can be found [in the docker folder](./docker/docker-compose.yml).
+   ```sh
+       docker create \
+       --name=ferdium-server \
+       -e NODE_ENV=development \
+       -e APP_URL=<ferdium-server-url> \
+       -e DB_CONNECTION=<database> \
+       -e DB_HOST=<yourdbhost> \
+       -e DB_PORT=<yourdbport> \
+       -e DB_USER=<yourdbuser> \
+       -e DB_PASSWORD=<yourdbpass> \
+       -e DB_DATABASE=<yourdbdatabase> \
+       -e DB_SSL=false \
+       -e MAIL_CONNECTION=smtp \
+       -e SMTP_HOST=<smtpmailserver> \
+       -e SMTP_PORT=<smtpport> \
+       -e MAIL_SSL=true/false \
+       -e MAIL_USERNAME=<yourmailusername> \
+       -e MAIL_PASSWORD=<yourmailpassword> \
+       -e MAIL_SENDER=<sendemailaddress> \
+       -e IS_CREATION_ENABLED=true \
+       -e IS_DASHBOARD_ENABLED=true \
+       -e IS_REGISTRATION_ENABLED=true \
+       -e CONNECT_WITH_FRANZ=true \
+     -e DATA_DIR=data \
+       -p <port>:3333 \
+       -v <path to data>:/data \
+       -v <path to recipes>:/app/recipes \
+       --restart unless-stopped \
+       ferdium/ferdium-server:latest
+   ```
+
+   Alternatively, you can also use docker-compose v2 schema. An example can be found [in the docker folder](./docker/docker-compose.yml).
 
 3. Optionally, you can [set up Nginx as a reverse proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04#set-up-nginx-as-a-reverse-proxy-server).
 
 For more information on configuring the Docker image, please read [the Ferdium docker documentation](./docker/README.md).
+
 </details>
 <details>
 <summary>Manual setup</summary>
 
-1. Clone repository with submodule
-2. Install the [AdonisJS CLI](https://adonisjs.com/)
-3. Copy `.env.example` to `.env` and edit the [configuration](#configuration) to your needs
-4. Have env DB_SSL=true only if your database is postgres and it is hosted online on platforms like GCP, AWS, etc
-5. Run `npm install` to install local dependencies
-6. Run the database migrations with
+1.  Clone repository with submodule
+2.  Install the [AdonisJS CLI](https://adonisjs.com/)
+3.  Copy `.env.example` to `.env` and edit the [configuration](#configuration) to your needs
+4.  Have env DB_SSL=true only if your database is postgres and it is hosted online on platforms like GCP, AWS, etc
+5.  Run `npm install` to install local dependencies
+6.  Run the database migrations with
 
     ```js
     node ace migration:run
     ```
 
-7. Start the server with
+7.  Start the server with
 
-    ```js
-    npm start
-    ```
-</details>
-<details>
-<summary>Configuration</summary>
+        ```js
+        npm start
+        ```
+
+    </details>
+    <details>
+    <summary>Configuration</summary>
 
 Ferdium-server's configuration is saved inside an `.env` file. Besides AdonisJS's settings, Ferdium-server has the following custom settings:
+
 - `IS_CREATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the [creation of custom recipes](#creating-and-using-custom-recipes)
 - `IS_REGISTRATION_ENABLED` (`true` or `false`, default: `true`): Whether to enable the creation of new user accounts
 - `IS_DASHBOARD_ENABLED` (`true` or `false`, default: `true`): Whether to enable the user dashboard
 - `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, Ferdium-server can:
   - Show the full Franz recipe library instead of only custom recipes
   - Import Franz accounts
-</details>
-<details>
-<summary>Importing your Franz/Ferdi account</summary>
+  </details>
+  <details>
+  <summary>Importing your Franz/Ferdi account</summary>
 
 Ferdium-server allows you to import your full Franz/Ferdi account, including all its settings.
 
 To import your Franz/Ferdi account, open `http://[YOUR FERDIUM-SERVER]/import` in your browser and login using your Franz/Ferdi account details. Ferdium-server will create a new user with the same credentials and copy your Franz/Ferdi settings, services and workspaces.
+
 </details>
 <details>
 <summary>Transferring user data</summary>
 
 Please refer to <https://github.com/getferdi/ferdi/wiki/Transferring-data-between-servers>
+
 </details>
 <details>
 <summary>Creating and using custom recipes</summary>
@@ -149,6 +159,7 @@ To add your recipe to Ferdium-server, open `http://[YOUR FERDIUM-SERVER]/new` in
 <summary>Listing custom recipes</summary>
 
 Inside Ferdium, searching for `ferdium:custom` will list all of your custom recipes.
+
 </details>
 
 ## Contributing
