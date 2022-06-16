@@ -13,7 +13,7 @@
 
 ## Why use a custom server?
 
-_Find answers to other frequently asked questions on [ferdium.org/faq](https://ferdium.org/faq/)._
+_Find answers to other frequently asked questions on [ferdium.org/faq](https://ferdium.org/faq)._
 
 <details>
 <summary>Toggle answer</summary>
