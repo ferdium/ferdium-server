@@ -22,24 +22,25 @@ fi
 
 cat << "EOL"
 -------------------------------------------------
-        _____               __
-       / ___/___  _________/ (_)_  ______ ___
-      / /_  / _ \/ ___/ __  / / / / / __ `__ \
-     / __/ /  __/ /  / /_/ / / /_/ / / / / / /
-    /_/    \___/_/   \__,_/_/\__,_/_/ /_/ /_/
-       ____
-      / __/ ___  ______   _____  _____
-      \__ \/ _ \/ ___/ | / / _ \/ ___/
-     ___/ /  __/ /   | |/ /  __/ /
-    /____/\___/_/    |___/\___/_/
-
-  Brought to you by ferdium.org (and marchrius)
+.        _____               __
+.       / ___/___  _________/ (_)_  ______ ___
+.      / /_  / _ \/ ___/ __  / / / / / __ `__ \
+.     / __/ /  __/ /  / /_/ / / /_/ / / / / / /
+.    /_/    \___/_/   \__,_/_/\__,_/_/ /_/ /_/
+.       ____
+.      / __/ ___  ______   _____  _____
+.      \__ \/ _ \/ ___/ | / / _ \/ ___/
+.     ___/ /  __/ /   | |/ /  __/ /
+.    /____/\___/_/    |___/\___/_/
+.
+.  Brought to you by ferdium.org (and marchrius)
+-------------------------------------------------
 EOL
 
 if [ x"$RESET_RECIPES" != "x" ]
 then
   echo "** Resetting recipes at /app/recipes"
-  rm -r /app/recipes
+  rm -rf /app/recipes
 fi
 
 # Update recipes from official git repository
@@ -48,7 +49,7 @@ then
   echo '**** Generating recipes for first run ****'
   if [ x"${CUSTOM_RECIPES_URL}" = "x" ]
   then
-    CUSTOM_RECIPES=https://github.com/ferdium/ferdium-recipes
+    CUSTOM_RECIPES_URL=https://github.com/ferdium/ferdium-recipes
   fi
   git clone --branch main "${CUSTOM_RECIPES_URL}" recipes
 else
