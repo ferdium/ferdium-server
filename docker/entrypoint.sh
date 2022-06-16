@@ -13,35 +13,42 @@ then
       echo "Something went wrong while updating the env file"
     else
       printf "\n$DB_ENVS\n" >> .env
+      export $(grep -v '^#' .env | xargs -d '\n')
     fi
   fi
 fi
 
-echo "Printing .env file >>>"
-cat .env
-echo "<<< Printing .env file"
-
 cat << "EOL"
--------------------------------------
-       ______              ___
-      / ____/__  _________/ (_)_  ______ ___
-     / /_  / _ \/ ___/ __  / / / / / __ `__ \
-    / __/ /  __/ /  / /_/ / / /_/ / / / / / /
-   /_/    \___/_/   \__,_/_/\__,_/_/ /_/ /_/
+-------------------------------------------------
+        _____               __
+       / ___/___  _________/ (_)_  ______ ___
+      / /_  / _ \/ ___/ __  / / / / / __ `__ \
+     / __/ /  __/ /  / /_/ / / /_/ / / / / / /
+    /_/    \___/_/   \__,_/_/\__,_/_/ /_/ /_/
+       ____
+      / __/ ___  ______   _____  _____
+      \__ \/ _ \/ ___/ | / / _ \/ ___/
+     ___/ /  __/ /   | |/ /  __/ /
+    /____/\___/_/    |___/\___/_/
 
-      _____
-     / ___/___  ______   _____  _____
-     \__ \/ _ \/ ___/ | / / _ \/ ___/
-    ___/ /  __/ /   | |/ /  __/ /
-   /____/\___/_/    |___/\___/_/
-Brought to you by ferdium.org
+  Brought to you by ferdium.org (and marchrius)
 EOL
+
+if [ x"$RESET_RECIPES" != "x" ]
+then
+  echo "** Resetting recipes at /app/recipes"
+  rm -r /app/recipes
+fi
 
 # Update recipes from official git repository
 if [ ! -d "/app/recipes/.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
-  git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
+  if [ x"${CUSTOM_RECIPES_URL}" = "x" ]
+  then
+    CUSTOM_RECIPES=https://github.com/ferdium/ferdium-recipes
+  fi
+  git clone --branch main "${CUSTOM_RECIPES_URL}" recipes
 else
   echo '**** Updating recipes ****'
   # TODO: in docker check another way to do this
