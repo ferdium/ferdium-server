@@ -1,8 +1,20 @@
 #!/bin/sh
 
-if [ x"${HEROKU_ENV}" != "x" ]; then
+if [ x"${HEROKU_ENV}" != "x" ]
+then
   echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
   env > .env
+  if [ x"${DATABASE_URL}" != "x" ] && [ x"${SKIP_HEROKU_DATABASE_URL}" != "x" ]
+  then
+    echo "Found DATABASE_URL env variable. Maybe there is an Heroku database. Updating vars. To skip this define a SKIP_HEROKU_DATABASE_URL in env"
+    local DB_ENVS=$(node ./parse_url.js "${DATABASE_URL}")
+    if [ "$?" != "0" ]
+    then
+      echo "Something went wrong while updating the env file"
+    else
+      printf "\n$DB_ENVS\n" >> .env
+    fi
+  fi
 fi
 
 cat << "EOL"
@@ -22,7 +34,7 @@ Brought to you by ferdium.org
 EOL
 
 # Update recipes from official git repository
-if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
+if [ ! -d "/app/recipes/.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
   git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
@@ -51,7 +63,8 @@ print_app_key_message() {
   printf '**** App key is %s. You can modify `%s` to update the app key ****\n' "${1}" "${2}"
 }
 
-if [ x"${HEROKU_ENV}" = "x" ]; then
+if [ x"${HEROKU_ENV}" = "x" ]
+then
   key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
   # Create APP key if needed
