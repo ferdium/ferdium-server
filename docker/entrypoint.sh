@@ -17,6 +17,10 @@ then
   fi
 fi
 
+echo "Printing .env file >>>"
+cat .env
+echo "<<< Printing .env file"
+
 cat << "EOL"
 -------------------------------------
        ______              ___
