@@ -13,7 +13,9 @@ then
       echo "Something went wrong while updating the env file"
     else
       printf "\n$DB_ENVS\n" >> .env
-      export $(grep -v '^#' .env | xargs -d '\n')
+      set -a
+      source .env
+      set +a
     fi
   fi
 fi
