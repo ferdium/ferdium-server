@@ -1,7 +1,9 @@
 const Sentry = require('@sentry/node');
+const { Env } = require('@adonisjs/env');
 
 Sentry.init({
-  dsn: 'https://fe581d50b11842b68b8e43e08b9c6ad9@o1288292.ingest.sentry.io/6504914',
+  dsn: Env.get('SENTRY_DSN'),
+  release: Env.get('npm_package_version'),
 });
 
 /*
