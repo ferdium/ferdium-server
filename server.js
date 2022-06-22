@@ -1,6 +1,6 @@
 const Sentry = require('@sentry/node');
-const { Env } = require('@adonisjs/env');
-
+const Env = new (require('@adonisjs/framework/src/Env'))(__dirname);
+console.log(Env);
 Sentry.init({
   dsn: Env.get('SENTRY_DSN'),
   release: Env.get('npm_package_version'),
