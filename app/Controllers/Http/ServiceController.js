@@ -6,6 +6,7 @@ const Helpers = use('Helpers');
 const { v4: uuid } = require('uuid');
 const path = require('path');
 const fs = require('fs-extra');
+const sanitize = require('sanitize-filename');
 
 class ServiceController {
   // Create a new service for user
@@ -231,10 +232,21 @@ class ServiceController {
   }
 
   async icon({ params, response }) {
-    const { id } = params;
+    let { id } = params;
+
+    id = sanitize(id);
+    if (id === '') {
+      return response.status(404).send({
+        status: "Icon doesn't exist",
+      });
+    }
 
     const iconPath = path.join(Helpers.tmpPath('uploads'), id);
-    if (!(await fs.exists(iconPath))) {
+
+    try {
+      await fs.access(iconPath);
+    } catch {
+      // File not available.
       return response.status(404).send({
         status: "Icon doesn't exist",
       });

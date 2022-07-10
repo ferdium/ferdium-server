@@ -1,4 +1,4 @@
-FROM node:16.15.0-alpine as build
+FROM node:16.15.1-alpine as build
 
 WORKDIR /server-build
 
@@ -11,7 +11,7 @@ RUN NPM_VERSION=$(node -p 'require("./package.json").engines.npm'); npm i -g npm
 RUN npm ci --build-from-source --sqlite=/usr/local
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
-FROM node:16.15.0-alpine
+FROM node:16.15.1-alpine
 
 WORKDIR /app
 LABEL maintainer="ferdium"

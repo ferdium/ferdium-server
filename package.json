@@ -5,8 +5,8 @@
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "main": "index.js",
   "engines": {
-    "node": "16.15.0",
-    "npm": "8.7.0"
+    "node": "16.15.1",
+    "npm": "8.13.2"
   },
   "scripts": {
     "prepare": "is-ci || husky install",
@@ -45,6 +45,7 @@
     "mysql": "2.18.1",
     "node-fetch": "^2.6.7",
     "pg": "^8.0.3",
+    "sanitize-filename": "1.6.3",
     "semver": "7.3.5",
     "sqlite3": "^4.1.0",
     "targz": "^1.0.1",
