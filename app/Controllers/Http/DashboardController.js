@@ -205,7 +205,7 @@ class DashboardController {
 
     return response
       .header('Content-Type', 'application/force-download')
-      .header('Content-disposition', 'attachment; filename=export.ferdi-data')
+      .header('Content-disposition', 'attachment; filename=export.ferdium-data')
       .send(exportData);
   }
 
