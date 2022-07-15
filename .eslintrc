@@ -1,0 +1,19 @@
+{
+  "ignorePatterns": [
+    "node_modules",
+    "build",
+    "recipes"
+  ],
+  "extends": [
+    "plugin:adonis/typescriptApp",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error"
+    ]
+  }
+}

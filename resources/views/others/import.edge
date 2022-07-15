@@ -11,14 +11,14 @@
       Please login using your Franz/Ferdi account. We will create a new Ferdium account with the same credentials.
     </p>
 
-    @if(flashMessage('error'))
+    @if(flashMessages.has('error'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('error') }}
+      {{ flashMessages.get('error') }}
     </div>
     @endif
-    @if(old('message'))
+    @if(flashMessages.has('message'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ old('message') }}
+      {{ flashMessages.get('message') }}
     </div>
     @endif
 
@@ -32,7 +32,7 @@
         name="email"
         type="text"
         placeholder="E-Mail"
-        value="{{ old('email', '') }}"
+        value="{{ flashMessages.get('email', '') }}"
         required>
     </div>
     <div class="mb-6">
