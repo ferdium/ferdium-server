@@ -1,4 +1,4 @@
-@layout('layouts.v2')
+@layout('layouts/v2')
 
 @section('content')
 <style>
@@ -6,7 +6,7 @@
         border: 1px solid #919191;
         border-collapse: collapse;
         table-layout: fixed;
-        width: 100%; 
+        width: 100%;
     }
     table thead { text-align: center; }
     table tbody { text-align: right; }
@@ -22,7 +22,6 @@
   <div class="w-full bg-white shadow-md rounded px-8 pt-6 mt-5 pb-8 mb-4">
     <h1 class="text-gray-700 text-center text-2xl pb-5">Your Account Data</h1>
 
-    
     <table class="w-full rounded-lg overflow-hidden sm:shadow-lg my-5">
         <tr>
             <th>
@@ -73,7 +72,7 @@
             </td>
         </tr>
     </table>
-    
+
     <h1 class="text-gray-700 text-center text-2xl pb-5">Your Services</h1>
     <table class="w-full rounded-lg overflow-hidden sm:shadow-lg my-5">
         <tr>
@@ -96,7 +95,7 @@
                 Last updated
             </th>
         </tr>
-    
+
         @each(service in services)
           <tr>
               <td>
@@ -120,7 +119,7 @@
           </tr>
         @endeach
     </table>
-    
+
     <h1 class="text-gray-700 text-center text-2xl pb-5">Your Workspaces</h1>
     <table>
         <tr>
@@ -146,7 +145,7 @@
                 Last updated
             </th>
         </tr>
-    
+
         @each(workspace in workspaces)
           <tr>
               <td>
@@ -173,7 +172,7 @@
           </tr>
         @endeach
     </table>
-    
+
     <div class="text-center">
       <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/user/account">Back to My
         Account</a>
