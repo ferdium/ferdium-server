@@ -43,6 +43,7 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
+  dashboard: () => import('App/Middleware/Dashboard'),
   guest: () => import('App/Middleware/AllowGuestOnly'),
   shield: () => import('@ioc:Adonis/Addons/Shield'),
 });

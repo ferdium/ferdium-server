@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+import hash from 'Config/hash';
 import crypto from 'crypto';
 
 export default class LoginController {
@@ -34,18 +35,15 @@ export default class LoginController {
       });
       session.flashExcept(['password']);
 
-      return response.redirect('back');
+      return response.redirect('/user/login');
     }
 
-    const { mail, password } = request.all();
-
-    const hashedPassword = crypto
-      .createHash('sha256')
-      .update(password)
-      .digest('base64');
-
     try {
-      await auth.attempt(mail, hashedPassword);
+      const { mail, password } = request.all();
+
+      await auth.use('web').attempt(mail, password);
+
+      return response.redirect('/user/account');
     } catch (error) {
       session.flash({
         type: 'danger',
@@ -53,9 +51,7 @@ export default class LoginController {
       });
       session.flashExcept(['password']);
 
-      return response.redirect('back');
+      return response.redirect('/user/login');
     }
-
-    return response.redirect('/user/account');
   }
 }
