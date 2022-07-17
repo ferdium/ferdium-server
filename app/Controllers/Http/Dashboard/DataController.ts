@@ -5,6 +5,6 @@ export default class DataController {
    * Display the data page
    */
   public async show({ view }: HttpContextContract) {
-    return view.render('dashboard.data');
+    return view.render('dashboard/data');
   }
 }

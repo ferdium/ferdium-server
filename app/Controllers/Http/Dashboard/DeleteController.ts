@@ -5,7 +5,7 @@ export default class DeleteController {
    * Display the delete page
    */
   public async show({ view }: HttpContextContract) {
-    return view.render('dashboard.delete');
+    return view.render('dashboard/delete');
   }
 
   /**

@@ -5,7 +5,7 @@ export default class ForgotPasswordController {
    * Display the forgot password form
    */
   public async show({ view }: HttpContextContract) {
-    return view.render('dashboard.forgotPassword');
+    return view.render('dashboard/forgotPassword');
   }
 
   /**

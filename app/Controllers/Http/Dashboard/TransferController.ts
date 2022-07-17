@@ -5,7 +5,7 @@ export default class TransferController {
    * Display the transfer page
    */
   public async show({ view }: HttpContextContract) {
-    return view.render('dashboard.transfer');
+    return view.render('dashboard/transfer');
   }
 
   /**

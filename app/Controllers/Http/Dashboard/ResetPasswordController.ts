@@ -8,10 +8,10 @@ export default class ResetPasswordController {
     const { token } = request.qs();
 
     if (token) {
-      return view.render('dashboard.resetPassword', { token });
+      return view.render('dashboard/resetPassword', { token });
     }
 
-    return view.render('others.message', {
+    return view.render('others/message', {
       heading: 'Invalid token',
       text: 'Please make sure you are using a valid and recent link to reset your password.',
     });
