@@ -46,6 +46,7 @@
     "luxon": "^3.0.1",
     "mysql": "^2.18.1",
     "pg": "^8.7.3",
+    "phc-bcrypt": "^1.0.7",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21",

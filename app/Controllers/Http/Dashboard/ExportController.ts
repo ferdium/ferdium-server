@@ -1,0 +1,10 @@
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+export default class ExportController {
+  /**
+   * Display the export page
+   */
+  public async show({ view }: HttpContextContract) {
+    // todo
+  }
+}

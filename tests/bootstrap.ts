@@ -13,6 +13,8 @@ import {
   specReporter,
   apiClient,
 } from '@japa/preset-adonis';
+import View from '@ioc:Adonis/Core/View';
+import { fakeCsrfField } from './utils';
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +58,11 @@ export const reporters: Config['reporters'] = [specReporter()];
 |
 */
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [() => TestUtils.ace().loadCommands()],
+  setup: [
+    () => TestUtils.ace().loadCommands(),
+    () => TestUtils.db().migrate(),
+    () => fakeCsrfField(),
+  ],
   teardown: [],
 };
 
