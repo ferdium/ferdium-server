@@ -3,6 +3,13 @@ import Route from '@ioc:Adonis/Core/Route';
 // Health check
 Route.get('health', 'HealthController.index');
 
+// Legal documents
+Route.get('terms', ({ response }) => response.redirect('/terms.html'));
+Route.get('privacy', ({ response }) => response.redirect('/privacy.html'));
+
+// Index
+Route.get('/', ({ view }) => view.render('others/index'));
+
 Route.group(() => {
   Route.group(() => {
     // Guest troutes
@@ -43,13 +50,6 @@ Route.group(() => {
   // Franz/Ferdi account import
   Route.get('import', ({ view }) => view.render('others/import'));
   Route.post('import', 'UserController.import');
-
-  // Legal documents
-  Route.get('terms', ({ response }) => response.redirect('/terms.html'));
-  Route.get('privacy', ({ response }) => response.redirect('/privacy.html'));
-
-  // Index
-  Route.get('/', ({ view }) => view.render('others/index'));
 
   // 404 handler
   Route.get('/*', ({ response }) => response.redirect('/'));
