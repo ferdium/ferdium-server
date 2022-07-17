@@ -7,9 +7,12 @@ export default class Token extends BaseModel {
   public id: number;
 
   @hasOne(() => User, {
-    foreignKey: 'userId',
+    localKey: 'user_id',
   })
   public user: HasOne<typeof User>;
+
+  @column()
+  public user_id: number;
 
   @column()
   public token: string;
