@@ -1,7 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-import hash from 'Config/hash';
-import crypto from 'crypto';
 
 export default class LoginController {
   /**
