@@ -1,10 +1,10 @@
-@layout('layouts.v2')
+@layout('layouts/v2')
 
 @section('content')
 <div class="w-screen bg-purple-200 flex items-center justify-center">
   <div class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <h1 class="text-gray-700 text-center text-2xl pb-5">Import/Export data from another Ferdium server</h1>
-    @if(flashMessage('error'))
+    @if(flashMessages.has('error'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
       {{ flashMessages.get('error') }}
     </div>
