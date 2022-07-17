@@ -13,7 +13,6 @@ import {
   specReporter,
   apiClient,
 } from '@japa/preset-adonis';
-import View from '@ioc:Adonis/Core/View';
 import { fakeCsrfField } from './utils';
 
 /*

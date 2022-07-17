@@ -35,7 +35,6 @@ test.group('Disabled dashboard', group => {
     response.assertTextIncludes(disabledDashboardMessage);
   });
 
-  // all invalid tests.
   test('Account page returns disabled dashboard message', async ({
     client,
   }) => {
