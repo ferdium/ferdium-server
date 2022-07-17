@@ -4,7 +4,7 @@ export default class AccountController {
   /**
    * Shows the user account page
    */
-  public async show({ view }: HttpContextContract) {
+  public async show({}: HttpContextContract) {
     // inplement your logic here
   }
 
