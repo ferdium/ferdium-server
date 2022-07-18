@@ -1,7 +1,7 @@
 import { test } from '@japa/runner';
 import { UserFactory } from 'Database/factories';
 
-test.group('Login page', () => {
+test.group('Dashboard / Login page', () => {
   test('returns a 200 opening the login route', async ({ client }) => {
     const response = await client.get('/user/login');
 
