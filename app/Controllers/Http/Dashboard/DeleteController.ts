@@ -13,7 +13,7 @@ export default class DeleteController {
    */
   public async delete({ auth, response }) {
     auth.user.delete();
-    auth.authenticator('session').logout();
+    auth.use('web').logout();
 
     return response.redirect('/user/login');
   }
