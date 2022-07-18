@@ -4,7 +4,7 @@ import Config from '@ioc:Adonis/Core/Config';
 const disabledDashboardMessage =
   'The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.';
 
-test.group('Disabled dashboard', group => {
+test.group('Dashboard / Disabled dashboard', group => {
   group.setup(() => {
     Config.set('dashboard.enabled', false);
   });
