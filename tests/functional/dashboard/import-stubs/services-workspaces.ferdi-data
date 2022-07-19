@@ -1,0 +1,61 @@
+{
+  "username": "John",
+  "lastname": "Doe",
+  "mail": "john.doe@ferdium.org",
+  "services": [
+    {
+      "id": 5641,
+      "userId": "1234",
+      "serviceId": "d6901fff-ec44-4251-93de-d7103ed9c44b",
+      "name": "random-service-1",
+      "recipeId": "random-service-1",
+      "settings": "{}",
+      "created_at": "2022-06-21 08:29:13",
+      "updated_at": "2022-07-19 15:47:16"
+    },
+    {
+      "id": 2134,
+      "userId": "1234",
+      "serviceId": "79769de5-a998-4af1-b7d0-89956a15b0ed",
+      "name": "random-service-2",
+      "recipeId": "random-service-2",
+      "settings": "{}",
+      "created_at": "2022-06-21 08:29:13",
+      "updated_at": "2022-07-19 15:47:16"
+    },
+    {
+      "id": 5343,
+      "userId": "1234",
+      "serviceId": "0ac973f8-40dc-4760-b2c2-55e1d2943747",
+      "name": "random-service-3",
+      "recipeId": "random-service-3",
+      "settings": "{}",
+      "created_at": "2022-06-21 08:29:13",
+      "updated_at": "2022-07-19 15:47:16"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "workspace1",
+      "order": 0,
+      "services": [],
+      "data": "{\"name\":\"workspace1\"}"
+    },
+    {
+      "name": "workspace2",
+      "order": 0,
+      "services": ["d6901fff-ec44-4251-93de-d7103ed9c44b", "79769de5-a998-4af1-b7d0-89956a15b0ed"],
+      "data": "{\"name\":\"workspace2\"}"
+    },
+    {
+      "name": "workspace3",
+      "order": 0,
+      "services": [
+        "d6901fff-ec44-4251-93de-d7103ed9c44b",
+        "79769de5-a998-4af1-b7d0-89956a15b0ed",
+        "0ac973f8-40dc-4760-b2c2-55e1d2943747"
+      ],
+      "data": "{\"name\":\"workspace3\"}"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { test } from '@japa/runner';
 import Event from '@ioc:Adonis/Core/Event';
-import { UserFactory } from 'Database/factories';
+import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Forgot password page', () => {
   test('returns a 200 opening the forgot password route', async ({
