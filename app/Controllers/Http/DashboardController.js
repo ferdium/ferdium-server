@@ -257,7 +257,7 @@ class DashboardController {
           settings: JSON.stringify(service.settings),
         });
 
-        serviceIdTranslation[service.id] = serviceId;
+        serviceIdTranslation[service.serviceId] = serviceId;
       }
     } catch (e) {
       const errorMessage = `Could not import your services into our system.\nError: ${e}`;
