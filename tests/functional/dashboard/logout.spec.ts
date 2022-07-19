@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { UserFactory } from 'Database/factories';
+import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Log out page', () => {
   test('returns a 401 opening the logout route as guest', async ({

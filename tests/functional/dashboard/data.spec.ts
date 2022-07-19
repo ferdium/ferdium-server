@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { UserFactory } from 'Database/factories';
+import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Data page', () => {
   test('returns a 401 opening the data route as guest', async ({ client }) => {

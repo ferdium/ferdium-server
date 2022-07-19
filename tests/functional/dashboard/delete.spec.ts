@@ -1,6 +1,6 @@
 import { test } from '@japa/runner';
 import User from 'App/Models/User';
-import { UserFactory } from 'Database/factories';
+import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Delete account page', () => {
   test('returns a 401 opening the delete route as guest', async ({
