@@ -7,11 +7,7 @@ export default class extends BaseSchema {
     this.schema.alterTable(this.tableName, table => {
       table.dropForeign('user_id');
 
-      table
-        .foreign('user_id')
-        .references('id')
-        .inTable('users')
-        .onDelete('cascade');
+      table.foreign('user_id').references('users.id').onDelete('cascade');
     });
   }
 

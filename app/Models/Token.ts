@@ -8,6 +8,7 @@ export default class Token extends BaseModel {
 
   @hasOne(() => User, {
     localKey: 'user_id',
+    foreignKey: 'id',
   })
   public user: HasOne<typeof User>;
 
@@ -24,8 +25,8 @@ export default class Token extends BaseModel {
   public is_revoked: boolean;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
+  public created_at: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+  public updated_at: DateTime;
 }

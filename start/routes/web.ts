@@ -22,8 +22,6 @@ Route.group(() => {
       Route.post('forgot', 'Dashboard/ForgotPasswordController.forgotPassword');
 
       Route.get('reset', 'Dashboard/ResetPasswordController.show');
-
-      // change route
       Route.post('reset', 'Dashboard/ResetPasswordController.resetPassword');
     }).middleware(['dashboard', 'guest']);
 
