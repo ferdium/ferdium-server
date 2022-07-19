@@ -11,18 +11,26 @@ export default class Service extends BaseModel {
   })
   public user: HasOne<typeof User>;
 
-  @column()
+  @column({
+    columnName: 'userId',
+  })
+  public userId: number;
+
+  @column({
+    columnName: 'serviceId',
+  })
   public serviceId: string;
 
   @column()
   public name: string;
 
-  @column()
+  @column({
+    columnName: 'recipeId',
+  })
   public recipeId: string;
 
-  // TODO: Type the settings object.
   @column()
-  public settings: object;
+  public settings: string;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

@@ -56,7 +56,9 @@ export default class User extends BaseModel {
   @hasMany(() => Service)
   public services: HasMany<typeof Service>;
 
-  @hasMany(() => Workspace)
+  @hasMany(() => Workspace, {
+    foreignKey: 'userId',
+  })
   public workspaces: HasMany<typeof Workspace>;
 
   public async forgotPassword(): Promise<void> {
