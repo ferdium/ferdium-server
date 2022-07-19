@@ -2,8 +2,6 @@ import Token from 'App/Models/Token';
 import Factory from '@ioc:Adonis/Lucid/Factory';
 import { DateTime } from 'luxon';
 
-// Always use this factory with with('user') to ensure the user_id is
-// overridden with the correct user id
 export default Factory.define(Token, async ({ faker }) => ({
   token: faker.random.alphaNumeric(32),
   type: 'forgot_password',
