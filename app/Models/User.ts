@@ -53,7 +53,9 @@ export default class User extends BaseModel {
   })
   public tokens: HasMany<typeof Token>;
 
-  @hasMany(() => Service)
+  @hasMany(() => Service, {
+    foreignKey: 'userId',
+  })
   public services: HasMany<typeof Service>;
 
   @hasMany(() => Workspace, {

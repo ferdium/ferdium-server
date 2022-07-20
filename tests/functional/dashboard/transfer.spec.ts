@@ -198,6 +198,4 @@ test.group('Dashboard / Transfer page', () => {
       ]);
     }
   });
-
-  // TODO: Test import with valid json file while having services & workspaces present in json but empty
 });
