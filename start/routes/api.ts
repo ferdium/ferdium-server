@@ -33,9 +33,12 @@ Route.group(() => {
   // Route.post('workspace', 'WorkspaceController.create').middleware('auth');
   // Route.get('workspace', 'WorkspaceController.list').middleware('auth');
 
-  // // Static responses
-  // Route.get('features/:mode?', 'StaticController.features');
-  // Route.get('services', 'StaticController.emptyArray');
-  // Route.get('news', 'StaticController.emptyArray');
-  // Route.get('announcements/:version', 'StaticController.announcement');
-}).prefix('/v2');
+  // Static responses
+  Route.get('features/:mode?', 'Api/Static/FeaturesController.show');
+  Route.get('services', 'Api/Static/EmptyController.show');
+  Route.get('news', 'Api/Static/EmptyController.show');
+  Route.get(
+    'announcements/:version',
+    'Api/Static/AnnouncementsController.show',
+  );
+}).prefix('/v1');

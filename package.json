@@ -45,6 +45,7 @@
     "@adonisjs/shield": "^7.0.11",
     "@adonisjs/view": "^6.1.6",
     "aws-sdk": "^2.1176.0",
+    "fs-extra": "^10.1.0",
     "luxon": "^3.0.1",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
