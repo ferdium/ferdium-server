@@ -6,7 +6,7 @@
   [![Docker Build and Publish](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml/badge.svg)](https://github.com/ferdium/ferdium-server/actions/workflows/docker.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-16-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-17-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 > 👨🏾‍🍳 Server for [Ferdium](https://ferdium.org) that you can re-use to run your own
@@ -184,6 +184,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href='https://vantezzen.io/' title='Bennett: code'><img src='https://avatars.githubusercontent.com/u/10333196?v=4' alt='vantezzen' style='width:100px;'/></a></td>
     <td align="center"><a href='https://gitlab.com/reggermont/' title='Romain Eggermont: infra'><img src='https://avatars.githubusercontent.com/u/14902909?v=4' alt='reggermont' style='width:100px;'/></a></td>
+    <td align="center"><a href='http://lnhrdt.com' title='Leonhardt Koepsell: infra'><img src='https://avatars.githubusercontent.com/u/4040241?v=4' alt='lnhrdt' style='width:100px;'/></a></td>
   </tr>
 </table>
 
