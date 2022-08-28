@@ -102,9 +102,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          # Due to build time, only building the one currently needed.
           # If needed, we can add more platforms when requested.
-          platforms: "linux/amd64"
+          platforms: linux/amd64,linux/arm64
           # Do not push pull requests
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
