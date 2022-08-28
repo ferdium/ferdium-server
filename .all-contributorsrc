@@ -160,6 +160,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "lnhrdt",
+      "name": "Leonhardt Koepsell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4040241?v=4",
+      "profile": "http://lnhrdt.com",
+      "contributions": [
+        "infra"
+      ]
     }
   ]
 }
