@@ -14,8 +14,7 @@ Route.get('health', ({ response }) =>
   response.send({
     api: 'success',
     db: 'success',
-  }),
-);
+  }));
 
 // API is grouped under '/v1/' route
 Route.group(() => {
@@ -72,8 +71,7 @@ if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
 
     // Reset password
     Route.get('forgot', ({ view }) =>
-      view.render('dashboard.forgotPassword'),
-    ).middleware('guest');
+      view.render('dashboard.forgotPassword')).middleware('guest');
     Route.post('forgot', 'DashboardController.forgotPassword').middleware(
       'guest',
     );
@@ -109,12 +107,10 @@ if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
       'auth:session',
     );
     Route.get('transfer', ({ view }) =>
-      view.render('dashboard.transfer'),
-    ).middleware('auth:session');
+      view.render('dashboard.transfer')).middleware('auth:session');
 
     Route.get('delete', ({ view }) =>
-      view.render('dashboard.delete'),
-    ).middleware('auth:session');
+      view.render('dashboard.delete')).middleware('auth:session');
     Route.post('delete', 'DashboardController.delete').middleware(
       'auth:session',
     );
@@ -132,8 +128,7 @@ if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
     Route.get('*', ({ response }) =>
       response.send(
         'The user dashboard is disabled on this server\n\nIf you are the server owner, please set IS_DASHBOARD_ENABLED to true to enable the dashboard.',
-      ),
-    );
+      ));
   }).prefix('user');
 }
 
