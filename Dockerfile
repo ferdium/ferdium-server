@@ -8,6 +8,7 @@ COPY . /server-build
 
 ENV CI=true
 RUN NPM_VERSION=$(node -p 'require("./package.json").engines.npm'); npm i -g npm@$NPM_VERSION
+RUN npm install
 RUN npm ci --build-from-source --sqlite=/usr/local
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
