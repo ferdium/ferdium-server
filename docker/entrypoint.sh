@@ -3,7 +3,7 @@
 if [ -z ${ENV_FILE} ]
 then
   . ${ENV_FILE}
-else if [ -f .env ]
+elif [ -f .env ]
 then
   . .env
 fi
@@ -108,6 +108,7 @@ then
     echo ${APP_KEY} > ${key_file}
     print_app_key_message "${APP_KEY}" "${key_file}"
   elif [ -z ${APP_KEY} ] && [ -f ${key_file} ]
+  then
     APP_KEY=$(cat ${key_file})
     print_app_key_message "${APP_KEY}" "${key_file}"
   fi
