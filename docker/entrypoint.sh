@@ -47,12 +47,12 @@ EOL
 
 RECIPES_PATH="${CUSTOM_RECIPES_PATH}"
 
-if [ "x${RECIPES_PATH}" == 'x' ]
+if [ "x${RECIPES_PATH}" = 'x' ]
 then
   RECIPES_PATH="/app/recipes"
 fi
 
-if [ "x$RESET_RECIPES" == 'xtrue' ]
+if [ "x${RESET_RECIPES}" = 'xtrue' ]
 then
   echo "** Resetting recipes at ${RECIPES_PATH}"
   rm -rf "${RECIPES_PATH}"
@@ -63,7 +63,7 @@ if [ ! -d "${RECIPES_PATH}.git" ] # When we mount an existing volume (ferdium-re
 then
   RECIPES_URL="${CUSTOM_RECIPES_URL}"
   echo '**** Generating recipes for first run ****'
-  if [ "x${RECIPES_URL}" == '' ]
+  if [ "x${RECIPES_URL}" = '' ]
   then
     RECIPES_URL=https://github.com/ferdium/ferdium-recipes
   fi
@@ -95,7 +95,7 @@ print_app_key_message() {
   printf '**** App key is %s. You can modify `%s` to update the app key ****\n' "${1}" "${2}"
 }
 
-if [ "x${HEROKU_ENV}" == "x" ]
+if [ "x${HEROKU_ENV}" = "x" ]
 then
   key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
@@ -114,7 +114,7 @@ then
   fi
 
   export APP_KEY="${APP_KEY}"
-elif [ "x${NODE_ENV}" == 'xproduction' ]
+elif [ "x${NODE_ENV}" = 'xproduction' ]
   print_app_key_message "${APP_KEY}" "Config on your provider"
 fi
 
