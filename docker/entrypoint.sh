@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z ${ENV_FILE} ]
+if [ "x${ENV_FILE}" != 'x' ] && [ -f "${ENV_FILE}" ]
 then
   . ${ENV_FILE}
 elif [ -f .env ]
