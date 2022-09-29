@@ -1,7 +1,5 @@
 #!/bin/sh
 
-source .env
-
 if [ x"${HEROKU_ENV}" != "x" ]
 then
   echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
