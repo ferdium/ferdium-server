@@ -1,6 +1,12 @@
 #!/bin/sh
 
-. .env
+if [ -z ${ENV_FILE} ]
+then
+  . ${ENV_FILE}
+else if [ -f .env ]
+then
+  . .env
+fi
 
 if [ x"${HEROKU_ENV}" != "x" ]
 then
