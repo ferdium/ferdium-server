@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source .env
+
 if [ x"${HEROKU_ENV}" != "x" ]
 then
   echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
@@ -46,25 +48,25 @@ fi
 
 if [ x"$RESET_RECIPES" != "x" ]
 then
-  echo "** Resetting recipes at ${CUSTOM_RECIPES_PATH}"
-  rm -rf "${CUSTOM_RECIPES_PATH}"
+  echo "** Resetting recipes at ${RECIPES_PATH}"
+  rm -rf "${RECIPES_PATH}"
 fi
 
 # Update recipes from official git repository
-if [ ! -d "${CUSTOM_RECIPES_PATH}.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
+if [ ! -d "${RECIPES_PATH}.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
   if [ x"${CUSTOM_RECIPES_URL}" = "x" ]
   then
     CUSTOM_RECIPES_URL=https://github.com/ferdium/ferdium-recipes
   fi
-  git clone --branch main "${CUSTOM_RECIPES_URL}" "${CUSTOM_RECIPES_PATH}"
+  git clone --branch main "${CUSTOM_RECIPES_URL}" "${RECIPES_PATH}"
 else
   echo '**** Updating recipes ****'
   # TODO: in docker check another way to do this
   #chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
   CURR_PWD="$(pwd)"
-  cd "${CUSTOM_RECIPES_PATH}"
+  cd "${RECIPES_PATH}"
   git stash -u
   git pull -r
   git stash pop
@@ -72,8 +74,8 @@ else
 fi
 
 CURR_PWD="$(pwd)"
-cd "${CUSTOM_RECIPES_PATH}"
-git config --global --add safe.directory "${CUSTOM_RECIPES_PATH}"
+cd "${RECIPES_PATH}"
+git config --global --add safe.directory "${RECIPES_PATH}"
 EXPECTED_PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm')
 npm i -gf pnpm@$EXPECTED_PNPM_VERSION
 pnpm i
