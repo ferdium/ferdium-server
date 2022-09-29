@@ -1,13 +1,4 @@
 #!/bin/sh
-echo "Env file '${ENV_FILE}' will be used"
-if [ "x${ENV_FILE}" != 'x' ] && [ -f "${ENV_FILE}" ]
-then
-  . ${ENV_FILE}
-elif [ -f .env ]
-then
-  . .env
-fi
-
 if [ x"${HEROKU_ENV}" != "x" ]
 then
   echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
