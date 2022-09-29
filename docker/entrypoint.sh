@@ -59,7 +59,7 @@ then
 fi
 
 # Update recipes from official git repository
-if [ ! -d "${RECIPES_PATH}.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
+if [ ! -d "${RECIPES_PATH}/.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   RECIPES_URL="${CUSTOM_RECIPES_URL}"
   echo '**** Generating recipes for first run ****'
@@ -115,6 +115,7 @@ then
 
   export APP_KEY="${APP_KEY}"
 elif [ "x${NODE_ENV}" = 'xproduction' ]
+then
   print_app_key_message "${APP_KEY}" "Config on your provider"
 fi
 
