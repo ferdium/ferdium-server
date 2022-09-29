@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. .env
+
 if [ x"${HEROKU_ENV}" != "x" ]
 then
   echo "/* HEROKU ENVIRONMENT: ${HEROKU_ENV} */"
@@ -37,14 +39,14 @@ cat << "EOL"
 -------------------------------------------------
 EOL
 
-RECIPES_PATH=/app/recipes
+RECIPES_PATH="${CUSTOM_RECIPES_PATH}"
 
-if [ "x${CUSTOM_RECIPES_PATH}" != 'x' ]
+if [ "x${RECIPES_PATH}" == 'x' ]
 then
-  RECIPES_PATH="${CUSTOM_RECIPES_PATH}"
+  RECIPES_PATH="/app/recipes"
 fi
 
-if [ x"$RESET_RECIPES" != "x" ]
+if [ "x$RESET_RECIPES" == 'xtrue' ]
 then
   echo "** Resetting recipes at ${RECIPES_PATH}"
   rm -rf "${RECIPES_PATH}"
@@ -53,12 +55,13 @@ fi
 # Update recipes from official git repository
 if [ ! -d "${RECIPES_PATH}.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
+  RECIPES_URL="${CUSTOM_RECIPES_URL}"
   echo '**** Generating recipes for first run ****'
-  if [ x"${CUSTOM_RECIPES_URL}" = "x" ]
+  if [ "x${RECIPES_URL}" == '' ]
   then
-    CUSTOM_RECIPES_URL=https://github.com/ferdium/ferdium-recipes
+    RECIPES_URL=https://github.com/ferdium/ferdium-recipes
   fi
-  git clone --branch main "${CUSTOM_RECIPES_URL}" "${RECIPES_PATH}"
+  git clone --branch main "${RECIPES_URL}" "${RECIPES_PATH}"
 else
   echo '**** Updating recipes ****'
   # TODO: in docker check another way to do this
@@ -86,26 +89,26 @@ print_app_key_message() {
   printf '**** App key is %s. You can modify `%s` to update the app key ****\n' "${1}" "${2}"
 }
 
-if [ x"${HEROKU_ENV}" = "x" ]
+if [ "x${HEROKU_ENV}" == "x" ]
 then
   key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
   # Create APP key if needed
-  if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
+  if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ] && [ "x${NODE_ENV}" != 'xproduction' ]
   then
     echo '**** Generating Ferdium-server app key for first run ****'
     adonis key:generate
     APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
     echo ${APP_KEY} > ${key_file}
     print_app_key_message "${APP_KEY}" "${key_file}"
-  else
+  elif [ -z ${APP_KEY} ] && [ -f ${key_file} ]
     APP_KEY=$(cat ${key_file})
     print_app_key_message "${APP_KEY}" "${key_file}"
   fi
 
-  export APP_KEY
-else
-  print_app_key_message "${APP_KEY}" "Config vars on Heroku"
+  export APP_KEY="${APP_KEY}"
+elif [ "x${NODE_ENV}" == 'xproduction' ]
+  print_app_key_message "${APP_KEY}" "Config on your provider"
 fi
 
 node ace migration:run --force
