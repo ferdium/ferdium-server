@@ -9,7 +9,7 @@ then
   if [ x"${DATABASE_URL}" != "x" ] && [ x"${SKIP_HEROKU_DATABASE_URL}" = "x" ]
   then
     echo "Found DATABASE_URL env variable. Maybe there is an Heroku database. Updating vars. To skip this define a SKIP_HEROKU_DATABASE_URL in env"
-    DB_ENVS=$(node ./parse_url.js "${DATABASE_URL}")
+    DB_ENVS=$(node ace parse:url "${DATABASE_URL}")
     if [ "$?" != "0" ]
     then
       echo "Something went wrong while updating the env file"

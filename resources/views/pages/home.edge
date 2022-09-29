@@ -1,0 +1,50 @@
+@layout('layouts/main')
+
+@section('content')
+  <div class="container px-20 mx-auto">
+    <div class="shadow-lg p-3 row">
+      <div class="col-12 col-md-4">
+        <h1 class="my-10">
+          👨🏾‍🍳 Server
+        </h1>
+        <p class="subtitle font-bold pb-8 pb-lg-6 fade-in">
+          Setup your client
+        </p>
+        <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+          <div class="flex w-full justify-center md:justify-start pb-0 fade-in">
+            <ol class="list-decimal list-inside">
+              <li>
+                Logout of Ferdium, if you are currently logged in
+              </li>
+              <li>
+                Choose "Change Server" to get to the settings screen
+              </li>
+              <li>
+                Enter <code id="server">{{ env('APP_URL', '') }}</code>
+              </li>
+            </ol>
+          </div>
+        
+          <p class="text-gray-700 font-bold pb-8 pb-lg-6 text-center text-md-left fade-in pt-8">
+            Manage your account
+          </p>
+          <p class="font-bold pb-8 pb-lg-6 text-center text-md-left fade-in pt-8">
+            @if(auth.isLoggedIn)
+            <a href="/profile" class="bg-dark text-light mx-auto rounded-pill px-4 py-2 text-decoration-none">
+              Go to account dashboard
+            </a>
+            @else
+            <a href="/login" class="bg-dark text-light mx-auto rounded-pill px-4 py-2 text-decoration-none">
+              Login
+            </a>
+            @endif
+          </p>
+          <p class="text-gray-700 my-10 py-0 pb-8 pb-lg-6 text-center text-md-left fade-in pt-2"><em><a
+                href="{{ env('SITE_URL') }}">Don't have Ferdium yet?</a></em></p>
+        </div>
+      </div>
+      <img class="col-12 col-md-6 py-6 overflow-y-hidden mx-auto mr-lg-0 slide-in-bottom" src="{{ asset('assets/img/hero.png') }}">
+    </div>
+  </div>
+
+@endsection

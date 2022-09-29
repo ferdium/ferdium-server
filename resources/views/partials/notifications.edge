@@ -1,0 +1,15 @@
+@if(flashMessages.get("notification"))
+<div class="alert alert-success">
+  <div class="container">
+  {{{ flashMessages.get("notification") }}}
+  </div>
+</div>
+@end
+
+@if(flashMessages.get("error"))
+<div class="alert alert-danger">
+  <div class="container">
+  {{ flashMessages.get("error") }}
+  </div>
+</div>
+@end

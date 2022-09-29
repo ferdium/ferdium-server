@@ -160,6 +160,18 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "marchrius",
+      "name": "Matteo Gaggiano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/534837?v=4",
+      "profile": "https://marchrius.org/",
+      "contributions": [
+        "maintenance",
+        "platform",
+        "plugin",
+        "projectManagement"
+      ]
     }
   ]
 }

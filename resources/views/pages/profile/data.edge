@@ -1,0 +1,95 @@
+@layout('layouts.main')
+
+@section('content')
+<main>
+  <div class="container">
+    <div class="shadow-lg pt-4 position-relative">
+      <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+        {{ entity.services.length || 0}}
+        <span class="visually-hidden">services</span>
+      </span>
+      <h2 class="p-4 pt-0 m-0">Your Services</h2>
+      <div class="accordion accordion-flush" id="services-accordion">
+        @each(service in entity.services)
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="service-heading-{{ service.serviceId }}">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#service-collapse-{{ service.serviceId }}"
+              aria-expanded="false" aria-controls="service-collapse-{{ service.serviceId }}">
+              <div class="flexflex-column align-items-start text-decoration-none">
+                @if (service.customIcon)
+                  <img src="{{service.customIcon}}" />
+                @else
+                  <img src="{{service.recipe}}" />
+                  {{stringify(service.recipe)}}
+                @endif
+                <p>{{ service.name }} ({{ service.recipeId }})</p>
+                <p class="m-0"><small>created at {{ service.createdAt.toFormat('dd LLL yyyy') }} and last modified at {{ service.updatedAt.toFormat('dd LLL yyyy') }}</small></p>
+              </div>
+          </button>
+          </h2>
+          <div id="service-collapse-{{ service.serviceId }}" class="accordion-collapse collapse"
+            aria-labelledby="service-heading-{{ service.serviceId }}"
+            data-bs-parent="#services-accordion">
+            <div class="accordion-body">
+              <code>{{ service.serviceId }}</code>
+              <a href="/recipes/{{ service.recipeId }}"><code>{{ service.recipeId }}</code></a>
+              <pre>{{ stringify(service.settings, null, 2) }}</pre>
+            </div>
+          </div>
+        </div>
+        @endeach
+      </div>
+    </div>
+    <div class="shadow-lg pt-4 mt-5">
+      <h2 class="p-4 pt-0 m-0">Your Workspaces</h2>
+      <div class="accordion accordion-flush" id="workspaces-accordion">
+        @each(workspace in entity.workspaces)
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="workspace-heading-{{ workspace.workspaceId }}">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#workspace-collapse-{{ workspace.workspaceId }}"
+              aria-expanded="false" aria-controls="workspace-collapse-{{ workspace.workspaceId }}">
+              <div class="flexflex-column align-items-start text-decoration-none">
+                <p>{{ workspace.name }} - {{ workspace.order }}</p>
+                <p class="m-0">
+                  <small>
+                    @if(workspace.createdAt && workspace.updatedAt)
+                      created at {{ workspace.createdAt.toFormat('dd LLL yyyy') }} and last modified at {{ workspace.updatedAt.toFormat('dd LLL yyyy') }}
+                    @elseif(workspace.createdAt || workspace.updatedAt)
+                      @if (workspace.createdAt)
+                        created at {{ workspace.createdAt.toFormat('dd LLL yyyy') }} and never modified
+                      @else
+                        last modified at {{ workspace.updatedAt.toFormat('dd LLL yyyy') }}
+                      @endif
+                    @else
+                    @endif
+                  </small></p>
+              </div>
+            </button>
+          </h2>
+          <div id="workspace-collapse-{{ workspace.workspaceId }}" class="accordion-collapse collapse"
+            aria-labelledby="workspace-heading-{{ workspace.workspaceId }}" data-bs-parent="#workspaces-accordion">
+            <div class="accordion-body">
+              <code>{{ workspace.workspaceId }}</code>
+              <pre>{{ stringify(workspace.services, null, 2) }}</pre>
+              <pre>{{ stringify(workspace.data, null, 2) }}</pre>
+            </div>
+          </div>
+        </div>
+        @endeach
+      </div>
+    </div>
+  </div>
+</main>
+<div class="bg-purple-200 flex items-center justify-center">
+  <div class="w-full bg-white shadow-md rounded px-8 pt-6 mt-5 pb-8 mb-4">
+
+    <div class="text-center">
+      <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/profile/{{entity.id}}">Back to My
+        Account</a>
+    </div>
+
+  </div>
+</div>
+@endsection

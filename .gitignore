@@ -335,7 +335,9 @@ tmp
 *.sqlite
 
 # Uploaded recipes
-recipes/
+/recipes/**
 
-resources/announcements/*.json
-!resources/announcements/version.json
+/resources/announcements/*.json
+!/resources/announcements/version.json
+
+/sessions/**

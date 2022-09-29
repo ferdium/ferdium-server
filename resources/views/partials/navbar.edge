@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img width="50" src="{{ asset('assets/img/icon.png') }}">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+
+        @if(auth.isLoggedIn)
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/recipes">📝 Recipes</a>
+          </li>
+          @can('adminListUsers')
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">👥 Users</a>
+            </li>
+          @end
+        @endif
+
+        @if(!auth.isLoggedIn)
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Register</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Log in</a>
+        </li>
+        @endif
+
+        @if(auth.isLoggedIn)
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="accountMenu" data-bs-toggle="dropdown" aria-expanded="false">
+            👋 Hello {{auth.user.username}} ({{auth.user.roles.join(',')}})
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="accountMenu">
+            <li><a class="dropdown-item" href="/profile/{{auth.user.id}}">My account</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item " href="/logout">Logout</a></li>
+          </ul>
+        </li>
+        @endif
+
+        <li class="nav-item github-star-btn">
+          <a class="nav-link github-button" href="https://github.com/marchrius/ferdium-server" data-icon="octicon-star"
+            data-show-count="true" aria-label="Star ferdium/ferdium-server on GitHub">Star</a>
+        </li>
+      </ul>
+    </div>
+
+</div>
+</nav>

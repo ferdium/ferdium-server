@@ -1,0 +1,12 @@
+{
+  "assets/app.css": "http://localhost:8080/assets/app.css",
+  "assets/app.js": "http://localhost:8080/assets/app.js",
+  "assets/new.js": "http://localhost:8080/assets/new.js",
+  "assets/transfer.js": "http://localhost:8080/assets/transfer.js",
+  "assets/main.css": "http://localhost:8080/assets/main.css",
+  "assets/vanilla.css": "http://localhost:8080/assets/vanilla.css",
+  "assets/tailwind.css": "http://localhost:8080/assets/tailwind.css",
+  "assets/img/hero.png": "http://localhost:8080/assets/img/hero.png",
+  "assets/img/icon.png": "http://localhost:8080/assets/img/icon.png",
+  "assets/img/favicon.ico": "http://localhost:8080/assets/img/favicon.ico"
+}

@@ -1,0 +1,120 @@
+<form method="POST" action="{{ formAction }}" enctype="multipart/form-data">
+  {{ csrfField() }}
+
+  <input type="hidden" name="id" value="{{ formValues.id }}" />
+
+  <div class="form-group mt-3">
+    <label for="username"><strong>Username</strong></label>
+    <input 
+      type="text" 
+      name="username" 
+      value="{{ formValues.username }}" 
+      class="form-control"
+    />
+    @if(flashMessages.has('errors.username'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.username') }}
+    </div>
+    @endif
+  </div>
+
+<div class="form-group mt-3">
+    <label for="firstname"><strong>First name</strong></label>
+    <input type="text" name="firstname" value="{{ formValues.firstname }}" class="form-control" />
+    @if(flashMessages.has('errors.firstname'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.firstname') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="lastname"><strong>Last name</strong></label>
+    <input type="text" name="lastname" value="{{ formValues.lastname }}" class="form-control" />
+    @if(flashMessages.has('errors.lastname'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.lastname') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="name"><strong>Email</strong></label>
+    <input 
+      type="email" 
+      name="email" 
+      value="{{ formValues.email }}" 
+      class="form-control"
+    />
+    @if(flashMessages.has('errors.email'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.email') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="mt-3">
+    <label><strong>Picture</strong></label>
+    @!component('components/fieldFileUpload', {
+      src: formValues.picture ? await driveSignedUrl(formValues.picture, 'cloudinary') : "",
+      name: 'picture',
+      accept: 'image/*'
+    })
+    @if(flashMessages.has('errors.picture'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.picture') }}
+    </div>
+    @endif
+  </div>
+
+  @if(!hideFieldRole)
+    <div class="form-group mt-3">
+      <label for="role"><strong>Role</strong></label>
+      <select class="form-control" name="role">
+        @each (role in roles)
+          @set('selected', formValues.role == role.id ? "selected" : "")
+          <option {{selected}} class="form-check-input" type="checkbox" value="{{ role.id }}">
+            {{role.label}}
+          </option>
+        @end
+      </select>
+      @if(flashMessages.has('errors.roles'))
+      <div class="invalid-feedback d-block">
+        {{ flashMessages.get('errors.roles') }}
+      </div>
+      @endif
+    </div>
+    
+    <div class="form-group mt-3">
+      <label for="name"><strong>Blocked</strong></label>
+      <input 
+        type="checkbox" 
+        name="blocked" 
+        @if(formValues.blocked)
+          checked="checked"
+        @endif
+      />
+      @if(flashMessages.has('errors.blocked'))
+      <div class="invalid-feedback d-block">
+        {{ flashMessages.get('errors.blocked') }}
+      </div>
+      @endif
+    </div>
+  @endif
+
+  @!component('components/fieldPassword', {
+    label: 'Change your password',
+    confirmation: true,
+  })
+
+  <div class="form-group mt-3">
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary">
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+
+</form>
+
+

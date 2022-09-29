@@ -1,0 +1,86 @@
+<form method="POST" action="{{ formAction }}" enctype="multipart/form-data">
+  {{ csrfField() }}
+
+  <input type="hidden" name="id" value="{{ formValues.id }}" />
+
+  <div class="form-group">
+    <label for="recipeId">Identifier</label>
+    <input type="text"
+      name="recipeId"
+      value="{{ formValues.recipeId }}"
+      class="form-control" />
+    @if(flashMessages.has('errors.recipeId'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.recipeId') }}
+    </div>
+    @endif
+  </div>
+  
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input type="text"
+      name="author"
+      value="{{ formValues.author }}"
+      class="form-control" />
+    @if(flashMessages.has('errors.author'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.author') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input 
+      type="text" 
+      name="name"
+      value="{{ formValues.name }}" 
+      class="form-control"
+    />
+    @if(flashMessages.has('errors.name'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.name') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="svg">Logo</label>
+    <input type="text"
+      name="svg"
+      value="{{ formValues.svg }}"
+      placeholder="https://.../logo.svg"
+      class="form-control" required>
+    <small class="text-muted"><b>*</b> These images must be publicly availible and have CORS enabled in order to
+      work.</small>
+    @if(flashMessages.has('errors.svg'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.svg') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="package">Recipe files</label>
+    <div id="dropzone" effectAllowed="move" class="jumbotron">
+      <div class="emptyDropzone">
+        Drop recipe files here<br />or click here to select files
+        <p>
+          Drag and drop your recipe files into this area.<br />
+          Please do not select the folder that contains the files but rather the files itself.
+        </p>
+      </div>
+      <div class="notEmptyDropzone">
+      </div>
+      <input type="file" id="files" name="files[]" value="" multiple required>
+    </div>
+  </div>
+
+  <div class="form-group mt-3">
+    <button type="submit" id="submitbutton" class="btn btn-primary">
+      Save
+    </button>
+  </div>
+
+</form>
+

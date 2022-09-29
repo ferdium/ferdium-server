@@ -1,0 +1,37 @@
+{
+  "entrypoints": {
+    "app": {
+      "css": [
+        "http://localhost:8080/assets/app.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/app.js"
+      ]
+    },
+    "new": {
+      "js": [
+        "http://localhost:8080/assets/new.js"
+      ]
+    },
+    "transfer": {
+      "js": [
+        "http://localhost:8080/assets/transfer.js"
+      ]
+    },
+    "main": {
+      "css": [
+        "http://localhost:8080/assets/main.css"
+      ]
+    },
+    "vanilla": {
+      "css": [
+        "http://localhost:8080/assets/vanilla.css"
+      ]
+    },
+    "tailwind": {
+      "css": [
+        "http://localhost:8080/assets/tailwind.css"
+      ]
+    }
+  }
+}

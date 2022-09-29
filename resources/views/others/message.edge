@@ -1,4 +1,4 @@
-@layout('layouts.v2')
+@layout('layouts.main')
 
 @section('content')
 <div class="w-screen bg-purple-200 flex items-center justify-center">
@@ -11,9 +11,8 @@
     </p>
 
     <div class="text-center">
-      <a class="w-full font-bold text-sm text-blue-500 hover:text-blue-800" href="#" onclick="window.history.back()">
-        Go back
-      </a>
+      <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/profile/{{auth.user.id}}">Back to My
+        Account</a>
     </div>
   </div>
 </div>

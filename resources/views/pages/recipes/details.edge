@@ -1,0 +1,32 @@
+@layout('layouts/main')
+
+@section('title')
+Recipe: {{ recipe.name }}
+@endsection
+
+@section('content')
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h1 class="text-center">{{ recipe.name }}</h1>
+        <p class="text-center mb-4"><em>v{{ recipe.version }}</em></p>
+        <div class="shadow-lg rounded recipe">
+          <div class="d-flex">
+            <div class="flex-shrink-0 position-relative bg-secondary">
+              <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                {{ aggregate || 0}}
+                <span class="visually-hidden">services</span>
+              </span>
+              <img class="recipe-icon" src="{{ recipe.icons.svg }}" alt="...">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              {{ recipe.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end row -->
+  </div> <!-- end container -->
+</main>
+@endsection

@@ -1,0 +1,30 @@
+@layout('layouts/main')
+
+@section('title')
+  @if(formValues.id)
+  Edit user
+  @else
+  New user
+  @endif
+@endsection
+
+@section('content')
+<main>
+  <div class="container">
+    <h1>  
+      @if(formValues.id)
+      Editer user
+      @else
+      New user
+      @endif
+    </h1>
+    <div class="shadow-lg p-5">
+      <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+          @include('forms/userForm')
+        </div>
+      </div>
+    </div> <!-- end row -->
+  </div> <!-- end container -->
+</main>
+@endsection

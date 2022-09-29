@@ -1,0 +1,75 @@
+@layout('layouts/main')
+
+@section('content')
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <div class="">
+      <h1>Users</h1>
+    </div>
+    <div class="ml-auto">
+      <a href="/admin/users/create" class="btn btn-primary">✨ New user</a>
+    </div>
+  </div>
+  <div class="shadow-lg p-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Email Verified</th>
+          <th scope="col">Blocked</th>
+          <th scope="col">Role</th>
+          <th scope="col">edit</th>
+          <th scope="col">delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(entity in entities)
+        <tr>
+          <td>
+            @if(entity.roles.includes('root'))
+            👑
+            @endif
+            {{ entity.username }} 
+          </td>
+          <td>
+            {{ entity.lastname }}
+          </td>
+          <td>
+            {{ entity.firstname }}
+          </td>
+          <td> {{ entity.email }} </td>
+          <td> {{ entity.email_verified ? 'yes': 'no' }} </td>
+          <td> {{ entity.blocked ? 'yes': 'no' }} </td>
+          <td>
+            @each(role in entity.roles)
+            <span class="badge rounded-pill bg-light text-dark">{{ roles.find(r => r.id === role).label }}</span>
+            @endeach
+          </td>
+          <td> <a href="{{entity.$extras._editLink}}">Edit</a> </td>
+          <td>
+            @if(!entity.roles.includes('root'))
+              <a href="{{entity.$extras._deleteLink}}">Delete</a>
+            @endif
+          </td>
+        </tr>
+        @end
+      </tbody>
+    </table>
+
+    <div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          @each(anchor in entities.getUrlsForRange(1, entities.lastPage))
+          <li class="page-item">
+            <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+          </li>
+          @endeach
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+@endsection

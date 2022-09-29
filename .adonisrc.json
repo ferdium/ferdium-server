@@ -1,0 +1,82 @@
+{
+  "typescript": true,
+  "commands": [
+    "./commands",
+    "@adonisjs/core/build/commands",
+    "@adonisjs/repl/build/commands",
+    "@adonisjs/lucid/build/commands",
+    "@adonisjs/core/build/commands/index.js",
+    "@adonisjs/mail/build/commands",
+    "adonis5-swagger/build/commands",
+    "@adonisjs/bouncer/build/commands"
+  ],
+  "exceptionHandlerNamespace": "App/Exceptions/Handler",
+  "aliases": {
+    "App": "app",
+    "Config": "config",
+    "Database": "database",
+    "Contracts": "contracts"
+  },
+  "preloads": [
+    "./start/app",
+    "./start/events",
+    "./start/routes",
+    "./start/view",
+    "./start/kernel",
+    "./start/bouncer",
+    "./start/validator"
+  ],
+  "providers": [
+    "./providers/AppProvider",
+    "./providers/ShieldProvider",
+    "@adonisjs/core",
+    "@adonisjs/session",
+    "@adonisjs/view",
+    "@adonisjs/lucid",
+    "@adonisjs/shield",
+    "@adonisjs/auth",
+    "@adonisjs/bodyparser",
+    "@adonisjs/drive",
+    "@adonisjs/validator",
+    "@adonisjs/mail",
+    "@adonisjs/drive-s3",
+    "@adonisjs/http-server",
+    "adonis5-swagger",
+    "adonis5-sentry",
+    "adonisjs-cloudinary",
+    "./providers/drive-cloudinary",
+    "@adonisjs/ally",
+    "@adonisjs/bouncer"
+  ],
+  "metaFiles": [
+    {
+      "pattern": "public/**",
+      "reloadServer": false
+    },
+    {
+      "pattern": "resources/views/**/*.edge",
+      "reloadServer": false
+    }
+  ],
+  "aceProviders": [
+    "@adonisjs/lucid",
+    "@adonisjs/http-server",
+    "@adonisjs/repl",
+    "@adonisjs/core",
+    "@adonisjs/mail"
+  ],
+  "tests": {
+    "suites": [
+      {
+        "name": "functional",
+        "files": [
+          "tests/functional/**/*.spec(.ts|.js)"
+        ],
+        "timeout": 60000
+      }
+    ]
+  },
+  "testProviders": [
+    "@japa/preset-adonis/TestsProvider"
+  ]
+}

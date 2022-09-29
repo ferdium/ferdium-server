@@ -1,4 +1,4 @@
-@layout('layouts.v2')
+@layout('layouts.main')
 
 @section('content')
     <!--Main-->
@@ -23,7 +23,7 @@
               Choose "Change Server" to get to the settings screen
             </li>
             <li>
-              Enter <code id="server"></code>
+              Enter <code id="server">{{ env('APP_URL', '') }}</code>
             </li>
           </ol>
         </div>
@@ -39,20 +39,13 @@
 
       <!--Right Col-->
       <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-        <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ assetsUrl('img/hero.png') }}">
+        <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ asset('assets/img/hero.png') }}">
       </div>
 
     </div>
 
     <script>
-      // Get server URL for current location
-      let server = location.href.replace('/index.html', '');
-      if (server[server.length - 1] == '/') {
-        server = server.substr(0, server.length - 1)
-      }
-
       // Show on page
-      document.getElementById('server').innerText = server;
-
+      document.getElementById('server').innerText = location.hostname;
     </script>
 @endsection

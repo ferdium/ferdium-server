@@ -7,29 +7,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Server</title>
   <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
+  {{ csrfMeta() }}
 
-  {{ style('css/tailwind') }}
-  {{ style('css/main') }}
+  {{--  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/tailwind.css') }}">  
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">    --}}
+  {{ style('assets/css/tailwind.css') }}
+  {{ style('assets/css/main.css') }}
+
 </head>
 
 <body>
-    <div class="flex flex-col h-screen">
-      <div class="bg-black">
-        <div class="flex flex-row items-center container px-20 mx-auto">
-          <a href="/"><img width="50" class="my-4 mr-10" src="https://github.com/ferdium/ferdium-server/raw/main/logo.png"></a>
-          <a class="github-button" href="https://github.com/ferdium/ferdium-server" data-icon="octicon-star" data-show-count="true" aria-label="Star ferdium/ferdium-server on GitHub">Star</a>
-        </div>
-      </div>
-      <div class="flex flex-1">
-        @!section('content')
-      </div>
-      <div class="bg-black">
-        <div class="container px-20 py-3 text-sm text-white mx-auto text-center">
-          2022 © All rights reserved - <a href="/terms" style="color: #d772fe">Terms of service</a> and <a href="/privacy" style="color: #d772fe">privacy policy</a>.
-        </div>
-      </div>
-    </div>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <div class="flex flex-col h-screen">
+
+    @include('partials/header')
+
+    <section class="flex flex-1">
+      @!section('content')
+    </section>
+
+    @include('partials/footer')
+  </div>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>    
 </body>
 
 </html>

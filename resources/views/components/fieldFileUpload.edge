@@ -1,0 +1,24 @@
+<div x-data="imageViewer('{{src}}')">
+  <!-- Image file selector -->
+  <input name="{{name}}" class="form-control" type="file" accept="{{accept}}" @change="fileChosen">
+  <!-- Show the image -->
+  <template x-if="imageUrl">
+    <div class="mt-3">
+      <img :src="imageUrl" 
+            class="img-fluid" 
+            style="max-width:200px"
+      />
+    </div>
+  </template>
+</div>
+
+<script>
+function imageViewer(src = "") {
+  return {
+    imageUrl: src,
+    fileChosen(event) {
+      this.imageUrl = URL.createObjectURL(event.target.files[0]);
+    },
+  }
+}
+</script>

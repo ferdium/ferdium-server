@@ -1,0 +1,46 @@
+@layout('layouts/main')
+
+@section('title')
+
+@endsection
+
+@section('content')
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <div class="card text-dark bg-light shadow-lg">
+          @if(entity.picture)
+          <img src="{{await driveUrl(entity.picture, 'cloudinary')}}" class="card-img-top" alt="Profile picture of {{entity.firstname}} {{entity.lastname}}">
+          @else
+          <img src="{{ '/images/done.png' }}" class="card-img"
+            alt="Generic profile picture of {{entity.firstname}} {{entity.lastname}}">
+          @endif
+          <div class="card-img-overlay">
+            <a href="/profile/{{entity.id}}/edit" class="btn btn-primary">Edit</a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">@<strong>{{entity.username}}</strong></h5>
+            <p class="card-text">{{ entity.firstname }} {{ entity.lastname }}</p>
+            <p class="card-text"><small class="text-muted">Since {{ entity.createdAt.toFormat('dd LLL yyyy') }}</small></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <a class="list-group-item" href="/profile//{{entity.id}}/data">My account data</a>
+            <a class="list-group-item" href="/user/transfer">Import/Export account data</a>
+            <a class="list-group-item text-danger" href="/user/delete">Delete my account</a>
+            <a class="list-group-item" href="/user/logout">Logout</a>
+          </ul>
+          <div class="card-body">
+            @each(roleId in entity.roles)
+            <span class="badge rounded-pill bg-light text-dark">{{ roles.find(r => r.id === roleId).label }}</span>
+            @endeach
+          </div>
+          <div class="card-footer text-muted">
+            Last update {{ entity.updatedAt.toRelative({unit: ['years', 'months', 'days', 'hours', 'minutes']}) }}
+          </div>
+        </div>
+      </div>
+    </div> <!-- end row -->
+  </div> <!-- end container -->
+</main>
+@endsection

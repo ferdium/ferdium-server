@@ -1,0 +1,15 @@
+<header class="bg-black">
+  <div class="flex flex-row items-center container px-20 mx-auto">
+    <a href="/"><img width="50" class="my-4 mr-10" src="{{ asset('assets/img/icon.png') }}"></a>
+    <a class="github-button" href="https://github.com/marchrius/ferdium-server" data-icon="octicon-star" data-show-count="true" aria-label="Star ferdium/ferdium-server on GitHub">Star</a>
+    @if(auth.user)
+    <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit()">
+      Logout
+      <form id="logout" action="{{route('logout')}}" method="POST">{{ csrfField() }}</form>
+    </a>
+    <a href="{{route('newRecipe')}}">new</a>
+    @else
+    <a href="{{route('login')}}">login</a>
+    @endif
+  </div>
+</header>

@@ -6,19 +6,19 @@
     <h1 class="text-gray-700 text-center text-2xl pb-5">
       Your Ferdium account
     </h1>
-    @if(flashMessage('error'))
+    @if(flashMessages.has('error'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('error') }}
+      {{ flashMessages.get('error') }}
     </div>
     @endif
-    @if(old('message'))
+    @if(flashMessages.has('message'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ old('message') }}
+      {{ flashMessages.get('message') }}
     </div>
     @endif
-    @if(flashMessage('notification'))
+    @if(flashMessages.has('notification'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('notification.message') }}
+      {{ flashMessages.get('notification.message') }}
     </div>
     @endif
     @if(success === true)
@@ -27,14 +27,22 @@
     </div>
     @endif
 
-    <form action="/user/account" method="POST">
+    <form action="{{ route('/user/account') }}" method="POST">
       {{ csrfField() }}
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+        <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
         <div>
           <input
             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            type="text" value="{{ old('name', username) }}" placeholder="Name" name="username" required>
+            type="text" value="{{ flashMessages.get('username', username) }}" placeholder="Username" name="username" required>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">First name</label>
+        <div>
+          <input
+            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            type="text" value="{{ flashMessages.get('firstname', firstname) }}" placeholder="firstname" name="firstname" required>
         </div>
       </div>
       <div class="mb-6">
@@ -42,7 +50,7 @@
         <div>
           <input
             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            type="text" value="{{ old('lastname', lastname) }}" placeholder="Last Name" name="lastname" required>
+            type="text" value="{{ flashMessages.get('lastname', lastname) }}" placeholder="Last Name" name="lastname" required>
         </div>
       </div>
       <div class="mb-6">
@@ -50,7 +58,7 @@
         <div>
           <input
             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            type="email" value="{{ old('email', email) }}" placeholder="E-Mail" name="email" required>
+            type="email" value="{{ flashMessages.get('email', email) }}" placeholder="E-Mail" name="email" required>
         </div>
       </div>
       <div class="mb-6">

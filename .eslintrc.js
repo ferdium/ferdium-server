@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['airbnb-base'],
+  extends: ['plugin:adonis/typescriptApp'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -17,12 +17,12 @@ module.exports = {
     response: 'readonly',
   },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
   },
   rules: {
     'arrow-parens': 0,
     'class-methods-use-this': 0,
-    eqeqeq: 1,
+    'eqeqeq': 1,
     'implicit-arrow-linebreak': 0,
     'max-len': 0,
     'no-await-in-loop': 1,
@@ -30,4 +30,4 @@ module.exports = {
     'operator-linebreak': 0,
     'object-curly-newline': 0,
   },
-};
+}

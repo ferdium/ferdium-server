@@ -1,37 +1,52 @@
 @layout('layouts.main')
 
 @section('content')
-<h1>Create a new recipe</h1>
-<p>Please create a recipe using <a href="https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md">the
-    official guide</a>, then publish it here.</p>
-<form action="new" method="post" enctype="multipart/form-data">
-  <label for="author">Author</label><br />
-  <input type="text" name="author" placeholder="Jon Doe" required><br />
+@entryPointScripts('new')
+<div class="container px-20 mx-auto">
+  <div class="shadow-lg p-3 row">
+    <h1>Create a new recipe</h1>
+    <p>Please create a recipe using <a href="https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md">the
+        official guide</a>, then publish it here.</p>
+    <form action="new" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text" name="author" placeholder="Jon Doe" class="form-control" required>
+      </div>
+      <div class="form-group mt-3">
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="Sample Service" class="form-control" required>
+      </div>
+      <div class="form-group mt-3">
+        <label for="id">Service ID</label>
+        <input type="text" name="id" placeholder="Sample Service" class="form-control" required>
+      </div>
 
-  <label for="name">Name</label><br />
-  <input type="text" name="name" placeholder="Sample Service" required><br />
+      <div class="form-group mt-3">
+        <label for="svg">Logo</label>
+        <input type="text" name="svg" placeholder="https://.../logo.svg" class="form-control" required>
+        <small class="text-muted"><b>*</b> These images must be publicly availible and have CORS enabled in order to work.</small>
+      </div>
+      
+      <div class="form-group mt-3">
+        <label for="package">Recipe files</label>
+        <div id="dropzone" effectAllowed="move" class="jumbotron">
+          <div class="">
+            Drop recipe files here<br />or click here to select files
+            <p>
+              Drag and drop your recipe files into this area.<br />
+              Please do not select the folder that contains the files but rather the files itself.
+            </p>
+          </div>
+          <input type="file" name="files[]" value="" multiple required>
+        </div>
+      </div>
 
-  <label for="id">Service ID</label><br />
-  <input type="text" name="id" placeholder="sample-service" required><br />
-
-  <label for="svg">Link to SVG image*</label><br />
-  <input type="text" name="svg" placeholder="https://.../logo.svg" required><br />
-  *These images must be publicly availible and have CORS enabled in order to work.<br /><br />
-
-  <label for="package">Recipe files</label><br />
-  <div id="dropzone" effectAllowed="move">
-    <div>
-      Drop recipe files here<br />or click here to select files
-      <p>
-        Drag and drop your recipe files into this area.<br />
-        Please do not select the folder that contains the files but rather the files itself.
-      </p>
+      <div class="d-grid gap-2 mt-4">
+        <button type="submit" id="submitbutton" class="btn btn-primary">
+          Create recipe
+        </button>
+      </div>
+    </form>
     </div>
-  </div>
-  <input type="file" name="files[]" id="files" value="" multiple required><br /><br />
-
-  <button type="submit" id="submitbutton">Create recipe</button>
-</form>
-
-<script src="js/new.js"></script>
+</div>
 @endsection

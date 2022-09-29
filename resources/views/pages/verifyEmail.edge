@@ -1,0 +1,21 @@
+@layout('layouts/main')
+
+@section('title')
+Check your email
+@endsection
+
+@section('content')
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3 text-center">
+        <h1 class="text-center mb-4">Your email has been successfully verified !</h1>
+        <div class="shadow-lg rounded p-5">
+          <p>You can now login <a href="/login">login</a></p>
+          <img width="200" src="/images/done.png" />
+        </div>
+      </div>
+    </div> <!-- end row -->
+  </div> <!-- end container -->
+</main>
+@endsection

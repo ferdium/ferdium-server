@@ -1,0 +1,33 @@
+<form method="POST" action="{{ route('/login') }}">
+  {{ csrfField() }}
+
+  @if(flashMessages.has('auth.errors.uid') || flashMessages.has('auth.errors.password'))
+  <div class="alert alert-danger">
+    Invalid identifier or password
+  </div>
+  @endif
+
+  <div class="form-group ">
+    <label><strong>Email</strong></label>
+    <input id="email" type="email" name="email" value="" class="form-control" required>
+  </div>
+
+  @!component('components/fieldPassword', {
+    confirmation: false,
+    instructions: false
+  })
+
+  <div class="d-grid gap-2 mt-4">
+    <button type="submit" class="btn btn-primary">
+      Login
+    </button>
+  </div>
+
+  <div class="text-center mt-3">
+    <a href="/signup">Don't have an account ? Signup</a>
+  </div>
+
+  <div class="text-center mt-3">
+    <a href="/forgot-password">Forgot password ?</a>
+  </div>
+</form>

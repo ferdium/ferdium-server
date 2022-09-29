@@ -1,55 +1,42 @@
-@layout('layouts.v2')
+@layout('layouts.main')
 
 @section('content')
-<div class="w-screen bg-purple-200 flex items-center justify-center">
-  <div class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <h1 class="text-gray-700 text-center text-2xl pb-5">Import/Export data from another Ferdi server</h1>
-    @if(flashMessage('error'))
-    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('error') }}
-    </div>
-    @endif
-    @if(old('message'))
-    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ old('message') }}
-    </div>
-    @endif
-    @if(flashMessage('notification'))
-    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('notification.message') }}
-    </div>
-    @endif
-    @if(success === true)
-    <div class="bg-green-100 border-l-4 border-green-500 text-white p-4" style="background-color:#28C76F;">
-      Sucessfully imported your account data
-    </div>
-    @endif
+@entryPointScripts('transfer')
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h1 class="text-center mb-4">Import/Export data from another Ferdi server</h1>
+        <div class="shadow-lg rounded p-5">
+          @if(flashMessages.has('message'))
+          <div class="alert alert-info">
+            <div>{{ flashMessages.get('message') }}</div>
+          </div>
+          @endif
+          @if(success === true)
+          <div class="bg-green-100 border-l-4 border-green-500 text-white p-4" style="background-color:#28C76F;">
+            Sucessfully imported your account data
+          </div>
+          @endif
 
-    <h3 class="text-gray-600 text-xl">Import data</h3>
-    <div>
-      <div>
-        <input type="file" name="file" id="file" value="" accept=".json,.ferdi-data,.ferdium-data" required>
+          <h3 class="text-gray-600 text-xl">Import data</h3>
+
+          <form action="/user/transfer" method="POST" enctype="multipart/form-data">
+            {{ csrfField() }}
+            <div class="form-group">
+              <input type="hidden" name="fileoutput" id="fileoutput" value="">
+              <input type="file" name="file" id="file" value="" accept="application/json,.json,.ferdi-data,.ferdium-data" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+              <button class="btn btn-primary" id="submit" disabled>Import data</button>
+            </div>
+          </form>
+
+          <h3 class="text-gray-600 text-xl mt-4">Export data</h3>
+          <a class="button" class="btn btn-primary" href="/user/export">Export data</a>
+        </div>
       </div>
     </div>
-
-    <form action="/user/transfer" method="POST">
-      {{ csrfField() }}
-      <input type="hidden" name="file" id="fileoutput" value="">
-      <div>
-        <button style="background-color:#28C76F;margin-bottom:1rem;" id="submit" disabled>Import data</button>
-      </div>
-    </form>
-
-    <h3 class="text-gray-600 text-xl">Export data</h3>
-    <a class="button" style="background-color:#28C76F;margin-bottom:1rem;" href="/user/export">Export data</a>
-
-    <div class="text-center">
-      <a class="w-full font-bold text-sm text-gray-500 hover:text-gray-800 mb-3" href="/user/account">Back to My
-        Account</a>
-    </div>
-
   </div>
-  <script src="/js/transfer.js"></script>
-</div>
-</div>
+</main>
 @endsection

@@ -1,0 +1,61 @@
+<form method="POST" action="{{ route('/signup') }}">
+  {{ csrfField() }}
+  <div class="form-group">
+    <label for="username"><strong>Username</strong></label>
+    <input id="username" type="text" name="username"
+      value="{{flashMessages.get('username') ? flashMessages.get('username') : ""}}" class="form-control"
+      autocomplete="username" required>
+    @if(flashMessages.has('errors.name'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.username') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="firstname"><strong>First Name</strong></label>
+    <input id="firstname" type="text" name="firstname" value="{{flashMessages.get('firstname') ? flashMessages.get('firstname') : ""}}" class="form-control" autocomplete="firstname" required>
+    @if(flashMessages.has('errors.name'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.firstname') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="lastname"><strong>Last Name</strong></label>
+    <input id="lastname" type="text" name="lastname" value="{{flashMessages.get('lastname') ? flashMessages.get('lastname') : ""}}"
+      class="form-control" autocomplete="lastname" required>
+    @if(flashMessages.has('errors.lastname'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.lastname') }}
+    </div>
+    @endif
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="email"><strong>Email</strong></label>
+    <input id="email" type="email" name="email" value="{{flashMessages.get('email') ? flashMessages.get('email') : ""}}" class="form-control" autocomplete="email" required>
+    @if(flashMessages.has('errors.email'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.email') }}
+    </div>
+    @endif
+  </div>
+
+  @!component('components/fieldPassword', {
+    confirmation: true,
+  })
+
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-primary">
+      Create account
+    </button>
+  </div>
+  
+  <div class="text-center mt-3">
+    <a href="/login">Already have an account ? Signup</a>
+  </div>
+
+</form>
+

@@ -1,0 +1,15 @@
+@layout('layouts/main')
+
+@section('content')
+@entryPointScripts('new')
+<div class="container">
+  <h1>Create recipe</h1>
+  <p>Please create a recipe using <a href="https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md">the
+      official guide</a>, then publish it here.</p>
+  <div class="container">
+    <div class="shadow-lg p-5">
+    @include('forms/recipeForm')
+    </div>
+  </div>
+</div>
+@endsection

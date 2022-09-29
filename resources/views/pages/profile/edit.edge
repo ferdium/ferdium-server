@@ -1,0 +1,20 @@
+@layout('layouts/main')
+
+@section('title')
+Mon compte
+@endsection
+
+@section('content')
+<div class="container">
+  <h1 class="text-center">Profile editor</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <div class="shadow-lg p-5">
+          @include('forms/userForm')
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+@endsection 

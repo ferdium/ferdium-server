@@ -1,0 +1,63 @@
+@layout('layouts/main')
+
+@section('content')
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <div class="">
+      <h1>Recipes</h1>
+    </div>
+    <div class="ml-auto">
+      <a href="/admin/recipes/create" class="btn btn-primary"> ✨ New recipe</a>
+    </div>
+  </div>
+  <div class="shadow-lg p-5">
+    @if(entities.length === 0)
+      <div class="text-center">
+        <p>No recipe have been created for now.</p>
+        <img style="max-width: 400px" src="/images/no-result.png" />
+      </div>
+    @else
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Recipe ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Author</th>
+          <th scope="col">edit</th>
+          <th scope="col">delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(entity in entities)
+        <tr>
+          <td> {{ entity.recipeId }} </td>
+          <td> {{ entity.name }} </td>
+          <td> {{ entity.data?.author }} </td>
+          <td>
+            @can('adminEditRecipe', entity)
+              <a href="{{entity.$extras._editLink}}">Edit</a> </td>
+            @end
+          <td> 
+            @can('adminEditRecipe', entity)
+              <a href="{{entity.$extras._deleteLink}}">Delete</a> </td>
+            @end
+        </tr>
+        @end
+      </tbody>
+    </table>
+
+    <div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          @each(anchor in entities.getUrlsForRange(1, entities.lastPage))
+          <li class="page-item">
+            <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+          </li>
+          @endeach
+        </ul>
+      </nav>
+    </div>
+    @endif
+  </div>
+</div>
+@endsection
