@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "Env file '${ENV_FILE}' will be used"
 if [ "x${ENV_FILE}" != 'x' ] && [ -f "${ENV_FILE}" ]
 then
   . ${ENV_FILE}
@@ -46,11 +46,19 @@ cat << "EOL"
 EOL
 
 RECIPES_PATH="${CUSTOM_RECIPES_PATH}"
+RECIPES_URL="${CUSTOM_RECIPES_URL}"
 
 if [ "x${RECIPES_PATH}" = 'x' ]
 then
   RECIPES_PATH="/app/recipes"
 fi
+echo "Recipes path '${RECIPES_PATH}' will be used"
+
+if [ "x${RECIPES_URL}" = 'x' ]
+then
+  RECIPES_URL=https://github.com/ferdium/ferdium-recipes
+fi
+echo "Recipes url '${RECIPES_URL}' will be used"
 
 if [ "x${RESET_RECIPES}" = 'xtrue' ]
 then
@@ -61,12 +69,8 @@ fi
 # Update recipes from official git repository
 if [ ! -d "${RECIPES_PATH}/.git" ] # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
-  RECIPES_URL="${CUSTOM_RECIPES_URL}"
+  rm -rf "${RECIPES_PATH}"
   echo '**** Generating recipes for first run ****'
-  if [ "x${RECIPES_URL}" = '' ]
-  then
-    RECIPES_URL=https://github.com/ferdium/ferdium-recipes
-  fi
   git clone --branch main "${RECIPES_URL}" "${RECIPES_PATH}"
 else
   echo '**** Updating recipes ****'
