@@ -23,7 +23,7 @@ then
   git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
 else
   echo '**** Updating recipes ****'
-  chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
+#  chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
   cd recipes
   git stash -u
   git pull -r
@@ -66,4 +66,5 @@ node ace migration:run --force
 
 chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app # This is the cause of the problem on line 29/32
 
-su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js
+#su-exec "${PUID:-1000}":"${PGID:-1000}" node server.js
+node server.js
