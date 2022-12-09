@@ -1,4 +1,5 @@
 import { test } from '@japa/runner';
+// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Data page', () => {

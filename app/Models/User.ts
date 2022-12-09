@@ -8,31 +8,37 @@ import {
 } from '@ioc:Adonis/Lucid/Orm';
 import Hash from '@ioc:Adonis/Core/Hash';
 import Event from '@ioc:Adonis/Core/Event';
-import Token from './Token';
-import Workspace from './Workspace';
-import Service from './Service';
 import moment from 'moment';
 import Encryption from '@ioc:Adonis/Core/Encryption';
 import randtoken from 'rand-token';
+import Token from './Token';
+import Workspace from './Workspace';
+import Service from './Service';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
+  // @ts-ignore
   public id: number;
 
   @column()
+  // @ts-ignore
   public email: string;
 
   @column()
+  // @ts-ignore
   public username: string;
 
   @column()
+  // @ts-ignore
   public password: string;
 
   @column()
+  // @ts-ignore
   public lastname: string;
 
   // TODO: Type the settings object.
   @column()
+  // @ts-ignore
   public settings: object;
 
   @column.dateTime({ autoCreate: true })
@@ -51,16 +57,19 @@ export default class User extends BaseModel {
   @hasMany(() => Token, {
     foreignKey: 'user_id',
   })
+  // @ts-ignore
   public tokens: HasMany<typeof Token>;
 
   @hasMany(() => Service, {
     foreignKey: 'userId',
   })
+  // @ts-ignore
   public services: HasMany<typeof Service>;
 
   @hasMany(() => Workspace, {
     foreignKey: 'userId',
   })
+  // @ts-ignore
   public workspaces: HasMany<typeof Workspace>;
 
   public async forgotPassword(): Promise<void> {
@@ -68,7 +77,7 @@ export default class User extends BaseModel {
 
     await Event.emit('forgot:password', {
       user: this,
-      token: token,
+      token,
     });
   }
 

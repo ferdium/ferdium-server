@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+// @ts-ignore
 import User from 'App/Models/User';
 
 export default class ForgotPasswordController {
@@ -21,7 +22,7 @@ export default class ForgotPasswordController {
         }),
         data: request.only(['mail']),
       });
-    } catch (error) {
+    } catch {
       return view.render('others/message', {
         heading: 'Cannot reset your password',
         text: 'Please enter a valid email address',
@@ -31,7 +32,7 @@ export default class ForgotPasswordController {
     try {
       const user = await User.findByOrFail('email', request.input('mail'));
       await user.forgotPassword();
-    } catch (e) {}
+    } catch {}
 
     return view.render('others/message', {
       heading: 'Reset password',

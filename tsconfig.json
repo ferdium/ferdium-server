@@ -5,12 +5,14 @@
   ],
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "recipes"
   ],
   "compilerOptions": {
     "outDir": "build",
     "rootDir": "./",
-    "sourceMap": true,
+    "strict": true,
+    "incremental": true,
     "paths": {
       "App/*": [
         "./app/*"
@@ -34,7 +36,32 @@
       "@adonisjs/auth",
       "@adonisjs/shield",
       "@adonisjs/session",
-      "@adonisjs/mail"
-    ]
+      "@adonisjs/mail",
+      "fs-extra"
+    ],
+    "sourceMap": true,
+
+    // TODO: Uncomment all these at a later point
+    // "skipLibCheck": true,
+    // TODO: Need to switch
+    "noImplicitAny": false,
+    // "pretty": true,
+    // "allowSyntheticDefaultImports": true,
+    // "experimentalDecorators": true,
+    // "composite": false,
+    // "importHelpers": true,
+    // "removeComments": true,
+    // "allowUnreachableCode": false,
+    // "allowUnusedLabels": false,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noImplicitReturns": true,
+    // "noImplicitThis": true,
+    // "preserveConstEnums": true,
+    // "strictNullChecks": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "resolveJsonModule": true,
+    // "forceConsistentCasingInFileNames": true,
+    // "useDefineForClassFields": true
   }
 }

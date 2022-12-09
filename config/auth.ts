@@ -77,6 +77,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
+        // @ts-ignore
         model: () => import('App/Models/User'),
       },
     },
@@ -161,6 +162,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
+        // @ts-ignore
         model: () => import('App/Models/User'),
       },
     },
@@ -224,6 +226,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
+        // @ts-ignore
         model: () => import('App/Models/User'),
       },
     },

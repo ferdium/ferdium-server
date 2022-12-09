@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, validator } from '@ioc:Adonis/Core/Validator';
+// @ts-ignore
 import Service from 'App/Models/Service';
+// @ts-ignore
 import Workspace from 'App/Models/Workspace';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs/promises';
@@ -29,7 +31,7 @@ export default class TransferController {
         }),
         data: request.allFiles(),
       });
-    } catch (error) {
+    } catch {
       session.flash({
         message: 'File missing',
       });
@@ -40,9 +42,9 @@ export default class TransferController {
     let file;
     try {
       file = JSON.parse(
-        await fs.readFile(request.file('file')?.tmpPath as string, 'utf-8'),
+        await fs.readFile(request.file('file')?.tmpPath as string, 'utf8'),
       );
-    } catch (error) {
+    } catch {
       session.flash({
         message: 'Invalid Ferdium account file',
       });
@@ -81,9 +83,9 @@ export default class TransferController {
 
         serviceIdTranslation[service.serviceId] = serviceId;
       }
-    } catch (e) {
-      console.log(e);
-      const errorMessage = `Could not import your services into our system.\nError: ${e}`;
+    } catch (error) {
+      console.log(error);
+      const errorMessage = `Could not import your services into our system.\nError: ${error}`;
       return view.render('others/message', {
         heading: 'Error while importing',
         text: errorMessage,
@@ -115,8 +117,8 @@ export default class TransferController {
           data: JSON.stringify(workspace.data),
         });
       }
-    } catch (e) {
-      const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not import your workspaces into our system.\nError: ${error}`;
       return view.render('others/message', {
         heading: 'Error while importing',
         text: errorMessage,

@@ -26,7 +26,7 @@ export default class LoginController {
         }),
         data: request.only(['mail', 'password']),
       });
-    } catch (e) {
+    } catch {
       session.flash({
         type: 'danger',
         message: 'Invalid mail or password',
@@ -42,7 +42,7 @@ export default class LoginController {
       await auth.use('web').attempt(mail, password);
 
       return response.redirect('/user/account');
-    } catch (error) {
+    } catch {
       session.flash({
         type: 'danger',
         message: 'Invalid mail or password',

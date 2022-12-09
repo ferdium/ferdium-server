@@ -1,3 +1,4 @@
+// @ts-ignore
 import Workspace from 'App/Models/Workspace';
 import Factory from '@ioc:Adonis/Lucid/Factory';
 

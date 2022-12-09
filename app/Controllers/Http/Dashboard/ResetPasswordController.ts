@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+// @ts-ignore
 import Token from 'App/Models/Token';
 import moment from 'moment';
 
@@ -37,13 +38,13 @@ export default class ResetPasswordController {
         }),
         data: request.only(['password', 'password_confirmation', 'token']),
       });
-    } catch (e) {
+    } catch {
       session.flash({
         type: 'danger',
         message: 'Passwords do not match',
       });
 
-      return response.redirect('/user/reset?token=' + request.input('token'));
+      return response.redirect(`/user/reset?token=${request.input('token')}`);
     }
 
     const tokenRow = await Token.query()

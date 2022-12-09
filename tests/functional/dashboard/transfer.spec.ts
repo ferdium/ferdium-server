@@ -1,4 +1,5 @@
 import { test } from '@japa/runner';
+// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Transfer page', () => {
@@ -90,7 +91,7 @@ test.group('Dashboard / Transfer page', () => {
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
-        .file('file', 'tests/functional/dashboard/import-stubs/' + file, {
+        .file('file', `tests/functional/dashboard/import-stubs/${file}`, {
           filename: file,
         });
 
@@ -120,7 +121,7 @@ test.group('Dashboard / Transfer page', () => {
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
-        .file('file', 'tests/functional/dashboard/import-stubs/' + file, {
+        .file('file', `tests/functional/dashboard/import-stubs/${file}`, {
           filename: file,
         });
 
@@ -150,7 +151,7 @@ test.group('Dashboard / Transfer page', () => {
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
-        .file('file', 'tests/functional/dashboard/import-stubs/' + file, {
+        .file('file', `tests/functional/dashboard/import-stubs/${file}`, {
           filename: file,
         });
 
@@ -164,33 +165,33 @@ test.group('Dashboard / Transfer page', () => {
       assert.equal(servicesForUser.length, 3);
       assert.equal(workspacesForUser.length, 3);
 
-      const firstServiceUuid = servicesForUser.filter(
+      const firstServiceUuid = servicesForUser.find(
         s => s.name === 'random-service-1',
-      )[0].serviceId;
-      const secondServiceUuid = servicesForUser.filter(
+      ).serviceId;
+      const secondServiceUuid = servicesForUser.find(
         s => s.name === 'random-service-2',
-      )[0].serviceId;
-      const thirdServiceUUid = servicesForUser.filter(
+      ).serviceId;
+      const thirdServiceUUid = servicesForUser.find(
         s => s.name === 'random-service-3',
-      )[0].serviceId;
+      ).serviceId;
 
       // Assert the first workspace to not have any services
-      const firstWorkspace = workspacesForUser.filter(
+      const firstWorkspace = workspacesForUser.find(
         w => w.name === 'workspace1',
-      )[0];
+      );
       assert.empty(JSON.parse(firstWorkspace.services));
 
-      const secondWorkspace = workspacesForUser.filter(
+      const secondWorkspace = workspacesForUser.find(
         w => w.name === 'workspace2',
-      )[0];
+      );
       assert.deepEqual(JSON.parse(secondWorkspace.services), [
         firstServiceUuid,
         secondServiceUuid,
       ]);
 
-      const thirdWorkspace = workspacesForUser.filter(
+      const thirdWorkspace = workspacesForUser.find(
         w => w.name === 'workspace3',
-      )[0];
+      );
       assert.deepEqual(JSON.parse(thirdWorkspace.services), [
         firstServiceUuid,
         secondServiceUuid,

@@ -42,8 +42,11 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
+  // @ts-ignore
   auth: () => import('App/Middleware/Auth'),
+  // @ts-ignore
   dashboard: () => import('App/Middleware/Dashboard'),
+  // @ts-ignore
   guest: () => import('App/Middleware/AllowGuestOnly'),
   shield: () => import('@ioc:Adonis/Addons/Shield'),
 });

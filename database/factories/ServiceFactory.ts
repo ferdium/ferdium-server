@@ -1,3 +1,4 @@
+// @ts-ignore
 import Service from 'App/Models/Service';
 import Factory from '@ioc:Adonis/Lucid/Factory';
 
