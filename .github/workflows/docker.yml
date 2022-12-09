@@ -18,7 +18,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-      - 
+      -
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         id: should_run
         run: |
@@ -33,9 +33,9 @@ jobs:
           git push origin main --no-verify
           git checkout -
 
-          git submodule update --init --recursive --remote --rebase --force
+          git rebase main
 
-          CHANGES_COUNT=$(git diff --shortstat origin/main | wc -l)
+          CHANGES_COUNT=$(git log @{u}.. | wc -l)
           MANUAL_REBUILD="${{ github.event_name == 'workflow_dispatch' }}"
           VERSION_BUMP="${{ contains(github.event.inputs.message, '[version bump]') }}"
           if [ $CHANGES_COUNT -gt 0 ] || [[ $MANUAL_REBUILD == "true" && $VERSION_BUMP == "true" ]]; then
