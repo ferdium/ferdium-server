@@ -132,35 +132,11 @@ if((-not $NPM_CONFIG_MSVS_VERSION) -or -not ($EXPECTED_MSVST_VERSION -contains $
   npm config set msvs_version $ACTUAL_MSVST_VERSION
 }
 
-# -----------------------------------------------------------------------------
-# Ensure that the system dependencies are at the correct version - recover if not
-# Check npm version
-$EXPECTED_NPM_VERSION = (Get-Content package.json | ConvertFrom-Json).engines.npm
-$ACTUAL_NPM_VERSION = (npm -v)
-if ($EXPECTED_NPM_VERSION -ne $ACTUAL_NPM_VERSION) {
-  Write-Host "You are not running the expected version of npm!
-    expected: [$EXPECTED_NPM_VERSION]
-    actual  : [$ACTUAL_NPM_VERSION]"
-  Write-Host "Changing version of npm to [$EXPECTED_NPM_VERSION]"
-  npm i -gf npm@$EXPECTED_NPM_VERSION
-}
-
 # Check pnpm version
 $EXPECTED_PNPM_VERSION = (Get-Content .\recipes\package.json | ConvertFrom-Json).engines.pnpm
 $ACTUAL_PNPM_VERSION = Get-Command pnpm --version -ErrorAction SilentlyContinue  # in case the pnpm executable itself is not present
 if ($ACTUAL_PNPM_VERSION -ne $EXPECTED_PNPM_VERSION) {
   npm i -gf pnpm@$EXPECTED_PNPM_VERSION
-}
-
-# -----------------------------------------------------------------------------
-# This is useful if we move from 'npm' to 'pnpm' for the main repo as well
-if ((Test-Path -Path ".\pnpm-lock.yaml") -and (Get-Command -ErrorAction Ignore -Type Application pnpm))
-{
-  $BASE_CMD="pnpm"
-}
-else
-{
-  $BASE_CMD="npm"
 }
 
 $ENV_FILE = ".env"
@@ -177,18 +153,17 @@ if (-not (Test-Path -Path "data")) {
 
 # -----------------------------------------------------------------------------
 Write-Host "*************** Building recipes ***************"
-# Note: 'recipes' is already using only pnpm - can switch to $BASE_CMD AFTER both repos are using pnpm
 Push-Location recipes
 pnpm i
 pnpm package
 Pop-Location
 
 # Now the meat.....
-& $BASE_CMD i
+& pnpm i
 & node ace migration:refresh
 
 # -----------------------------------------------------------------------------
 Write-Host "*************** Starting app ***************"
-& $BASE_CMD start --dev
+& pnpm start --dev
 
 Write-Host "*************** App successfully stopped! ***************"

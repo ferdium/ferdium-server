@@ -7,8 +7,8 @@ RUN apk add --no-cache python3 make gcc g++ libc-dev sqlite-dev
 COPY . /server-build
 
 ENV CI=true
-RUN NPM_VERSION=$(node -p 'require("./package.json").engines.npm'); npm i -g npm@$NPM_VERSION
-RUN npm ci --build-from-source --sqlite=/usr/local
+RUN PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm'); npm i -g pnpm@$PNPM_VERSION
+RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
 FROM node:16.18.1-alpine
