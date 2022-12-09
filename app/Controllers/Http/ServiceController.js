@@ -245,7 +245,8 @@ class ServiceController {
 
     try {
       await fs.access(iconPath);
-    } catch {
+    } catch (ex) {
+      console.log(ex);
       // File not available.
       return response.status(404).send({
         status: "Icon doesn't exist",

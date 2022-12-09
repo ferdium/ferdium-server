@@ -60,14 +60,8 @@ if [ "$CLEAN" != "true" ]; then
 else
   printf "\n*************** Cleaning!!!!!! ***************\n"
 
-  if [[ -s 'pnpm-lock.yaml' ]]; then
-    pnpm store prune || true # in case the pnpm executable itself is not present
-    rm -rf ~/.pnpm-store ~/.pnpm-state
-  fi
-
-  npm cache clean --force
-  rm -rf ~/.npm ~/.node-gyp ~/.asdf/installs/nodejs/*/.npm/
-
+  pnpm store prune || true # in case the pnpm executable itself is not present
+  rm -rf ~/.pnpm-store ~/.pnpm-state
   git -C recipes clean -fxd # Clean recipes folder/submodule
   git clean -fxd            # Note: This will blast away the 'recipes' folder if you have symlinked it
 fi
@@ -88,14 +82,6 @@ fi
 # If 'asdf' is installed, reshim for new nodejs if necessary
 command_exists asdf && asdf reshim nodejs
 
-# Ensure that the system dependencies are at the correct version
-# Check npm version
-EXPECTED_NPM_VERSION=$(node -p 'require("./package.json").engines.npm')
-ACTUAL_NPM_VERSION=$(npm --version)
-if [[ "$ACTUAL_NPM_VERSION" != "$EXPECTED_NPM_VERSION" ]]; then
-  npm i -gf npm@$EXPECTED_NPM_VERSION
-fi
-
 # Check pnpm version
 EXPECTED_PNPM_VERSION=$(node -p 'require("./recipes/package.json").engines.pnpm')
 ACTUAL_PNPM_VERSION=$(pnpm --version || true) # in case the pnpm executable itself is not present
@@ -105,14 +91,6 @@ fi
 
 # If 'asdf' is installed, reshim for new nodejs if necessary
 command_exists asdf && asdf reshim nodejs
-
-# -----------------------------------------------------------------------------
-# This is useful if we move from 'npm' to 'pnpm' for the main repo as well
-if [[ -s 'pnpm-lock.yaml' ]]; then
-  BASE_CMD=pnpm
-else
-  BASE_CMD=npm
-fi
 
 ENV_FILE=".env"
 if [[ ! -s $ENV_FILE ]]; then
@@ -125,18 +103,17 @@ mkdir -p data
 
 # -----------------------------------------------------------------------------
 printf "\n*************** Building recipes ***************\n"
-# Note: 'recipes' is already using only pnpm - can switch to $BASE_CMD AFTER both repos are using pnpm
 pushd recipes
 pnpm i
 pnpm package
 popd
 
 # Now the meat.....
-$BASE_CMD i
+pnpm i
 node ace migration:refresh
 
 # -----------------------------------------------------------------------------
 printf "\n*************** Building app ***************\n"
-$BASE_CMD start --dev
+pnpm start --dev
 
 printf "\n*************** App successfully stopped! ***************\n"
