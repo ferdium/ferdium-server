@@ -75,7 +75,7 @@ fi
 # -----------------------------------------------------------------------------
 # Ensure that the system dependencies are at the correct version - fail if not
 # Check python version
-EXPECTED_PYTHON_VERSION="3.10.4"
+EXPECTED_PYTHON_VERSION=$(node -p 'require("./package.json").engines.python')
 ACTUAL_PYTHON_VERSION=$(python --version | sed -e "s/Python //")
 if [[ "$ACTUAL_PYTHON_VERSION" != "$EXPECTED_PYTHON_VERSION" ]]; then
   fail_with_docs "You are not running the expected version of Python!
