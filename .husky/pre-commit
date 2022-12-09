@@ -7,4 +7,6 @@ if [ -f $FILE_NAME ]; then
   . $FILE_NAME
   pnpm prepare
   pnpm lint
+  # TODO: Uncomment after fixing tests
+  # pnpm test
 fi

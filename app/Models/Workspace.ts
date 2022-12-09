@@ -4,33 +4,41 @@ import User from './User';
 
 export default class Workspace extends BaseModel {
   @column({ isPrimary: true })
+  // @ts-ignore
   public id: number;
 
   @column({
     columnName: 'workspaceId',
   })
+  // @ts-ignore
   public workspaceId: string;
 
   @hasOne(() => User, {
     foreignKey: 'userId',
   })
+  // @ts-ignore
   public user: HasOne<typeof User>;
 
   @column({
     columnName: 'userId',
   })
+  // @ts-ignore
   public userId: number;
 
   @column()
+  // @ts-ignore
   public name: string;
 
   @column()
+  // @ts-ignore
   public order: number;
 
   @column()
+  // @ts-ignore
   public services: string;
 
   @column()
+  // @ts-ignore
   public data: string;
 
   @column.dateTime({ autoCreate: true })

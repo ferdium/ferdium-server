@@ -25,7 +25,7 @@ Event.on('forgot::password', async ({ user, token }) => {
           token,
         });
     });
-  } catch (e) {
-    console.log(`Couldn't send mail: ${e}`);
+  } catch (error) {
+    console.log(`Couldn't send mail: ${error}`);
   }
 });

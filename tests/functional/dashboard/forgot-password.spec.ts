@@ -1,5 +1,6 @@
 import { test } from '@japa/runner';
 import Event from '@ioc:Adonis/Core/Event';
+// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Forgot password page', () => {
@@ -60,12 +61,11 @@ test.group('Dashboard / Forgot password page', () => {
     );
 
     assert.isTrue(
-      emitter.exists(event => {
-        return (
+      emitter.exists(
+        event =>
           event.name === 'forgot:password' &&
-          event.data.user.email === user.email
-        );
-      }),
+          event.data.user.email === user.email,
+      ),
     );
   });
 });

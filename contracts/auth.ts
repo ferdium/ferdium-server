@@ -5,6 +5,7 @@
  * file.
  */
 
+// @ts-ignore
 import User from 'App/Models/User';
 
 declare module '@ioc:Adonis/Addons/Auth' {

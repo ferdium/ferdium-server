@@ -49,6 +49,7 @@ export default class AccountController {
         data: request.only(['username', 'email', 'lastname']),
       });
     } catch (error) {
+      // @ts-ignore
       session.flash(error.messages);
       return response.redirect('/user/account');
     }

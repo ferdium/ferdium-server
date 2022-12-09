@@ -35,7 +35,7 @@ export default class AuthMiddleware {
      */
     let guardLastAttempted: string | undefined;
 
-    for (let guard of guards) {
+    for (const guard of guards) {
       guardLastAttempted = guard;
 
       if (await auth.use(guard).check()) {
@@ -72,7 +72,7 @@ export default class AuthMiddleware {
      * Uses the user defined guards or the default guard mentioned in
      * the config file
      */
-    const guards = customGuards.length ? customGuards : [auth.name];
+    const guards = customGuards.length > 0 ? customGuards : [auth.name];
     await this.authenticate(auth, guards);
     await next();
   }

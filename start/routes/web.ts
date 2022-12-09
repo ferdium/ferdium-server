@@ -42,7 +42,7 @@ Route.group(() => {
       Route.get('logout', 'Dashboard/LogOutController.logout');
 
       Route.get('*', ({ response }) => response.redirect('/user/account'));
-    }).middleware(['dashboard', 'auth:web'], true);
+    }).middleware(['dashboard', 'auth:web']);
   }).prefix('user');
 
   // Franz/Ferdi account import
@@ -51,4 +51,4 @@ Route.group(() => {
 
   // 404 handler
   Route.get('/*', ({ response }) => response.redirect('/'));
-}).middleware(['dashboard'], true);
+}).middleware(['dashboard']);

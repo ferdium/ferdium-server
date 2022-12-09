@@ -5,7 +5,7 @@ export default class DataController {
    * Display the data page
    */
   public async show({ view, auth }: HttpContextContract) {
-    const user = auth.user;
+    const { user } = auth;
 
     return view.render('dashboard/data', {
       username: user?.username,

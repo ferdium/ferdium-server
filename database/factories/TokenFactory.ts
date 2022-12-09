@@ -1,3 +1,4 @@
+// @ts-ignore
 import Token from 'App/Models/Token';
 import Factory from '@ioc:Adonis/Lucid/Factory';
 import { DateTime } from 'luxon';
