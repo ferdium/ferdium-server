@@ -6,7 +6,8 @@
   "main": "index.js",
   "engines": {
     "node": "16.18.1",
-    "npm": "8.19.2"
+    "npm": "8.19.2",
+    "pnpm": "7.18.1"
   },
   "scripts": {
     "prepare": "is-ci || husky install",
