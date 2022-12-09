@@ -13,7 +13,7 @@
   - [How Can I Contribute?](#how-can-i-contribute)
   - [Setting up your Development machine](#setting-up-your-development-machine)
     - [Install System-level dependencies](#install-system-level-dependencies)
-      - [Node.js, npm](#nodejs-npm)
+      - [Node.js, npm, pnpm](#nodejs-npm-pnpm)
       - [Git](#git)
     - [Clone repository with submodule](#clone-repository-with-submodule)
     - [Install dependencies](#install-dependencies)
@@ -40,7 +40,7 @@ As a basic rule, before filing issues, feature requests or anything else, please
 
 ### Install System-level dependencies
 
-#### Node.js, npm
+#### Node.js, npm, pnpm
 
 Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [`package.json`](./package.json#engines) and [`recipes/package.json`](./recipes/package.json#engine) files.
 
@@ -51,7 +51,7 @@ $ jq --null-input '[inputs.engines] | add' < ./package.json < ./recipes/package.
 {
   "node": "16.18.1",
   "npm": "8.19.2",
-  "pnpm": "7.0.1"
+  "pnpm": "7.18.1"
 }
 ```
 
