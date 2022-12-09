@@ -20,9 +20,7 @@ class StaticController {
       serviceLimitCount: 0,
       isMagicBarEnabled: true,
       isTodosEnabled: true,
-      subscribeURL: 'https://ferdium.org',
       hasInlineCheckout: true,
-      isPlanSelectionEnabled: false,
       isTrialStatusBarEnabled: false,
       canSkipTrial: true,
     });
