@@ -53,7 +53,6 @@ Route.group(() => {
   Route.get('features/:mode?', 'StaticController.features');
   Route.get('services', 'StaticController.emptyArray');
   Route.get('news', 'StaticController.emptyArray');
-  Route.get('payment/plans', 'StaticController.plans');
   Route.get('announcements/:version', 'StaticController.announcement');
 }).prefix('v1');
 
