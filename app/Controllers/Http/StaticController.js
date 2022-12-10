@@ -11,18 +11,12 @@ class StaticController {
     response,
   }) {
     return response.send({
-      needToWaitToProceed: false,
       isServiceProxyEnabled: true,
       isWorkspaceEnabled: true,
       isAnnouncementsEnabled: true,
       isSettingsWSEnabled: false,
-      isServiceLimitEnabled: false,
-      serviceLimitCount: 0,
       isMagicBarEnabled: true,
       isTodosEnabled: true,
-      hasInlineCheckout: true,
-      isTrialStatusBarEnabled: false,
-      canSkipTrial: true,
     });
   }
 
