@@ -6,17 +6,17 @@
     <h1 class="text-gray-700 text-center text-2xl pb-5">Import/Export data from another Ferdium server</h1>
     @if(flashMessage('error'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('error') }}
+      {{ flashMessages.get('error') }}
     </div>
     @endif
-    @if(old('message'))
+    @if(flashMessages.has('message'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ old('message') }}
+      {{ flashMessages.get('message') }}
     </div>
     @endif
-    @if(flashMessage('notification'))
+    @if(flashMessages.has('notification'))
     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4">
-      {{ flashMessage('notification.message') }}
+      {{ flashMessages.get('notification.message') }}
     </div>
     @endif
     @if(success === true)
