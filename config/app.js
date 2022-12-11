@@ -15,7 +15,7 @@ module.exports = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
+  name: Env.get('APP_NAME', 'Ferdium-server'),
 
   /*
   |--------------------------------------------------------------------------
