@@ -141,4 +141,4 @@ pnpm start --dev
 
 #### Javascript Coding style-checker
 
-- Please use `es-lint` and the defined rules to maintain a consistent style
+- Please use `lint` and `lint:fix` and the defined rules to maintain a consistent style

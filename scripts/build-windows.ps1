@@ -154,16 +154,20 @@ if (-not (Test-Path -Path "data")) {
 # -----------------------------------------------------------------------------
 Write-Host "*************** Building recipes ***************"
 Push-Location recipes
-pnpm i
-pnpm package
+pnpm i && pnpm lint && pnpm reformat-files && pnpm package
 Pop-Location
 
+# -----------------------------------------------------------------------------
 # Now the meat.....
 & pnpm i
-& node ace migration:refresh
+& pnpm prepare-code
+& pnpm lint
+# TODO: Uncomment after fixing tests
+# & pnpm test
 
 # -----------------------------------------------------------------------------
 Write-Host "*************** Starting app ***************"
+& node ace migration:refresh
 & pnpm start --dev
 
 Write-Host "*************** App successfully stopped! ***************"

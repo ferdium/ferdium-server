@@ -1,1 +1,36 @@
-recipes/
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+.eslintcache
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+
+# OSX
+.DS_Store
+
+.idea
+.pnpm-debug.log*
+*.css.d.ts
+*.sass.d.ts
+*.scss.d.ts
+
+/build/
+/out/
+/recipes/
+
+# package files
+package.json
+pnpm-lock.yaml
+
+# Json
+*.json

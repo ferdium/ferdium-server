@@ -104,16 +104,20 @@ mkdir -p data
 # -----------------------------------------------------------------------------
 printf "\n*************** Building recipes ***************\n"
 pushd recipes
-pnpm i
-pnpm package
+pnpm i && pnpm lint && pnpm reformat-files && pnpm package
 popd
 
+# -----------------------------------------------------------------------------
 # Now the meat.....
 pnpm i
-node ace migration:refresh
+pnpm prepare-code
+pnpm lint
+# TODO: Uncomment after fixing tests
+# pnpm test
 
 # -----------------------------------------------------------------------------
 printf "\n*************** Building app ***************\n"
+node ace migration:refresh
 pnpm start --dev
 
 printf "\n*************** App successfully stopped! ***************\n"
