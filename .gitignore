@@ -349,6 +349,8 @@ tags
 
 # Adonis directory for storing tmp files
 tmp
+build
+public/assets
 
 # Environment variables, never commit this file
 .env

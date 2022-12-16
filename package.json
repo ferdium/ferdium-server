@@ -12,10 +12,10 @@
   "license": "MIT License",
   "scripts": {
     "prepare": "is-ci || husky install",
-    "dev": "node ace serve --watch",
+    "dev": "ENV_PATH=.env.development node ace serve --watch",
     "build": "node ace build --production",
     "start": "node server.js",
-    "test": "node ace test",
+    "test": "ENV_PATH=.env.test node ace test",
     "lint": "tsc --noEmit && eslint \"**/*.{js,mjs,ts}\"",
     "lint:fix": "eslint --fix \"**/*.{js,mjs,ts}\"",
     "reformat-files": "prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,mjs,ts,scss}\"",
