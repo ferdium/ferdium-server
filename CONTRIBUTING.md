@@ -50,7 +50,7 @@ Currently, these are the combinations of system dependencies that work for MacOS
 $ jq --null-input '[inputs.engines] | add' < ./package.json < ./recipes/package.json
 {
   "node": "16.18.1",
-  "pnpm": "7.18.1",
+  "pnpm": "7.19.0",
   "python": "3.11.1"
 }
 ```

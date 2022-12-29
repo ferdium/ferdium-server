@@ -6,7 +6,7 @@
   "main": "index.js",
   "engines": {
     "node": "16.18.1",
-    "pnpm": "7.18.1",
+    "pnpm": "7.19.0",
     "python": "3.11.1"
   },
   "scripts": {
