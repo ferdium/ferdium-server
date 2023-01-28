@@ -1,4 +1,4 @@
-FROM node:16.18.1-alpine as build
+FROM node:18.13.0-alpine as build
 
 WORKDIR /server-build
 
@@ -11,7 +11,7 @@ RUN PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm'); npm i -g p
 RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
-FROM node:16.18.1-alpine
+FROM node:18.13.0-alpine
 
 WORKDIR /app
 LABEL maintainer="ferdium"

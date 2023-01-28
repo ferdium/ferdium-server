@@ -160,7 +160,7 @@ Pop-Location
 # -----------------------------------------------------------------------------
 # Now the meat.....
 & pnpm i
-& pnpm prepare-code
+& pnpm prepare
 & pnpm lint
 # TODO: Uncomment after fixing tests
 # & pnpm test
