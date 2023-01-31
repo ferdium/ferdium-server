@@ -99,7 +99,7 @@ jobs:
       -
         name: Build and push
         if: ${{ (steps.should_run.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[main]'))) )}}
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           # If needed, we can add more platforms when requested.
