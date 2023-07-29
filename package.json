@@ -25,7 +25,7 @@
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:fix": "pnpm lint --fix",
     "reformat-files": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,scss,json}\"",
-    "prepare-code": "pnpm typecheck && pnpm lint:fix && pnpm reformat-files"
+    "prepare-code": "pnpm typecheck && pnpm lint:fix && pnpm reformat-files && pnpm test"
   },
   "devDependencies": {
     "@adonisjs/assembler": "5.9.5",

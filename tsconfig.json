@@ -30,6 +30,7 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "useUnknownInCatchVariables": false,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "strictPropertyInitialization": false
   }
 }
