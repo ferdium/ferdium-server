@@ -13,6 +13,7 @@ export default class Workspace extends BaseModel {
   // @ts-ignore
   public workspaceId: string;
 
+  // @ts-ignore
   @hasOne(() => User, {
     foreignKey: 'userId',
   })

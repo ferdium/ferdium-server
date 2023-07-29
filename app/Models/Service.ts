@@ -7,6 +7,7 @@ export default class Service extends BaseModel {
   // @ts-ignore
   public id: number;
 
+  // @ts-ignore
   @hasOne(() => User, {
     foreignKey: 'userId',
   })

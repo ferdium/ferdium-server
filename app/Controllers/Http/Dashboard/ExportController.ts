@@ -1,12 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import User from 'App/Models/User';
 
 export default class ExportController {
   /**
    * Display the export page
    */
   public async show({ auth, response }: HttpContextContract) {
-    const user = auth.user as User;
+    const user = auth.user!;
     const services = await user.related('services').query();
     const workspaces = await user.related('workspaces').query();
 

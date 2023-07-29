@@ -21,6 +21,7 @@ export default class GuestMiddleware {
     for (const guard of guards) {
       guardLastAttempted = guard;
 
+      // eslint-disable-next-line no-await-in-loop
       if (await auth.use(guard).check()) {
         auth.defaultGuard = guard;
 

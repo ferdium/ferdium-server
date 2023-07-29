@@ -12,6 +12,7 @@ declare module '@japa/runner' {
     // Extend context
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Test<TestData> {
     // Extend test
   }

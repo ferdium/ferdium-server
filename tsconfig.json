@@ -26,23 +26,10 @@
       "fs-extra"
     ],
     "sourceMap": true,
-
-    // TODO: Need to switch
-    "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-    "allowUnreachableCode": false,
     "useUnknownInCatchVariables": false,
-    "esModuleInterop": true
-    // TODO: Uncomment all these at a later point
-    // "composite": false,
-    // "importHelpers": true,
-    // "allowUnusedLabels": false,
-    // "noUnusedLocals": true,
-    // "noImplicitReturns": true,
-    // "noImplicitThis": true,
-    // "preserveConstEnums": true,
-    // "useDefineForClassFields": true
+    "noImplicitReturns": true
   }
 }

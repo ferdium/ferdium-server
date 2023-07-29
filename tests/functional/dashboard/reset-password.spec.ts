@@ -22,7 +22,7 @@ test.group('Dashboard / Reset password page', () => {
     response.assertTextIncludes('Reset Your Password');
   });
 
-  test("returns `passwords do not match` message when passwords don't match", async ({
+  test('returns `passwords do not match` message when passwords do not match', async ({
     client,
   }) => {
     const response = await client.post('/user/reset').fields({
@@ -50,6 +50,7 @@ test.group('Dashboard / Reset password page', () => {
     client,
   }) => {
     const token = await TokenFactory.merge({
+      // eslint-disable-next-line unicorn/no-await-expression-member
       user_id: (await UserFactory.create()).id,
     })
       .apply('old_token')
@@ -68,6 +69,7 @@ test.group('Dashboard / Reset password page', () => {
     client,
   }) => {
     const token = await TokenFactory.merge({
+      // eslint-disable-next-line unicorn/no-await-expression-member
       user_id: (await UserFactory.create()).id,
     })
       .apply('revoked')
@@ -88,11 +90,14 @@ test.group('Dashboard / Reset password page', () => {
   }) => {
     const userEmail = 'working-reset-password-login@ferdium.org';
     const token = await TokenFactory.merge({
-      user_id: (
-        await UserFactory.merge({
-          email: userEmail,
-        }).create()
-      ).id,
+      user_id:
+        (
+          await UserFactory.merge({
+            email: userEmail,
+          }).create()
+        // prettier-ignore
+        // eslint-disable-next-line unicorn/no-await-expression-member
+        ).id,
     }).create();
 
     const response = await client.post('/user/reset').fields({
