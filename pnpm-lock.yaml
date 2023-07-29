@@ -14,6 +14,9 @@ specifiers:
   '@japa/runner': 2.2.2
   '@symfony/webpack-encore': 4.1.2
   '@types/fs-extra': 9.0.13
+  '@types/proxy-addr': ^2.0.0
+  '@types/source-map-support': 0.5.6
+  '@types/uuid': 9.0.2
   '@typescript-eslint/eslint-plugin': 5.46.0
   '@typescript-eslint/parser': 5.46.0
   adonis-preset-ts: 2.1.0
@@ -74,6 +77,9 @@ devDependencies:
   '@japa/runner': 2.2.2
   '@symfony/webpack-encore': 4.1.2_hghsuldbnrmtrzuoaijouw5nsy
   '@types/fs-extra': 9.0.13
+  '@types/proxy-addr': 2.0.0
+  '@types/source-map-support': 0.5.6
+  '@types/uuid': 9.0.2
   '@typescript-eslint/eslint-plugin': 5.46.0_5mle7isnkfgjmrghnnczirv6iy
   '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
   adonis-preset-ts: 2.1.0
@@ -2518,6 +2524,12 @@ packages:
       '@types/pino-std-serializers': 4.0.0
       sonic-boom: 2.8.0
 
+  /@types/proxy-addr/2.0.0:
+    resolution: {integrity: sha512-JEm0kSrO3CjbFSLpYeYhCscS0vpW1mIWedhWuurJnYbMzY1vcm9fzJ6TL6SWq3m/m3g4KUV5JBT69mQSwUHZHg==}
+    dependencies:
+      '@types/node': 18.11.15
+    dev: true
+
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
@@ -2559,11 +2571,21 @@ packages:
       '@types/node': 18.11.15
     dev: true
 
+  /@types/source-map-support/0.5.6:
+    resolution: {integrity: sha512-b2nJ9YyXmkhGaa2b8VLM0kJ04xxwNyijcq12/kDoomCt43qbHBeK2SLNJ9iJmETaAj+bKUT05PQUu3Q66GvLhQ==}
+    dependencies:
+      source-map: 0.6.1
+    dev: true
+
   /@types/superagent/4.1.16:
     resolution: {integrity: sha512-tLfnlJf6A5mB6ddqF159GqcDizfzbMUB1/DeT59/wBNqzRTNNKsaw79A/1TZ84X+f/EwWH8FeuSkjlCLyqS/zQ==}
     dependencies:
       '@types/cookiejar': 2.1.2
       '@types/node': 18.11.15
+    dev: true
+
+  /@types/uuid/9.0.2:
+    resolution: {integrity: sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==}
     dev: true
 
   /@types/validator/13.7.10:

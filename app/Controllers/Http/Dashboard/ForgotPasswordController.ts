@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-// @ts-ignore
 import User from 'App/Models/User';
 
 export default class ForgotPasswordController {

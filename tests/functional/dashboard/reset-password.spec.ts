@@ -1,9 +1,6 @@
 import { test } from '@japa/runner';
-// @ts-ignore
 import Token from 'App/Models/Token';
-// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
-// @ts-ignore
 import TokenFactory from 'Database/factories/TokenFactory';
 
 test.group('Dashboard / Reset password page', () => {

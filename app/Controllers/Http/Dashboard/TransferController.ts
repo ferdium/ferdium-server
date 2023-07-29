@@ -1,8 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, validator } from '@ioc:Adonis/Core/Validator';
-// @ts-ignore
 import Service from 'App/Models/Service';
-// @ts-ignore
 import Workspace from 'App/Models/Workspace';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs/promises';
@@ -70,10 +68,9 @@ export default class TransferController {
           serviceId = uuidv4();
         } while (
           (await Service.query().where('serviceId', serviceId)).length > 0
-        ); // eslint-disable-line no-await-in-loop
+        );
 
         await Service.create({
-          // eslint-disable-line no-await-in-loop
           userId: auth.user?.id as number,
           serviceId,
           name: service.name,
@@ -101,14 +98,13 @@ export default class TransferController {
           workspaceId = uuidv4();
         } while (
           (await Workspace.query().where('workspaceId', workspaceId)).length > 0
-        ); // eslint-disable-line no-await-in-loop
+        );
 
         const services = workspace.services.map(
           service => serviceIdTranslation[service],
         );
 
         await Workspace.create({
-          // eslint-disable-line no-await-in-loop
           userId: auth.user?.id,
           workspaceId,
           name: workspace.name,

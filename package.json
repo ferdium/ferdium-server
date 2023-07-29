@@ -8,6 +8,11 @@
     "python": "3.11.1"
   },
   "engine-strict": true,
+  "volta": {
+    "node": "18.15.0",
+    "pnpm": "7.30.0",
+    "python": "3.11.1"
+  },
   "homepage": "https://github.com/ferdium/ferdium-server",
   "license": "MIT License",
   "scripts": {
@@ -16,9 +21,10 @@
     "build": "node ace build --production",
     "start": "node server.js",
     "test": "ENV_PATH=.env.test node ace test",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,mjs,ts}\"",
-    "lint:fix": "eslint --fix \"**/*.{js,mjs,ts}\"",
-    "reformat-files": "prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,mjs,ts,scss}\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:fix": "pnpm lint --fix",
+    "reformat-files": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,scss,json}\"",
     "prepare-code": "pnpm lint:fix && pnpm reformat-files"
   },
   "devDependencies": {
@@ -27,6 +33,9 @@
     "@japa/runner": "2.2.2",
     "@symfony/webpack-encore": "4.1.2",
     "@types/fs-extra": "9.0.13",
+    "@types/proxy-addr": "^2.0.0",
+    "@types/source-map-support": "0.5.6",
+    "@types/uuid": "9.0.2",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@typescript-eslint/parser": "5.46.0",
     "adonis-preset-ts": "2.1.0",
@@ -67,5 +76,18 @@
     "source-map-support": "0.5.21",
     "sqlite3": "5.1.2",
     "uuid": "9.0.0"
+  },
+  "pnpm": {
+    "allowedDeprecatedVersions": {
+      "querystring": "0.2.0",
+      "@types/pino-pretty": "5.0.0",
+      "@types/pino-std-serializers": "4.0.0",
+      "@npmcli/move-file": "1.1.2",
+      "source-map-resolve": "0.5.3",
+      "stable": "0.1.8",
+      "resolve-url": "0.2.1",
+      "source-map-url": "0.4.1",
+      "urix": "0.1.0"
+    }
   }
 }

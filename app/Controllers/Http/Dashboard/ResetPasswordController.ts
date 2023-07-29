@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-// @ts-ignore
 import Token from 'App/Models/Token';
 import moment from 'moment';
 

@@ -1,6 +1,5 @@
 import { test } from '@japa/runner';
 import Event from '@ioc:Adonis/Core/Event';
-// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Forgot password page', () => {
