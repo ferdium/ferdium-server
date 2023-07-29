@@ -19,9 +19,13 @@ export default class Recipe extends BaseModel {
   // @ts-ignore
   public data: object;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true })
+  // @ts-ignore
   public createdAt: DateTime;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true, autoUpdate: true })
+  // @ts-ignore
   public updatedAt: DateTime;
 }

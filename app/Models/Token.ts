@@ -7,6 +7,7 @@ export default class Token extends BaseModel {
   // @ts-ignore
   public id: number;
 
+  // @ts-ignore
   @hasOne(() => User, {
     localKey: 'user_id',
     foreignKey: 'id',
@@ -30,9 +31,13 @@ export default class Token extends BaseModel {
   // @ts-ignore
   public is_revoked: boolean;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true })
+  // @ts-ignore
   public created_at: DateTime;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true, autoUpdate: true })
+  // @ts-ignore
   public updated_at: DateTime;
 }

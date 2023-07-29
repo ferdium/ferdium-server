@@ -41,12 +41,17 @@ export default class User extends BaseModel {
   // @ts-ignore
   public settings: object;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true })
+  // @ts-ignore
   public created_at: DateTime;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true, autoUpdate: true })
+  // @ts-ignore
   public updated_at: DateTime;
 
+  // @ts-ignore
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
@@ -54,18 +59,21 @@ export default class User extends BaseModel {
     }
   }
 
+  // @ts-ignore
   @hasMany(() => Token, {
     foreignKey: 'user_id',
   })
   // @ts-ignore
   public tokens: HasMany<typeof Token>;
 
+  // @ts-ignore
   @hasMany(() => Service, {
     foreignKey: 'userId',
   })
   // @ts-ignore
   public services: HasMany<typeof Service>;
 
+  // @ts-ignore
   @hasMany(() => Workspace, {
     foreignKey: 'userId',
   })

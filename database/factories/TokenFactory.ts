@@ -3,7 +3,7 @@ import Factory from '@ioc:Adonis/Lucid/Factory';
 import { DateTime } from 'luxon';
 
 export default Factory.define(Token, async ({ faker }) => ({
-  token: faker.random.alphaNumeric(32),
+  token: faker.string.alphanumeric(32),
   type: 'forgot_password',
   is_revoked: false,
   created_at: DateTime.now(),
