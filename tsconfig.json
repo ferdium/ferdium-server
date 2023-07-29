@@ -33,7 +33,8 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "esModuleInterop": true
     // TODO: Uncomment all these at a later point
     // "composite": false,
     // "importHelpers": true,

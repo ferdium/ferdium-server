@@ -7,7 +7,7 @@ export default Factory.define(User, async ({ faker }) => ({
   email: faker.internet.email(),
   username: faker.internet.userName(),
   password: 'password',
-  lastname: faker.name.lastName().replace(/'/g, ''),
+  lastname: faker.person.lastName().replace(/'/g, ''),
 }))
   .relation('workspaces', () => WorkspaceFactory)
   .relation('services', () => ServiceFactory)

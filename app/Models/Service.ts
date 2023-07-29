@@ -39,9 +39,13 @@ export default class Service extends BaseModel {
   // @ts-ignore
   public settings: string;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true })
+  // @ts-ignore
   public createdAt: DateTime;
 
+  // @ts-ignore
   @column.dateTime({ autoCreate: true, autoUpdate: true })
+  // @ts-ignore
   public updatedAt: DateTime;
 }
