@@ -1,5 +1,4 @@
 /** @type {import('eslint').Linter.Config} */
-
 module.exports = {
   root: true,
   parserOptions: {
@@ -8,7 +7,11 @@ module.exports = {
     project: './tsconfig.json',
   },
   ignorePatterns: ['node_modules', 'build', 'recipes', '.eslintrc.js'],
-  extends: ['plugin:adonis/typescriptApp', 'plugin:unicorn/recommended', 'prettier'],
+  extends: [
+    'plugin:adonis/typescriptApp',
+    'plugin:unicorn/recommended',
+    'prettier',
+  ],
   plugins: ['@typescript-eslint', 'jest', 'prettier'],
   globals: {
     use: true,
@@ -19,12 +22,17 @@ module.exports = {
     node: true,
     jest: true,
   },
+  reportUnusedDisableDirectives: true,
   overrides: [
     {
       files: ['**/*.ts'],
-      extends: ['plugin:adonis/typescriptApp', 'plugin:unicorn/recommended', 'prettier'],
+      extends: [
+        'plugin:adonis/typescriptApp',
+        'plugin:unicorn/recommended',
+        'plugin:prettier/recommended',
+      ],
       parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint', 'jest', 'prettier'],
+      plugins: ['@typescript-eslint', 'jest'],
       rules: {
         // eslint
         'arrow-parens': 0,
@@ -82,8 +90,6 @@ module.exports = {
         // INFO: Turned off due to src/internal-server/database/factory.js
         'unicorn/no-empty-file': 0,
         'unicorn/prefer-top-level-await': 0,
-        // eslint-plugin-prettier
-        'prettier/prettier': 1,
       },
     },
   ],
@@ -141,7 +147,5 @@ module.exports = {
     // INFO: Turned off due to src/internal-server/database/factory.js
     'unicorn/no-empty-file': 0,
     'unicorn/prefer-top-level-await': 0,
-    // eslint-plugin-prettier
-    'prettier/prettier': 1,
   },
 };

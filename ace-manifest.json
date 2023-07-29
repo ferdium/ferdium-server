@@ -135,6 +135,68 @@
         }
       ]
     },
+    "db:wipe": {
+      "settings": {
+        "loadApp": true
+      },
+      "commandPath": "@adonisjs/lucid/build/commands/DbWipe",
+      "commandName": "db:wipe",
+      "description": "Drop all tables, views and types in database",
+      "args": [],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "connection",
+          "propertyName": "connection",
+          "type": "string",
+          "description": "Define a custom database connection",
+          "alias": "c"
+        },
+        {
+          "name": "drop-views",
+          "propertyName": "dropViews",
+          "type": "boolean",
+          "description": "Drop all views"
+        },
+        {
+          "name": "drop-types",
+          "propertyName": "dropTypes",
+          "type": "boolean",
+          "description": "Drop all custom types (Postgres only)"
+        },
+        {
+          "name": "force",
+          "propertyName": "force",
+          "type": "boolean",
+          "description": "Explicitly force command to run in production"
+        }
+      ]
+    },
+    "db:truncate": {
+      "settings": {
+        "loadApp": true
+      },
+      "commandPath": "@adonisjs/lucid/build/commands/DbTruncate",
+      "commandName": "db:truncate",
+      "description": "Truncate all tables in database",
+      "args": [],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "connection",
+          "propertyName": "connection",
+          "type": "string",
+          "description": "Define a custom database connection",
+          "alias": "c"
+        },
+        {
+          "name": "force",
+          "propertyName": "force",
+          "type": "boolean",
+          "description": "Explicitly force command to run in production"
+        }
+      ]
+    },
     "make:model": {
       "settings": {
         "loadApp": true
@@ -265,43 +327,6 @@
           "type": "boolean",
           "description": "Create the factory with the exact name as provided",
           "alias": "e"
-        }
-      ]
-    },
-    "db:wipe": {
-      "settings": {
-        "loadApp": true
-      },
-      "commandPath": "@adonisjs/lucid/build/commands/DbWipe",
-      "commandName": "db:wipe",
-      "description": "Drop all tables, views and types in database",
-      "args": [],
-      "aliases": [],
-      "flags": [
-        {
-          "name": "connection",
-          "propertyName": "connection",
-          "type": "string",
-          "description": "Define a custom database connection",
-          "alias": "c"
-        },
-        {
-          "name": "drop-views",
-          "propertyName": "dropViews",
-          "type": "boolean",
-          "description": "Drop all views"
-        },
-        {
-          "name": "drop-types",
-          "propertyName": "dropTypes",
-          "type": "boolean",
-          "description": "Drop all custom types (Postgres only)"
-        },
-        {
-          "name": "force",
-          "propertyName": "force",
-          "type": "boolean",
-          "description": "Explicitly force command to run in production"
         }
       ]
     },

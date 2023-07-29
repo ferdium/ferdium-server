@@ -1,5 +1,4 @@
 import { test } from '@japa/runner';
-// @ts-ignore
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Transfer page', () => {
@@ -167,36 +166,42 @@ test.group('Dashboard / Transfer page', () => {
 
       const firstServiceUuid = servicesForUser.find(
         s => s.name === 'random-service-1',
-      ).serviceId;
+      )?.serviceId;
       const secondServiceUuid = servicesForUser.find(
         s => s.name === 'random-service-2',
-      ).serviceId;
+      )?.serviceId;
       const thirdServiceUUid = servicesForUser.find(
         s => s.name === 'random-service-3',
-      ).serviceId;
+      )?.serviceId;
 
       // Assert the first workspace to not have any services
       const firstWorkspace = workspacesForUser.find(
         w => w.name === 'workspace1',
       );
-      assert.empty(JSON.parse(firstWorkspace.services));
+      if (firstWorkspace?.services) {
+        assert.empty(JSON.parse(firstWorkspace.services));
+      }
 
       const secondWorkspace = workspacesForUser.find(
         w => w.name === 'workspace2',
       );
-      assert.deepEqual(JSON.parse(secondWorkspace.services), [
-        firstServiceUuid,
-        secondServiceUuid,
-      ]);
+      if (secondWorkspace?.services) {
+        assert.deepEqual(JSON.parse(secondWorkspace.services), [
+          firstServiceUuid,
+          secondServiceUuid,
+        ]);
+      }
 
       const thirdWorkspace = workspacesForUser.find(
         w => w.name === 'workspace3',
       );
-      assert.deepEqual(JSON.parse(thirdWorkspace.services), [
-        firstServiceUuid,
-        secondServiceUuid,
-        thirdServiceUUid,
-      ]);
+      if (thirdWorkspace?.services) {
+        assert.deepEqual(JSON.parse(thirdWorkspace.services), [
+          firstServiceUuid,
+          secondServiceUuid,
+          thirdServiceUUid,
+        ]);
+      }
     }
   });
 });

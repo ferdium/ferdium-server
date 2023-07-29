@@ -1,5 +1,4 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-// @ts-ignore
 import User from 'App/Models/User';
 
 export default class ExportController {
