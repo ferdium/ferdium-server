@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Application from '@ioc:Adonis/Core/Application';
-import path from 'path';
+import path from 'node:path';
 import fs from 'fs-extra';
 
 export default class AnnouncementsController {

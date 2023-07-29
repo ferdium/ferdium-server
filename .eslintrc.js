@@ -12,15 +12,13 @@ module.exports = {
     'plugin:unicorn/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'jest', 'prettier'],
+  plugins: [],
   globals: {
     use: true,
   },
   env: {
-    browser: true,
     es6: true,
     node: true,
-    jest: true,
   },
   reportUnusedDisableDirectives: true,
   overrides: [
@@ -28,86 +26,37 @@ module.exports = {
       files: ['**/*.ts'],
       extends: [
         'plugin:adonis/typescriptApp',
-        'plugin:unicorn/recommended',
-        'plugin:prettier/recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/strict',
+        // TODO: Opt-in to a stricter ruleset in the future
+        // 'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+        'plugin:import/typescript',
       ],
       parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint', 'jest'],
+      plugins: [],
       rules: {
         // eslint
-        'arrow-parens': 0,
-        'array-callback-return': 1,
-        'class-methods-use-this': 0,
-        'consistent-return': 0,
-        'function-paren-newline': 0,
-        'implicit-arrow-linebreak': 0,
-        'linebreak-style': 0,
         'max-len': 0,
-        'no-confusing-arrow': 0,
-        'no-console': 0,
-        'no-param-reassign': 0,
-        'no-restricted-syntax': 0,
-        'no-return-assign': 1,
-        'no-underscore-dangle': 0,
-        'no-use-before-define': 0,
-        'prefer-destructuring': 1,
-        'object-curly-newline': 0,
-        'operator-linebreak': 0,
+
         // @typescript-eslint
-        // TODO: Turn this rule on
-        // gulp-typescript doesn't consider custom index.d.ts in @types
-        // This is necessary as workaround for window.ferdium vs window['ferdium']
-        '@typescript-eslint/dot-notation': 0,
-        '@typescript-eslint/indent': 0,
-        '@typescript-eslint/no-shadow': 0,
-        '@typescript-eslint/no-unused-expressions': 0,
-        // eslint-plugin-import
-        'import/extensions': 0,
-        // TODO: Turn this rule on
-        // 'import/no-cycle': 1,
-        'import/no-extraneous-dependencies': 0,
-        'import/no-unresolved': 0,
-        'import/prefer-default-export': 0,
-        //  eslint-plugin-unicorn
-        'unicorn/filename-case': 0,
-        'unicorn/no-await-expression-member': 0,
-        'unicorn/no-null': 0,
-        'unicorn/no-useless-undefined': 0,
-        'unicorn/prefer-module': 0,
-        'unicorn/prevent-abbreviations': 0,
-        'unicorn/prefer-node-protocol': 0,
-        'unicorn/import-style': [
-          2,
-          {
-            styles: {
-              path: {
-                named: true,
-              },
-            },
-          },
-        ],
-        'unicorn/consistent-destructuring': 0,
-        // INFO: Turned off due to src/internal-server/database/factory.js
-        'unicorn/no-empty-file': 0,
-        'unicorn/prefer-top-level-await': 0,
+        '@typescript-eslint/no-non-null-assertion': 0,
+        '@typescript-eslint/no-empty-interface': 0,
+        '@typescript-eslint/semi': 0,
+        '@typescript-eslint/space-before-function-paren': 0,
+        '@typescript-eslint/no-extraneous-class': 0,
+        '@typescript-eslint/ban-ts-comment': 0,
+        '@typescript-eslint/prefer-ts-expect-error': 0,
       },
     },
   ],
   rules: {
     // eslint
-    'arrow-parens': 0,
-    'class-methods-use-this': 0,
+    'array-callback-return': 1,
     'consistent-return': 1,
-    'implicit-arrow-linebreak': 0,
-    indent: 0,
-    // TODO: Turn this rule on once the js to ts conversions are over
-    // This is necessary as workaround for window.ferdium vs window['ferdium']
-    'dot-notation': 0,
-    'function-paren-newline': 0,
-    'linebreak-style': 0,
     'max-len': 0,
-    // TODO: Turn this rule on
-    'no-await-in-loop': 0,
+    'no-await-in-loop': 1,
+    'no-return-assign': 1,
     'no-console': [
       1,
       {
@@ -115,24 +64,12 @@ module.exports = {
       },
     ],
     'no-param-reassign': 1,
-    'no-restricted-syntax': 0,
-    'no-underscore-dangle': 0,
-    'operator-linebreak': 0,
     'prefer-destructuring': 1,
-    'object-curly-newline': 0,
-    // eslint-plugin-import
-    'import/extensions': 0,
-    'import/prefer-default-export': 0,
-    'import/no-extraneous-dependencies': 0, // various false positives, re-enable at some point
-    'import/no-unresolved': 0,
-    //  eslint-plugin-unicorn
+    // eslint-plugin-unicorn
     'unicorn/filename-case': 0,
-    'unicorn/no-await-expression-member': 0,
-    'unicorn/no-null': 0,
-    'unicorn/no-useless-undefined': 0,
     'unicorn/prefer-module': 0,
     'unicorn/prevent-abbreviations': 0,
-    'unicorn/prefer-node-protocol': 0,
+
     'unicorn/import-style': [
       2,
       {
@@ -143,8 +80,6 @@ module.exports = {
         },
       },
     ],
-    'unicorn/consistent-destructuring': 0,
-    // INFO: Turned off due to src/internal-server/database/factory.js
     'unicorn/no-empty-file': 0,
     'unicorn/prefer-top-level-await': 0,
   },

@@ -86,7 +86,9 @@ test.group('Dashboard / Transfer page', () => {
     ];
 
     for (const file of files) {
+      // eslint-disable-next-line no-await-in-loop
       const user = await UserFactory.create();
+      // eslint-disable-next-line no-await-in-loop
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
@@ -97,8 +99,10 @@ test.group('Dashboard / Transfer page', () => {
       response.assertTextIncludes(
         'Your account has been imported, you can now login as usual!',
       );
+      // eslint-disable-next-line no-await-in-loop
       await user.refresh();
 
+      // eslint-disable-next-line no-await-in-loop
       const workspacesForUser = await user.related('workspaces').query();
       assert.equal(workspacesForUser.length, 3);
     }
@@ -116,7 +120,9 @@ test.group('Dashboard / Transfer page', () => {
     ];
 
     for (const file of files) {
+      // eslint-disable-next-line no-await-in-loop
       const user = await UserFactory.create();
+      // eslint-disable-next-line no-await-in-loop
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
@@ -127,8 +133,10 @@ test.group('Dashboard / Transfer page', () => {
       response.assertTextIncludes(
         'Your account has been imported, you can now login as usual!',
       );
+      // eslint-disable-next-line no-await-in-loop
       await user.refresh();
 
+      // eslint-disable-next-line no-await-in-loop
       const servicesForUser = await user.related('services').query();
       assert.equal(servicesForUser.length, 3);
     }
@@ -146,7 +154,9 @@ test.group('Dashboard / Transfer page', () => {
     ];
 
     for (const file of files) {
+      // eslint-disable-next-line no-await-in-loop
       const user = await UserFactory.create();
+      // eslint-disable-next-line no-await-in-loop
       const response = await client
         .put('/user/transfer')
         .loginAs(user)
@@ -157,9 +167,12 @@ test.group('Dashboard / Transfer page', () => {
       response.assertTextIncludes(
         'Your account has been imported, you can now login as usual!',
       );
+      // eslint-disable-next-line no-await-in-loop
       await user.refresh();
 
+      // eslint-disable-next-line no-await-in-loop
       const servicesForUser = await user.related('services').query();
+      // eslint-disable-next-line no-await-in-loop
       const workspacesForUser = await user.related('workspaces').query();
       assert.equal(servicesForUser.length, 3);
       assert.equal(workspacesForUser.length, 3);

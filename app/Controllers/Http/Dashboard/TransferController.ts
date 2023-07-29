@@ -3,7 +3,7 @@ import { schema, validator } from '@ioc:Adonis/Core/Validator';
 import Service from 'App/Models/Service';
 import Workspace from 'App/Models/Workspace';
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 export default class TransferController {
   /**
@@ -40,6 +40,7 @@ export default class TransferController {
     let file;
     try {
       file = JSON.parse(
+        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
         await fs.readFile(request.file('file')?.tmpPath as string, 'utf8'),
       );
     } catch {
@@ -49,7 +50,7 @@ export default class TransferController {
       return response.redirect('/user/transfer');
     }
 
-    if (!file || !file.services || !file.workspaces) {
+    if (!file?.services || !file.workspaces) {
       session.flash({
         type: 'danger',
         message: 'Invalid Ferdium account file (2)',
@@ -67,20 +68,24 @@ export default class TransferController {
         do {
           serviceId = uuidv4();
         } while (
+          // eslint-disable-next-line no-await-in-loop, unicorn/no-await-expression-member
           (await Service.query().where('serviceId', serviceId)).length > 0
         );
 
+        // eslint-disable-next-line no-await-in-loop
         await Service.create({
-          userId: auth.user?.id as number,
+          userId: auth.user?.id,
           serviceId,
           name: service.name,
           recipeId: service.recipeId,
           settings: JSON.stringify(service.settings),
         });
 
+        // @ts-expect-error Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'
         serviceIdTranslation[service.serviceId] = serviceId;
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
       const errorMessage = `Could not import your services into our system.\nError: ${error}`;
       return view.render('others/message', {
@@ -97,13 +102,16 @@ export default class TransferController {
         do {
           workspaceId = uuidv4();
         } while (
+          // eslint-disable-next-line no-await-in-loop, unicorn/no-await-expression-member
           (await Workspace.query().where('workspaceId', workspaceId)).length > 0
         );
 
         const services = workspace.services.map(
+          // @ts-expect-error Parameter 'service' implicitly has an 'any' type.
           service => serviceIdTranslation[service],
         );
 
+        // eslint-disable-next-line no-await-in-loop
         await Workspace.create({
           userId: auth.user?.id,
           workspaceId,

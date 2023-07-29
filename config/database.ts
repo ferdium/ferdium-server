@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /**
  * Config source: https://git.io/JesV9
  *
@@ -5,7 +6,7 @@
  * file.
  */
 
-import path from 'path';
+import path from 'node:path';
 import Env from '@ioc:Adonis/Core/Env';
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database';
 

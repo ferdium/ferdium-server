@@ -10,5 +10,6 @@ fileInput.addEventListener('change', () => {
     fileOutput.value = text;
     submitBtn.disabled = false;
   });
+  // eslint-disable-next-line unicorn/prefer-blob-reading-methods
   reader.readAsText(fileInput.files[0]);
 });

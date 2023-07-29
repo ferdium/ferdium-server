@@ -9,10 +9,10 @@ export default class DeleteController {
   }
 
   /**
-   * Delete user and sessin
+   * Delete user and session
    */
-  public async delete({ auth, response }) {
-    auth.user.delete();
+  public async delete({ auth, response }: HttpContextContract) {
+    auth.user?.delete();
     auth.use('web').logout();
 
     return response.redirect('/user/login');

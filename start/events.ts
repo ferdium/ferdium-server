@@ -13,6 +13,7 @@ import Mail from '@ioc:Adonis/Addons/Mail';
 */
 Event.on('forgot::password', async ({ user, token }) => {
   try {
+    // eslint-disable-next-line no-console
     console.log('Sending message');
     await Mail.send(message => {
       message
@@ -26,6 +27,7 @@ Event.on('forgot::password', async ({ user, token }) => {
         });
     });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(`Couldn't send mail: ${error}`);
   }
 });
