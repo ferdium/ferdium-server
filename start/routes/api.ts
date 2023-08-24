@@ -4,7 +4,7 @@ import Route from '@ioc:Adonis/Core/Route';
 
 Route.group(() => {
   // User authentification
-  // Route.post('auth/signup', 'UserController.signup').middleware('guest');
+  Route.post('auth/signup', 'UsersController.signup');
   // Route.post('auth/login', 'UserController.login').middleware('guest');
 
   // // User info
