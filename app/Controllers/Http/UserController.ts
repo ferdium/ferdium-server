@@ -101,6 +101,72 @@ export default class UsersController {
       });
     }
   }
+
+  // Return information about the current user
+  public async me({ response, auth }: HttpContextContract) {
+    if (auth.user === undefined) {
+      return response.send('Missing or invalid api token');
+    }
+
+    const settings =
+      typeof auth.user.settings === 'string'
+        ? JSON.parse(auth.user.settings)
+        : auth.user.settings;
+
+    return response.send({
+      accountType: 'individual',
+      beta: false,
+      donor: {},
+      email: auth.user.email,
+      emailValidated: true,
+      features: {},
+      firstname: auth.user.username,
+      id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
+      isPremium: true,
+      isSubscriptionOwner: true,
+      lastname: auth.user.lastname,
+      locale: 'en-US',
+      ...settings,
+    });
+  }
+
+  public async updateMe({ request, response, auth }: HttpContextContract) {
+    if (auth.user === undefined) {
+      return response.send('Missing or invalid api token');
+    }
+
+    let settings = auth.user.settings || {};
+    if (typeof settings === 'string') {
+      settings = JSON.parse(settings);
+    }
+
+    const newSettings = {
+      ...settings,
+      ...request.all(),
+    };
+
+    auth.user.settings = JSON.stringify(newSettings);
+    await auth.user.save();
+
+    return response.send({
+      data: {
+        accountType: 'individual',
+        beta: false,
+        donor: {},
+        email: auth.user.email,
+        emailValidated: true,
+        features: {},
+        firstname: auth.user.username,
+        id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
+        isPremium: true,
+        isSubscriptionOwner: true,
+        lastname: auth.user.lastname,
+        locale: 'en-US',
+        ...newSettings,
+      },
+      status: ['data-updated'],
+    });
+  }
 }
 
 // const User = use('App/Models/User');
@@ -136,113 +202,6 @@ export default class UsersController {
 //       reject();
 //     }
 //   });
-
-//   // Login using an existing user
-//   async login({ request, response, auth }) {
-//     if (!request.header('Authorization')) {
-//       return response.status(401).send({
-//         message: 'Please provide authorization',
-//         status: 401,
-//       });
-//     }
-
-//     // Get auth data from auth token
-//     const authHeader = atob(
-//       request.header('Authorization').replace('Basic ', ''),
-//     ).split(':');
-
-//     // Check if user with email exists
-//     const user = await User.query().where('email', authHeader[0]).first();
-//     if (!user || !user.email) {
-//       return response.status(401).send({
-//         message: 'User credentials not valid (Invalid mail)',
-//         code: 'invalid-credentials',
-//         status: 401,
-//       });
-//     }
-
-//     // Try to login
-//     let token;
-//     try {
-//       token = await auth.attempt(user.email, authHeader[1]);
-//     } catch (e) {
-//       return response.status(401).send({
-//         message: 'User credentials not valid',
-//         code: 'invalid-credentials',
-//         status: 401,
-//       });
-//     }
-
-//     return response.send({
-//       message: 'Successfully logged in',
-//       token: token.token,
-//     });
-//   }
-
-//   // Return information about the current user
-//   async me({ response, auth }) {
-//     try {
-//       await auth.getUser();
-//     } catch (error) {
-//       response.send('Missing or invalid api token');
-//     }
-
-//     const settings =
-//       typeof auth.user.settings === 'string'
-//         ? JSON.parse(auth.user.settings)
-//         : auth.user.settings;
-
-//     return response.send({
-//       accountType: 'individual',
-//       beta: false,
-//       donor: {},
-//       email: auth.user.email,
-//       emailValidated: true,
-//       features: {},
-//       firstname: auth.user.username,
-//       id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
-//       isPremium: true,
-//       isSubscriptionOwner: true,
-//       lastname: auth.user.lastname,
-//       locale: 'en-US',
-//       ...(settings || {}),
-//     });
-//   }
-
-//   async updateMe({ request, response, auth }) {
-//     let settings = auth.user.settings || {};
-//     if (typeof settings === 'string') {
-//       settings = JSON.parse(settings);
-//     }
-
-//     const newSettings = {
-//       ...settings,
-//       ...request.all(),
-//     };
-
-//     // eslint-disable-next-line no-param-reassign
-//     auth.user.settings = JSON.stringify(newSettings);
-//     await auth.user.save();
-
-//     return response.send({
-//       data: {
-//         accountType: 'individual',
-//         beta: false,
-//         donor: {},
-//         email: auth.user.email,
-//         emailValidated: true,
-//         features: {},
-//         firstname: auth.user.username,
-//         id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
-//         isPremium: true,
-//         isSubscriptionOwner: true,
-//         lastname: auth.user.lastname,
-//         locale: 'en-US',
-//         ...(newSettings || {}),
-//       },
-//       status: ['data-updated'],
-//     });
-//   }
 
 //   async import({ request, response, view }) {
 //     if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {

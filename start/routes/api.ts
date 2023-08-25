@@ -7,9 +7,9 @@ Route.group(() => {
   Route.post('auth/signup', 'UserController.signup').middleware('guest:');
   Route.post('auth/login', 'UserController.login').middleware('guest');
 
-  // // User info
-  // Route.get('me', 'UserController.me').middleware('auth');
-  // Route.put('me', 'UserController.updateMe').middleware('auth');
+  // User info
+  Route.get('me', 'UserController.me').middleware('auth:api');
+  Route.put('me', 'UserController.updateMe').middleware('auth:api');
 
   // // Service info
   // Route.post('service', 'ServiceController.create').middleware('auth');
