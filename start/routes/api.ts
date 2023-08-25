@@ -4,24 +4,24 @@ import Route from '@ioc:Adonis/Core/Route';
 
 Route.group(() => {
   // User authentification
-  Route.post('auth/signup', 'UserController.signup').middleware('guest:');
+  Route.post('auth/signup', 'UserController.signup').middleware('guest');
   Route.post('auth/login', 'UserController.login').middleware('guest');
 
   // User info
-  Route.get('me', 'UserController.me').middleware('auth:api');
-  Route.put('me', 'UserController.updateMe').middleware('auth:api');
+  Route.get('me', 'UserController.me').middleware('auth:jwt');
+  Route.put('me', 'UserController.updateMe').middleware('auth:jwt');
 
   // // Service info
-  Route.post('service', 'ServiceController.create').middleware('auth:api');
+  Route.post('service', 'ServiceController.create').middleware('auth:jwt');
   Route.put('service/reorder', 'ServiceController.reorder').middleware(
-    'auth:api',
+    'auth:jwt',
   );
-  Route.put('service/:id', 'ServiceController.edit').middleware('auth:api');
+  Route.put('service/:id', 'ServiceController.edit').middleware('auth:jwt');
   Route.delete('service/:id', 'ServiceController.delete').middleware(
-    'auth:api',
+    'auth:jwt',
   );
-  Route.get('me/services', 'ServiceController.list').middleware('auth:api');
-  Route.get('recipe', 'ServiceController.list').middleware('auth:api');
+  Route.get('me/services', 'ServiceController.list').middleware('auth:jwt');
+  Route.get('recipe', 'ServiceController.list').middleware('auth:jwt');
   Route.get('icon/:id', 'ServiceController.icon');
 
   // // Recipe store

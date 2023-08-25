@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
 import User from 'App/Models/User';
 import { isRegistrationEnabled } from '../../../config/app';
+import Hash from '@ioc:Adonis/Core/Hash';
 
 const newPostSchema = schema.create({
   firstname: schema.string(),
@@ -52,11 +53,11 @@ export default class UsersController {
     }
 
     // Generate new auth token
-    const token = await auth.use('api').generate(user, { expiresIn: '7 days' });
+    const token = await auth.use('jwt').generate(user);
 
     return response.send({
       message: 'Successfully created account',
-      token: token.token,
+      token: token.accessToken,
     });
   }
 
@@ -84,22 +85,22 @@ export default class UsersController {
       });
     }
 
-    try {
-      const token = await auth.use('api').attempt(user.email, authHeader[1], {
-        expiresIn: '7 days',
-      });
-
-      return response.send({
-        message: 'Successfully logged in',
-        token: token.token,
-      });
-    } catch {
+    // Verify password
+    if (!(await Hash.verify(user.password, authHeader[1]))) {
       return response.status(401).send({
         message: 'User credentials not valid',
         code: 'invalid-credentials',
         status: 401,
       });
     }
+
+    // Generate token
+    const token = await auth.use('jwt').generate(user);
+
+    return response.send({
+      message: 'Successfully logged in',
+      token: token.accessToken,
+    });
   }
 
   // Return information about the current user

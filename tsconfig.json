@@ -1,17 +1,31 @@
 {
   "extends": "./node_modules/adonis-preset-ts/tsconfig.json",
-  "include": ["**/*"],
-  "exclude": ["node_modules", "build", "recipes"],
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "recipes"
+  ],
   "compilerOptions": {
     "outDir": "build",
     "rootDir": "./",
     "strict": true,
     "incremental": true,
     "paths": {
-      "App/*": ["./app/*"],
-      "Config/*": ["./config/*"],
-      "Contracts/*": ["./contracts/*"],
-      "Database/*": ["./database/*"]
+      "App/*": [
+        "./app/*"
+      ],
+      "Config/*": [
+        "./config/*"
+      ],
+      "Contracts/*": [
+        "./contracts/*"
+      ],
+      "Database/*": [
+        "./database/*"
+      ]
     },
     "types": [
       "@adonisjs/core",
@@ -23,7 +37,8 @@
       "@adonisjs/shield",
       "@adonisjs/session",
       "@adonisjs/mail",
-      "fs-extra"
+      "fs-extra",
+      "adonis5-jwt"
     ],
     "sourceMap": true,
     "noFallthroughCasesInSwitch": true,

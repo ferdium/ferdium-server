@@ -364,6 +364,12 @@
           "propertyName": "compactOutput",
           "type": "boolean",
           "description": "A compact single-line output"
+        },
+        {
+          "name": "disable-locks",
+          "propertyName": "disableLocks",
+          "type": "boolean",
+          "description": "Disable locks acquired to run migrations safely"
         }
       ]
     },
@@ -407,6 +413,12 @@
           "propertyName": "compactOutput",
           "type": "boolean",
           "description": "A compact single-line output"
+        },
+        {
+          "name": "disable-locks",
+          "propertyName": "disableLocks",
+          "type": "boolean",
+          "description": "Disable locks acquired to run migrations safely"
         }
       ]
     },
@@ -457,6 +469,12 @@
           "propertyName": "dryRun",
           "type": "boolean",
           "description": "Do not run actual queries. Instead view the SQL output"
+        },
+        {
+          "name": "disable-locks",
+          "propertyName": "disableLocks",
+          "type": "boolean",
+          "description": "Disable locks acquired to run migrations safely"
         }
       ]
     },
@@ -494,6 +512,12 @@
           "propertyName": "seed",
           "type": "boolean",
           "description": "Run seeders"
+        },
+        {
+          "name": "disable-locks",
+          "propertyName": "disableLocks",
+          "type": "boolean",
+          "description": "Disable locks acquired to run migrations safely"
         }
       ]
     },
@@ -537,6 +561,12 @@
           "propertyName": "dropTypes",
           "type": "boolean",
           "description": "Drop all custom types (Postgres only)"
+        },
+        {
+          "name": "disable-locks",
+          "propertyName": "disableLocks",
+          "type": "boolean",
+          "description": "Disable locks acquired to run migrations safely"
         }
       ]
     },
