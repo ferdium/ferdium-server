@@ -35,7 +35,9 @@
     "@types/fs-extra": "11.0.1",
     "@types/luxon": "3.3.1",
     "@types/proxy-addr": "^2.0.0",
+    "@types/semver": "7.5.0",
     "@types/source-map-support": "0.5.6",
+    "@types/targz": "1.0.1",
     "@types/uuid": "9.0.2",
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
@@ -76,8 +78,10 @@
     "rand-token": "1.0.1",
     "reflect-metadata": "0.1.13",
     "sanitize-filename": "1.6.3",
+    "semver": "7.5.4",
     "source-map-support": "0.5.21",
     "sqlite3": "5.1.6",
+    "targz": "1.0.1",
     "uuid": "9.0.0"
   },
   "pnpm": {

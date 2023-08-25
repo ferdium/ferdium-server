@@ -24,12 +24,12 @@ Route.group(() => {
   Route.get('recipe', 'ServiceController.list').middleware('auth:jwt');
   Route.get('icon/:id', 'ServiceController.icon');
 
-  // // Recipe store
-  // Route.get('recipes', 'RecipeController.list');
-  // Route.get('recipes/search', 'RecipeController.search');
-  // Route.get('recipes/popular', 'RecipeController.popularRecipes');
-  // Route.get('recipes/download/:recipe', 'RecipeController.download');
-  // Route.post('recipes/update', 'RecipeController.update');
+  // Recipe store
+  Route.get('recipes', 'RecipeController.list');
+  Route.get('recipes/search', 'RecipeController.search');
+  Route.get('recipes/popular', 'RecipeController.popularRecipes');
+  Route.get('recipes/download/:recipe', 'RecipeController.download');
+  Route.post('recipes/update', 'RecipeController.update');
 
   // // Workspaces
   // Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth');

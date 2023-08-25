@@ -9,7 +9,7 @@ const newPostSchema = schema.create({
   lastname: schema.string(),
   email: schema.string([
     rules.email(),
-    // rules.unique({ table: 'users', column: 'email' }),
+    rules.unique({ table: 'users', column: 'email' }),
   ]),
   password: schema.string([rules.minLength(8)]),
 });
