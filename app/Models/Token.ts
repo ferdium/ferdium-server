@@ -24,6 +24,12 @@ export default class Token extends BaseModel {
   @column()
   public is_revoked: boolean;
 
+  @column()
+  public name: string;
+
+  @column.dateTime()
+  public expires_at: DateTime;
+
   @column.dateTime({ autoCreate: true })
   public created_at: DateTime;
 

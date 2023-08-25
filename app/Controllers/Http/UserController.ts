@@ -51,14 +51,55 @@ export default class UsersController {
       });
     }
 
-    // TODO: Implement logic of generating a JWT token (new auth method doesnt allow this)
     // Generate new auth token
-    // const token = await auth.generate(user);
+    const token = await auth.use('api').generate(user, { expiresIn: '7 days' });
 
     return response.send({
       message: 'Successfully created account',
-      // token: token.token,
+      token: token.token,
     });
+  }
+
+  // Login using an existing user
+  public async login({ request, response, auth }: HttpContextContract) {
+    if (!request.header('Authorization')) {
+      return response.status(401).send({
+        message: 'Please provide authorization',
+        status: 401,
+      });
+    }
+
+    // Get auth data from auth token
+    const authHeader = atob(
+      request.header('Authorization')!.replace('Basic ', ''),
+    ).split(':');
+
+    // Check if user with email exists
+    const user = await User.query().where('email', authHeader[0]).first();
+    if (!user?.email) {
+      return response.status(401).send({
+        message: 'User credentials not valid (Invalid mail)',
+        code: 'invalid-credentials',
+        status: 401,
+      });
+    }
+
+    try {
+      const token = await auth.use('api').attempt(user.email, authHeader[1], {
+        expiresIn: '7 days',
+      });
+
+      return response.send({
+        message: 'Successfully logged in',
+        token: token.token,
+      });
+    } catch {
+      return response.status(401).send({
+        message: 'User credentials not valid',
+        code: 'invalid-credentials',
+        status: 401,
+      });
+    }
   }
 }
 
@@ -95,60 +136,6 @@ export default class UsersController {
 //       reject();
 //     }
 //   });
-
-// class UserController {
-//   // Register a new user
-//   async signup({ request, response, auth }) {
-//     if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {
-//       // eslint-disable-line eqeqeq
-//       return response.status(401).send({
-//         message: 'Registration is disabled on this server',
-//         status: 401,
-//       });
-//     }
-
-//     // Validate user input
-//     const validation = await validateAll(request.all(), {
-//       firstname: 'required',
-//       lastname: 'required',
-//       email: 'required|email|unique:users,email',
-//       password: 'required',
-//     });
-
-//     if (validation.fails()) {
-//       return response.status(401).send({
-//         message: 'Invalid POST arguments',
-//         messages: validation.messages(),
-//         status: 401,
-//       });
-//     }
-
-//     const data = request.only(['firstname', 'lastname', 'email', 'password']);
-
-//     // Create user in DB
-//     let user;
-//     try {
-//       user = await User.create({
-//         email: data.email,
-//         password: data.password,
-//         username: data.firstname,
-//         lastname: data.lastname,
-//       });
-//     } catch (e) {
-//       return response.status(401).send({
-//         message: 'E-Mail Address already in use',
-//         status: 401,
-//       });
-//     }
-
-//     // Generate new auth token
-//     const token = await auth.generate(user);
-
-//     return response.send({
-//       message: 'Successfully created account',
-//       token: token.token,
-//     });
-//   }
 
 //   // Login using an existing user
 //   async login({ request, response, auth }) {
