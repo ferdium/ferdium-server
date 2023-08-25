@@ -32,10 +32,10 @@ Route.group(() => {
   Route.post('recipes/update', 'RecipeController.update');
 
   // // Workspaces
-  // Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth');
-  // Route.delete('workspace/:id', 'WorkspaceController.delete').middleware('auth');
-  // Route.post('workspace', 'WorkspaceController.create').middleware('auth');
-  // Route.get('workspace', 'WorkspaceController.list').middleware('auth');
+  Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth:jwt');
+  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware('auth:jwt');
+  Route.post('workspace', 'WorkspaceController.create').middleware('auth:jwt');
+  Route.get('workspace', 'WorkspaceController.list').middleware('auth:jwt');
 
   // Static responses
   Route.get('features/:mode?', 'Api/Static/FeaturesController.show');
