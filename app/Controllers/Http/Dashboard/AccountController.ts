@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+import crypto from 'node:crypto';
 
 export default class AccountController {
   /**
@@ -60,7 +61,11 @@ export default class AccountController {
       user.lastname = request.input('lastname');
       user.email = request.input('email');
       if (request.input('password')) {
-        user.password = request.input('password');
+        const hashedPassword = crypto
+          .createHash('sha256')
+          .update(request.input('password'))
+          .digest('base64');
+        user.password = hashedPassword;
       }
       await user.save();
     }

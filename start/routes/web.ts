@@ -34,7 +34,7 @@ Route.group(() => {
       Route.get('export', 'Dashboard/ExportController.show');
 
       Route.get('transfer', 'Dashboard/TransferController.show');
-      Route.put('transfer', 'Dashboard/TransferController.import');
+      Route.post('transfer', 'Dashboard/TransferController.import');
 
       Route.get('delete', 'Dashboard/DeleteController.show');
       Route.post('delete', 'Dashboard/DeleteController.delete');

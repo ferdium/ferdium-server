@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+import crypto from 'node:crypto';
 
 export default class LoginController {
   /**
@@ -39,7 +40,12 @@ export default class LoginController {
     try {
       const { mail, password } = request.all();
 
-      await auth.use('web').attempt(mail, password);
+      const hashedPassword = crypto
+        .createHash('sha256')
+        .update(password)
+        .digest('base64');
+
+      await auth.use('web').attempt(mail, hashedPassword);
 
       return response.redirect('/user/account');
     } catch {
