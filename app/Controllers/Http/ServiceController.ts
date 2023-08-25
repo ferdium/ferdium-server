@@ -1,50 +1,45 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { schema } from '@ioc:Adonis/Core/Validator';
+import Service from 'App/Models/Service';
+import { url } from 'Config/app';
+import { v4 as uuid } from 'uuid';
+import * as fs from 'fs-extra';
+import path from 'node:path';
+import Application from '@ioc:Adonis/Core/Application';
+import sanitize from 'sanitize-filename';
 
-export default class ServicesController {}
+const createSchema = schema.create({
+  name: schema.string(),
+  recipeId: schema.string(),
+});
 
-/*
-const Service = use('App/Models/Service');
-const { validateAll } = use('Validator');
-const Env = use('Env');
-const Helpers = use('Helpers');
-
-const { v4: uuid } = require('uuid');
-const path = require('path');
-const fs = require('fs-extra');
-const sanitize = require('sanitize-filename');
-
-class ServiceController {
+export default class ServicesController {
   // Create a new service for user
-  async create({ request, response, auth }) {
-    try {
-      await auth.getUser();
-    } catch {
-      return response.send('Missing or invalid api token');
+  public async create({ request, response, auth }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized('Missing or invalid api token');
     }
 
     // Validate user input
-    const validation = await validateAll(request.all(), {
-      name: 'required|string',
-      recipeId: 'required',
-    });
-    if (validation.fails()) {
+    let data;
+    try {
+      data = await request.validate({ schema: createSchema });
+    } catch (error) {
       return response.status(401).send({
         message: 'Invalid POST arguments',
-        messages: validation.messages(),
+        messages: error.messages,
         status: 401,
       });
     }
-
-    const data = request.all();
 
     // Get new, unused uuid
     let serviceId;
     do {
       serviceId = uuid();
     } while (
-      (await Service.query().where('serviceId', serviceId).fetch()).rows
-        .length > 0
-    ); // eslint-disable-line no-await-in-loop
+      // eslint-disable-next-line no-await-in-loop, unicorn/no-await-expression-member
+      (await Service.query().where('serviceId', serviceId)).length > 0
+    );
 
     await Service.create({
       userId: auth.user.id,
@@ -68,6 +63,7 @@ class ServiceController {
         customRecipe: false,
         hasCustomIcon: false,
         workspaces: [],
+        // eslint-disable-next-line unicorn/no-null
         iconUrl: null,
         ...data,
       },
@@ -76,14 +72,14 @@ class ServiceController {
   }
 
   // List all services a user has created
-  async list({ response, auth }) {
-    try {
-      await auth.getUser();
-    } catch {
-      return response.send('Missing or invalid api token');
+  public async list({ response, auth }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized('Missing or invalid api token');
     }
 
-    const services = (await auth.user.services().fetch()).rows;
+    const { id } = auth.user;
+    const services = await auth.user.related('services').query();
+
     // Convert to array with all data Franz wants
     const servicesArray = services.map(service => {
       const settings =
@@ -104,38 +100,59 @@ class ServiceController {
         workspaces: [],
         ...settings,
         iconUrl: settings.iconId
-          ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`
-          : null,
+          ? `${url}/v1/icon/${settings.iconId}`
+          : // eslint-disable-next-line unicorn/no-null
+            null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
-        userId: auth.user.id,
+        userId: id,
       };
     });
 
     return response.send(servicesArray);
   }
 
-  async edit({ request, response, auth, params }) {
-    try {
-      await auth.getUser();
-    } catch {
-      return response.send('Missing or invalid api token');
+  public async delete({ params, auth, response }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized('Missing or invalid api token');
     }
+
+    // Update data in database
+    await Service.query()
+      .where('serviceId', params.id)
+      .where('userId', auth.user.id)
+      .delete();
+
+    return response.send({
+      message: 'Sucessfully deleted service',
+      status: 200,
+    });
+  }
+
+  // TODO: Test if icon upload works
+  public async edit({ request, response, auth, params }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized('Missing or invalid api token');
+    }
+
+    const { id } = params;
+    const service = await Service.query()
+      .where('serviceId', id)
+      .where('userId', auth.user.id)
+      .firstOrFail();
 
     if (request.file('icon')) {
       // Upload custom service icon
       const icon = request.file('icon', {
-        types: ['image'],
+        extnames: ['png', 'jpg', 'jpeg', 'svg'],
         size: '2mb',
       });
-      const { id } = params;
-      const service = (
-        await Service.query()
-          .where('serviceId', id)
-          .where('userId', auth.user.id)
-          .fetch()
-      ).rows[0];
+
+      if (icon === null) {
+        return response.badRequest('Icon not uploaded.');
+      }
+
       const settings =
         typeof service.settings === 'string'
           ? JSON.parse(service.settings)
@@ -144,27 +161,28 @@ class ServiceController {
       let iconId;
       do {
         iconId = uuid() + uuid();
+      } while (
         // eslint-disable-next-line no-await-in-loop
-      } while (await fs.exists(path.join(Helpers.tmpPath('uploads'), iconId)));
+        await fs.exists(path.join(Application.tmpPath('uploads'), iconId))
+      );
       iconId = `${iconId}.${icon.extname}`;
 
-      await icon.move(Helpers.tmpPath('uploads'), {
+      await icon.move(Application.tmpPath('uploads'), {
         name: iconId,
         overwrite: true,
       });
 
-      if (!icon.moved()) {
-        return response.status(500).send(icon.error());
+      if (icon.state !== 'moved') {
+        return response.status(500).send(icon.errors);
       }
 
       const newSettings = {
         ...settings,
 
         iconId,
-        customIconVersion:
-          settings && settings.customIconVersion
-            ? settings.customIconVersion + 1
-            : 1,
+        customIconVersion: settings?.customIconVersion
+          ? settings.customIconVersion + 1
+          : 1,
       };
 
       // Update data in database
@@ -181,7 +199,7 @@ class ServiceController {
           id,
           name: service.name,
           ...newSettings,
-          iconUrl: `${Env.get('APP_URL')}/v1/icon/${newSettings.iconId}`,
+          iconUrl: `${url}/v1/icon/${newSettings.iconId}`,
           userId: auth.user.id,
         },
         status: ['updated'],
@@ -189,20 +207,11 @@ class ServiceController {
     }
     // Update service info
     const data = request.all();
-    const { id } = params;
-
-    // Get current settings from db
-    const serviceData = (
-      await Service.query()
-        .where('serviceId', id)
-        .where('userId', auth.user.id)
-        .fetch()
-    ).rows[0];
 
     const settings = {
-      ...(typeof serviceData.settings === 'string'
-        ? JSON.parse(serviceData.settings)
-        : serviceData.settings),
+      ...(typeof service.settings === 'string'
+        ? JSON.parse(service.settings)
+        : service.settings),
       ...data,
     };
 
@@ -216,61 +225,38 @@ class ServiceController {
       });
 
     // Get updated row
-    const service = (
-      await Service.query()
-        .where('serviceId', id)
-        .where('userId', auth.user.id)
-        .fetch()
-    ).rows[0];
+    const serviceUpdated = await Service.query()
+      .where('serviceId', id)
+      .where('userId', auth.user.id)
+      .firstOrFail();
 
     return response.send({
       data: {
         id,
-        name: service.name,
+        name: serviceUpdated.name,
         ...settings,
-        iconUrl: `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`,
+        iconUrl: `${url}/v1/icon/${settings.iconId}`,
         userId: auth.user.id,
       },
       status: ['updated'],
     });
   }
 
-  async icon({ params, response }) {
-    let { id } = params;
-
-    id = sanitize(id);
-    if (id === '') {
-      return response.status(404).send({
-        status: "Icon doesn't exist",
-      });
+  // TODO: Test if this works
+  public async reorder({ request, response, auth }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized('Missing or invalid api token');
     }
 
-    const iconPath = path.join(Helpers.tmpPath('uploads'), id);
-
-    try {
-      await fs.access(iconPath);
-    } catch (error) {
-      console.log(error);
-      // File not available.
-      return response.status(404).send({
-        status: "Icon doesn't exist",
-      });
-    }
-
-    return response.download(iconPath);
-  }
-
-  async reorder({ request, response, auth }) {
     const data = request.all();
 
     for (const service of Object.keys(data)) {
       // Get current settings from db
-      const serviceData = (
-        await Service.query() // eslint-disable-line no-await-in-loop
-          .where('serviceId', service)
-          .where('userId', auth.user.id)
-          .fetch()
-      ).rows[0];
+      const serviceData = await Service.query() // eslint-disable-line no-await-in-loop
+        .where('serviceId', service)
+        .where('userId', auth.user.id)
+
+        .firstOrFail();
 
       const settings = {
         ...(typeof serviceData.settings === 'string'
@@ -289,7 +275,7 @@ class ServiceController {
     }
 
     // Get new services
-    const services = (await auth.user.services().fetch()).rows;
+    const services = await auth.user.related('services').query();
     // Convert to array with all data Franz wants
     const servicesArray = services.map(service => {
       const settings =
@@ -310,31 +296,42 @@ class ServiceController {
         workspaces: [],
         ...settings,
         iconUrl: settings.iconId
-          ? `${Env.get('APP_URL')}/v1/icon/${settings.iconId}`
-          : null,
+          ? `${url}/v1/icon/${settings.iconId}`
+          : // eslint-disable-next-line unicorn/no-null
+            null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
-        userId: auth.user.id,
+        userId: auth.user!.id,
       };
     });
 
     return response.send(servicesArray);
   }
 
-  async delete({ params, auth, response }) {
-    // Update data in database
-    await Service.query()
-      .where('serviceId', params.id)
-      .where('userId', auth.user.id)
-      .delete();
+  // TODO: Test if this works
+  public async icon({ params, response }: HttpContextContract) {
+    let { id } = params;
 
-    return response.send({
-      message: 'Sucessfully deleted service',
-      status: 200,
-    });
+    id = sanitize(id);
+    if (id === '') {
+      return response.status(404).send({
+        status: "Icon doesn't exist",
+      });
+    }
+
+    const iconPath = path.join(Application.tmpPath('uploads'), id);
+
+    try {
+      await fs.access(iconPath);
+    } catch (error) {
+      console.log(error);
+      // File not available.
+      return response.status(404).send({
+        status: "Icon doesn't exist",
+      });
+    }
+
+    return response.download(iconPath);
   }
 }
-
-module.exports = ServiceController;
-*/

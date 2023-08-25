@@ -12,13 +12,17 @@ Route.group(() => {
   Route.put('me', 'UserController.updateMe').middleware('auth:api');
 
   // // Service info
-  // Route.post('service', 'ServiceController.create').middleware('auth');
-  // Route.put('service/reorder', 'ServiceController.reorder').middleware('auth');
-  // Route.put('service/:id', 'ServiceController.edit').middleware('auth');
-  // Route.delete('service/:id', 'ServiceController.delete').middleware('auth');
-  // Route.get('me/services', 'ServiceController.list').middleware('auth');
-  // Route.get('recipe', 'ServiceController.list').middleware('auth');
-  // Route.get('icon/:id', 'ServiceController.icon');
+  Route.post('service', 'ServiceController.create').middleware('auth:api');
+  Route.put('service/reorder', 'ServiceController.reorder').middleware(
+    'auth:api',
+  );
+  Route.put('service/:id', 'ServiceController.edit').middleware('auth:api');
+  Route.delete('service/:id', 'ServiceController.delete').middleware(
+    'auth:api',
+  );
+  Route.get('me/services', 'ServiceController.list').middleware('auth:api');
+  Route.get('recipe', 'ServiceController.list').middleware('auth:api');
+  Route.get('icon/:id', 'ServiceController.icon');
 
   // // Recipe store
   // Route.get('recipes', 'RecipeController.list');
