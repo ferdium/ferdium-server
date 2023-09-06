@@ -3,7 +3,14 @@ import { schema, validator } from '@ioc:Adonis/Core/Validator';
 import Service from 'App/Models/Service';
 import Workspace from 'App/Models/Workspace';
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'node:fs/promises';
+
+const importSchema = schema.create({
+  username: schema.string(),
+  lastname: schema.string(),
+  mail: schema.string(),
+  services: schema.array().anyMembers(),
+  workspaces: schema.array().anyMembers(),
+});
 
 export default class TransferController {
   /**
@@ -20,33 +27,17 @@ export default class TransferController {
     session,
     view,
   }: HttpContextContract) {
-    try {
-      await validator.validate({
-        schema: schema.create({
-          file: schema.file({
-            extnames: ['json', 'ferdi-data', 'ferdium-data'],
-          }),
-        }),
-        data: request.allFiles(),
-      });
-    } catch {
-      session.flash({
-        message: 'File missing',
-      });
-
-      return response.redirect('/user/transfer');
-    }
-
     let file;
     try {
-      file = JSON.parse(
-        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
-        await fs.readFile(request.file('file')?.tmpPath as string, 'utf8'),
-      );
+      file = await validator.validate({
+        schema: importSchema,
+        data: JSON.parse(request.body().file),
+      });
     } catch {
       session.flash({
         message: 'Invalid Ferdium account file',
       });
+
       return response.redirect('/user/transfer');
     }
 
@@ -77,12 +68,12 @@ export default class TransferController {
           userId: auth.user?.id,
           serviceId,
           name: service.name,
-          recipeId: service.recipeId,
+          recipeId: service.recipe_id,
           settings: JSON.stringify(service.settings),
         });
 
         // @ts-expect-error Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'
-        serviceIdTranslation[service.serviceId] = serviceId;
+        serviceIdTranslation[service.service_id] = serviceId;
       }
     } catch (error) {
       // eslint-disable-next-line no-console
