@@ -29,6 +29,7 @@ export const appKey: string = Env.get('APP_KEY');
 
 export const url: string = Env.get('APP_URL');
 export const isRegistrationEnabled: boolean = Env.get('IS_REGISTRATION_ENABLED');
+export const connectWithFranz: boolean = Env.get('CONNECT_WITH_FRANZ');
 export const isCreationEnabled: boolean = Env.get('IS_CREATION_ENABLED');
 
 /*
