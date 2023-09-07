@@ -9,6 +9,8 @@ import Workspace from 'App/Models/Workspace';
 import Service from 'App/Models/Service';
 import fetch from 'node-fetch';
 
+// TODO: This file needs to be refactored and cleaned up to include types
+
 const newPostSchema = schema.create({
   firstname: schema.string(),
   lastname: schema.string(),
@@ -28,7 +30,7 @@ const franzImportSchema = schema.create({
 });
 
 // // TODO: This whole controller needs to be changed such that it can support importing from both Franz and Ferdi
-const franzRequest = (route, method, auth) =>
+const franzRequest = (route: any, method: any, auth: any) =>
   new Promise((resolve, reject) => {
     const base = 'https://api.franzinfra.com/v1/';
     const user =
@@ -52,6 +54,7 @@ const franzRequest = (route, method, auth) =>
 export default class UsersController {
   // Register a new user
   public async signup({ request, response, auth }: HttpContextContract) {
+    // @ts-ignore
     if (isRegistrationEnabled === 'false') {
       return response.status(401).send({
         message: 'Registration is disabled on this server',
@@ -181,6 +184,7 @@ export default class UsersController {
       ...request.all(),
     };
 
+    // @ts-ignore
     auth.user.settings = JSON.stringify(newSettings);
     await auth.user.save();
 
@@ -205,6 +209,7 @@ export default class UsersController {
   }
 
   public async import({ request, response, view }: HttpContextContract) {
+    // @ts-ignore
     if (isRegistrationEnabled === 'false') {
       return response.status(401).send({
         message: 'Registration is disabled on this server',
@@ -212,6 +217,7 @@ export default class UsersController {
       });
     }
 
+    // @ts-ignore
     if (connectWithFranz === 'false') {
       return response.send(
         'We could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.',
@@ -276,7 +282,7 @@ export default class UsersController {
     }
 
     // Get user information
-    let userInf = false;
+    let userInf: any = false;
     try {
       userInf = await franzRequest('me', 'GET', token);
     } catch (error) {
@@ -309,6 +315,7 @@ export default class UsersController {
     try {
       const services = await franzRequest('me/services', 'GET', token);
 
+      // @ts-ignore
       for (const service of services) {
         // Get new, unused uuid
         let serviceId;
@@ -328,6 +335,7 @@ export default class UsersController {
           settings: JSON.stringify(service),
         });
 
+        // @ts-ignore
         serviceIdTranslation[service.id] = serviceId;
       }
     } catch (error) {
@@ -339,6 +347,7 @@ export default class UsersController {
     try {
       const workspaces = await franzRequest('workspace', 'GET', token);
 
+      // @ts-ignore
       for (const workspace of workspaces) {
         let workspaceId;
         do {
@@ -349,6 +358,7 @@ export default class UsersController {
         );
 
         const services = workspace.services.map(
+          // @ts-ignore
           service => serviceIdTranslation[service],
         );
 

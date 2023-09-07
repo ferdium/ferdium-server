@@ -9,6 +9,8 @@ import targz from 'targz';
 import semver from 'semver';
 import Drive from '@ioc:Adonis/Core/Drive';
 
+// TODO: This file needs to be refactored and cleaned up to include types
+
 const createSchema = schema.create({
   name: schema.string(),
   id: schema.string([rules.unique({ table: 'recipes', column: 'recipeId' })]),
@@ -121,6 +123,7 @@ export default class RecipesController {
     await Recipe.create({
       name: data.name,
       recipeId: data.id,
+      // @ts-expect-error
       data: JSON.stringify({
         author: data.author,
         featured: false,
@@ -184,7 +187,7 @@ export default class RecipesController {
     return response.send(
       fs
         .readJsonSync(path.join(Application.appRoot, 'recipes', 'all.json'))
-        .filter(recipe => recipe.featured),
+        .filter((recipe: any) => recipe.featured),
     );
   }
 
@@ -200,7 +203,7 @@ export default class RecipesController {
       const version = recipes[recipe];
 
       // Find recipe in local recipe repository
-      const localRecipe = allJson.find(r => r.id === recipe);
+      const localRecipe = allJson.find((r: any) => r.id === recipe);
       if (localRecipe && semver.lt(version, localRecipe.version)) {
         updates.push(recipe);
       }
