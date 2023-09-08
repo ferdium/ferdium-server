@@ -19,3 +19,6 @@ node_modules
 
 # Ignore recipes folder (it is pulled in the image by git)
 recipes
+
+# Ignore build folder
+build
