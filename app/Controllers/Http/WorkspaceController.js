@@ -74,16 +74,18 @@ class WorkspaceController {
       });
     }
 
-    const data = request.all();
+    const toUpdate = request.all();
     const { id } = params;
+    const { name, services, iconUrl } = toUpdate;
 
     // Update data in database
     await Workspace.query()
       .where('workspaceId', id)
       .where('userId', auth.user.id)
       .update({
-        name: data.name,
-        services: JSON.stringify(data.services),
+        name: name,
+        services: JSON.stringify(services),
+        data: JSON.stringify({ iconUrl }),
       });
 
     // Get updated row
@@ -93,13 +95,24 @@ class WorkspaceController {
         .where('userId', auth.user.id)
         .fetch()
     ).rows[0];
-
+    let data = {};
+    try {
+      if (typeof data === 'string') {
+        data = JSON.parse(workspace.data);
+      }
+    } catch (error) {
+      console.warn(
+        `[WorkspaceController] edit ${workspace.workspaceId}. Error parsing data JSON`,
+        error,
+      );
+    }
     return response.send({
       id: workspace.workspaceId,
       name: data.name,
       order: workspace.order,
       services: data.services,
       userId: auth.user.id,
+      iconUrl: data?.iconUrl || '',
     });
   }
 
@@ -153,16 +166,30 @@ class WorkspaceController {
     // Convert to array with all data Franz wants
     let workspacesArray = [];
     if (workspaces) {
-      workspacesArray = workspaces.map(workspace => ({
-        id: workspace.workspaceId,
-        name: workspace.name,
-        order: workspace.order,
-        services:
-          typeof workspace.services === 'string'
-            ? JSON.parse(workspace.services)
-            : workspace.services,
-        userId: auth.user.id,
-      }));
+      workspacesArray = workspaces.map(workspace => {
+        let data = {};
+        try {
+          if (typeof data === 'string') {
+            data = JSON.parse(workspace.data);
+          }
+        } catch (error) {
+          console.warn(
+            `[WorkspaceController] list ${workspace.workspaceId}. Error parsing data JSON`,
+            error,
+          );
+        }
+        return {
+          id: workspace.workspaceId,
+          name: workspace.name,
+          order: workspace.order,
+          services:
+            typeof workspace.services === 'string'
+              ? JSON.parse(workspace.services)
+              : workspace.services,
+          userId: auth.user.id,
+          iconUrl: data?.iconUrl || '',
+        };
+      });
     }
 
     return response.send(workspacesArray);
