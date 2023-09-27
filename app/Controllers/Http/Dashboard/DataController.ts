@@ -7,6 +7,9 @@ export default class DataController {
   public async show({ view, auth }: HttpContextContract) {
     const { user } = auth;
 
+    const services = await user?.related('services').query();
+    const workspaces = await user?.related('workspaces').query();
+
     return view.render('dashboard/data', {
       username: user?.username,
       lastname: user?.lastname,
@@ -14,8 +17,8 @@ export default class DataController {
       created: user?.created_at.toFormat('yyyy-MM-dd HH:mm:ss'),
       updated: user?.updated_at.toFormat('yyyy-MM-dd HH:mm:ss'),
       stringify: JSON.stringify,
-      services: [], // TODO
-      workspaces: [], // TODO
+      services,
+      workspaces,
     });
   }
 }
