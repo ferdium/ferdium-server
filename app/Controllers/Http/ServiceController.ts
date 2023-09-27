@@ -215,6 +215,21 @@ export default class ServicesController {
       ...data,
     };
 
+    if (settings.customIcon === 'delete') {
+      fs.remove(
+        path.join(Application.tmpPath('uploads'), settings.iconId),
+        err => {
+          if (err) {
+            return console.error(err);
+          }
+        },
+      );
+
+      settings.iconId = undefined;
+      settings.customIconVersion = undefined;
+      settings.customIcon = '';
+    }
+
     // Update data in database
     await Service.query()
       .where('serviceId', id)
