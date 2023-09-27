@@ -212,7 +212,7 @@ export default class UsersController {
       });
     }
 
-    if (connectWithFranz == 'false') {
+    if (connectWithFranz === 'false') {
       return response.send(
         'We could not import your Franz account data.\n\nIf you are the server owner, please set CONNECT_WITH_FRANZ to true to enable account imports.',
       );

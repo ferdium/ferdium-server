@@ -28,9 +28,11 @@ import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
 export const appKey: string = Env.get('APP_KEY');
 
 export const url: string = Env.get('APP_URL');
-export const isRegistrationEnabled: boolean = Env.get('IS_REGISTRATION_ENABLED');
-export const connectWithFranz: boolean = Env.get('CONNECT_WITH_FRANZ');
-export const isCreationEnabled: boolean = Env.get('IS_CREATION_ENABLED');
+
+// TODO: this is parsed as string to be coherent with the previous version of the code we add (before migrating to AdonisJS 5)
+export const isRegistrationEnabled: string = Env.get('IS_REGISTRATION_ENABLED');
+export const connectWithFranz: string = Env.get('CONNECT_WITH_FRANZ');
+export const isCreationEnabled: string = Env.get('IS_CREATION_ENABLED');
 
 /*
 |--------------------------------------------------------------------------

@@ -69,9 +69,9 @@ export default class RecipesController {
   // Create a new recipe using the new.html page
   public async create({ request, response }: HttpContextContract) {
     // Check if recipe creation is enabled
-    if (isCreationEnabled === false) {
+    if (isCreationEnabled === 'false') {
       return response.send(
-        "This server doesn't allow the creation of new recipes.",
+        'This server doesn\'t allow the creation of new recipes.',
       );
     }
 
@@ -92,7 +92,7 @@ export default class RecipesController {
     }
 
     // Check for invalid characters
-    if (/\.{1,}/.test(data.id) || /\/{1,}/.test(data.id)) {
+    if (/\.+/.test(data.id) || /\/+/.test(data.id)) {
       return response.send(
         'Invalid recipe name. Your recipe name may not contain "." or "/"',
       );
@@ -230,7 +230,7 @@ export default class RecipesController {
     const service = data.recipe;
 
     // Check for invalid characters
-    if (/\.{1,}/.test(service) || /\/{1,}/.test(service)) {
+    if (/\.+/.test(service) || /\/+/.test(service)) {
       return response.send('Invalid recipe name');
     }
 
