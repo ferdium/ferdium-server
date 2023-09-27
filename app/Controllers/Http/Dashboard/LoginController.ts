@@ -45,11 +45,7 @@ export default class LoginController {
       // Check if user with email exists
       const user = await User.query().where('email', mail).first();
       if (!user?.email) {
-        return response.status(401).send({
-          message: 'User credentials not valid (Invalid mail)',
-          code: 'invalid-credentials',
-          status: 401,
-        });
+        throw new Error('User credentials not valid (Invalid email)');
       }
 
       const hashedPassword = crypto
@@ -66,11 +62,7 @@ export default class LoginController {
       }
 
       if (!isMatchedPassword) {
-        return response.status(401).send({
-          message: 'User credentials not valid',
-          code: 'invalid-credentials',
-          status: 401,
-        });
+        throw new Error('User credentials not valid (Invalid password)');
       }
 
       await auth.use('web').login(user);
