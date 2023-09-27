@@ -1,10 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-function deepParseToJSON(obj) {
+function deepParseToJSON(obj: any): Record<string, unknown> {
   if (typeof obj !== 'object' || obj === null) {
     try {
       // Try to parse the object as JSON
-      return JSON.parse(obj);
+      return JSON.parse(obj) as Record<string, unknown>;
     } catch {
       // If parsing fails, return the original value
       return obj;
@@ -14,7 +14,7 @@ function deepParseToJSON(obj) {
   // If obj is an object, recursively parse its keys
   if (Array.isArray(obj)) {
     // If obj is an array, recursively parse each element
-    return obj.map(item => deepParseToJSON(item));
+    return obj.map(item => deepParseToJSON(item)) as unknown as Record<string, unknown>;
   } else {
     // If obj is an object, recursively parse its keys
     const parsedObj: Record<string, unknown> = {};

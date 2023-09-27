@@ -2,7 +2,6 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules } from '@ioc:Adonis/Core/Validator';
 import User from 'App/Models/User';
 import { connectWithFranz, isRegistrationEnabled } from '../../../config/app';
-import Hash from '@ioc:Adonis/Core/Hash';
 import crypto from 'node:crypto';
 import { v4 as uuid } from 'uuid';
 import Workspace from 'App/Models/Workspace';
