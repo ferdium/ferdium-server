@@ -91,7 +91,7 @@ export default class UsersController {
     }
 
     // Generate new auth token
-    const token = await auth.use('jwt').generate(user);
+    const token = await auth.use('jwt').login(user);
 
     return response.send({
       message: 'Successfully created account',
@@ -140,7 +140,7 @@ export default class UsersController {
     }
 
     // Generate token
-    const token = await auth.use('jwt').generate(user);
+    const token = await auth.use('jwt').login(user);
 
     return response.send({
       message: 'Successfully logged in',

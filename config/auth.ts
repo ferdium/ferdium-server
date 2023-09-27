@@ -232,8 +232,11 @@ const authConfig: AuthConfig = {
       driver: 'jwt',
       publicKey: Env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n'),
       privateKey: Env.get('JWT_PRIVATE_KEY', '').replaceAll('\\n', '\n'),
-      persistJwt: false,
-      jwtDefaultExpire: '10m',
+      persistJwt: true,
+      // TODO: We should improve the following implementation as this is a security concern.
+      // The following ts-expect-error is to set exp to undefined (JWT with no expiration)
+      // @ts-expect-error
+      jwtDefaultExpire: undefined,
       refreshTokenDefaultExpire: '10d',
       tokenProvider: {
         type: 'api',
