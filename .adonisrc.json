@@ -24,7 +24,8 @@
     "@adonisjs/shield",
     "@adonisjs/session",
     "@adonisjs/mail",
-    "adonis5-jwt"
+    "adonis5-jwt",
+    "./providers/LegacyHasherProvider"
   ],
   "aceProviders": ["@adonisjs/repl"],
   "tests": {

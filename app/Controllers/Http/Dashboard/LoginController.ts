@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+import User from 'App/Models/User';
 import crypto from 'node:crypto';
+import { handleVerifyAndReHash } from '../../../../helpers/PasswordHash';
 
 export default class LoginController {
   /**
@@ -40,12 +42,38 @@ export default class LoginController {
     try {
       const { mail, password } = request.all();
 
+      // Check if user with email exists
+      const user = await User.query().where('email', mail).first();
+      if (!user?.email) {
+        return response.status(401).send({
+          message: 'User credentials not valid (Invalid mail)',
+          code: 'invalid-credentials',
+          status: 401,
+        });
+      }
+
       const hashedPassword = crypto
         .createHash('sha256')
         .update(password)
         .digest('base64');
 
-      await auth.use('web').attempt(mail, hashedPassword);
+      // Verify password
+      let isMatchedPassword = false;
+      try {
+        isMatchedPassword = await handleVerifyAndReHash(user, hashedPassword);
+      } catch (error) {
+        return response.internalServerError({ message: error.message });
+      }
+
+      if (!isMatchedPassword) {
+        return response.status(401).send({
+          message: 'User credentials not valid',
+          code: 'invalid-credentials',
+          status: 401,
+        });
+      }
+
+      await auth.use('web').login(user);
 
       return response.redirect('/user/account');
     } catch {

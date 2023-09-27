@@ -10,6 +10,7 @@ import Service from 'App/Models/Service';
 import fetch from 'node-fetch';
 
 // TODO: This file needs to be refactored and cleaned up to include types
+import { handleVerifyAndReHash } from '../../../helpers/PasswordHash';
 
 const newPostSchema = schema.create({
   firstname: schema.string(),
@@ -124,7 +125,14 @@ export default class UsersController {
     }
 
     // Verify password
-    if (!(await Hash.verify(user.password, authHeader[1]))) {
+    let isMatchedPassword = false;
+    try {
+      isMatchedPassword = await handleVerifyAndReHash(user, authHeader[1]);
+    } catch (error) {
+      return response.internalServerError({ message: error.message });
+    }
+
+    if (!isMatchedPassword) {
       return response.status(401).send({
         message: 'User credentials not valid',
         code: 'invalid-credentials',

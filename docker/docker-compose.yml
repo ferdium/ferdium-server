@@ -1,7 +1,7 @@
 version: "2"
 services:
   ferdium-server:
-    image: ferdium/ferdium-server:latest
+    image: ferdium-server
     container_name: ferdium-server
     environment:
       - NODE_ENV=development
@@ -28,11 +28,10 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ferdium-database-vol:/data
+      - /C/Users/SpecialAro/Desktop/random/data:/data
       - ferdium-recipes-vol:/app/recipes
     ports:
       - 3333:3333
     restart: unless-stopped
 volumes:
-  ferdium-database-vol:
   ferdium-recipes-vol:

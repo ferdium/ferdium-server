@@ -28,9 +28,18 @@ export default hashConfig({
   |
   | Default is set to bcrypt to prevent breaking-changes.
   */
-  default: Env.get('HASH_DRIVER', 'bcrypt'),
+  default: Env.get('HASH_DRIVER', 'scrypt'),
 
   list: {
+    scrypt: {
+      driver: 'scrypt',
+      cost: 16_384,
+      blockSize: 8,
+      parallelization: 1,
+      saltSize: 16,
+      keyLength: 64,
+      maxMemory: 32 * 1024 * 1024,
+    },
     /*
     |--------------------------------------------------------------------------
     | Argon
@@ -69,6 +78,10 @@ export default hashConfig({
     bcrypt: {
       driver: 'bcrypt',
       rounds: 10,
+    },
+
+    legacy: {
+      driver: 'legacy',
     },
   },
 });

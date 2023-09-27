@@ -35,6 +35,9 @@ dependencies:
   aws-sdk:
     specifier: 2.1425.0
     version: 2.1425.0
+  bcrypt:
+    specifier: 5.1.1
+    version: 5.1.1
   fs-extra:
     specifier: 11.1.1
     version: 11.1.1
@@ -97,6 +100,9 @@ devDependencies:
   '@symfony/webpack-encore':
     specifier: 4.4.0
     version: 4.4.0(@babel/core@7.22.9)(@babel/preset-env@7.22.9)(eslint@8.46.0)(postcss@8.4.27)(typescript@5.1.6)(webpack-cli@5.1.4)(webpack@5.88.2)
+  '@types/bcrypt':
+    specifier: 5.0.0
+    version: 5.0.0
   '@types/fs-extra':
     specifier: 11.0.1
     version: 11.0.1
@@ -2484,6 +2490,12 @@ packages:
       path-browserify: 1.0.1
     dev: false
 
+  /@types/bcrypt@5.0.0:
+    resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
+    dependencies:
+      '@types/node': 20.4.5
+    dev: true
+
   /@types/body-parser@1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
@@ -3808,8 +3820,8 @@ packages:
     resolution: {integrity: sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==}
     dev: true
 
-  /bcrypt@5.1.0:
-    resolution: {integrity: sha512-RHBS7HI5N5tEnGTmtR/pppX0mmDSBpQ4aCBsj7CEQfYXDcO74A8sIBYcJMuCsis2E81zDxeENYhv66oZwLiA+Q==}
+  /bcrypt@5.1.1:
+    resolution: {integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==}
     engines: {node: '>= 10.0.0'}
     requiresBuild: true
     dependencies:
@@ -8560,7 +8572,7 @@ packages:
     dependencies:
       '@kdf/salt': 2.0.1
       '@phc/format': 1.0.0
-      bcrypt: 5.1.0
+      bcrypt: 5.1.1
       tsse: 2.1.0
     transitivePeerDependencies:
       - encoding
