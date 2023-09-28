@@ -17,7 +17,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         id: should_run
