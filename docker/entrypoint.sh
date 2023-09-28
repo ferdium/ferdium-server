@@ -64,6 +64,4 @@ export APP_KEY
 
 node ace migration:run --force
 
-chown -R "${PUID:-1000}":"${PGID:-1000}" "${DATA_DIR}" /app # This is the cause of the problem on line 29/32
-
-su-exec "${PUID:-1000}":"${PGID:-1000}" node build/server.js
+node build/server.js
