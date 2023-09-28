@@ -20,8 +20,6 @@ LABEL maintainer="ferdium"
 ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
 
 RUN apk add --no-cache sqlite-libs curl su-exec python3 make g++ py3-pip git py3-pip
-# The next command is needed for sqlite3 install command executed by node-gyp
-RUN ln -s /usr/bin/python3 /usr/bin/python
 
 
 COPY --from=build /server-build /app
