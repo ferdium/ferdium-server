@@ -116,7 +116,7 @@ export default class UsersController {
     const user = await User.query().where('email', authHeader[0]).first();
     if (!user?.email) {
       return response.status(401).send({
-        message: 'User credentials not valid (Invalid mail)',
+        message: 'User credentials not valid',
         code: 'invalid-credentials',
         status: 401,
       });
