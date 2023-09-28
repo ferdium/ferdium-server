@@ -81,7 +81,7 @@ export default hashConfig({
     },
 
     legacy: {
-      // @ts-ignore
+      // @ts-expect-error
       driver: 'legacy',
     },
   },
