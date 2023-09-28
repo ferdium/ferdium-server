@@ -62,6 +62,15 @@ fi
 
 export APP_KEY
 
+# Enable the errexit option
+set -e
+
+# Run the script to migrate from AdonisJS v4 to v5
+sh /app/scripts/adonisjs-4-to-5.sh
+
+# Disable the errexit option
+set +e
+
 node ace migration:run --force
 
 node build/server.js
