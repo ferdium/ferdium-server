@@ -79,7 +79,7 @@ jobs:
         if: ${{ (steps.should_run.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[main]'))) )}}
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         if: ${{ (steps.should_run.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[main]'))) )}}
       -
         name: Login to GitHub Container Registry
