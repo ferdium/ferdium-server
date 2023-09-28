@@ -17,6 +17,11 @@ Brought to you by ferdium.org
 EOL
 
 # Update recipes from official git repository
+
+# We need to set NODE_ENV to development to install devDependencies
+SAVE_NODE_ENV=$NODE_ENV
+NODE_ENV=development
+
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
   echo '**** Generating recipes for first run ****'
@@ -38,6 +43,9 @@ npm i -gf pnpm@$EXPECTED_PNPM_VERSION
 pnpm i
 pnpm package
 cd ..
+
+# Restore NODE_ENV
+NODE_ENV=$SAVE_NODE_ENV
 
 key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
