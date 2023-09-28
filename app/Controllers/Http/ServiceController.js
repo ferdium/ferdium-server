@@ -205,12 +205,9 @@ class ServiceController {
     if (settings.customIcon === 'delete') {
       fs.remove(
         path.join(Application.tmpPath('uploads'), settings.iconId),
-        err => {
-          if (err) {
-            return console.error(err);
-          }
-        },
-      );
+      ).catch(error => {
+        console.error(error);
+      });
 
       settings.iconId = undefined;
       settings.customIconVersion = undefined;
