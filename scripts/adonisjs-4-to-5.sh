@@ -27,17 +27,17 @@ version=$(sqlite3 "$db_file" "SELECT version FROM adonis_schema_versions LIMIT 1
 if [ -z "$version" ] || [ "$version" -lt 2 ]; then
     # Table not found or version less than 2, proceed
     echo "-- Starting database migration from AdonisJS v4 to v5 --"
-    
+
     # Check if the "adonis_schema" table exists
     schema_exists=$(sqlite3 "$db_file" "SELECT name FROM sqlite_master WHERE type='table' AND name='adonis_schema';" 2>/dev/null)
     if [ -n "$schema_exists" ]; then
         # "adonis_schema" table exists, proceed
-        
+
         # Iterate through rows in the "name" column of "adonis_schema" and append "database/migrations" to each value
         sqlite3 -batch "$db_file" "SELECT name FROM adonis_schema;" 2>/dev/null | while read -r old_value; do
             new_value="database/migrations/$old_value"
             echo "Updating value from '$old_value' to '$new_value'"
-            
+
             # Update the value in the database
             sqlite3 "$db_file" "UPDATE adonis_schema SET name='$new_value' WHERE name='$old_value';" 2>/dev/null
         done

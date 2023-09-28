@@ -24,16 +24,16 @@ NODE_ENV=development
 
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
-  echo '**** Generating recipes for first run ****'
-  git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
+    echo '**** Generating recipes for first run ****'
+    git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
 else
-  echo '**** Updating recipes ****'
-  chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
-  cd recipes
-  git stash -u
-  git pull -r
-  git stash pop
-  cd ..
+    echo '**** Updating recipes ****'
+    chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
+    cd recipes
+    git stash -u
+    git pull -r
+    git stash pop
+    cd ..
 fi
 
 cd recipes
@@ -50,25 +50,72 @@ NODE_ENV=$SAVE_NODE_ENV
 key_file="${DATA_DIR}/FERDIUM_APP_KEY.txt"
 
 print_app_key_message() {
-  app_key=$1
-  printf '**** App key is %s. ' ${app_key}
-  printf 'You can modify `%s` to update the app key ****\n' ${key_file}
+    app_key=$1
+    printf '**** App key is %s. ' ${app_key}
+    printf 'You can modify `%s` to update the app key ****\n' ${key_file}
 }
 
 # Create APP key if needed
 if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
 then
-  echo '**** Generating Ferdium-server app key for first run ****'
-  adonis key:generate
-  APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
-  echo ${APP_KEY} > ${key_file}
-  print_app_key_message ${APP_KEY}
+    echo '**** Generating Ferdium-server app key for first run ****'
+    adonis key:generate
+    APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
+    echo ${APP_KEY} > ${key_file}
+    print_app_key_message ${APP_KEY}
 else
-  APP_KEY=$(cat ${key_file})
-  print_app_key_message ${APP_KEY}
+    APP_KEY=$(cat ${key_file})
+    print_app_key_message ${APP_KEY}
 fi
 
+# -------------------------------------
+# Create JWT public/private keys if needed
+# Define file paths for public and private keys
+publicKeyFile="${DATA_DIR}/FERDIUM_JWT_PUBLIC_KEY.pem"
+privateKeyFile="${DATA_DIR}/FERDIUM_JWT_PRIVATE_KEY.pem"
+
+# Check if public and private key files exist
+if [ ! -f "$publicKeyFile" ] || [ ! -f "$privateKeyFile" ]; then
+    echo "Generating public and private keys..."
+
+    # Use Node.js to generate the keys
+  node - <<EOF
+const crypto = require('crypto');
+const fs = require('fs');
+
+// Generate a new key pair
+const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+  modulusLength: 2048,
+  publicKeyEncoding: {
+    type: 'spki',
+    format: 'pem',
+  },
+  privateKeyEncoding: {
+    type: 'pkcs8',
+    format: 'pem',
+  },
+});
+
+// Save the keys to files
+fs.writeFileSync('$publicKeyFile', publicKey);
+fs.writeFileSync('$privateKeyFile', privateKey);
+
+console.log('Keys generated and saved successfully.');
+EOF
+
+    echo "Public and private keys generated successfully."
+else
+    echo "Using existing public and private keys."
+fi
+
+JWT_PUBLIC_KEY=$(cat ${publicKeyFile})
+JWT_PRIVATE_KEY=$(cat ${privateKeyFile})
+# End of JWT public/private keys
+# -------------------------------------
+
 export APP_KEY
+export JWT_PUBLIC_KEY
+export JWT_PRIVATE_KEY
 
 # Enable the errexit option
 set -e
