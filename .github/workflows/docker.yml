@@ -75,7 +75,7 @@ jobs:
             latest
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         if: ${{ (steps.should_run.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[main]'))) )}}
       -
         name: Set up Docker Buildx
