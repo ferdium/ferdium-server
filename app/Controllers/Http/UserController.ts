@@ -152,39 +152,45 @@ export default class UsersController {
   }
 
   // Return information about the current user
-  public async me({ response, auth }: HttpContextContract) {
-    if (auth.user === undefined) {
+  public async me({ request, response, auth }: HttpContextContract) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.send('Missing or invalid api token');
     }
 
     const settings =
-      typeof auth.user.settings === 'string'
-        ? JSON.parse(auth.user.settings)
-        : auth.user.settings;
+      typeof user.settings === 'string'
+        ? JSON.parse(user.settings)
+        : user.settings;
 
     return response.send({
       accountType: 'individual',
       beta: false,
       donor: {},
-      email: auth.user.email,
+      email: user.email,
       emailValidated: true,
       features: {},
-      firstname: auth.user.username,
+      firstname: user.username,
       id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
       isPremium: true,
       isSubscriptionOwner: true,
-      lastname: auth.user.lastname,
+      lastname: user.lastname,
       locale: 'en-US',
       ...settings,
     });
   }
 
   public async updateMe({ request, response, auth }: HttpContextContract) {
-    if (auth.user === undefined) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.send('Missing or invalid api token');
     }
 
-    let settings = auth.user.settings || {};
+    let settings = user.settings || {};
     if (typeof settings === 'string') {
       settings = JSON.parse(settings);
     }
@@ -194,23 +200,22 @@ export default class UsersController {
       ...request.all(),
     };
 
-    // @ts-expect-error
-    auth.user.settings = JSON.stringify(newSettings);
-    await auth.user.save();
+    user.settings = JSON.stringify(newSettings);
+    await user.save();
 
     return response.send({
       data: {
         accountType: 'individual',
         beta: false,
         donor: {},
-        email: auth.user.email,
+        email: user.email,
         emailValidated: true,
         features: {},
-        firstname: auth.user.username,
+        firstname: user.username,
         id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
         isPremium: true,
         isSubscriptionOwner: true,
-        lastname: auth.user.lastname,
+        lastname: user.lastname,
         locale: 'en-US',
         ...newSettings,
       },

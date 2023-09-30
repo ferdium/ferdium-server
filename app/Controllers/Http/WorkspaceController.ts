@@ -18,7 +18,10 @@ const deleteSchema = schema.create({
 export default class WorkspacesController {
   // Create a new workspace for user
   public async create({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
@@ -44,10 +47,10 @@ export default class WorkspacesController {
     );
 
     // eslint-disable-next-line unicorn/no-await-expression-member
-    const order = (await auth.user.related('workspaces').query()).length;
+    const order = (await user.related('workspaces').query()).length;
 
     await Workspace.create({
-      userId: auth.user.id,
+      userId: user.id,
       workspaceId,
       name: data.name,
       order,
@@ -56,7 +59,7 @@ export default class WorkspacesController {
     });
 
     return response.send({
-      userId: auth.user.id,
+      userId: user.id,
       name: data.name,
       id: workspaceId,
       order,
@@ -65,7 +68,10 @@ export default class WorkspacesController {
   }
 
   public async edit({ request, response, auth, params }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
@@ -86,7 +92,7 @@ export default class WorkspacesController {
     // Update data in database
     await Workspace.query()
       .where('workspaceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .update({
         name: data.name,
         services: JSON.stringify(data.services),
@@ -95,7 +101,7 @@ export default class WorkspacesController {
     // Get updated row
     const workspace = await Workspace.query()
       .where('workspaceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .firstOrFail();
 
     return response.send({
@@ -103,12 +109,15 @@ export default class WorkspacesController {
       name: data.name,
       order: workspace.order,
       services: data.services,
-      userId: auth.user.id,
+      userId: user.id,
     });
   }
 
   public async delete({ response, auth, params }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
@@ -132,7 +141,7 @@ export default class WorkspacesController {
     // Update data in database
     await Workspace.query()
       .where('workspaceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .delete();
 
     return response.send({
@@ -141,12 +150,15 @@ export default class WorkspacesController {
   }
 
   // List all workspaces a user has created
-  public async list({ response, auth }: HttpContextContract) {
-    if (!auth.user) {
+  public async list({ request, response, auth }: HttpContextContract) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
-    const workspaces = await auth.user.related('workspaces').query();
+    const workspaces = await user.related('workspaces').query();
     // Convert to array with all data Franz wants
     let workspacesArray: object[] = [];
     if (workspaces) {
@@ -158,7 +170,7 @@ export default class WorkspacesController {
           typeof workspace.services === 'string'
             ? JSON.parse(workspace.services)
             : workspace.services,
-        userId: auth.user!.id,
+        userId: user.id,
       }));
     }
 

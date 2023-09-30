@@ -16,7 +16,10 @@ const createSchema = schema.create({
 export default class ServicesController {
   // Create a new service for user
   public async create({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
@@ -42,7 +45,7 @@ export default class ServicesController {
     );
 
     await Service.create({
-      userId: auth.user.id,
+      userId: user.id,
       serviceId,
       name: data.name,
       recipeId: data.recipeId,
@@ -51,7 +54,7 @@ export default class ServicesController {
 
     return response.send({
       data: {
-        userId: auth.user.id,
+        userId: user.id,
         id: serviceId,
         isEnabled: true,
         isNotificationEnabled: true,
@@ -72,13 +75,16 @@ export default class ServicesController {
   }
 
   // List all services a user has created
-  public async list({ response, auth }: HttpContextContract) {
-    if (!auth.user) {
+  public async list({ request, response, auth }: HttpContextContract) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
-    const { id } = auth.user;
-    const services = await auth.user.related('services').query();
+    const { id } = user;
+    const services = await user.related('services').query();
 
     // Convert to array with all data Franz wants
     const servicesArray = services.map(service => {
@@ -114,14 +120,17 @@ export default class ServicesController {
   }
 
   public async delete({ params, auth, response }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
     // Update data in database
     await Service.query()
       .where('serviceId', params.id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .delete();
 
     return response.send({
@@ -132,14 +141,17 @@ export default class ServicesController {
 
   // TODO: Test if icon upload works
   public async edit({ request, response, auth, params }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
     const { id } = params;
     const service = await Service.query()
       .where('serviceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .firstOrFail();
 
     if (request.file('icon')) {
@@ -188,7 +200,7 @@ export default class ServicesController {
       // Update data in database
       await Service.query()
         .where('serviceId', id)
-        .where('userId', auth.user.id)
+        .where('userId', user.id)
         .update({
           name: service.name,
           settings: JSON.stringify(newSettings),
@@ -200,7 +212,7 @@ export default class ServicesController {
           name: service.name,
           ...newSettings,
           iconUrl: `${url}/v1/icon/${newSettings.iconId}`,
-          userId: auth.user.id,
+          userId: user.id,
         },
         status: ['updated'],
       });
@@ -216,10 +228,11 @@ export default class ServicesController {
     };
 
     if (settings.customIcon === 'delete') {
-      fs.remove(path.join(Application.tmpPath('uploads'), settings.iconId))
-        .catch(error => {
-          console.error(error);
-        });
+      fs.remove(
+        path.join(Application.tmpPath('uploads'), settings.iconId),
+      ).catch(error => {
+        console.error(error);
+      });
 
       settings.iconId = undefined;
       settings.customIconVersion = undefined;
@@ -229,7 +242,7 @@ export default class ServicesController {
     // Update data in database
     await Service.query()
       .where('serviceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .update({
         name: data.name,
         settings: JSON.stringify(settings),
@@ -238,7 +251,7 @@ export default class ServicesController {
     // Get updated row
     const serviceUpdated = await Service.query()
       .where('serviceId', id)
-      .where('userId', auth.user.id)
+      .where('userId', user.id)
       .firstOrFail();
 
     return response.send({
@@ -247,7 +260,7 @@ export default class ServicesController {
         name: serviceUpdated.name,
         ...settings,
         iconUrl: `${url}/v1/icon/${settings.iconId}`,
-        userId: auth.user.id,
+        userId: user.id,
       },
       status: ['updated'],
     });
@@ -255,7 +268,10 @@ export default class ServicesController {
 
   // TODO: Test if this works
   public async reorder({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
       return response.unauthorized('Missing or invalid api token');
     }
 
@@ -265,7 +281,7 @@ export default class ServicesController {
       // Get current settings from db
       const serviceData = await Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
-        .where('userId', auth.user.id)
+        .where('userId', user.id)
 
         .firstOrFail();
 
@@ -279,14 +295,14 @@ export default class ServicesController {
       // Update data in database
       await Service.query() // eslint-disable-line no-await-in-loop
         .where('serviceId', service)
-        .where('userId', auth.user.id)
+        .where('userId', user.id)
         .update({
           settings: JSON.stringify(settings),
         });
     }
 
     // Get new services
-    const services = await auth.user.related('services').query();
+    const services = await user.related('services').query();
     // Convert to array with all data Franz wants
     const servicesArray = services.map(service => {
       const settings =
@@ -313,7 +329,7 @@ export default class ServicesController {
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
-        userId: auth.user!.id,
+        userId: user.id,
       };
     });
 

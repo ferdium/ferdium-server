@@ -1,6 +1,9 @@
 import { GuardsList } from '@ioc:Adonis/Addons/Auth';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { AuthenticationException } from '@adonisjs/auth/build/standalone';
+import * as jose from 'jose';
+import { appKey, jwtUsePEM } from 'Config/app';
+import User from 'App/Models/User';
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -26,6 +29,7 @@ export default class AuthMiddleware {
   protected async authenticate(
     auth: HttpContextContract['auth'],
     guards: (keyof GuardsList)[],
+    request: HttpContextContract['request'],
   ) {
     /**
      * Hold reference to the guard last attempted within the for loop. We pass
@@ -50,6 +54,20 @@ export default class AuthMiddleware {
       }
     }
 
+    // Manually try authenticating using the old JWT (verfiy signature required)
+    const authToken = request.headers().authorization?.split(' ')[1];
+    if (authToken) {
+      const jwt = await jose.jwtVerify(
+        authToken,
+        new TextEncoder().encode(jwtUsePEM ? '' : appKey),
+      );
+      const { uid } = jwt.payload;
+
+      // @ts-expect-error
+      request.user = await User.findOrFail(uid);
+      return;
+    }
+
     /**
      * Unable to authenticate using any guard
      */
@@ -65,7 +83,7 @@ export default class AuthMiddleware {
    * Handle request
    */
   public async handle(
-    { auth, response }: HttpContextContract,
+    { request, auth, response }: HttpContextContract,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[],
   ) {
@@ -75,7 +93,7 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length > 0 ? customGuards : [auth.name];
     try {
-      await this.authenticate(auth, guards);
+      await this.authenticate(auth, guards, request);
     } catch (error) {
       // If the user is not authenticated and it is a web endpoint, redirect to the login page
       if (guards.includes('web')) {
