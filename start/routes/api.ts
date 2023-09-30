@@ -10,6 +10,7 @@ Route.group(() => {
   // User info
   Route.get('me', 'UserController.me').middleware('auth:jwt');
   Route.put('me', 'UserController.updateMe').middleware('auth:jwt');
+  Route.get('me/newtoken', 'UserController.newToken').middleware('auth:jwt');
 
   // // Service info
   Route.post('service', 'ServiceController.create').middleware('auth:jwt');

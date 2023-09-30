@@ -90,9 +90,7 @@ export default class UsersController {
     }
 
     // Generate new auth token
-    const token = await auth
-      .use('jwt')
-      .login(user, { payload: {} });
+    const token = await auth.use('jwt').login(user, { payload: {} });
 
     return response.send({
       message: 'Successfully created account',
@@ -141,9 +139,7 @@ export default class UsersController {
     }
 
     // Generate token
-    const token = await auth
-      .use('jwt')
-      .login(user, { payload: {} });
+    const token = await auth.use('jwt').login(user, { payload: {} });
 
     return response.send({
       message: 'Successfully logged in',
@@ -220,6 +216,21 @@ export default class UsersController {
         ...newSettings,
       },
       status: ['data-updated'],
+    });
+  }
+
+  public async newToken({ request, response, auth }: HttpContextContract) {
+    // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
+    const user = auth.user ?? request.user;
+
+    if (!user) {
+      return response.send('Missing or invalid api token');
+    }
+
+    const token = await auth.use('jwt').generate(user, { payload: {} });
+
+    return response.send({
+      token: token.accessToken,
     });
   }
 
