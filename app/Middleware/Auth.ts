@@ -64,9 +64,13 @@ export default class AuthMiddleware {
       );
       const { uid } = jwt.payload;
 
-      // @ts-expect-error
-      request.user = await User.findOrFail(uid);
-      return;
+      try {
+        // @ts-expect-error
+        request.user = await User.findOrFail(uid);
+        return;
+      } catch {
+        // Silent fail to allow the rest of the code to handle the error
+      }
     }
 
     /**
