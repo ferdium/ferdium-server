@@ -33,7 +33,10 @@ export const url: string = Env.get('APP_URL');
 export const isRegistrationEnabled: string = Env.get('IS_REGISTRATION_ENABLED');
 export const connectWithFranz: string = Env.get('CONNECT_WITH_FRANZ');
 export const isCreationEnabled: string = Env.get('IS_CREATION_ENABLED');
-
+export const jwtUsePEM: boolean =
+  Env.get('JWT_USE_PEM', false) ||
+  (Env.get('JWT_PUBLIC_KEY', '') !== '' &&
+    Env.get('JWT_PRIVATE_KEY', '') !== '');
 /*
 |--------------------------------------------------------------------------
 | Http server configuration

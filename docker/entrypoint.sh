@@ -70,46 +70,50 @@ fi
 
 # -------------------------------------
 # Create JWT public/private keys if needed
-# Define file paths for public and private keys
-publicKeyFile="${DATA_DIR}/FERDIUM_JWT_PUBLIC_KEY.pem"
-privateKeyFile="${DATA_DIR}/FERDIUM_JWT_PRIVATE_KEY.pem"
 
-# Check if public and private key files exist
-if [ ! -f "$publicKeyFile" ] || [ ! -f "$privateKeyFile" ]; then
-    echo "Generating public and private keys..."
+# Check if JWT_USE_PEM is true
+if [ "$JWT_USE_PEM" = "true" ]; then
+  # Define file paths for public and private keys
+  publicKeyFile="${DATA_DIR}/FERDIUM_JWT_PUBLIC_KEY.pem"
+  privateKeyFile="${DATA_DIR}/FERDIUM_JWT_PRIVATE_KEY.pem"
+  # Check if public and private key files exist
+  if [ ! -f "$publicKeyFile" ] || [ ! -f "$privateKeyFile" ]; then
+      echo "Generating public and private keys..."
 
-    # Use Node.js to generate the keys
-  node - <<EOF
-const crypto = require('crypto');
-const fs = require('fs');
+      # Use Node.js to generate the keys
+    node - <<EOF
+      const crypto = require('crypto');
+      const fs = require('fs');
 
-// Generate a new key pair
-const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-  modulusLength: 2048,
-  publicKeyEncoding: {
-    type: 'spki',
-    format: 'pem',
-  },
-  privateKeyEncoding: {
-    type: 'pkcs8',
-    format: 'pem',
-  },
-});
+      // Generate a new key pair
+      const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 2048,
+        publicKeyEncoding: {
+          type: 'spki',
+          format: 'pem',
+        },
+        privateKeyEncoding: {
+          type: 'pkcs8',
+          format: 'pem',
+        },
+      });
 
-// Save the keys to files
-fs.writeFileSync('$publicKeyFile', publicKey);
-fs.writeFileSync('$privateKeyFile', privateKey);
+      // Save the keys to files
+      fs.writeFileSync('$publicKeyFile', publicKey);
+      fs.writeFileSync('$privateKeyFile', privateKey);
 
-console.log('Keys generated and saved successfully.');
+      console.log('Keys generated and saved successfully.');
 EOF
 
-    echo "Public and private keys generated successfully."
+      echo "Public and private keys generated successfully."
+  else
+      echo "Using existing public and private keys."
+  fi
+  JWT_PUBLIC_KEY=$(cat ${publicKeyFile})
+  JWT_PRIVATE_KEY=$(cat ${privateKeyFile})
 else
-    echo "Using existing public and private keys."
+    echo "JWT_USE_PEM is not set to true. Skipping JWT certificate generation."
 fi
-
-JWT_PUBLIC_KEY=$(cat ${publicKeyFile})
-JWT_PRIVATE_KEY=$(cat ${privateKeyFile})
 # End of JWT public/private keys
 # -------------------------------------
 
