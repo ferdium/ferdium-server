@@ -7,7 +7,7 @@
 
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth';
 import Env from '@ioc:Adonis/Core/Env';
-import { jwtUsePEM } from './app';
+import { appKey, jwtUsePEM } from './app';
 
 /*
 |--------------------------------------------------------------------------
@@ -231,7 +231,7 @@ const authConfig: AuthConfig = {
     },
     jwt: {
       driver: 'jwt',
-      secret: jwtUsePEM ? undefined : Env.get('APP_KEY'),
+      secret: jwtUsePEM ? undefined : appKey,
       algorithmJwt: jwtUsePEM ? undefined : 'HS256',
       publicKey: jwtUsePEM
         ? Env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n')
