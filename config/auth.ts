@@ -246,9 +246,8 @@ const authConfig: AuthConfig = {
       jwtDefaultExpire: undefined,
       refreshTokenDefaultExpire: '10d',
       tokenProvider: {
-        type: 'password',
         driver: 'database',
-        table: 'tokens',
+        table: 'jwt_tokens',
         foreignKey: 'user_id',
       },
       provider: {
