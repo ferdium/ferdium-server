@@ -54,7 +54,8 @@ export default class AuthMiddleware {
       }
     }
 
-    // Manually try authenticating using the old JWT (verfiy signature required)
+    // Manually try authenticating using the JWT (verfiy signature required)
+    // Legacy support for JWTs so that the client still works (older than 2.0.0)
     const authToken = request.headers().authorization?.split(' ')[1];
     if (authToken) {
       const jwt = await jose.jwtVerify(

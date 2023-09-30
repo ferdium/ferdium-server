@@ -30,8 +30,8 @@ dependencies:
     specifier: 6.2.0
     version: 6.2.0(@adonisjs/core@5.9.0)
   adonis5-jwt:
-    specifier: github:SpecialAro/adonis5-jwt#862e957985db5105e12e25cfc4cd4fc0fc386cbe
-    version: github.com/SpecialAro/adonis5-jwt/862e957985db5105e12e25cfc4cd4fc0fc386cbe
+    specifier: github:SpecialAro/adonis5-jwt#6df1f3db6cc49a8e060f44fd924e5be32d50c8c5
+    version: github.com/SpecialAro/adonis5-jwt/6df1f3db6cc49a8e060f44fd924e5be32d50c8c5
   aws-sdk:
     specifier: 2.1425.0
     version: 2.1425.0
@@ -11180,8 +11180,8 @@ packages:
       commander: 9.5.0
     dev: true
 
-  github.com/SpecialAro/adonis5-jwt/862e957985db5105e12e25cfc4cd4fc0fc386cbe:
-    resolution: {tarball: https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/862e957985db5105e12e25cfc4cd4fc0fc386cbe}
+  github.com/SpecialAro/adonis5-jwt/6df1f3db6cc49a8e060f44fd924e5be32d50c8c5:
+    resolution: {tarball: https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/6df1f3db6cc49a8e060f44fd924e5be32d50c8c5}
     name: adonis5-jwt
     version: 1.1.7
     dependencies:
