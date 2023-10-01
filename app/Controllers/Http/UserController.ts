@@ -30,6 +30,7 @@ const franzImportSchema = schema.create({
 });
 
 // // TODO: This whole controller needs to be changed such that it can support importing from both Franz and Ferdi
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const franzRequest = (route: any, method: any, auth: any) =>
   new Promise((resolve, reject) => {
     const base = 'https://api.franzinfra.com/v1/';
@@ -306,6 +307,7 @@ export default class UsersController {
     }
 
     // Get user information
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let userInf: any = false;
     try {
       userInf = await franzRequest('me', 'GET', token);

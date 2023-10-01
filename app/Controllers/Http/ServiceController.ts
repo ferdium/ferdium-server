@@ -87,6 +87,7 @@ export default class ServicesController {
     const services = await user.related('services').query();
 
     // Convert to array with all data Franz wants
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const servicesArray = services.map((service: any) => {
       const settings =
         typeof service.settings === 'string'
@@ -304,6 +305,7 @@ export default class ServicesController {
     // Get new services
     const services = await user.related('services').query();
     // Convert to array with all data Franz wants
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const servicesArray = services.map((service: any) => {
       const settings =
         typeof service.settings === 'string'

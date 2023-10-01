@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function deepParseToJSON(obj: any): Record<string, unknown> {
   if (typeof obj !== 'object' || obj === null) {
     try {

@@ -187,6 +187,7 @@ export default class RecipesController {
     return response.send(
       fs
         .readJsonSync(path.join(Application.appRoot, 'recipes', 'all.json'))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((recipe: any) => recipe.featured),
     );
   }
@@ -203,6 +204,7 @@ export default class RecipesController {
       const version = recipes[recipe];
 
       // Find recipe in local recipe repository
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const localRecipe = allJson.find((r: any) => r.id === recipe);
       if (localRecipe && semver.lt(version, localRecipe.version)) {
         updates.push(recipe);

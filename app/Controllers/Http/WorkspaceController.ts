@@ -162,6 +162,7 @@ export default class WorkspacesController {
     // Convert to array with all data Franz wants
     let workspacesArray: object[] = [];
     if (workspaces) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       workspacesArray = workspaces.map((workspace: any) => ({
         id: workspace.workspaceId,
         name: workspace.name,
