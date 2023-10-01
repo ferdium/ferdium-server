@@ -2,12 +2,13 @@ import { test } from '@japa/runner';
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Log out page', () => {
-  test('returns a 401 opening the logout route as guest', async ({
+  test('redirects to /user/login when accessing /user/logout as guest', async ({
     client,
   }) => {
     const response = await client.get('/user/logout');
 
-    response.assertStatus(401);
+    response.assertStatus(302); // Check if it's a redirect (status code 302)
+    response.assertRedirectsTo('/user/login'); // Check if it redirects to the expected URL
   });
 
   test('logs the user out when opening the page', async ({ client }) => {

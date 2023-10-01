@@ -2,10 +2,13 @@ import { test } from '@japa/runner';
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Data page', () => {
-  test('returns a 401 opening the data route as guest', async ({ client }) => {
+  test('redirects to /user/login when accessing /user/data as guest', async ({
+    client,
+  }) => {
     const response = await client.get('/user/data');
 
-    response.assertStatus(401);
+    response.assertStatus(302); // Check if it's a redirect (status code 302)
+    response.assertRedirectsTo('/user/login'); // Check if it redirects to the expected URL
   });
 
   test('ensure the correct data is shown on the page', async ({ client }) => {

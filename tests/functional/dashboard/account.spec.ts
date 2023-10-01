@@ -3,12 +3,13 @@ import User from 'App/Models/User';
 import UserFactory from 'Database/factories/UserFactory';
 
 test.group('Dashboard / Account page', () => {
-  test('returns a 401 opening the account route as guest', async ({
+  test('redirects to /user/login when accessing /user/account as guest', async ({
     client,
   }) => {
     const response = await client.get('/user/account');
 
-    response.assertStatus(401);
+    response.assertStatus(302); // Check if it's a redirect (status code 302)
+    response.assertRedirectsTo('/user/login'); // Check if it redirects to the expected URL
   });
 
   test('returns a 200 opening the account route while logged in', async ({
