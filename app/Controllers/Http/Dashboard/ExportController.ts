@@ -15,7 +15,10 @@ function deepParseToJSON(obj: any): Record<string, unknown> {
   // If obj is an object, recursively parse its keys
   if (Array.isArray(obj)) {
     // If obj is an array, recursively parse each element
-    return obj.map(item => deepParseToJSON(item)) as unknown as Record<string, unknown>;
+    return obj.map(item => deepParseToJSON(item)) as unknown as Record<
+      string,
+      unknown
+    >;
   } else {
     // If obj is an object, recursively parse its keys
     const parsedObj: Record<string, unknown> = {};

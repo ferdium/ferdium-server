@@ -96,8 +96,8 @@ declare module '@ioc:Adonis/Addons/Auth' {
       config: BasicAuthGuardConfig<'user'>;
     };
     jwt: {
-      implementation: JWTGuardContract<'user', 'api'>,
-      config: JWTGuardConfig<'user'>,
+      implementation: JWTGuardContract<'user', 'api'>;
+      config: JWTGuardConfig<'user'>;
     };
   }
 }

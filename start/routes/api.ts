@@ -34,7 +34,9 @@ Route.group(() => {
 
   // // Workspaces
   Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth:jwt');
-  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware('auth:jwt');
+  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware(
+    'auth:jwt',
+  );
   Route.post('workspace', 'WorkspaceController.create').middleware('auth:jwt');
   Route.get('workspace', 'WorkspaceController.list').middleware('auth:jwt');
 
