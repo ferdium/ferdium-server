@@ -19,6 +19,7 @@ node_modules
 
 # Ignore data folder
 data
+tmp
 
 # Ignore recipes folder (it is pulled in the image by git)
 recipes

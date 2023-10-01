@@ -87,7 +87,7 @@ export default class ServicesController {
     const services = await user.related('services').query();
 
     // Convert to array with all data Franz wants
-    const servicesArray = services.map(service => {
+    const servicesArray = services.map((service: any) => {
       const settings =
         typeof service.settings === 'string'
           ? JSON.parse(service.settings)
@@ -304,7 +304,7 @@ export default class ServicesController {
     // Get new services
     const services = await user.related('services').query();
     // Convert to array with all data Franz wants
-    const servicesArray = services.map(service => {
+    const servicesArray = services.map((service: any) => {
       const settings =
         typeof service.settings === 'string'
           ? JSON.parse(service.settings)

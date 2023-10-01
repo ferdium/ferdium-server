@@ -2,7 +2,7 @@ import { GuardsList } from '@ioc:Adonis/Addons/Auth';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { AuthenticationException } from '@adonisjs/auth/build/standalone';
 import * as jose from 'jose';
-import { appKey, jwtUsePEM } from 'Config/app';
+import { appKey } from 'Config/app';
 import User from 'App/Models/User';
 
 /**

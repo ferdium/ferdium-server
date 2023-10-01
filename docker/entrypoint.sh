@@ -81,29 +81,9 @@ if [ "$JWT_USE_PEM" = "true" ]; then
       echo "Generating public and private keys..."
 
       # Use Node.js to generate the keys
-    node - <<EOF
-      const crypto = require('crypto');
-      const fs = require('fs');
-
-      // Generate a new key pair
-      const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-        modulusLength: 2048,
-        publicKeyEncoding: {
-          type: 'spki',
-          format: 'pem',
-        },
-        privateKeyEncoding: {
-          type: 'pkcs8',
-          format: 'pem',
-        },
-      });
-
-      // Save the keys to files
-      fs.writeFileSync('$publicKeyFile', publicKey);
-      fs.writeFileSync('$privateKeyFile', privateKey);
-
-      console.log('Keys generated and saved successfully.');
-EOF
+      node ace jwt:generate-keys $DATA_DIR
+      mv ${DATA_DIR}/public.pem ${publicKeyFile}
+      mv ${DATA_DIR}/private.pem ${privateKeyFile}
 
       echo "Public and private keys generated successfully."
   else
@@ -111,6 +91,8 @@ EOF
   fi
   JWT_PUBLIC_KEY=$(cat ${publicKeyFile})
   JWT_PRIVATE_KEY=$(cat ${privateKeyFile})
+  export JWT_PUBLIC_KEY
+  export JWT_PRIVATE_KEY
 else
     echo "JWT_USE_PEM is not set to true. Skipping JWT certificate generation."
 fi
@@ -118,8 +100,6 @@ fi
 # -------------------------------------
 
 export APP_KEY
-export JWT_PUBLIC_KEY
-export JWT_PRIVATE_KEY
 
 # Enable the errexit option
 set -e

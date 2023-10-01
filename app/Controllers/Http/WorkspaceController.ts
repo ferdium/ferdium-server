@@ -162,7 +162,7 @@ export default class WorkspacesController {
     // Convert to array with all data Franz wants
     let workspacesArray: object[] = [];
     if (workspaces) {
-      workspacesArray = workspaces.map(workspace => ({
+      workspacesArray = workspaces.map((workspace: any) => ({
         id: workspace.workspaceId,
         name: workspace.name,
         order: workspace.order,
