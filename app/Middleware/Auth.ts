@@ -65,13 +65,13 @@ export default class AuthMiddleware {
     // Legacy support for JWTs so that the client still works (older than 2.0.0)
     const authToken = request.headers().authorization?.split(' ')[1];
     if (authToken) {
-      const jwt = await jose.jwtVerify(
-        authToken,
-        new TextEncoder().encode(appKey),
-      );
-      const { uid } = jwt.payload;
-
       try {
+        const jwt = await jose.jwtVerify(
+          authToken,
+          new TextEncoder().encode(appKey),
+        );
+        const { uid } = jwt.payload;
+
         // @ts-expect-error
         request.user = await User.findOrFail(uid);
         return;
