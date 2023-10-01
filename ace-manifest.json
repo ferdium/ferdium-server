@@ -586,6 +586,30 @@
       ],
       "aliases": [],
       "flags": []
+    },
+    "jwt:generate-keys": {
+      "settings": {},
+      "commandPath": "adonis5-jwt/build/commands/GenerateKeyPair",
+      "commandName": "jwt:generate-keys",
+      "description": "Generate key pair",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "outputDir",
+          "name": "outputDir",
+          "required": false,
+          "description": "Key pair output dir"
+        },
+        {
+          "type": "string",
+          "propertyName": "algorithm",
+          "name": "algorithm",
+          "required": false,
+          "description": "Key pair algorithm"
+        }
+      ],
+      "aliases": [],
+      "flags": []
     }
   },
   "aliases": {}

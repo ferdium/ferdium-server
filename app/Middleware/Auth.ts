@@ -42,8 +42,15 @@ export default class AuthMiddleware {
     for (const guard of guards) {
       guardLastAttempted = guard;
 
-      // eslint-disable-next-line no-await-in-loop
-      if (await auth.use(guard).check()) {
+      let isLoggedIn = false;
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        isLoggedIn = await auth.use(guard).check();
+      } catch {
+        // Silent fail to allow the rest of the code to handle the error
+      }
+
+      if (isLoggedIn) {
         /**
          * Instruct auth to use the given guard as the default guard for
          * the rest of the request, since the user authenticated
@@ -60,7 +67,7 @@ export default class AuthMiddleware {
     if (authToken) {
       const jwt = await jose.jwtVerify(
         authToken,
-        new TextEncoder().encode(jwtUsePEM ? '' : appKey),
+        new TextEncoder().encode(appKey),
       );
       const { uid } = jwt.payload;
 
