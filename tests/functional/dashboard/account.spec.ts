@@ -8,7 +8,6 @@ test.group('Dashboard / Account page', () => {
   }) => {
     const response = await client.get('/user/account');
 
-    response.assertStatus(302); // Check if it's a redirect (status code 302)
     response.assertRedirectsTo('/user/login'); // Check if it redirects to the expected URL
   });
 

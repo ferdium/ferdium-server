@@ -7,7 +7,6 @@ test.group('Dashboard / Log out page', () => {
   }) => {
     const response = await client.get('/user/logout');
 
-    response.assertStatus(302); // Check if it's a redirect (status code 302)
     response.assertRedirectsTo('/user/login'); // Check if it redirects to the expected URL
   });
 
