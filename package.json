@@ -21,7 +21,7 @@
     "migrate": "cross-env-shell ENV_PATH=.env.development node ace migration:run",
     "status": "cross-env-shell ENV_PATH=.env.development node ace migration:status",
     "build": "node ace build --production",
-    "start": "node build/server.js",
+    "start": "cross-env-shell ENV_PATH=.env node build/server.js",
     "test": "cross-env-shell ENV_PATH=.env.test node ace test",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts}\"",
