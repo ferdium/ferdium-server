@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
 import Token from 'App/Models/Token';
 import moment from 'moment';
+import crypto from 'node:crypto';
 
 export default class ResetPasswordController {
   /**
@@ -66,7 +67,11 @@ export default class ResetPasswordController {
     }
 
     // Update user password
-    tokenRow.user.password = request.input('password');
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(request.input('password'))
+      .digest('base64');
+    tokenRow.user.password = hashedPassword;
     await tokenRow.user.save();
 
     // Delete token to prevent it from being used again
