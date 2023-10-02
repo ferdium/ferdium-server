@@ -33,7 +33,7 @@
     </div>
 
     <form action="/user/transfer" method="POST">
-      {{--  {{ csrfField() }}  --}}
+      {{ csrfField() }}
       <input type="hidden" name="file" id="fileoutput" value="">
       <div>
         <button style="background-color:#28C76F;margin-bottom:1rem;" id="submit" disabled>Import data</button>
