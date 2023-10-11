@@ -86,6 +86,56 @@ class UserController {
     });
   }
 
+  // Register a new user via web
+  async websignup({ request, response, auth }) {
+    if (Env.get('IS_REGISTRATION_ENABLED') == 'false') {
+      // eslint-disable-line eqeqeq
+      return response.status(401).send(
+        'Registration is disabled on this server',
+      );
+    }
+
+    // Validate user input
+    const validation = await validateAll(request.all(), {
+      firstname: 'required',
+      lastname: 'required',
+      email: 'required|email|unique:users,email',
+      password: 'required',
+    });
+
+    if (validation.fails()) {
+      return response.redirect('/websignupretry');
+    }
+
+    const data = request.only(['firstname', 'lastname', 'email', 'password']);
+
+    // Hash password
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(data.password)
+      .digest('base64');
+
+    // Create user in DB
+    let user;
+    try {
+      user = await User.create({
+        email: data.email,
+        password: hashedPassword,
+        username: data.firstname,
+        lastname: data.lastname,
+      });
+    } catch (e) {
+      return response.status(401).send(
+        'E-Mail Address already in use',
+      );
+    }
+
+    await auth.generate(user);
+
+    // Redirect user to login page, confirmaiton would be nice
+    return response.redirect('/user/signuplogin');
+  }
+
   // Login using an existing user
   async login({ request, response, auth }) {
     if (!request.header('Authorization')) {

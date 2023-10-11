@@ -61,6 +61,7 @@ if (Env.get('IS_DASHBOARD_ENABLED') !== 'false') {
   Route.group(() => {
     // Auth
     Route.get('login', ({ view }) => view.render('dashboard.login')).middleware('guest');
+    Route.get('signuplogin', ({ view }) => view.render('dashboard.signuplogin')).middleware('guest');
     Route.post('login', 'DashboardController.login').middleware('guest').as('login');
 
     // Reset password
@@ -116,6 +117,11 @@ Route.get('new', ({ response, view }) => {
 // Franz/Ferdi account import
 Route.post('import', 'UserController.import');
 Route.get('import', ({ view }) => view.render('others.import'));
+
+// Ferdium account signup
+Route.post('websignup', 'UserController.websignup');
+Route.get('websignup', ({ view }) => view.render('others.websignup'));
+Route.get('websignupretry', ({ view }) => view.render('others.websignupretry'));
 
 // Legal documents
 Route.get('terms', ({ response }) => response.redirect('/terms.html'));
