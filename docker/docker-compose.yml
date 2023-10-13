@@ -25,6 +25,7 @@ services:
       - IS_REGISTRATION_ENABLED=true
       - CONNECT_WITH_FRANZ=false
       - DATA_DIR=/data
+      - JWT_USE_PEM=true
     volumes:
       - ferdium-database-vol:/data
       - ferdium-recipes-vol:/app/recipes
