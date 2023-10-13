@@ -1,7 +1,7 @@
 version: "2"
 services:
   ferdium-server:
-    image: ferdium/ferdium-server:latest
+    image: ferdium-server
     container_name: ferdium-server
     environment:
       - NODE_ENV=development
@@ -25,8 +25,7 @@ services:
       - IS_REGISTRATION_ENABLED=true
       - CONNECT_WITH_FRANZ=false
       - DATA_DIR=/data
-      - PUID=1000
-      - PGID=1000
+      - JWT_USE_PEM=true
     volumes:
       - ferdium-database-vol:/data
       - ferdium-recipes-vol:/app/recipes
@@ -34,5 +33,4 @@ services:
       - 3333:3333
     restart: unless-stopped
 volumes:
-  ferdium-database-vol:
   ferdium-recipes-vol:

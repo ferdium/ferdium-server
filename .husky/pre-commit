@@ -6,5 +6,5 @@ FILE_NAME="$(dirname "$0")/_/husky.sh"
 if [ -f $FILE_NAME ]; then
   . $FILE_NAME
   pnpm prepare
-  pnpm lint
+  pnpm prepare-code
 fi

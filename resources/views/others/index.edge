@@ -1,4 +1,4 @@
-@layout('layouts.v2')
+@layout('layouts/v2')
 
 @section('content')
     <!--Main-->
@@ -39,7 +39,7 @@
 
       <!--Right Col-->
       <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-        <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="{{ assetsUrl('img/hero.png') }}">
+        <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="/img/hero.png">
       </div>
 
     </div>
@@ -53,6 +53,5 @@
 
       // Show on page
       document.getElementById('server').innerText = server;
-
     </script>
 @endsection

@@ -1,0 +1,37 @@
+{
+  "extends": "./node_modules/adonis-preset-ts/tsconfig.json",
+  "include": ["**/*"],
+  "exclude": ["node_modules", "build", "recipes"],
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": "./",
+    "strict": true,
+    "incremental": true,
+    "paths": {
+      "App/*": ["./app/*"],
+      "Config/*": ["./config/*"],
+      "Contracts/*": ["./contracts/*"],
+      "Database/*": ["./database/*"]
+    },
+    "types": [
+      "@adonisjs/core",
+      "@adonisjs/repl",
+      "@japa/preset-adonis/build/adonis-typings",
+      "@adonisjs/view",
+      "@adonisjs/lucid",
+      "@adonisjs/auth",
+      "@adonisjs/shield",
+      "@adonisjs/session",
+      "@adonisjs/mail",
+      "fs-extra",
+      "adonis5-jwt"
+    ],
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "useUnknownInCatchVariables": false,
+    "noImplicitReturns": true,
+    "strictPropertyInitialization": false
+  }
+}

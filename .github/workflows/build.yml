@@ -1,0 +1,30 @@
+name: AdonisJS check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  adonis-js-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js specified in the '.nvmrc' file
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install pnpm
+        run: npm i -gf "pnpm@$(node -p 'require("./package.json").engines.pnpm')" && pnpm -v
+
+      - run: pnpm install
+
+      - run: pnpm typecheck
+
+      - run: pnpm lint
+
+      - run: pnpm test
+
+      - run: pnpm run build

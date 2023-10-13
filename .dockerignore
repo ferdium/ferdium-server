@@ -17,5 +17,12 @@ docker
 node_modules
 .husky
 
+# Ignore data folder
+data
+tmp
+
 # Ignore recipes folder (it is pulled in the image by git)
 recipes
+
+# Ignore build folder
+build

@@ -9,6 +9,7 @@ COPY . /server-build
 ENV CI=true
 RUN PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm'); npm i -g pnpm@$PNPM_VERSION
 RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
+RUN pnpm build
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
 FROM node:18.18.0-alpine
@@ -19,7 +20,9 @@ LABEL maintainer="ferdium"
 # TODO: Shouldn't we set 'NODE_ENV=production' when running in production mode?
 ENV HOST=0.0.0.0 PORT=3333 DATA_DIR="/data"
 
-RUN apk add --no-cache sqlite-libs curl su-exec python3 make g++ py3-pip git py3-pip
+RUN apk add --no-cache sqlite-libs curl su-exec python3 make g++ py3-pip git py3-pip sqlite
+# The next command is needed for sqlite3 install command executed by node-gyp
+# RUN ln -s /usr/bin/python3 /usr/bin/python
 
 
 COPY --from=build /server-build /app

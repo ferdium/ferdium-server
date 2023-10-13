@@ -29,8 +29,7 @@ node_modules
 /recipes/
 
 # package files
-package.json
 pnpm-lock.yaml
 
 # Json
-*.json
+tests/functional/dashboard/import-stubs/invalid.json
