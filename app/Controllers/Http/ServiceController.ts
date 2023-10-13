@@ -13,7 +13,7 @@ const createSchema = schema.create({
   recipeId: schema.string(),
 });
 
-export default class ServicesController {
+export default class ServiceController {
   // Create a new service for user
   public async create({ request, response, auth }: HttpContextContract) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.

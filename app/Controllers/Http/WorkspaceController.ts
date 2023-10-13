@@ -15,7 +15,7 @@ const deleteSchema = schema.create({
   id: schema.string(),
 });
 
-export default class WorkspacesController {
+export default class WorkspaceController {
   // Create a new workspace for user
   public async create({ request, response, auth }: HttpContextContract) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
