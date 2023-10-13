@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  check-next-website:
+  adonis-js-check:
     runs-on: ubuntu-latest
 
     steps:
