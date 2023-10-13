@@ -28,7 +28,7 @@ services:
       - JWT_USE_PEM=true
     volumes:
       - ferdium-database-vol:/data
-      - ferdium-recipes-vol:/app/recipes
+      - ferdium-recipes-vol:/app/build/recipes
     ports:
       - 3333:3333
     restart: unless-stopped
