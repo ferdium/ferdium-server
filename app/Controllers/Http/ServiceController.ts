@@ -120,7 +120,7 @@ export default class ServiceController {
     return response.send(servicesArray);
   }
 
-  public async delete({ params, auth, response }: HttpContextContract) {
+  public async delete({ request, params, auth, response }: HttpContextContract) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
