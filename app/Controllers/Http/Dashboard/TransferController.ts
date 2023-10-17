@@ -68,7 +68,7 @@ export default class TransferController {
           userId: auth.user?.id,
           serviceId,
           name: service.name,
-          recipeId: service.recipeId,
+          recipeId: service.recipe_id || service.recipeId,
           settings:
             typeof service.settings === 'string'
               ? service.settings
@@ -76,7 +76,8 @@ export default class TransferController {
         });
 
         // @ts-expect-error Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'
-        serviceIdTranslation[service.serviceId] = serviceId;
+        serviceIdTranslation[service.service_id || service.serviceId] =
+          serviceId;
       }
     } catch (error) {
       // eslint-disable-next-line no-console
