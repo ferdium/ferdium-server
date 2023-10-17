@@ -107,11 +107,11 @@ test.group('Dashboard / Transfer page', () => {
 
       // eslint-disable-next-line no-await-in-loop
       const workspacesForUser = await user.related('workspaces').query();
-      assert.equal(workspacesForUser.length, 3);
+      assert.equal(workspacesForUser.length, 3, file);
 
       // ensure not JSON encoded twice
       for (const workspace of workspacesForUser) {
-        assert.isNull(workspace.data.match(/\\"/));
+        assert.isNull(workspace.data.match(/\\"/), file);
       }
     }
   });
@@ -147,11 +147,11 @@ test.group('Dashboard / Transfer page', () => {
 
       // eslint-disable-next-line no-await-in-loop
       const servicesForUser = await user.related('services').query();
-      assert.equal(servicesForUser.length, 3);
+      assert.equal(servicesForUser.length, 3, file);
 
       // ensure not JSON encoded twice
       for (const service of servicesForUser) {
-        assert.isNull(service.settings.match(/\\"/));
+        assert.isNull(service.settings.match(/\\"/), file);
       }
     }
   });
@@ -189,8 +189,8 @@ test.group('Dashboard / Transfer page', () => {
       const servicesForUser = await user.related('services').query();
       // eslint-disable-next-line no-await-in-loop
       const workspacesForUser = await user.related('workspaces').query();
-      assert.equal(servicesForUser.length, 3);
-      assert.equal(workspacesForUser.length, 3);
+      assert.equal(servicesForUser.length, 3, file);
+      assert.equal(workspacesForUser.length, 3, file);
 
       const firstServiceUuid = servicesForUser.find(
         s => s.name === 'random-service-1',
@@ -207,28 +207,29 @@ test.group('Dashboard / Transfer page', () => {
         w => w.name === 'workspace1',
       );
       if (firstWorkspace?.services) {
-        assert.empty(JSON.parse(firstWorkspace.services));
+        assert.empty(JSON.parse(firstWorkspace.services), file);
       }
 
       const secondWorkspace = workspacesForUser.find(
         w => w.name === 'workspace2',
       );
       if (secondWorkspace?.services) {
-        assert.deepEqual(JSON.parse(secondWorkspace.services), [
-          firstServiceUuid,
-          secondServiceUuid,
-        ]);
+        assert.deepEqual(
+          JSON.parse(secondWorkspace.services),
+          [firstServiceUuid, secondServiceUuid],
+          file,
+        );
       }
 
       const thirdWorkspace = workspacesForUser.find(
         w => w.name === 'workspace3',
       );
       if (thirdWorkspace?.services) {
-        assert.deepEqual(JSON.parse(thirdWorkspace.services), [
-          firstServiceUuid,
-          secondServiceUuid,
-          thirdServiceUUid,
-        ]);
+        assert.deepEqual(
+          JSON.parse(thirdWorkspace.services),
+          [firstServiceUuid, secondServiceUuid, thirdServiceUUid],
+          file,
+        );
       }
     }
   });
