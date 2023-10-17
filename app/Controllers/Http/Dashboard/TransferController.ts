@@ -68,12 +68,16 @@ export default class TransferController {
           userId: auth.user?.id,
           serviceId,
           name: service.name,
-          recipeId: service.recipe_id,
-          settings: JSON.stringify(service.settings),
+          recipeId: service.recipe_id || service.recipeId,
+          settings:
+            typeof service.settings === 'string'
+              ? service.settings
+              : JSON.stringify(service.settings),
         });
 
         // @ts-expect-error Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'
-        serviceIdTranslation[service.service_id] = serviceId;
+        serviceIdTranslation[service.service_id || service.serviceId] =
+          serviceId;
       }
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -109,7 +113,10 @@ export default class TransferController {
           name: workspace.name,
           order: workspace.order,
           services: JSON.stringify(services),
-          data: JSON.stringify(workspace.data),
+          data:
+            typeof workspace.data === 'string'
+              ? workspace.data
+              : JSON.stringify(workspace.data),
         });
       }
     } catch (error) {

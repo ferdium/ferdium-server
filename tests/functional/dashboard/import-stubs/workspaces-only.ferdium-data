@@ -8,19 +8,19 @@
       "name": "workspace1",
       "order": 0,
       "services": [],
-      "data": "{\"name\":\"workspace1\"}"
+      "data": {"name":"workspace1"}
     },
     {
       "name": "workspace2",
       "order": 0,
       "services": [],
-      "data": "{\"name\":\"workspace2\"}"
+      "data": {"name":"workspace2"}
     },
     {
       "name": "workspace3",
       "order": 0,
       "services": [],
-      "data": "{\"name\":\"workspace3\"}"
+      "data": {"name":"workspace3"}
     }
   ]
 }

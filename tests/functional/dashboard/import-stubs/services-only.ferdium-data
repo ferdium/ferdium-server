@@ -5,31 +5,31 @@
   "services": [
     {
       "id": 5641,
-      "userId": "1234",
-      "serviceId": "d6901fff-ec44-4251-93de-d7103ed9c44b",
+      "user_id": "1234",
+      "service_id": "d6901fff-ec44-4251-93de-d7103ed9c44b",
       "name": "random-service-1",
-      "recipeId": "random-service-1",
-      "settings": "{}",
+      "recipe_id": "random-service-1",
+      "settings": {"isEnabled": true},
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     },
     {
       "id": 2134,
-      "userId": "1234",
-      "serviceId": "d6901fff-ec44-4251-93de-d7103ed9c44b",
+      "user_id": "1234",
+      "service_id": "d6901fff-ec44-4251-93de-d7103ed9c44b",
       "name": "random-service-1",
-      "recipeId": "random-service-1",
-      "settings": "{}",
+      "recipe_id": "random-service-1",
+      "settings": {"isEnabled": true},
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     },
     {
       "id": 5343,
-      "userId": "1234",
-      "serviceId": "d6901fff-ec44-4251-93de-d7103ed9c44b",
+      "user_id": "1234",
+      "service_id": "d6901fff-ec44-4251-93de-d7103ed9c44b",
       "name": "random-service-1",
-      "recipeId": "random-service-1",
-      "settings": "{}",
+      "recipe_id": "random-service-1",
+      "settings": {"isEnabled": true},
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     }
