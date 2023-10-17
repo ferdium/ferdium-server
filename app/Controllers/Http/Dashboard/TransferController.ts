@@ -69,7 +69,10 @@ export default class TransferController {
           serviceId,
           name: service.name,
           recipeId: service.recipeId,
-          settings: JSON.stringify(service.settings),
+          settings:
+            typeof service.settings === 'string'
+              ? service.settings
+              : JSON.stringify(service.settings),
         });
 
         // @ts-expect-error Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'
@@ -109,7 +112,10 @@ export default class TransferController {
           name: workspace.name,
           order: workspace.order,
           services: JSON.stringify(services),
-          data: JSON.stringify(workspace.data),
+          data:
+            typeof workspace.data === 'string'
+              ? workspace.data
+              : JSON.stringify(workspace.data),
         });
       }
     } catch (error) {

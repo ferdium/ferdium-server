@@ -9,7 +9,7 @@
       "serviceId": "d6901fff-ec44-4251-93de-d7103ed9c44b",
       "name": "random-service-1",
       "recipeId": "random-service-1",
-      "settings": "{}",
+      "settings": "{\"isEnabled\":true}",
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     },
@@ -19,7 +19,7 @@
       "serviceId": "79769de5-a998-4af1-b7d0-89956a15b0ed",
       "name": "random-service-2",
       "recipeId": "random-service-2",
-      "settings": "{}",
+      "settings": "{\"isEnabled\":true}",
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     },
@@ -29,7 +29,7 @@
       "serviceId": "0ac973f8-40dc-4760-b2c2-55e1d2943747",
       "name": "random-service-3",
       "recipeId": "random-service-3",
-      "settings": "{}",
+      "settings": "{\"isEnabled\":true}",
       "created_at": "2022-06-21 08:29:13",
       "updated_at": "2022-07-19 15:47:16"
     }

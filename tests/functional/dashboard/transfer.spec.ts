@@ -108,6 +108,11 @@ test.group('Dashboard / Transfer page', () => {
       // eslint-disable-next-line no-await-in-loop
       const workspacesForUser = await user.related('workspaces').query();
       assert.equal(workspacesForUser.length, 3);
+
+      // ensure not JSON encoded twice
+      for (const workspace of workspacesForUser) {
+        assert.isNull(workspace.data.match(/\\"/));
+      }
     }
   });
 
@@ -143,6 +148,11 @@ test.group('Dashboard / Transfer page', () => {
       // eslint-disable-next-line no-await-in-loop
       const servicesForUser = await user.related('services').query();
       assert.equal(servicesForUser.length, 3);
+
+      // ensure not JSON encoded twice
+      for (const service of servicesForUser) {
+        assert.isNull(service.settings.match(/\\"/));
+      }
     }
   });
 
