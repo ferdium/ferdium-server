@@ -18,7 +18,7 @@ export default mailConfig({
   | a mailer
   |
   */
-  mailer: 'smtp',
+  mailer: Env.get('MAIL_CONNECTION', 'smtp'),
 
   /*
   |--------------------------------------------------------------------------
@@ -50,8 +50,8 @@ export default mailConfig({
       secure: JSON.parse(Env.get('MAIL_SSL', 'false')),
       requireTLS: JSON.parse(Env.get('MAIL_REQUIRE_TLS', 'false')),
       auth: {
-        user: Env.get('SMTP_USERNAME'),
-        pass: Env.get('SMTP_PASSWORD'),
+        user: Env.get('MAIL_USERNAME'),
+        pass: Env.get('MAIL_PASSWORD'),
         type: 'login',
       },
       maxConnections: 5,
