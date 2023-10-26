@@ -14,6 +14,9 @@ import randtoken from 'rand-token';
 import Token from './Token';
 import Workspace from './Workspace';
 import Service from './Service';
+import Mail from '@ioc:Adonis/Addons/Mail';
+import { url } from 'Config/app';
+import { mailFrom } from 'Config/dashboard';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -65,6 +68,18 @@ export default class User extends BaseModel {
 
   public async forgotPassword(): Promise<void> {
     const token = await this.generateToken(this, 'forgot_password');
+
+    await Mail.send(message => {
+      message
+        .from(mailFrom)
+        .to(this.email)
+        .subject('[Ferdium] Password Recovery')
+        .htmlView('emails/reset_password', {
+          username: this.username,
+          appUrl: url,
+          token: token,
+        });
+    });
 
     await Event.emit('forgot:password', {
       user: this,
