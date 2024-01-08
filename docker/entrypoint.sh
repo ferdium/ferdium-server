@@ -59,7 +59,7 @@ print_app_key_message() {
 if [ -z ${APP_KEY} ] && [ ! -f ${key_file} ]
 then
     echo '**** Generating Ferdium-server app key for first run ****'
-    adonis key:generate
+    adonis key:generate --force
     APP_KEY=$(grep APP_KEY .env | cut -d '=' -f2)
     echo ${APP_KEY} > ${key_file}
     print_app_key_message ${APP_KEY}
