@@ -3,14 +3,14 @@
   "version": "2.0.4",
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
-    "node": "18.18.0",
-    "pnpm": "8.7.6",
+    "node": "20.9.0",
+    "pnpm": "^8.10.0",
     "python": "3.11.1"
   },
   "engine-strict": true,
   "volta": {
-    "node": "18.18.0",
-    "pnpm": "8.7.6",
+    "node": "20.9.0",
+    "pnpm": "^8.10.0",
     "python": "3.11.1"
   },
   "homepage": "https://github.com/ferdium/ferdium-server",
