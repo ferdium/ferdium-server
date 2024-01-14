@@ -109,7 +109,7 @@ export default class ServiceController {
         iconUrl: settings.iconId
           ? `${url}/v1/icon/${settings.iconId}`
           : // eslint-disable-next-line unicorn/no-null
-            null,
+          null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
@@ -332,7 +332,7 @@ export default class ServiceController {
         iconUrl: settings.iconId
           ? `${url}/v1/icon/${settings.iconId}`
           : // eslint-disable-next-line unicorn/no-null
-            null,
+          null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
@@ -350,7 +350,7 @@ export default class ServiceController {
     id = sanitize(id);
     if (id === '') {
       return response.status(404).send({
-        status: "Icon doesn't exist",
+        status: 'Icon doesn\'t exist',
       });
     }
 
@@ -361,7 +361,7 @@ export default class ServiceController {
     } catch {
       // File not available.
       return response.status(404).send({
-        status: "Icon doesn't exist",
+        status: 'Icon doesn\'t exist',
       });
     }
 
