@@ -1,4 +1,4 @@
-FROM node:20.9.0-alpine as build
+FROM node:20.11.0-alpine as build
 
 WORKDIR /server-build
 
@@ -12,7 +12,7 @@ RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
 RUN pnpm build
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
-FROM node:20.9.0-alpine
+FROM node:20.11.0-alpine
 
 WORKDIR /app
 LABEL maintainer="ferdium"
