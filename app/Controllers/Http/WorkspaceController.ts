@@ -113,7 +113,12 @@ export default class WorkspaceController {
     });
   }
 
-  public async delete({ request, response, auth, params }: HttpContextContract) {
+  public async delete({
+    request,
+    response,
+    auth,
+    params,
+  }: HttpContextContract) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
