@@ -1,7 +1,7 @@
 # INTRO:
 # This file is used to build ferdium-server on windows.
 # It also handles any corrupted node modules with the 'CLEAN' env var (set it to 'true' for cleaning)
-# It will install the system dependencies except for node and python (which are still verified)
+# It will install the system dependencies except for node (which is still verified)
 # I sometimes symlink my 'recipes' folder so that any changes that I need to do in it can also be committed and pushed independently
 # This file can live anywhere in your PATH
 
@@ -37,7 +37,6 @@ Function Test-CommandExists { Param ($command, $1)
 # Check for installed programmes
 Test-CommandExists node "Node is not installed"
 Test-CommandExists npm "npm is not installed"
-Test-CommandExists python "Python is not installed"
 # NEEDS proper way to CHECK MSVS Tools
 
 # Check node version
@@ -90,48 +89,6 @@ if ($env:CLEAN -eq "true")
   git clean -fxd            # Note: This will blast away the 'recipes' folder if you have symlinked it
 }
 
-# -----------------------------------------------------------------------------
-# Ensure that the system dependencies are at the correct version - fail if not
-# Check python version
-$EXPECTED_PYTHON_VERSION = (Get-Content package.json | ConvertFrom-Json).engines.python
-$ACTUAL_PYTHON_VERSION = (python --version).trim("Python ")
-if ([System.Version]$ACTUAL_PYTHON_VERSION -ne [System.Version]$EXPECTED_PYTHON_VERSION) {
-  fail_with_docs "You are not running the expected version of Python!
-    expected: [$EXPECTED_PYTHON_VERSION]
-    actual  : [$ACTUAL_PYTHON_VERSION]"
-}
-
-# Check MSVS Tools through MSVS_VERSION
-$EXPECTED_MSVST_VERSION = @("2019","2022")
-$NPM_CONFIG_MSVS_VERSION = npm config get msvs_version
-if((-not $NPM_CONFIG_MSVS_VERSION) -or -not ($EXPECTED_MSVST_VERSION -contains $NPM_CONFIG_MSVS_VERSION)){
-  Write-Host "Your Microsoft Visual Studio Tools isn't set properly or it's not the right version!
-              Checking your version..."
-
-  # TODO: Implement path for ARM machines
-  $MSVS_REG_PATH = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
-
-  if(-not (Test-Path -Path $MSVS_REG_PATH)){
-    fail_with_docs "You don't have the Microsoft Visual Studio Tools installed!"
-  }
-
-  $MSVS_VERSION =  [int]((Get-ItemProperty -Path $MSVS_REG_PATH).Version.substring(4, 2))
-  switch($MSVS_VERSION) {
-    { $MSVS_VERSION -ge 30 } {$ACTUAL_MSVST_VERSION = "2022"}
-    { ($MSVS_VERSION -ge 20) -and ($MSVS_VERSION -le 29) } {$ACTUAL_MSVST_VERSION = "2019"}
-    { $MSVS_VERSION -lt 20 } {$ACTUAL_MSVST_VERSION = "2017 or lower"}
-  }
-
-  if (-not ($EXPECTED_MSVST_VERSION -contains $ACTUAL_MSVST_VERSION)) {
-    fail_with_docs "You are not running the expected version of MSVS Tools!
-    expected: [$EXPECTED_MSVST_VERSION]
-    actual  : [$ACTUAL_MSVST_VERSION]"
-  }
-
-  Write-Host "Changing your msvs_version on npm to [$ACTUAL_MSVST_VERSION]"
-  npm config set msvs_version $ACTUAL_MSVST_VERSION
-}
-
 # Check pnpm version
 $EXPECTED_PNPM_VERSION = (Get-Content .\recipes\package.json | ConvertFrom-Json).engines.pnpm
 $ACTUAL_PNPM_VERSION = Get-Command pnpm --version -ErrorAction SilentlyContinue  # in case the pnpm executable itself is not present
@@ -162,12 +119,11 @@ Pop-Location
 & pnpm i
 & pnpm prepare
 & pnpm lint
-# TODO: Uncomment after fixing tests
-# & pnpm test
+& pnpm test
 
 # -----------------------------------------------------------------------------
 Write-Host "*************** Starting app ***************"
-& node ace migration:refresh
-& pnpm start --dev
+& pnpm refresh
+& pnpm dev
 
 Write-Host "*************** App successfully stopped! ***************"

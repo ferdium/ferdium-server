@@ -4,14 +4,12 @@
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
     "node": "20.11.0",
-    "pnpm": "8.14.1",
-    "python": "3.12.1"
+    "pnpm": "8.14.1"
   },
   "engine-strict": true,
   "volta": {
     "node": "20.11.0",
-    "pnpm": "8.14.1",
-    "python": "3.12.1"
+    "pnpm": "8.14.1"
   },
   "homepage": "https://github.com/ferdium/ferdium-server",
   "license": "MIT License",
@@ -19,6 +17,7 @@
     "prepare": "is-ci || husky install",
     "dev": "cross-env-shell ENV_PATH=.env.development node ace serve --watch",
     "migrate": "cross-env-shell ENV_PATH=.env.development node ace migration:run",
+    "refresh": "cross-env-shell ENV_PATH=.env.development node ace migration:refresh",
     "status": "cross-env-shell ENV_PATH=.env.development node ace migration:status",
     "build": "node ace build --production",
     "start": "cross-env-shell ENV_PATH=.env node build/server.js",
