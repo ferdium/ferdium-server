@@ -73,7 +73,7 @@ export default class RecipesController {
     // Check if recipe creation is enabled
     if (isCreationEnabled === 'false') {
       return response.send(
-        'This server doesn\'t allow the creation of new recipes.',
+        "This server doesn't allow the creation of new recipes.",
       );
     }
 
