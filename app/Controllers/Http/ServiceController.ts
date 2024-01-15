@@ -24,9 +24,10 @@ export default class ServiceController {
     }
 
     // Validate user input
-    let data;
+    const data = request.all();
+
     try {
-      data = await request.validate({ schema: createSchema });
+      await request.validate({ schema: createSchema });
     } catch (error) {
       return response.status(401).send({
         message: 'Invalid POST arguments',
