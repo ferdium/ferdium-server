@@ -25,7 +25,7 @@ export default class ServiceController {
 
     // Validate user input
     const data = request.all();
-    
+
     try {
       await request.validate({ schema: createSchema });
     } catch (error) {
