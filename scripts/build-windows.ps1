@@ -37,6 +37,7 @@ Function Test-CommandExists { Param ($command, $1)
 # Check for installed programmes
 Test-CommandExists node "Node is not installed"
 Test-CommandExists npm "npm is not installed"
+Test-CommandExists python "Python is not installed"
 # NEEDS proper way to CHECK MSVS Tools
 
 # Check node version
@@ -89,6 +90,16 @@ if ($env:CLEAN -eq "true")
   git clean -fxd            # Note: This will blast away the 'recipes' folder if you have symlinked it
 }
 
+# -----------------------------------------------------------------------------
+# Ensure that the system dependencies are at the correct version - fail if not
+# Check python version
+$EXPECTED_PYTHON_VERSION = (Get-Content package.json | ConvertFrom-Json).engines.python
+$ACTUAL_PYTHON_VERSION = (python --version).trim("Python ")
+if ([System.Version]$ACTUAL_PYTHON_VERSION -ne [System.Version]$EXPECTED_PYTHON_VERSION) {
+  fail_with_docs "You are not running the expected version of Python!
+    expected: [$EXPECTED_PYTHON_VERSION]
+    actual  : [$ACTUAL_PYTHON_VERSION]"
+}
 # Check pnpm version
 $EXPECTED_PNPM_VERSION = (Get-Content .\recipes\package.json | ConvertFrom-Json).engines.pnpm
 $ACTUAL_PNPM_VERSION = Get-Command pnpm --version -ErrorAction SilentlyContinue  # in case the pnpm executable itself is not present
