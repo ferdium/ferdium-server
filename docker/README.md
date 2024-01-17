@@ -34,7 +34,7 @@ To create the docker container with the proper parameters:
 
 	docker create \
 	  --name=ferdium-server \
-	  -e NODE_ENV=development \
+	  -e NODE_ENV=production \
 	  -e APP_URL=<ferdium-server-url> \
 	  -e DB_CONNECTION=<database> \
 	  -e DB_HOST=<yourdbhost> \
@@ -55,9 +55,10 @@ To create the docker container with the proper parameters:
 	  -e IS_REGISTRATION_ENABLED=true \
 	  -e CONNECT_WITH_FRANZ=true \
 	  -e DATA_DIR=/data \
+	  -e JWT_USE_PEM=true \
 	  -p <port>:3333 \
 	  -v <path to data>:/data \
-	  -v <path to recipes>:/app/recipes \
+	  -v <path to recipes>:/app/build/recipes \
 	  --restart unless-stopped \
 	  ferdium/ferdium-server:latest
 
@@ -70,7 +71,7 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/) 
 
 ## Configuration
 
-Container images are configured using parameters passed at runtime (such as those above). An explanaition of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
+Container images are configured using parameters passed at runtime (such as those above). An explanation of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
 
 <strike>If any environment parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike>
 **Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environment variables to your container at runtime. **
@@ -78,7 +79,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | Parameter | Function |
 | :----: | --- |
 | `-p <port>:3333` | Will map the container's port 3333 to a port on the host, default is 3333. See the [Docker docs](https://docs.docker.com/config/containers/container-networking/) for more information about port mapping |
-| `-e NODE_ENV=development` | for specifying Node environment, production or development, default is development **currently this should not be changed**. See the [Docker docs](https://docs.docker.com/) for more information on the use of environment variables in [Command-line](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) and [Docker Compose](https://docs.docker.com/compose/environment-variables/) |
+| `-e NODE_ENV=production` | for specifying Node environment: `production` (recommended) or `development` |
 | `-e APP_URL=<ferdium-server-url>` | for specifying the URL of the Ferdium-server, including `http://` or `https://` as relevant. |
 | `-e DB_CONNECTION=<databasedriver` | for specifying the database being used, default is `sqlite`, see [below](#supported-databases-and-drivers) for other options |
 | `-e DB_HOST=<yourdbhost>` | for specifying the database host, default is `127.0.0.1` |
@@ -99,8 +100,9 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IS_REGISTRATION_ENABLED=true` | for specifying whether to allow user registration, default is `true` |
 | `-e CONNECT_WITH_FRANZ=true` | for specifying whether to enable connections to the Franz server, default is `true` |
 | `-e DATA_DIR=/data` | for specifying the SQLite database folder, default is `/data` |
-| `-v <path to data on host>:/data` | this will store Ferdium-server's data (its database, among other things) on the docker host for persistence. See the [Docker docs](https://docs.docker.com/storage/volumes/) for more information on the use of container volumes |
-| `-v <path to recipes on host>:/app/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
+| `-e JWT_USE_PEM=true` | create JWT public/private keys if `true` |
+| `-v <path to data on host>:/data` | this will store Ferdium-server's data (its database, among other things) on the docker host for persistence |
+| `-v <path to recipes on host>:/app/build/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
 
 By enabling the `CONNECT_WITH_FRANZ` option, Ferdium-server can:
     - Show the full Franz recipe library instead of only custom recipes
@@ -137,7 +139,7 @@ If you are an existing Ferdium-server user using the built-in `SQlite` database,
 | `-e DATA_DIR=/app/database` | existing Ferdium-server users who use the built-in sqlite database should add this environment variable to ensure data persistence |
 | `-v <path to data on host>=/app/databases` | existing Ferdium-server users who use the built-in sqlite database should use the volume name `/app/database` |
 
-If you are an existing Ferdium-server user who uses an external database or different variables for the built-in `SQlite` database, you should updatae your parameterse acordingly. For example, if you aree using an exterenal MariaDB or MySql  database your unique parameters might look like this:
+If you are an existing Ferdium-server user who uses an external database or different variables for the built-in `SQlite` database, you should update your parameters accordingly. For example, if you are using an external MariaDB or MySql  database your unique parameters might look like this:
 | Parameter | Function |
 | :----: | --- |
 | `-e DB_CONNECTION=mysql` | for specifying the database being used |
@@ -147,7 +149,7 @@ If you are an existing Ferdium-server user who uses an external database or diff
 | `-e DB_PASSWORD=ferdiumpw` | for specifying the database password|
 | `-e DB_DATABASE=adonis` | for specifying the database to be used|
 | `-v <path to database>:/app/database` | this will store Ferdium-server's database on the docker host for persistence |
-| `-v <path to recipes>:/app/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
+| `-v <path to recipes>:/app/build/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
 
 **In either case, please be sure to pass the correct variables to the new Ferdium-server container in order maintain access to your existing database.**
 
