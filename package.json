@@ -19,6 +19,7 @@
     "prepare": "is-ci || husky install",
     "dev": "cross-env-shell ENV_PATH=.env.development node ace serve --watch",
     "migrate": "cross-env-shell ENV_PATH=.env.development node ace migration:run",
+    "refresh": "cross-env-shell ENV_PATH=.env.development node ace migration:refresh",
     "status": "cross-env-shell ENV_PATH=.env.development node ace migration:status",
     "build": "node ace build --production",
     "start": "cross-env-shell ENV_PATH=.env node build/server.js",

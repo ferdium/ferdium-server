@@ -112,12 +112,11 @@ popd
 pnpm i
 pnpm prepare
 pnpm lint
-# TODO: Uncomment after fixing tests
-# pnpm test
+pnpm test
 
 # -----------------------------------------------------------------------------
-printf "\n*************** Building app ***************\n"
-node ace migration:refresh
-pnpm start --dev
+printf "\n*************** Starting app ***************\n"
+pnpm refresh
+pnpm dev
 
 printf "\n*************** App successfully stopped! ***************\n"
