@@ -1,20 +1,20 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema';
+import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'tokens';
+  protected tableName = 'tokens'
 
   public async up(): Promise<void> {
-    this.schema.createTable(this.tableName, table => {
-      table.increments();
-      table.integer('user_id').unsigned().references('users.id');
-      table.string('token', 255).notNullable().unique().index();
-      table.string('type', 80).notNullable();
-      table.boolean('is_revoked').defaultTo(false);
-      table.timestamps();
-    });
+    this.schema.createTable(this.tableName, (table) => {
+      table.increments()
+      table.integer('user_id').unsigned().references('users.id')
+      table.string('token', 255).notNullable().unique().index()
+      table.string('type', 80).notNullable()
+      table.boolean('is_revoked').defaultTo(false)
+      table.timestamps()
+    })
   }
 
   public async down(): Promise<void> {
-    this.schema.dropTable(this.tableName);
+    this.schema.dropTable(this.tableName)
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 /**
  * Config source: https://git.io/JesV9
  *
@@ -6,11 +5,12 @@
  * file.
  */
 
-import path from 'node:path';
-import Env from '@ioc:Adonis/Core/Env';
-import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database';
+import path from 'node:path'
+import env from '#start/env'
+import { DatabaseConfig } from '@adonisjs/lucid/database'
+import { defineConfig } from '@adonisjs/lucid'
 
-const databaseConfig: DatabaseConfig = {
+const databaseConfig = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Connection
@@ -21,7 +21,7 @@ const databaseConfig: DatabaseConfig = {
   | file.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'sqlite'),
+  connection: env.get('DB_CONNECTION', 'sqlite'),
 
   connections: {
     /*
@@ -39,13 +39,13 @@ const databaseConfig: DatabaseConfig = {
       client: 'sqlite',
       connection: {
         filename: path.join(
-          Env.get('DATA_DIR', 'data'),
-          `${Env.get('DB_DATABASE', 'ferdium')}.sqlite`,
+          env.get('DATA_DIR', 'data'),
+          `${env.get('DB_DATABASE', 'ferdium')}.sqlite`
         ),
       },
       pool: {
         afterCreate: (conn, cb) => {
-          conn.run('PRAGMA foreign_keys=true', cb);
+          conn.run('PRAGMA foreign_keys=true', cb)
         },
       },
       migrations: {
@@ -53,7 +53,7 @@ const databaseConfig: DatabaseConfig = {
       },
       useNullAsDefault: true,
       healthCheck: false,
-      debug: Env.get('DB_DEBUG', false),
+      debug: env.get('DB_DEBUG', false),
     },
 
     /*
@@ -70,17 +70,17 @@ const databaseConfig: DatabaseConfig = {
     mysql: {
       client: 'mysql',
       connection: {
-        host: Env.get('DB_HOST', 'localhost'),
-        port: Env.get('DB_PORT', ''),
-        user: Env.get('DB_USER', 'root'),
-        password: Env.get('DB_PASSWORD', ''),
-        database: Env.get('DB_DATABASE', 'ferdium'),
+        host: env.get('DB_HOST', 'localhost'),
+        port: env.get('DB_PORT', ''),
+        user: env.get('DB_USER', 'root'),
+        password: env.get('DB_PASSWORD', ''),
+        database: env.get('DB_DATABASE', 'ferdium'),
       },
       migrations: {
         naturalSort: true,
       },
       healthCheck: false,
-      debug: Env.get('DB_DEBUG', false),
+      debug: env.get('DB_DEBUG', false),
     },
 
     /*
@@ -97,25 +97,25 @@ const databaseConfig: DatabaseConfig = {
     pg: {
       client: 'pg',
       connection: {
-        host: Env.get('DB_HOST', 'localhost'),
-        port: Env.get('DB_PORT', ''),
-        user: Env.get('DB_USER', 'root'),
-        password: Env.get('DB_PASSWORD', ''),
-        database: Env.get('DB_DATABASE', 'ferdium'),
-        ssl: Env.get('DB_CA_CERT')
+        host: env.get('DB_HOST', 'localhost'),
+        port: env.get('DB_PORT', ''),
+        user: env.get('DB_USER', 'root'),
+        password: env.get('DB_PASSWORD', ''),
+        database: env.get('DB_DATABASE', 'ferdium'),
+        ssl: env.get('DB_CA_CERT')
           ? {
               rejectUnauthorized: false,
-              ca: Env.get('DB_CA_CERT'),
+              ca: env.get('DB_CA_CERT'),
             }
-          : JSON.parse(Env.get('DB_SSL', 'true')),
+          : JSON.parse(env.get('DB_SSL', 'true')),
       },
       migrations: {
         naturalSort: true,
       },
       healthCheck: false,
-      debug: Env.get('DB_DEBUG', false),
+      debug: env.get('DB_DEBUG', false),
     },
   },
-};
+})
 
-export default databaseConfig;
+export default databaseConfig

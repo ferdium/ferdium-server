@@ -1,3 +1,3 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import type { HttpContext } from '@adonisjs/core/http'
 
 export default class StaticsController {}

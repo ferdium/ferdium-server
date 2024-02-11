@@ -1,5 +1,5 @@
-import Env from '@ioc:Adonis/Core/Env';
+import env from '#start/env'
 
-export const enabled: boolean = Env.get('IS_DASHBOARD_ENABLED') !== 'false';
+export const enabled: boolean = env.get('IS_DASHBOARD_ENABLED') !== 'false'
 
-export const mailFrom: string = Env.get('MAIL_SENDER');
+export const mailFrom: string = env.get('MAIL_SENDER')

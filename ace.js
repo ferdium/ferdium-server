@@ -1,0 +1,24 @@
+/*
+/*
+|--------------------------------------------------------------------------
+| JavaScript entrypoint for running ace commands
+|--------------------------------------------------------------------------
+|
+| Since, we cannot run TypeScript source code using "node" binary, we need
+| a JavaScript entrypoint to run ace commands.
+|
+| This file registers the "ts-node/esm" hook with the Node.js module system
+| and then imports the "bin/console.ts" file.
+|
+*/
+
+/**
+ * Register hook to process TypeScript files using ts-node
+ */
+import { register } from 'node:module'
+register('ts-node/esm', import.meta.url)
+
+/**
+ * Import ace console entrypoint
+ */
+await import('./bin/console.js')

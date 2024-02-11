@@ -5,15 +5,10 @@
  * file.
  */
 
-import type { Config } from '@japa/runner';
-import TestUtils from '@ioc:Adonis/Core/TestUtils';
-import {
-  assert,
-  runFailedTests,
-  specReporter,
-  apiClient,
-} from '@japa/preset-adonis';
-import { fakeCsrfField } from './utils';
+import type { Config } from '@japa/runner'
+import TestUtils from '@ioc:Adonis/Core/TestUtils'
+import { assert, runFailedTests, specReporter, apiClient } from '@japa/preset-adonis'
+import { fakeCsrfField } from './utils.js'
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +21,7 @@ import { fakeCsrfField } from './utils';
 | Feel free to remove existing plugins or add more.
 |
 */
-export const plugins: Config['plugins'] = [
-  assert(),
-  runFailedTests(),
-  apiClient(),
-];
+export const plugins: Config['plugins'] = [assert(), runFailedTests(), apiClient()]
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +33,7 @@ export const plugins: Config['plugins'] = [
 | of tests on the terminal.
 |
 */
-export const reporters: Config['reporters'] = [specReporter()];
+export const reporters: Config['reporters'] = [specReporter()]
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +54,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
     () => fakeCsrfField(),
   ],
   teardown: [],
-};
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -76,8 +67,8 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 | You can use this method to configure suites. For example: Only start
 | the HTTP server when it is a functional suite.
 */
-export const configureSuite: Config['configureSuite'] = suite => {
+export const configureSuite: Config['configureSuite'] = (suite) => {
   if (suite.name === 'functional') {
-    suite.setup(() => TestUtils.httpServer().start());
+    suite.setup(() => TestUtils.httpServer().start())
   }
-};
+}

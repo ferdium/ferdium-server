@@ -1,13 +1,10 @@
-import User from 'App/Models/User';
-import Factory from '@ioc:Adonis/Lucid/Factory';
-import WorkspaceFactory from './WorkspaceFactory';
-import ServiceFactory from './ServiceFactory';
-import crypto from 'node:crypto';
+import User from '#app/Models/User'
+import Factory from '@adonisjs/lucid/factories'
+import WorkspaceFactory from './WorkspaceFactory.js'
+import ServiceFactory from './ServiceFactory.js'
+import crypto from 'node:crypto'
 
-const hashedPassword = crypto
-  .createHash('sha256')
-  .update('password')
-  .digest('base64');
+const hashedPassword = crypto.createHash('sha256').update('password').digest('base64')
 
 export default Factory.define(User, async ({ faker }) => ({
   email: faker.internet.email(),
@@ -18,4 +15,4 @@ export default Factory.define(User, async ({ faker }) => ({
 }))
   .relation('workspaces', () => WorkspaceFactory)
   .relation('services', () => ServiceFactory)
-  .build();
+  .build()
