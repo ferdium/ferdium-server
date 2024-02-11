@@ -346,6 +346,7 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,node,yarn,macos,intellij,visualstudiocode
 
+*.zwc*
 
 # Adonis directory for storing tmp files
 tmp
