@@ -13,11 +13,11 @@
 |
 */
 
-import logger from '@adonisjs/core/services/logger'
-import { ExceptionHandler as AdonisExceptionHandler } from '@adonisjs/core/http'
+import logger from '@adonisjs/core/services/logger';
+import { ExceptionHandler as AdonisExceptionHandler } from '@adonisjs/core/http';
 
 export default class ExceptionHandler extends AdonisExceptionHandler {
   constructor() {
-    super(logger)
+    super(logger);
   }
 }

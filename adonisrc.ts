@@ -1,4 +1,4 @@
-import { defineConfig } from '@adonisjs/core/app'
+import { defineConfig } from '@adonisjs/core/app';
 
 export default defineConfig({
   /*
@@ -42,7 +42,10 @@ export default defineConfig({
     () => import('./providers/AppProvider.js'),
     () => import('@adonisjs/core/providers/app_provider'),
     () => import('@adonisjs/core/providers/hash_provider'),
-    { file: () => import('@adonisjs/core/providers/repl_provider'), environment: ['repl', 'test'] },
+    {
+      file: () => import('@adonisjs/core/providers/repl_provider'),
+      environment: ['repl', 'test'],
+    },
     () => import('@adonisjs/core/providers/edge_provider'),
     () => import('@adonisjs/lucid/database_provider'),
     () => import('@adonisjs/auth/auth_provider'),
@@ -80,4 +83,4 @@ export default defineConfig({
       },
     ],
   },
-})
+});

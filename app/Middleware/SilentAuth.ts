@@ -1,4 +1,4 @@
-import { HttpContext } from '@adonisjs/core/http'
+import { HttpContext } from '@adonisjs/core/http';
 
 /**
  * Silent auth middleware can be used as a global middleware to silent check
@@ -15,7 +15,7 @@ export default class SilentAuthMiddleware {
      * Check if user is logged-in or not. If yes, then `ctx.auth.user` will be
      * set to the instance of the currently logged in user.
      */
-    await auth.check()
-    await next()
+    await auth.check();
+    await next();
   }
 }

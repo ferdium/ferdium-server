@@ -7,7 +7,11 @@ module.exports = {
     project: './tsconfig.json',
   },
   ignorePatterns: ['node_modules', 'build', 'recipes', '.eslintrc.js'],
-  extends: ['@adonisjs/eslint-config/app', 'plugin:unicorn/recommended', 'prettier'],
+  extends: [
+    '@adonisjs/eslint-config/app',
+    'plugin:unicorn/recommended',
+    'prettier',
+  ],
   plugins: ['@adonisjs/eslint-plugin'],
   env: {
     es6: true,
@@ -86,4 +90,4 @@ module.exports = {
     'unicorn/no-empty-file': 0,
     'unicorn/prefer-top-level-await': 0,
   },
-}
+};

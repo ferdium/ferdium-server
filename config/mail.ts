@@ -5,8 +5,8 @@
  * file.
  */
 
-import env from '#start/env'
-import { defineConfig } from '@adonisjs/mail'
+import env from '#start/env';
+import { defineConfig } from '@adonisjs/mail';
 
 export default defineConfig({
   /*
@@ -111,7 +111,7 @@ export default defineConfig({
       key: env.get('SPARKPOST_API_KEY'),
     }),
   },
-})
+});
 
 declare module '@adonisjs/mail/types' {
   export interface MailersList extends InferMailers<typeof mailConfig> {}

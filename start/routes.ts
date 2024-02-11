@@ -18,5 +18,5 @@
 |
 */
 
-import './routes/api.js'
-import './routes/web.js'
+import './routes/api.js';
+import './routes/web.js';

@@ -1,4 +1,4 @@
-import type { HttpContext } from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http';
 
 export default class FeaturesController {
   public async show({ response }: HttpContext) {
@@ -9,6 +9,6 @@ export default class FeaturesController {
       isSettingsWSEnabled: false,
       isMagicBarEnabled: true,
       isTodosEnabled: true,
-    })
+    });
   }
 }

@@ -5,9 +5,9 @@
  * file.
  */
 
-import env from '#start/env'
-import { app } from '@adonisjs/core/services/app'
-import { defineConfig } from '@adonisjs/session'
+import env from '#start/env';
+import { app } from '@adonisjs/core/services/app';
+import { defineConfig } from '@adonisjs/session';
 
 export default defineConfig({
   /*
@@ -113,4 +113,4 @@ export default defineConfig({
   |
   */
   redisConnection: 'local',
-})
+});

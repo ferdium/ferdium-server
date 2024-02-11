@@ -5,9 +5,9 @@
  * file.
  */
 
-import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
-import env from '#start/env'
-import { appKey, jwtUsePEM } from './app.js'
+import { AuthConfig } from '@ioc:Adonis/Addons/Auth';
+import env from '#start/env';
+import { appKey, jwtUsePEM } from './app.js';
 
 /*
 |--------------------------------------------------------------------------
@@ -233,8 +233,12 @@ const authConfig: AuthConfig = {
       driver: 'jwt',
       secret: jwtUsePEM ? undefined : appKey,
       algorithmJwt: jwtUsePEM ? undefined : 'HS256',
-      publicKey: jwtUsePEM ? env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n') : undefined,
-      privateKey: jwtUsePEM ? env.get('JWT_PRIVATE_KEY', '').replaceAll('\\n', '\n') : undefined,
+      publicKey: jwtUsePEM
+        ? env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n')
+        : undefined,
+      privateKey: jwtUsePEM
+        ? env.get('JWT_PRIVATE_KEY', '').replaceAll('\\n', '\n')
+        : undefined,
       persistJwt: true,
       // TODO: We should improve the following implementation as this is a security concern.
       // The following ts-expect-error is to set exp to undefined (JWT with no expiration)
@@ -254,6 +258,6 @@ const authConfig: AuthConfig = {
       },
     },
   },
-}
+};
 
-export default authConfig
+export default authConfig;

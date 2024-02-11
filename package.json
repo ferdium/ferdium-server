@@ -28,7 +28,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:fix": "pnpm lint --fix",
-    "reformat-files": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,scss,json}\"",
+    "reformat-files": "prettier --write .",
     "prepare-code": "pnpm typecheck && pnpm lint:fix && pnpm reformat-files && pnpm test"
   },
   "imports": {
@@ -109,6 +109,5 @@
       "querystring": "0.2.0"
     }
   },
-  "type": "module",
-  "prettier": "@adonisjs/prettier-config"
+  "type": "module"
 }
