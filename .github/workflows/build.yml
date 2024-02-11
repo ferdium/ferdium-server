@@ -6,25 +6,37 @@ on:
 
 jobs:
   adonis-js-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
 
       - name: Use Node.js specified in the '.nvmrc' file
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm i -gf "pnpm@$(node -p 'require("./package.json").engines.pnpm')" && pnpm -v
+      - name: Install node dependencies recursively
+        uses: nick-fields/retry@v3
+        with:
+          command: pnpm i
+          timeout_minutes: 15
+          max_attempts: 3
+          retry_on: error
 
-      - run: pnpm install
+      - name: Run typecheck
+        run: pnpm typecheck
 
-      - run: pnpm typecheck
+      - name: Run linter
+        run: pnpm lint
 
-      - run: pnpm lint
+      - name: Run tests
+        run: pnpm test
 
-      - run: pnpm test
-
-      - run: pnpm run build
+      - name: Run build
+        run: pnpm run build
