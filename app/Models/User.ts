@@ -3,7 +3,7 @@ import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm';
 import hash from '@adonisjs/core/services/hash';
 import emitter from '@adonisjs/core/services/emitter';
 import moment from 'moment';
-import Encryption from '@ioc:Adonis/Core/Encryption';
+import { Encryption } from '@adonisjs/core/encryption';
 import randtoken from 'rand-token';
 import Token from './Token.js';
 import Workspace from './Workspace.js';

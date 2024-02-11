@@ -14,7 +14,7 @@ export default defineConfig({
     () => import('@adonisjs/core/commands'),
     () => import('@adonisjs/lucid/commands'),
     () => import('@adonisjs/mail/commands'),
-    () => import('adonis5-jwt/build/commands'),
+    // () => import('adonis5-jwt/build/commands'),
   ],
   /*
   |--------------------------------------------------------------------------
@@ -39,7 +39,6 @@ export default defineConfig({
   |
   */
   providers: [
-    () => import('./providers/AppProvider.js'),
     () => import('@adonisjs/core/providers/app_provider'),
     () => import('@adonisjs/core/providers/hash_provider'),
     {
@@ -52,8 +51,7 @@ export default defineConfig({
     () => import('@adonisjs/shield/shield_provider'),
     () => import('@adonisjs/session/session_provider'),
     () => import('@adonisjs/mail/mail_provider'),
-    () => import('adonis5-jwt'),
-    () => import('./providers/LegacyHasherProvider.js'),
+    // () => import('adonis5-jwt'),
   ],
   metaFiles: [
     {

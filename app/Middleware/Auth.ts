@@ -3,7 +3,7 @@ import { HttpContext } from '@adonisjs/core/http';
 import { AuthenticationException } from '@adonisjs/auth/build/standalone';
 import * as jose from 'jose';
 import { appKey } from '#config/app';
-import User from '#app/Models/User';
+import User from '#models/User';
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -94,6 +94,7 @@ export default class AuthMiddleware {
   /**
    * Handle request
    */
+  // eslint-disable-next-line consistent-return
   public async handle(
     { request, auth, response }: HttpContext,
     next: () => Promise<void>,

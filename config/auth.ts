@@ -79,7 +79,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     /*
@@ -163,7 +163,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     /*
@@ -226,7 +226,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     jwt: {
@@ -242,7 +242,6 @@ const authConfig: AuthConfig = {
       persistJwt: true,
       // TODO: We should improve the following implementation as this is a security concern.
       // The following ts-expect-error is to set exp to undefined (JWT with no expiration)
-      // @ts-expect-error
       jwtDefaultExpire: undefined,
       refreshTokenDefaultExpire: '10d',
       tokenProvider: {
@@ -254,7 +253,7 @@ const authConfig: AuthConfig = {
         driver: 'lucid',
         identifierKey: 'id',
         uids: [],
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
   },
