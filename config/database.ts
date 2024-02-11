@@ -7,7 +7,6 @@
 
 import path from 'node:path';
 import env from '#start/env';
-import { DatabaseConfig } from '@adonisjs/lucid/database';
 import { defineConfig } from '@adonisjs/lucid';
 
 const databaseConfig = defineConfig({
@@ -53,7 +52,6 @@ const databaseConfig = defineConfig({
       },
       useNullAsDefault: true,
       healthCheck: false,
-      debug: env.get('DB_DEBUG', false),
     },
 
     /*
@@ -71,7 +69,7 @@ const databaseConfig = defineConfig({
       client: 'mysql',
       connection: {
         host: env.get('DB_HOST', 'localhost'),
-        port: env.get('DB_PORT', ''),
+        port: Number(env.get('DB_PORT')),
         user: env.get('DB_USER', 'root'),
         password: env.get('DB_PASSWORD', ''),
         database: env.get('DB_DATABASE', 'ferdium'),
@@ -80,7 +78,6 @@ const databaseConfig = defineConfig({
         naturalSort: true,
       },
       healthCheck: false,
-      debug: env.get('DB_DEBUG', false),
     },
 
     /*
@@ -98,7 +95,7 @@ const databaseConfig = defineConfig({
       client: 'pg',
       connection: {
         host: env.get('DB_HOST', 'localhost'),
-        port: env.get('DB_PORT', ''),
+        port: Number(env.get('DB_PORT')),
         user: env.get('DB_USER', 'root'),
         password: env.get('DB_PASSWORD', ''),
         database: env.get('DB_DATABASE', 'ferdium'),
@@ -113,7 +110,6 @@ const databaseConfig = defineConfig({
         naturalSort: true,
       },
       healthCheck: false,
-      debug: env.get('DB_DEBUG', false),
     },
   },
 });

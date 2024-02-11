@@ -5,7 +5,6 @@
  * file.
  */
 
-import { BodyParserConfig } from '@adonisjs/core/bodyparser';
 import { defineConfig } from '@adonisjs/core/bodyparser';
 
 const bodyParserConfig = defineConfig({
@@ -83,7 +82,6 @@ const bodyParserConfig = defineConfig({
   raw: {
     encoding: 'utf8',
     limit: '1mb',
-    queryString: {},
     types: ['text/*'],
   },
 

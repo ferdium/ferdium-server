@@ -5,7 +5,7 @@ import { url } from '#config/app';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs-extra';
 import path from 'node:path';
-import { app } from '@adonisjs/core/services/app';
+import app from '@adonisjs/core/services/app';
 import sanitize from 'sanitize-filename';
 
 const createSchema = schema.create({

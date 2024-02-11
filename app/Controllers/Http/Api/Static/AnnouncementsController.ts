@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http';
-import { app } from '@adonisjs/core/services/app';
+import app from '@adonisjs/core/services/app';
 import path from 'node:path';
 import fs from 'fs-extra';
 

@@ -6,7 +6,7 @@
  */
 
 import env from '#start/env';
-import { app } from '@adonisjs/core/services/app';
+import app from '@adonisjs/core/services/app';
 import { defineConfig } from '@adonisjs/session';
 
 export default defineConfig({
@@ -36,7 +36,7 @@ export default defineConfig({
   | Note: Switching drivers will make existing sessions invalid.
   |
   */
-  driver: env.get('SESSION_DRIVER', 'cookie'),
+  store: env.get('SESSION_DRIVER', 'cookie'),
 
   /*
   |--------------------------------------------------------------------------

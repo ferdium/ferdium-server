@@ -18,29 +18,33 @@
   "license": "MIT License",
   "scripts": {
     "prepare": "is-ci || husky",
-    "dev": "cross-env-shell ENV_PATH=.env.development node ace serve --watch",
-    "migrate": "cross-env-shell ENV_PATH=.env.development node ace migration:run",
-    "refresh": "cross-env-shell ENV_PATH=.env.development node ace migration:refresh",
-    "status": "cross-env-shell ENV_PATH=.env.development node ace migration:status",
-    "build": "node ace build --production",
-    "start": "cross-env-shell ENV_PATH=.env node bin/server.js",
-    "test": "cross-env-shell ENV_PATH=.env.test node ace test",
+    "dev": "node ace serve --watch",
+    "migrate": "node ace migration:run",
+    "refresh": "node ace migration:refresh",
+    "status": "node ace migration:status",
+    "build": "node ace build",
+    "start": "node bin/server.js",
+    "test": "node ace test",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "reformat-files": "prettier --write .",
     "prepare-code": "pnpm typecheck && pnpm lint:fix && pnpm reformat-files && pnpm test"
   },
   "imports": {
+    "#app/*": "./app/*.js",
     "#controllers/*": "./app/Controllers/*.js",
-    "#exceptions/*": "./app/Exceptions/*.js",
     "#models/*": "./app/Models/*.js",
+    "#services/*": "./app/services/*.js",
+    "#listeners/*": "./app/listeners/*.js",
+    "#events/*": "./app/events/*.js",
     "#middleware/*": "./app/Middleware/*.js",
+    "#validators/*": "./app/validators/*.js",
     "#database/*": "./database/*.js",
-    "#types/*": "./types/*.js",
-    "#start/*": "./start/*.js",
     "#tests/*": "./tests/*.js",
-    "#config/*": "./config/*.js"
+    "#start/*": "./start/*.js",
+    "#config/*": "./config/*.js",
+    "#types/*": "./types/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "7.1.1",
@@ -49,6 +53,8 @@
     "@adonisjs/prettier-config": "1.2.1",
     "@adonisjs/tsconfig": "1.2.1",
     "@adonisjs/vite": "2.0.2",
+    "@japa/api-client": "2.0.2",
+    "@japa/assert": "2.1.0",
     "@japa/plugin-adonisjs": "3.0.0",
     "@japa/runner": "3.1.1",
     "@swc/core": "1.4.0",
@@ -62,7 +68,6 @@
     "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "cross-env": "7.0.3",
     "eslint": "8.56.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-unicorn": "51.0.1",
@@ -83,6 +88,7 @@
     "@adonisjs/shield": "8.1.1",
     "@adonisjs/static": "1.1.1",
     "@adonisjs/validator": "13.0.2",
+    "@aws-sdk/client-ses": "3.511.0",
     "adonis5-jwt": "github:SpecialAro/adonis5-jwt#34941c10adcf89583a40767552b994ea499b92e3",
     "bcrypt": "5.1.1",
     "edge.js": "6.0.1",
@@ -103,11 +109,7 @@
   },
   "pnpm": {
     "allowedDeprecatedVersions": {
-      "@npmcli/move-file": "1.1.2",
-      "@types/pino-pretty": "5.0.0",
-      "@types/pino-std-serializers": "4.0.0",
-      "cuid": "2.1.8",
-      "querystring": "0.2.0"
+      "@npmcli/move-file": "1.1.2"
     }
   },
   "type": "module"
