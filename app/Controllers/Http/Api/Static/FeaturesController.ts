@@ -1,7 +1,7 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class FeaturesController {
-  public async show({ response }: HttpContextContract) {
+  public async show({ response }: HttpContext) {
     return response.send({
       isServiceProxyEnabled: true,
       isWorkspaceEnabled: true,
@@ -9,6 +9,6 @@ export default class FeaturesController {
       isSettingsWSEnabled: false,
       isMagicBarEnabled: true,
       isTodosEnabled: true,
-    });
+    })
   }
 }

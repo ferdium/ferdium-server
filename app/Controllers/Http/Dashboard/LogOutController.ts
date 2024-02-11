@@ -1,12 +1,12 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class LogOutController {
   /**
    * Login a user
    */
-  public async logout({ auth, response }: HttpContextContract) {
-    auth.logout();
+  public async logout({ auth, response }: HttpContext) {
+    auth.logout()
 
-    return response.redirect('/user/login');
+    return response.redirect('/user/login')
   }
 }

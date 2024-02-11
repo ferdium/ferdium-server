@@ -1,13 +1,6 @@
-/**
- * Config source: https://git.io/JfefC
- *
- * Feel free to let us know via PR, if you find something broken in this config
- * file.
- */
+import { defineConfig } from '@adonisjs/cors'
 
-import { CorsConfig } from '@ioc:Adonis/Core/Cors';
-
-const corsConfig: CorsConfig = {
+const corsConfig = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Enabled
@@ -129,6 +122,6 @@ const corsConfig: CorsConfig = {
   |
   */
   maxAge: 90,
-};
+})
 
-export default corsConfig;
+export default corsConfig

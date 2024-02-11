@@ -1,14 +1,14 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application';
-import { LegacyHashDriver } from './LegacyHashDriver';
+import { LegacyHashDriver } from './LegacyHashDriver.js'
+import { ApplicationService } from '@adonisjs/core/types'
 
 export default class LegacyHasherProvider {
-  constructor(protected app: ApplicationContract) {}
+  constructor(protected app: ApplicationService) {}
 
   public async boot() {
-    const Hash = this.app.container.use('Adonis/Core/Hash');
+    const Hash = this.app.container.use('Adonis/Core/Hash')
 
     Hash.extend('legacy', () => {
-      return new LegacyHashDriver();
-    });
+      return new LegacyHashDriver()
+    })
   }
 }

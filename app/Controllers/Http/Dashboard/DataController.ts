@@ -1,14 +1,14 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class DataController {
   /**
    * Display the data page
    */
-  public async show({ view, auth }: HttpContextContract) {
-    const { user } = auth;
+  public async show({ view, auth }: HttpContext) {
+    const { user } = auth
 
-    const services = await user?.related('services').query();
-    const workspaces = await user?.related('workspaces').query();
+    const services = await user?.related('services').query()
+    const workspaces = await user?.related('workspaces').query()
 
     return view.render('dashboard/data', {
       username: user?.username,
@@ -19,6 +19,6 @@ export default class DataController {
       stringify: JSON.stringify,
       services,
       workspaces,
-    });
+    })
   }
 }

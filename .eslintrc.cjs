@@ -2,20 +2,13 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.json',
   },
   ignorePatterns: ['node_modules', 'build', 'recipes', '.eslintrc.js'],
-  extends: [
-    'plugin:adonis/typescriptApp',
-    'plugin:unicorn/recommended',
-    'prettier',
-  ],
-  plugins: [],
-  globals: {
-    use: true,
-  },
+  extends: ['@adonisjs/eslint-config/app', 'plugin:unicorn/recommended', 'prettier'],
+  plugins: ['@adonisjs/eslint-plugin'],
   env: {
     es6: true,
     node: true,
@@ -25,7 +18,7 @@ module.exports = {
     {
       files: ['**/*.ts'],
       extends: [
-        'plugin:adonis/typescriptApp',
+        '@adonisjs/eslint-config/app',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/strict',
         // TODO: Opt-in to a stricter ruleset in the future
@@ -47,6 +40,16 @@ module.exports = {
         '@typescript-eslint/no-extraneous-class': 0,
         '@typescript-eslint/ban-ts-comment': 0,
         '@typescript-eslint/prefer-ts-expect-error': 0,
+        '@typescript-eslint/explicit-member-accessibility': 0,
+        '@typescript-eslint/no-shadow': 0,
+        '@typescript-eslint/prefer-nullish-coalescing': 0,
+
+        // @adonisjs/eslint-plugin
+        '@adonisjs/prefer-lazy-controller-import': 2,
+        '@adonisjs/prefer-lazy-listener-import': 2,
+
+        // eslint-plugin-unicorn
+        'unicorn/filename-case': 0,
       },
     },
   ],
@@ -83,4 +86,4 @@ module.exports = {
     'unicorn/no-empty-file': 0,
     'unicorn/prefer-top-level-await': 0,
   },
-};
+}

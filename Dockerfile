@@ -1,4 +1,4 @@
-FROM node:20.11.0-alpine as build
+FROM node:20.11.0-alpine AS build
 
 WORKDIR /server-build
 
@@ -7,7 +7,7 @@ RUN apk add --no-cache python3 make gcc g++ libc-dev sqlite-dev
 COPY . /server-build
 
 ENV CI=true
-RUN PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm'); npm i -g pnpm@$PNPM_VERSION
+RUN PNPM_VERSION=$(node -p 'require("./package.json").engines.pnpm'); npm i -g pnpm@"$PNPM_VERSION"
 RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
 RUN pnpm build
 

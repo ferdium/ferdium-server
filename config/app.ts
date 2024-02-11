@@ -5,12 +5,12 @@
  * file.
  */
 
-import proxyAddr from 'proxy-addr';
-import Env from '@ioc:Adonis/Core/Env';
-import { ServerConfig } from '@ioc:Adonis/Core/Server';
-import { LoggerConfig } from '@ioc:Adonis/Core/Logger';
-import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler';
-import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
+import proxyAddr from 'proxy-addr'
+import env from '#start/env'
+import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler'
+import { LoggerConfig } from '@adonisjs/core/types/logger'
+import { ValidatorConfig } from '@adonisjs/validator/types'
+import { defineConfig } from '@adonisjs/core/http'
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +25,17 @@ import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
 | be decrypted.
 |
 */
-export const appKey: string = Env.get('APP_KEY');
+export const appKey: string = env.get('APP_KEY')
 
-export const url: string = Env.get('APP_URL');
+export const url: string = env.get('APP_URL')
 
 // TODO: this is parsed as string to be coherent with the previous version of the code we add (before migrating to AdonisJS 5)
-export const isRegistrationEnabled: string = Env.get('IS_REGISTRATION_ENABLED');
-export const connectWithFranz: string = Env.get('CONNECT_WITH_FRANZ');
-export const isCreationEnabled: string = Env.get('IS_CREATION_ENABLED');
+export const isRegistrationEnabled: string = env.get('IS_REGISTRATION_ENABLED')
+export const connectWithFranz: string = env.get('CONNECT_WITH_FRANZ')
+export const isCreationEnabled: string = env.get('IS_CREATION_ENABLED')
 export const jwtUsePEM: boolean =
-  Env.get('JWT_USE_PEM', false) ||
-  (Env.get('JWT_PUBLIC_KEY', '') !== '' &&
-    Env.get('JWT_PRIVATE_KEY', '') !== '');
+  env.get('JWT_USE_PEM', false) ||
+  (env.get('JWT_PUBLIC_KEY', '') !== '' && env.get('JWT_PRIVATE_KEY', '') !== '')
 /*
 |--------------------------------------------------------------------------
 | Http server configuration
@@ -46,7 +45,7 @@ export const jwtUsePEM: boolean =
 | the config properties to make keep server secure.
 |
 */
-export const http: ServerConfig = {
+export const http = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Allow method spoofing
@@ -137,7 +136,7 @@ export const http: ServerConfig = {
   |
   */
   forceContentNegotiationTo: 'application/json',
-};
+})
 
 /*
 |--------------------------------------------------------------------------
@@ -157,7 +156,7 @@ export const logger: LoggerConfig = {
   | reading the `name` property from the `package.json` file.
   |
   */
-  name: Env.get('APP_NAME', 'Ferdium-server'),
+  name: env.get('APP_NAME', 'Ferdium-server'),
 
   /*
   |--------------------------------------------------------------------------
@@ -179,7 +178,7 @@ export const logger: LoggerConfig = {
   | at deployment level and not code level.
   |
   */
-  level: Env.get('LOG_LEVEL', 'info'),
+  level: env.get('LOG_LEVEL', 'info'),
 
   /*
   |--------------------------------------------------------------------------
@@ -190,8 +189,8 @@ export const logger: LoggerConfig = {
   | can have huge impact on performance.
   |
   */
-  prettyPrint: Env.get('NODE_ENV') === 'development',
-};
+  prettyPrint: env.get('NODE_ENV') === 'development',
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -230,7 +229,7 @@ export const profiler: ProfilerConfig = {
   |
   */
   whitelist: [],
-};
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -241,4 +240,4 @@ export const profiler: ProfilerConfig = {
 | to the default config https://git.io/JT0WE
 |
 */
-export const validator: ValidatorConfig = {};
+export const validator: ValidatorConfig = {}

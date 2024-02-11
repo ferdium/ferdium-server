@@ -1,41 +1,42 @@
-import { DateTime } from 'luxon';
-import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm';
-import User from './User';
+import { DateTime } from 'luxon'
+import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
+import User from './User.js'
+import { HasOne } from '@adonisjs/lucid/types/relations'
 
 export default class Workspace extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: number
 
   @column({
     columnName: 'workspaceId',
   })
-  public workspaceId: string;
+  public workspaceId: string
 
   @hasOne(() => User, {
     foreignKey: 'userId',
   })
-  public user: HasOne<typeof User>;
+  public user: HasOne<typeof User>
 
   @column({
     columnName: 'userId',
   })
-  public userId: number;
+  public userId: number
 
   @column()
-  public name: string;
+  public name: string
 
   @column()
-  public order: number;
+  public order: number
 
   @column()
-  public services: string;
+  public services: string
 
   @column()
-  public data: string;
+  public data: string
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
+  public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+  public updatedAt: DateTime
 }

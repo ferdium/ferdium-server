@@ -1,75 +1,70 @@
-import { DateTime } from 'luxon';
-import {
-  BaseModel,
-  beforeSave,
-  column,
-  HasMany,
-  hasMany,
-} from '@ioc:Adonis/Lucid/Orm';
-import Hash from '@ioc:Adonis/Core/Hash';
-import Event from '@ioc:Adonis/Core/Event';
-import moment from 'moment';
-import Encryption from '@ioc:Adonis/Core/Encryption';
-import randtoken from 'rand-token';
-import Token from './Token';
-import Workspace from './Workspace';
-import Service from './Service';
-import Mail from '@ioc:Adonis/Addons/Mail';
-import { url } from 'Config/app';
-import { mailFrom } from 'Config/dashboard';
+import { DateTime } from 'luxon'
+import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm'
+import hash from '@adonisjs/core/services/hash'
+import emitter from '@adonisjs/core/services/emitter'
+import moment from 'moment'
+import Encryption from '@ioc:Adonis/Core/Encryption'
+import randtoken from 'rand-token'
+import Token from './Token.js'
+import Workspace from './Workspace.js'
+import Service from './Service.js'
+import mail from '@adonisjs/mail/services/main'
+import { url } from '#config/app'
+import { mailFrom } from '#config/dashboard'
+import { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: number
 
   @column()
-  public email: string;
+  public email: string
 
   @column()
-  public username: string;
+  public username: string
 
   @column()
-  public password: string;
+  public password: string
 
   @column()
-  public lastname: string;
+  public lastname: string
 
   // TODO: Type the settings object.
   @column()
-  public settings: object;
+  public settings: object
 
   @column.dateTime({ autoCreate: true })
-  public created_at: DateTime;
+  public created_at: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updated_at: DateTime;
+  public updated_at: DateTime
 
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
-      user.password = await Hash.make(user.password);
+      user.password = await hash.make(user.password)
     }
   }
 
   @hasMany(() => Token, {
     foreignKey: 'user_id',
   })
-  public tokens: HasMany<typeof Token>;
+  public tokens: HasMany<typeof Token>
 
   @hasMany(() => Service, {
     foreignKey: 'userId',
   })
-  public services: HasMany<typeof Service>;
+  public services: HasMany<typeof Service>
 
   @hasMany(() => Workspace, {
     foreignKey: 'userId',
   })
-  public workspaces: HasMany<typeof Workspace>;
+  public workspaces: HasMany<typeof Workspace>
 
   public async forgotPassword(): Promise<void> {
-    const token = await this.generateToken(this, 'forgot_password');
+    const token = await this.generateToken(this, 'forgot_password')
 
-    await Mail.send(message => {
+    await mail.send((message) => {
       message
         .from(mailFrom)
         .to(this.email)
@@ -78,13 +73,13 @@ export default class User extends BaseModel {
           username: this.username,
           appUrl: url,
           token: token,
-        });
-    });
+        })
+    })
 
-    await Event.emit('forgot:password', {
+    await emitter.emit('forgot:password', {
       user: this,
       token,
-    });
+    })
   }
 
   private async generateToken(user: User, type: string): Promise<string> {
@@ -93,21 +88,17 @@ export default class User extends BaseModel {
       .query()
       .where('type', type)
       .where('is_revoked', false)
-      .where(
-        'updated_at',
-        '>=',
-        moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-      );
+      .where('updated_at', '>=', moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm:ss'))
 
-    const row = await query.first();
+    const row = await query.first()
     if (row) {
-      return row.token;
+      return row.token
     }
 
-    const token = Encryption.encrypt(randtoken.generate(16));
+    const token = Encryption.encrypt(randtoken.generate(16))
 
-    await user.related('tokens').create({ type, token });
+    await user.related('tokens').create({ type, token })
 
-    return token;
+    return token
   }
 }
