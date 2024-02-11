@@ -5,13 +5,13 @@
   "engines": {
     "node": "20.11.0",
     "pnpm": "8.15.1",
-    "python": "3.12.1"
+    "python": "3.12.2"
   },
   "engine-strict": true,
   "volta": {
     "node": "20.11.0",
     "pnpm": "8.15.1",
-    "python": "3.12.1"
+    "python": "3.12.2"
   },
   "packageManager": "pnpm@8.15.1",
   "homepage": "https://github.com/ferdium/ferdium-server",
