@@ -2,4 +2,5 @@
 module.exports = {
   singleQuote: true,
   arrowParens: 'avoid',
-}
+  // plugins: ['@adonisjs/prettier-config'],
+};

@@ -1,20 +1,22 @@
-import { test } from '@japa/runner'
-import { apiVersion } from '../../../config.js'
+import { test } from '@japa/runner';
+import { apiVersion } from '../../../config.js';
 
 test.group('API / Static / News', () => {
-  test('returns a 404 response when the requested versions does not exist', async ({ client }) => {
-    const response = await client.get(`/${apiVersion}/announcements/illegal`)
+  test('returns a 404 response when the requested versions does not exist', async ({
+    client,
+  }) => {
+    const response = await client.get(`/${apiVersion}/announcements/illegal`);
 
-    response.assertStatus(404)
-    response.assertTextIncludes('No announcement found.')
-  })
+    response.assertStatus(404);
+    response.assertTextIncludes('No announcement found.');
+  });
 
   test('returns a 200 response with default version file when specifying version as input', async ({
     client,
   }) => {
-    const response = await client.get(`/${apiVersion}/announcements/version`)
+    const response = await client.get(`/${apiVersion}/announcements/version`);
 
-    response.assertStatus(200)
+    response.assertStatus(200);
     response.assertBody({
       main: {
         headline: 'Example Announcement',
@@ -48,6 +50,6 @@ test.group('API / Static / News', () => {
           },
         },
       },
-    })
-  })
-})
+    });
+  });
+});

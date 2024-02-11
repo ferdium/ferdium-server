@@ -5,10 +5,10 @@
  * file.
  */
 
-import path from 'node:path'
-import env from '#start/env'
-import { DatabaseConfig } from '@adonisjs/lucid/database'
-import { defineConfig } from '@adonisjs/lucid'
+import path from 'node:path';
+import env from '#start/env';
+import { DatabaseConfig } from '@adonisjs/lucid/database';
+import { defineConfig } from '@adonisjs/lucid';
 
 const databaseConfig = defineConfig({
   /*
@@ -40,12 +40,12 @@ const databaseConfig = defineConfig({
       connection: {
         filename: path.join(
           env.get('DATA_DIR', 'data'),
-          `${env.get('DB_DATABASE', 'ferdium')}.sqlite`
+          `${env.get('DB_DATABASE', 'ferdium')}.sqlite`,
         ),
       },
       pool: {
         afterCreate: (conn, cb) => {
-          conn.run('PRAGMA foreign_keys=true', cb)
+          conn.run('PRAGMA foreign_keys=true', cb);
         },
       },
       migrations: {
@@ -116,6 +116,6 @@ const databaseConfig = defineConfig({
       debug: env.get('DB_DEBUG', false),
     },
   },
-})
+});
 
-export default databaseConfig
+export default databaseConfig;

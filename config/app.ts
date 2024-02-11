@@ -5,12 +5,12 @@
  * file.
  */
 
-import proxyAddr from 'proxy-addr'
-import env from '#start/env'
-import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler'
-import { LoggerConfig } from '@adonisjs/core/types/logger'
-import { ValidatorConfig } from '@adonisjs/validator/types'
-import { defineConfig } from '@adonisjs/core/http'
+import proxyAddr from 'proxy-addr';
+import env from '#start/env';
+import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler';
+import { LoggerConfig } from '@adonisjs/core/types/logger';
+import { ValidatorConfig } from '@adonisjs/validator/types';
+import { defineConfig } from '@adonisjs/core/http';
 
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +25,18 @@ import { defineConfig } from '@adonisjs/core/http'
 | be decrypted.
 |
 */
-export const appKey: string = env.get('APP_KEY')
+export const appKey: string = env.get('APP_KEY');
 
-export const url: string = env.get('APP_URL')
+export const url: string = env.get('APP_URL');
 
 // TODO: this is parsed as string to be coherent with the previous version of the code we add (before migrating to AdonisJS 5)
-export const isRegistrationEnabled: string = env.get('IS_REGISTRATION_ENABLED')
-export const connectWithFranz: string = env.get('CONNECT_WITH_FRANZ')
-export const isCreationEnabled: string = env.get('IS_CREATION_ENABLED')
+export const isRegistrationEnabled: string = env.get('IS_REGISTRATION_ENABLED');
+export const connectWithFranz: string = env.get('CONNECT_WITH_FRANZ');
+export const isCreationEnabled: string = env.get('IS_CREATION_ENABLED');
 export const jwtUsePEM: boolean =
   env.get('JWT_USE_PEM', false) ||
-  (env.get('JWT_PUBLIC_KEY', '') !== '' && env.get('JWT_PRIVATE_KEY', '') !== '')
+  (env.get('JWT_PUBLIC_KEY', '') !== '' &&
+    env.get('JWT_PRIVATE_KEY', '') !== '');
 /*
 |--------------------------------------------------------------------------
 | Http server configuration
@@ -136,7 +137,7 @@ export const http = defineConfig({
   |
   */
   forceContentNegotiationTo: 'application/json',
-})
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -190,7 +191,7 @@ export const logger: LoggerConfig = {
   |
   */
   prettyPrint: env.get('NODE_ENV') === 'development',
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -229,7 +230,7 @@ export const profiler: ProfilerConfig = {
   |
   */
   whitelist: [],
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -240,4 +241,4 @@ export const profiler: ProfilerConfig = {
 | to the default config https://git.io/JT0WE
 |
 */
-export const validator: ValidatorConfig = {}
+export const validator: ValidatorConfig = {};

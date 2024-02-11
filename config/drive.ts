@@ -5,9 +5,9 @@
  * file.
  */
 
-import env from '#start/env'
-import { driveConfig } from '@adonisjs/core/build/config'
-import { app } from '@adonisjs/core/services/app'
+import env from '#start/env';
+import { driveConfig } from '@adonisjs/core/build/config';
+import { app } from '@adonisjs/core/services/app';
 
 /*
 |--------------------------------------------------------------------------
@@ -146,4 +146,4 @@ export default driveConfig({
     //   usingUniformAcl: false,
     // },
   },
-})
+});

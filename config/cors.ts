@@ -1,4 +1,4 @@
-import { defineConfig } from '@adonisjs/cors'
+import { defineConfig } from '@adonisjs/cors';
 
 const corsConfig = defineConfig({
   /*
@@ -122,6 +122,6 @@ const corsConfig = defineConfig({
   |
   */
   maxAge: 90,
-})
+});
 
-export default corsConfig
+export default corsConfig;

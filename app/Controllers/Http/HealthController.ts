@@ -5,6 +5,6 @@ export default class HealthController {
     return {
       api: 'success',
       db: 'success',
-    }
+    };
   }
 }

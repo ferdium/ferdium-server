@@ -9,7 +9,7 @@
 |
 */
 
-import { server } from '@adonisjs/core/services/server'
+import { server } from '@adonisjs/core/services/server';
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ import { server } from '@adonisjs/core/services/server'
 server.middleware.register([
   () => import('@ioc:Adonis/Core/BodyParser'),
   () => import('@ioc:Adonis/Addons/Shield'),
-])
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +46,4 @@ server.middleware.registerNamed({
   dashboard: () => import('App/Middleware/Dashboard'),
   guest: () => import('App/Middleware/AllowGuestOnly'),
   shield: () => import('@ioc:Adonis/Addons/Shield'),
-})
+});

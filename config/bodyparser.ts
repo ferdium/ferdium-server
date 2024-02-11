@@ -5,8 +5,8 @@
  * file.
  */
 
-import { BodyParserConfig } from '@adonisjs/core/bodyparser'
-import { defineConfig } from '@adonisjs/core/bodyparser'
+import { BodyParserConfig } from '@adonisjs/core/bodyparser';
+import { defineConfig } from '@adonisjs/core/bodyparser';
 
 const bodyParserConfig = defineConfig({
   /*
@@ -201,6 +201,6 @@ const bodyParserConfig = defineConfig({
     */
     types: ['multipart/form-data'],
   },
-})
+});
 
-export default bodyParserConfig
+export default bodyParserConfig;

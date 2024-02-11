@@ -44,7 +44,10 @@
     {
       "name": "workspace2",
       "order": 0,
-      "services": ["d6901fff-ec44-4251-93de-d7103ed9c44b", "79769de5-a998-4af1-b7d0-89956a15b0ed"],
+      "services": [
+        "d6901fff-ec44-4251-93de-d7103ed9c44b",
+        "79769de5-a998-4af1-b7d0-89956a15b0ed"
+      ],
       "data": "{\"name\":\"workspace2\"}"
     },
     {

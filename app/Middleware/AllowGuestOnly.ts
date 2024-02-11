@@ -1,6 +1,6 @@
-import { GuardsList } from '@ioc:Adonis/Addons/Auth'
-import { HttpContext } from '@adonisjs/core/http'
-import { AuthenticationException } from '@adonisjs/auth/build/standalone'
+import { GuardsList } from '@ioc:Adonis/Addons/Auth';
+import { HttpContext } from '@adonisjs/core/http';
+import { AuthenticationException } from '@adonisjs/auth/build/standalone';
 
 /**
  * This is actually a reverted a reverted auth middleware available in ./Auth.ts
@@ -10,24 +10,27 @@ export default class GuestMiddleware {
   /**
    * The URL to redirect to when request is authorized
    */
-  protected redirectTo = '/dashboard'
+  protected redirectTo = '/dashboard';
 
-  protected async authenticate(auth: HttpContext['auth'], guards: (keyof GuardsList)[]) {
-    let guardLastAttempted: string | undefined
+  protected async authenticate(
+    auth: HttpContext['auth'],
+    guards: (keyof GuardsList)[],
+  ) {
+    let guardLastAttempted: string | undefined;
 
     for (const guard of guards) {
-      guardLastAttempted = guard
+      guardLastAttempted = guard;
 
       // eslint-disable-next-line no-await-in-loop
       if (await auth.use(guard).check()) {
-        auth.defaultGuard = guard
+        auth.defaultGuard = guard;
 
         throw new AuthenticationException(
           'Unauthorized access',
           'E_UNAUTHORIZED_ACCESS',
           guardLastAttempted,
-          this.redirectTo
-        )
+          this.redirectTo,
+        );
       }
     }
   }
@@ -38,16 +41,16 @@ export default class GuestMiddleware {
   public async handle(
     { auth }: HttpContext,
     next: () => Promise<void>,
-    customGuards: (keyof GuardsList)[]
+    customGuards: (keyof GuardsList)[],
   ) {
     /**
      * Uses the user defined guards or the default guard mentioned in
      * the config file
      */
-    const guards = customGuards.length > 0 ? customGuards : [auth.name]
+    const guards = customGuards.length > 0 ? customGuards : [auth.name];
 
-    await this.authenticate(auth, guards)
+    await this.authenticate(auth, guards);
 
-    await next()
+    await next();
   }
 }

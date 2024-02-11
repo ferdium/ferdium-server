@@ -1,6 +1,6 @@
-import { Config } from '@adonisjs/core/config'
-import emitter from '@adonisjs/core/services/emitter'
-import mail from '@adonisjs/mail/services/main'
+import { Config } from '@adonisjs/core/config';
+import emitter from '@adonisjs/core/services/emitter';
+import mail from '@adonisjs/mail/services/main';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,8 @@ import mail from '@adonisjs/mail/services/main'
 emitter.on('forgot::password', async ({ user, token }) => {
   try {
     // eslint-disable-next-line no-console
-    console.log('Sending message')
-    await mail.send((message) => {
+    console.log('Sending message');
+    await mail.send(message => {
       message
         .subject('[Ferdium] Forgot Password')
         .to(user.email)
@@ -24,10 +24,10 @@ emitter.on('forgot::password', async ({ user, token }) => {
           appUrl: Config.get('app.url'),
           username: user.username,
           token,
-        })
-    })
+        });
+    });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(`Couldn't send mail: ${error}`)
+    console.log(`Couldn't send mail: ${error}`);
   }
-})
+});

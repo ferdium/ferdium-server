@@ -4,9 +4,7 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "contributorsPerLine": 7,
   "imageSize": 100,
   "commit": true,
@@ -19,156 +17,119 @@
       "name": "nick",
       "avatar_url": "https://avatars.githubusercontent.com/u/5242865?v=4",
       "profile": "https://pogonip.pw/",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "k0staa",
       "name": "Michał Kostewicz",
       "avatar_url": "https://avatars.githubusercontent.com/u/6313392?v=4",
       "profile": "http://code-addict.pl",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "cromefire",
       "name": "Cromefire_",
       "avatar_url": "https://avatars.githubusercontent.com/u/26320625?v=4",
       "profile": "https://gitlab.com/cromefire_",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "Omkaragrawal",
       "name": "OMKAR AGRAWAL",
       "avatar_url": "https://avatars.githubusercontent.com/u/10913160?v=4",
       "profile": "https://omkaragrawal.dev",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "nathanaelhoun",
       "name": "Nathanaël Houn",
       "avatar_url": "https://avatars.githubusercontent.com/u/45119518?v=4",
       "profile": "http://www.nathanaelhoun.fr",
-      "contributions": [
-        "review"
-      ]
+      "contributions": ["review"]
     },
     {
       "login": "ericreeves",
       "name": "Eric Reeves",
       "avatar_url": "https://avatars.githubusercontent.com/u/1744930?v=4",
       "profile": "https://github.com/ericreeves",
-      "contributions": [
-        "infra"
-      ]
+      "contributions": ["infra"]
     },
     {
       "login": "SpecialAro",
       "name": "André Oliveira",
       "avatar_url": "https://avatars.githubusercontent.com/u/37463445?v=4",
       "profile": "https://github.com/SpecialAro",
-      "contributions": [
-        "infra",
-        "design"
-      ]
+      "contributions": ["infra", "design"]
     },
     {
       "login": "mydarkstar",
       "name": "mydarkstar",
       "avatar_url": "https://avatars.githubusercontent.com/u/17343993?v=4",
       "profile": "https://mydarkstar.net",
-      "contributions": [
-        "review"
-      ]
+      "contributions": ["review"]
     },
     {
       "login": "santhosh-chinnasamy",
       "name": "Santhosh C",
       "avatar_url": "https://avatars.githubusercontent.com/u/20743451?v=4",
       "profile": "https://santhosh.cyou",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "vraravam",
       "name": "Vijay Aravamudhan",
       "avatar_url": "https://avatars.githubusercontent.com/u/69629?v=4",
       "profile": "https://github.com/vraravam",
-      "contributions": [
-        "review",
-        "code"
-      ]
+      "contributions": ["review", "code"]
     },
     {
       "login": "dqos",
       "name": "Tamer",
       "avatar_url": "https://avatars.githubusercontent.com/u/8611981?v=4",
       "profile": "https://github.com/dqos",
-      "contributions": [
-        "design"
-      ]
+      "contributions": ["design"]
     },
     {
       "login": "Gibby",
       "name": "Gibby",
       "avatar_url": "https://avatars.githubusercontent.com/u/503761?v=4",
       "profile": "https://github.com/Gibby",
-      "contributions": [
-        "infra",
-        "doc"
-      ]
+      "contributions": ["infra", "doc"]
     },
     {
       "login": "palepinkdot",
       "name": "MG",
       "avatar_url": "https://avatars.githubusercontent.com/u/55257671?v=4",
       "profile": "https://github.com/palepinkdot",
-      "contributions": [
-        "review"
-      ]
+      "contributions": ["review"]
     },
     {
       "login": "xthursdayx",
       "name": "thursday",
       "avatar_url": "https://avatars.githubusercontent.com/u/18044308?v=4",
       "profile": "https://github.com/xthursdayx",
-      "contributions": [
-        "infra"
-      ]
+      "contributions": ["infra"]
     },
     {
       "login": "vantezzen",
       "name": "Bennett",
       "avatar_url": "https://avatars.githubusercontent.com/u/10333196?v=4",
       "profile": "https://vantezzen.io/",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "reggermont",
       "name": "Romain Eggermont",
       "avatar_url": "https://avatars.githubusercontent.com/u/14902909?v=4",
       "profile": "https://gitlab.com/reggermont/",
-      "contributions": [
-        "infra"
-      ]
+      "contributions": ["infra"]
     },
     {
       "login": "lnhrdt",
       "name": "Leonhardt Koepsell",
       "avatar_url": "https://avatars.githubusercontent.com/u/4040241?v=4",
       "profile": "http://lnhrdt.com",
-      "contributions": [
-        "infra"
-      ]
+      "contributions": ["infra"]
     }
   ]
 }

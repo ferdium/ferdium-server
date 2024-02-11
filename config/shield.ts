@@ -1,5 +1,5 @@
-import env from '#start/env'
-import { defineConfig } from '@adonisjs/shield'
+import env from '#start/env';
+import { defineConfig } from '@adonisjs/shield';
 
 export default defineConfig({
   csp: {
@@ -67,9 +67,12 @@ export default defineConfig({
       | ```
     |
     */
-    exceptRoutes: (ctx) => {
+    exceptRoutes: ctx => {
       // ignore all routes starting with /v1/ (api)
-      return ctx.request.url().includes('/v1/') || ctx.request.url().includes('/import')
+      return (
+        ctx.request.url().includes('/v1/') ||
+        ctx.request.url().includes('/import')
+      );
     },
 
     /*
@@ -135,4 +138,4 @@ export default defineConfig({
   contentTypeSniffing: {
     enabled: true,
   },
-})
+});
