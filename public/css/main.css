@@ -4,8 +4,7 @@ input {
   padding: 0.5rem;
 }
 
-button,
-.button {
+button, .button {
   display: flex;
   overflow: hidden;
   padding: 12px 12px;
@@ -34,7 +33,7 @@ button,
   align-items: center;
   flex: 0 0 160px;
   box-shadow: 2px 5px 10px #e4e4e4;
-  color: #ffffff;
+  color: #FFFFFF;
   background: #161616;
 }
 

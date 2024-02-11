@@ -4,4 +4,4 @@ build
 recipes
 tests/functional/dashboard/import-stubs/invalid.json
 pnpm-lock.yaml
-public/css/tailwind.css
+public
