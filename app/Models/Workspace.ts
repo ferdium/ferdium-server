@@ -31,16 +31,14 @@ export default class Workspace extends BaseModel {
   public services: string;
 
   @column()
-  public data: string; // JSON string that match type CustomData
+  public data: string;
+
+  @column()
+  public iconUrl: string;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
-}
-
-export interface CustomData {
-  name?: string;
-  iconUrl?: string;
 }

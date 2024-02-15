@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { validator, schema } from '@ioc:Adonis/Core/Validator';
-import Workspace, { type CustomData } from 'App/Models/Workspace';
+import Workspace from 'App/Models/Workspace';
 import { v4 as uuid } from 'uuid';
 
 const createSchema = schema.create({
@@ -89,16 +89,6 @@ export default class WorkspaceController {
     const data = request.all();
     const { id } = params;
 
-    const currentWorkspace = await Workspace.query()
-      .where('workspaceId', id)
-      .where('userId', user.id)
-      .firstOrFail();
-    const customData: CustomData = JSON.parse(currentWorkspace.data || '{}');
-    Object.assign(customData, {
-      name: data.name,
-      iconUrl: data.iconUrl,
-    });
-
     // Update data in database
     await Workspace.query()
       .where('workspaceId', id)
@@ -106,7 +96,7 @@ export default class WorkspaceController {
       .update({
         name: data.name,
         services: JSON.stringify(data.services),
-        data: JSON.stringify(customData),
+        iconUrl: data.iconUrl,
       });
 
     // Get updated row
@@ -117,11 +107,10 @@ export default class WorkspaceController {
 
     return response.send({
       id: workspace.workspaceId,
-      name: workspace.name,
+      name: data.name,
       order: workspace.order,
-      services: workspace.services,
+      services: data.services,
       userId: user.id,
-      iconUrl: customData.iconUrl,
     });
   }
 
@@ -177,30 +166,20 @@ export default class WorkspaceController {
 
     const workspaces = await user.related('workspaces').query();
     // Convert to array with all data Franz wants
-    let workspacesArray: Workspace[] = [];
+    let workspacesArray: object[] = [];
     if (workspaces) {
-      workspacesArray = workspaces.map((workspace: Workspace) => {
-        let data: CustomData = {};
-        try {
-          data = JSON.parse(workspace.data);
-        } catch (error) {
-          console.warn(
-            `[WorkspaceController] list ${workspace.workspaceId}. Error parsing data JSON`,
-            error,
-          );
-        }
-        return {
-          id: workspace.workspaceId,
-          name: workspace.name,
-          order: workspace.order,
-          services:
-            typeof workspace.services === 'string'
-              ? JSON.parse(workspace.services)
-              : workspace.services,
-          userId: user.id,
-          iconUrl: data.iconUrl ?? '',
-        };
-      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      workspacesArray = workspaces.map((workspace: any) => ({
+        id: workspace.workspaceId,
+        name: workspace.name,
+        iconUrl: workspace.iconUrl,
+        order: workspace.order,
+        services:
+          typeof workspace.services === 'string'
+            ? JSON.parse(workspace.services)
+            : workspace.services,
+        userId: user.id,
+      }));
     }
 
     return response.send(workspacesArray);
