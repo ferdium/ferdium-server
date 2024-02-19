@@ -1,54 +1,87 @@
-import Route from '@ioc:Adonis/Core/Route';
+import { middleware } from '#start/kernel';
+import router from '@adonisjs/core/services/router';
+const HealthController = () => import('#controllers/Http/HealthController');
+const LoginController = () =>
+  import('#controllers/Http/Dashboard/LoginController');
+const ForgotPasswordController = () =>
+  import('#controllers/Http/Dashboard/ForgotPasswordController');
+const ResetPasswordController = () =>
+  import('#controllers/Http/Dashboard/ResetPasswordController');
+const AccountController = () =>
+  import('#controllers/Http/Dashboard/AccountController');
+const DataController = () =>
+  import('#controllers/Http/Dashboard/DataController');
+const ExportController = () =>
+  import('#controllers/Http/Dashboard/ExportController');
+const TransferController = () =>
+  import('#controllers/Http/Dashboard/TransferController');
+const DeleteController = () =>
+  import('#controllers/Http/Dashboard/DeleteController');
+const LogOutController = () =>
+  import('#controllers/Http/Dashboard/LogOutController');
+const UserController = () => import('#controllers/Http/UserController');
 
 // Health check
-Route.get('health', 'HealthController.index');
+router.get('health', [HealthController, 'index']);
 
 // Legal documents
-Route.get('terms', ({ response }) => response.redirect('/terms.html'));
-Route.get('privacy', ({ response }) => response.redirect('/privacy.html'));
+router.get('terms', ({ response }) => response.redirect('/terms.html'));
+router.get('privacy', ({ response }) => response.redirect('/privacy.html'));
 
 // Index
-Route.get('/', ({ view }) => view.render('others/index'));
+router.get('/', ({ view }) => view.render('others/index'));
 
-Route.group(() => {
-  Route.group(() => {
-    // Guest troutes
-    Route.group(() => {
-      Route.get('login', 'Dashboard/LoginController.show');
-      Route.post('login', 'Dashboard/LoginController.login').as('login');
+router
+  .group(() => {
+    router
+      .group(() => {
+        // Guest troutes
+        router
+          .group(() => {
+            router.get('login', [LoginController, 'show']);
+            router.post('login', [LoginController, 'login']).as('login');
 
-      // Reset password
-      Route.get('forgot', 'Dashboard/ForgotPasswordController.show');
-      Route.post('forgot', 'Dashboard/ForgotPasswordController.forgotPassword');
+            // Reset password
+            router.get('forgot', [ForgotPasswordController, 'show']);
+            router.post('forgot', [ForgotPasswordController, 'forgotPassword']);
 
-      Route.get('reset', 'Dashboard/ResetPasswordController.show');
-      Route.post('reset', 'Dashboard/ResetPasswordController.resetPassword');
-    }).middleware(['dashboard', 'guest']);
+            router.get('reset', [ResetPasswordController, 'show']);
+            router.post('reset', [ResetPasswordController, 'resetPassword']);
+          })
+          .use(middleware.dashboard())
+          .use(middleware.guest());
 
-    // Authenticated routes
-    Route.group(() => {
-      Route.get('account', 'Dashboard/AccountController.show');
-      Route.post('account', 'Dashboard/AccountController.store');
+        // Authenticated routes
+        router
+          .group(() => {
+            router.get('account', [AccountController, 'show']);
+            router.post('account', [AccountController, 'store']);
 
-      Route.get('data', 'Dashboard/DataController.show');
-      Route.get('export', 'Dashboard/ExportController.show');
+            router.get('data', [DataController, 'show']);
+            router.get('export', [ExportController, 'show']);
 
-      Route.get('transfer', 'Dashboard/TransferController.show');
-      Route.post('transfer', 'Dashboard/TransferController.import');
+            router.get('transfer', [TransferController, 'show']);
+            router.post('transfer', [TransferController, 'import']);
 
-      Route.get('delete', 'Dashboard/DeleteController.show');
-      Route.post('delete', 'Dashboard/DeleteController.delete');
+            router.get('delete', [DeleteController, 'show']);
+            router.post('delete', [DeleteController, 'delete']);
 
-      Route.get('logout', 'Dashboard/LogOutController.logout');
+            router.get('logout', [LogOutController, 'logout']);
 
-      Route.get('*', ({ response }) => response.redirect('/user/account'));
-    }).middleware(['dashboard', 'auth:web']);
-  }).prefix('user');
+            router.get('*', ({ response }) =>
+              response.redirect('/user/account'),
+            );
+          })
+          .use(middleware.dashboard())
+          .use(middleware.auth());
+      })
+      .prefix('user');
 
-  // Franz/Ferdi account import
-  Route.get('import', ({ view }) => view.render('others/import'));
-  Route.post('import', 'UserController.import');
+    // Franz/Ferdi account import
+    router.get('import', ({ view }) => view.render('others/import'));
+    router.post('import', [UserController, 'import']);
 
-  // 404 handler
-  Route.get('/*', ({ response }) => response.redirect('/'));
-}).middleware(['dashboard']);
+    // 404 handler
+    router.get('/*', ({ response }) => response.redirect('/'));
+  })
+  .use(middleware.dashboard());

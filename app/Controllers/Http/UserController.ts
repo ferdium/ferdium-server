@@ -1,15 +1,17 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, rules } from '@ioc:Adonis/Core/Validator';
-import User from 'App/Models/User';
-import { connectWithFranz, isRegistrationEnabled } from '../../../config/app';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, rules } from '@adonisjs/validator';
+import User from '#app/Models/User';
+import {
+  connectWithFranz,
+  isRegistrationEnabled,
+} from '../../../config/app.js';
 import crypto from 'node:crypto';
 import { v4 as uuid } from 'uuid';
-import Workspace from 'App/Models/Workspace';
-import Service from 'App/Models/Service';
-import fetch from 'node-fetch';
+import Workspace from '#app/Models/Workspace';
+import Service from '#app/Models/Service';
 
 // TODO: This file needs to be refactored and cleaned up to include types
-import { handleVerifyAndReHash } from '../../../helpers/PasswordHash';
+import { handleVerifyAndReHash } from '../../../helpers/PasswordHash.js';
 
 const newPostSchema = schema.create({
   firstname: schema.string(),
@@ -54,7 +56,7 @@ const franzRequest = (route: any, method: any, auth: any) =>
 
 export default class UsersController {
   // Register a new user
-  public async signup({ request, response, auth }: HttpContextContract) {
+  public async signup({ request, response, auth }: HttpContext) {
     if (isRegistrationEnabled === 'false') {
       return response.status(401).send({
         message: 'Registration is disabled on this server',
@@ -100,7 +102,7 @@ export default class UsersController {
   }
 
   // Login using an existing user
-  public async login({ request, response, auth }: HttpContextContract) {
+  public async login({ request, response, auth }: HttpContext) {
     if (!request.header('Authorization')) {
       return response.status(401).send({
         message: 'Please provide authorization',
@@ -149,7 +151,7 @@ export default class UsersController {
   }
 
   // Return information about the current user
-  public async me({ request, response, auth }: HttpContextContract) {
+  public async me({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -179,7 +181,7 @@ export default class UsersController {
     });
   }
 
-  public async updateMe({ request, response, auth }: HttpContextContract) {
+  public async updateMe({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -220,7 +222,7 @@ export default class UsersController {
     });
   }
 
-  public async newToken({ request, response, auth }: HttpContextContract) {
+  public async newToken({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -235,7 +237,7 @@ export default class UsersController {
     });
   }
 
-  public async import({ request, response, view }: HttpContextContract) {
+  public async import({ request, response, view }: HttpContext) {
     if (isRegistrationEnabled === 'false') {
       return response.status(401).send({
         message: 'Registration is disabled on this server',
@@ -290,7 +292,8 @@ export default class UsersController {
           'x-franz-source': 'Web',
         },
       });
-      const content = await rawResponse.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const content: any = await rawResponse.json();
 
       if (!content.message || content.message !== 'Successfully logged in') {
         const errorMessage =

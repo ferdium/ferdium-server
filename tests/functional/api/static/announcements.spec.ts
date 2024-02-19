@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { apiVersion } from '../../../config';
+import { apiVersion } from '../../../config.js';
 
 test.group('API / Static / News', () => {
   test('returns a 404 response when the requested versions does not exist', async ({

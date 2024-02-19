@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { apiVersion } from '../../../config';
+import { apiVersion } from '../../../config.js';
 
 test.group('API / Static / Services', () => {
   test('returns a 200 response with empty array', async ({ client }) => {

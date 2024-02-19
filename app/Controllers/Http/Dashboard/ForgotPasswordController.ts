@@ -1,19 +1,19 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-import User from 'App/Models/User';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, rules, validator } from '@adonisjs/validator';
+import User from '#app/Models/User';
 
 export default class ForgotPasswordController {
   /**
    * Display the forgot password form
    */
-  public async show({ view }: HttpContextContract) {
+  public async show({ view }: HttpContext) {
     return view.render('dashboard/forgotPassword');
   }
 
   /**
    * Send forget password email to user
    */
-  public async forgotPassword({ view, request }: HttpContextContract) {
+  public async forgotPassword({ view, request }: HttpContext) {
     try {
       await validator.validate({
         schema: schema.create({

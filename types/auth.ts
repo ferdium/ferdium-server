@@ -5,7 +5,7 @@
  * file.
  */
 
-import User from 'App/Models/User';
+import User from '#app/Models/User';
 import { JWTGuardConfig, JWTGuardContract } from '@ioc:Adonis/Addons/Jwt';
 
 declare module '@ioc:Adonis/Addons/Auth' {

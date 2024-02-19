@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import UserFactory from 'Database/factories/UserFactory';
+import UserFactory from '#database/factories/UserFactory';
 
 test.group('Dashboard / Login page', () => {
   test('returns a 200 opening the login route', async ({ client }) => {

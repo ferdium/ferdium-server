@@ -1,6 +1,6 @@
-import View from '@ioc:Adonis/Core/View';
+import edge from 'edge.js';
 
 export function fakeCsrfField(): void {
   // Create fake csrField function in the view
-  View.global('csrfField', () => '');
+  edge.global('csrfField', () => '');
 }

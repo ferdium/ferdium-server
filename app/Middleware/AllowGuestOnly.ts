@@ -1,5 +1,5 @@
 import { GuardsList } from '@ioc:Adonis/Addons/Auth';
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { HttpContext } from '@adonisjs/core/http';
 import { AuthenticationException } from '@adonisjs/auth/build/standalone';
 
 /**
@@ -13,7 +13,7 @@ export default class GuestMiddleware {
   protected redirectTo = '/dashboard';
 
   protected async authenticate(
-    auth: HttpContextContract['auth'],
+    auth: HttpContext['auth'],
     guards: (keyof GuardsList)[],
   ) {
     let guardLastAttempted: string | undefined;
@@ -39,7 +39,7 @@ export default class GuestMiddleware {
    * Handle request
    */
   public async handle(
-    { auth }: HttpContextContract,
+    { auth }: HttpContext,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[],
   ) {

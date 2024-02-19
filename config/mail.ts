@@ -1,118 +1,55 @@
-/**
- * Config source: https://git.io/JvgAf
- *
- * Feel free to let us know via PR, if you find something broken in this contract
- * file.
- */
+import env from '#start/env';
+import { defineConfig, transports } from '@adonisjs/mail';
 
-import Env from '@ioc:Adonis/Core/Env';
-import { mailConfig } from '@adonisjs/mail/build/config';
+const mailConfig = defineConfig({
+  default: 'smtp',
 
-export default mailConfig({
-  /*
-  |--------------------------------------------------------------------------
-  | Default mailer
-  |--------------------------------------------------------------------------
-  |
-  | The following mailer will be used to send emails, when you don't specify
-  | a mailer
-  |
-  */
-  mailer: Env.get('MAIL_CONNECTION', 'smtp'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | Mailers
-  |--------------------------------------------------------------------------
-  |
-  | You can define or more mailers to send emails from your application. A
-  | single `driver` can be used to define multiple mailers with different
-  | config.
-  |
-  | For example: Postmark driver can be used to have different mailers for
-  | sending transactional and promotional emails
-  |
-  */
+  /**
+   * The mailers object can be used to configure multiple mailers
+   * each using a different transport or same transport with different
+   * options.
+   */
   mailers: {
-    /*
-    |--------------------------------------------------------------------------
-    | Smtp
-    |--------------------------------------------------------------------------
-    |
-    | Uses SMTP protocol for sending email
-    |
-    */
-    smtp: {
-      driver: 'smtp',
-      name: Env.get('APP_URL'),
-      port: Env.get('SMTP_PORT', '2525'),
-      host: Env.get('SMTP_HOST', 'localhost'),
-      secure: JSON.parse(Env.get('MAIL_SSL', 'false')),
-      requireTLS: JSON.parse(Env.get('MAIL_REQUIRE_TLS', 'false')),
+    smtp: transports.smtp({
+      port: env.get('SMTP_PORT', '2525'),
+      host: env.get('SMTP_HOST', 'localhost'),
+      secure: JSON.parse(env.get('MAIL_SSL', 'false')),
+      requireTLS: JSON.parse(env.get('MAIL_REQUIRE_TLS', 'false')),
       auth: {
-        user: Env.get('MAIL_USERNAME'),
-        pass: Env.get('MAIL_PASSWORD'),
+        user: env.get('MAIL_USERNAME')!,
+        pass: env.get('MAIL_PASSWORD')!,
         type: 'login',
       },
       maxConnections: 5,
       maxMessages: 100,
-      rateLimit: 10,
-    },
+    }),
 
-    /*
-    |--------------------------------------------------------------------------
-    | SES
-    |--------------------------------------------------------------------------
-    |
-    | Uses Amazon SES for sending emails. You will have to install the aws-sdk
-    | when using this driver.
-    |
-    | ```
-    | npm i aws-sdk
-    | ```
-    |
-    */
-    ses: {
-      driver: 'ses',
+    ses: transports.ses({
       apiVersion: '2010-12-01',
-      key: Env.get('SES_ACCESS_KEY'),
-      secret: Env.get('SES_ACCESS_SECRET'),
-      region: Env.get('SES_REGION'),
-      sslEnabled: true,
+      credentials: {
+        accessKeyId: env.get('SES_ACCESS_KEY')!,
+        secretAccessKey: env.get('SES_ACCESS_SECRET')!,
+      },
+      region: process.env.SES_REGION!,
       sendingRate: 10,
       maxConnections: 5,
-    },
+    }),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Mailgun
-    |--------------------------------------------------------------------------
-    |
-		| Uses Mailgun service for sending emails.
-    |
-    | If you are using an EU domain. Ensure to change the baseUrl to hit the
-    | europe endpoint (https://api.eu.mailgun.net/v3).
-    |
-    */
-    mailgun: {
-      driver: 'mailgun',
+    mailgun: transports.mailgun({
       baseUrl: 'https://api.mailgun.net/v3',
-      key: Env.get('MAILGUN_API_KEY'),
-      domain: Env.get('MAILGUN_DOMAIN'),
-    },
+      key: env.get('MAILGUN_API_KEY')!,
+      domain: env.get('MAILGUN_DOMAIN')!,
+    }),
 
-    /*
-    |--------------------------------------------------------------------------
-    | SparkPost
-    |--------------------------------------------------------------------------
-    |
-		| Uses Sparkpost service for sending emails.
-    |
-    */
-    sparkpost: {
-      driver: 'sparkpost',
+    sparkpost: transports.sparkpost({
       baseUrl: 'https://api.sparkpost.com/api/v1',
-      key: Env.get('SPARKPOST_API_KEY'),
-    },
+      key: env.get('SPARKPOST_API_KEY')!,
+    }),
   },
 });
+
+export default mailConfig;
+
+declare module '@adonisjs/mail/types' {
+  export interface MailersList extends InferMailers<typeof mailConfig> {}
+}

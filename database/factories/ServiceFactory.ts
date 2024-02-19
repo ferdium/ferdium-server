@@ -1,5 +1,5 @@
-import Service from 'App/Models/Service';
-import Factory from '@ioc:Adonis/Lucid/Factory';
+import Service from '#app/Models/Service';
+import Factory from '@adonisjs/lucid/factories';
 
 export default Factory.define(Service, ({ faker }) => ({
   name: faker.company.name(),

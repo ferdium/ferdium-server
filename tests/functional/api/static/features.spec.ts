@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import { apiVersion } from '../../../config';
+import { apiVersion } from '../../../config.js';
 
 const defaultResponse = {
   isServiceProxyEnabled: true,

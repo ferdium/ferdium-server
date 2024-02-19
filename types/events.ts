@@ -5,9 +5,9 @@
  * file.
  */
 
-import User from 'App/Models/User';
+import User from '#app/Models/User';
 
-declare module '@ioc:Adonis/Core/Event' {
+declare module '@adonisjs/core/events' {
   /*
   |--------------------------------------------------------------------------
   | Define typed events

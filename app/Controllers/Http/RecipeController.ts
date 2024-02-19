@@ -1,10 +1,10 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContext } from '@adonisjs/core/http';
 import fs from 'fs-extra';
-import Application from '@ioc:Adonis/Core/Application';
+import app from '@adonisjs/core/services/app';
 import path from 'node:path';
-import Recipe from 'App/Models/Recipe';
-import { isCreationEnabled } from 'Config/app';
-import { validator, schema, rules } from '@ioc:Adonis/Core/Validator';
+import Recipe from '#app/Models/Recipe';
+import { isCreationEnabled } from '#config/app';
+import { validator, schema, rules } from '@adonisjs/validator';
 import targz from 'targz';
 import semver from 'semver';
 import Drive from '@ioc:Adonis/Core/Drive';
@@ -49,9 +49,9 @@ const compress = (src: string, dest: string) =>
 
 export default class RecipesController {
   // List official and custom recipes
-  public async list({ response }: HttpContextContract) {
+  public async list({ response }: HttpContext) {
     const officialRecipes = fs.readJsonSync(
-      path.join(Application.appRoot, 'recipes', 'all.json'),
+      path.join(app.appRoot.host, 'recipes', 'all.json'),
     );
     const customRecipesArray = await Recipe.all();
     const customRecipes = customRecipesArray.map(recipe => ({
@@ -69,11 +69,11 @@ export default class RecipesController {
 
   // TODO: Test this endpoint
   // Create a new recipe using the new.html page
-  public async create({ request, response }: HttpContextContract) {
+  public async create({ request, response }: HttpContext) {
     // Check if recipe creation is enabled
     if (isCreationEnabled === 'false') {
       return response.send(
-        'This server doesn\'t allow the creation of new recipes.',
+        "This server doesn't allow the creation of new recipes.",
       );
     }
 
@@ -101,19 +101,19 @@ export default class RecipesController {
     }
 
     // Clear temporary recipe folder
-    await fs.emptyDir(Application.tmpPath('recipe'));
+    await fs.emptyDir(app.tmpPath('recipe'));
 
     // Move uploaded files to temporary path
     const files = request.file('files');
     if (!files) {
       return response.abort('Error processsing files.');
     }
-    await files.move(Application.tmpPath('recipe'));
+    await files.move(app.tmpPath('recipe'));
 
     // Compress files to .tar.gz file
-    const source = Application.tmpPath('recipe');
+    const source = app.tmpPath('recipe');
     const destination = path.join(
-      Application.appRoot,
+      app.appRoot.host,
       `/recipes/archives/${data.id}.tar.gz`,
     );
 
@@ -138,7 +138,7 @@ export default class RecipesController {
   }
 
   // Search official and custom recipes
-  public async search({ request, response }: HttpContextContract) {
+  public async search({ request, response }: HttpContext) {
     // Validate user input
     let data;
     try {
@@ -183,21 +183,21 @@ export default class RecipesController {
     return response.send(results);
   }
 
-  public popularRecipes({ response }: HttpContextContract) {
+  public popularRecipes({ response }: HttpContext) {
     return response.send(
       fs
-        .readJsonSync(path.join(Application.appRoot, 'recipes', 'all.json'))
+        .readJsonSync(path.join(app.appRoot.host, 'recipes', 'all.json'))
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((recipe: any) => recipe.featured),
     );
   }
 
   // TODO: test this endpoint
-  public update({ request, response }: HttpContextContract) {
+  public update({ request, response }: HttpContext) {
     const updates = [];
     const recipes = request.all();
     const allJson = fs.readJsonSync(
-      path.join(Application.appRoot, 'recipes', 'all.json'),
+      path.join(app.appRoot.host, 'recipes', 'all.json'),
     );
 
     for (const recipe of Object.keys(recipes)) {
@@ -216,7 +216,7 @@ export default class RecipesController {
 
   // TODO: test this endpoint
   // Download a recipe
-  public async download({ response, params }: HttpContextContract) {
+  public async download({ response, params }: HttpContext) {
     // Validate user input
     let data;
     try {

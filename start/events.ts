@@ -1,6 +1,6 @@
-import Config from '@ioc:Adonis/Core/Config';
-import Event from '@ioc:Adonis/Core/Event';
-import Mail from '@ioc:Adonis/Addons/Mail';
+import emitter from '@adonisjs/core/services/emitter';
+import mail from '@adonisjs/mail/services/main';
+import config from '@adonisjs/core/services/config';
 
 /*
 |--------------------------------------------------------------------------
@@ -11,17 +11,17 @@ import Mail from '@ioc:Adonis/Addons/Mail';
 | boot.
 |
 */
-Event.on('forgot::password', async ({ user, token }) => {
+emitter.on('forgot::password', async ({ user, token }) => {
   try {
     // eslint-disable-next-line no-console
     console.log('Sending message');
-    await Mail.send(message => {
+    await mail.send(message => {
       message
         .subject('[Ferdium] Forgot Password')
         .to(user.email)
-        .from(Config.get('dasshboard.mailFrom'))
+        .from(config.get('dasshboard.mailFrom'))
         .textView('emails.forgot-password', {
-          appUrl: Config.get('app.url'),
+          appUrl: config.get('app.url'),
           username: user.username,
           token,
         });

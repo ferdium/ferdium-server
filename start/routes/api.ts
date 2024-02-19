@@ -1,51 +1,80 @@
 // As this is currently a rebuild of the initial API we it is grouped in /v2/
 
-import Route from '@ioc:Adonis/Core/Route';
+import { middleware } from '#start/kernel';
+import router from '@adonisjs/core/services/router';
+const UserController = () => import('#controllers/Http/UserController');
+const ServiceController = () => import('#controllers/Http/ServiceController');
+const RecipeController = () => import('#controllers/Http/RecipeController');
+const WorkspaceController = () =>
+  import('#controllers/Http/WorkspaceController');
+const FeaturesController = () =>
+  import('#controllers/Http/Api/Static/FeaturesController');
+const EmptyController = () =>
+  import('#controllers/Http/Api/Static/EmptyController');
+const AnnouncementsController = () =>
+  import('#controllers/Http/Api/Static/AnnouncementsController');
 
-Route.group(() => {
-  // User authentification
-  Route.post('auth/signup', 'UserController.signup').middleware('guest');
-  Route.post('auth/login', 'UserController.login').middleware('guest');
+router
+  .group(() => {
+    // User authentification
+    router
+      .post('auth/signup', [UserController, 'signup'])
+      .use(middleware.guest());
+    router
+      .post('auth/login', [UserController, 'login'])
+      .use(middleware.guest());
 
-  // User info
-  Route.get('me', 'UserController.me').middleware('auth:jwt');
-  Route.put('me', 'UserController.updateMe').middleware('auth:jwt');
-  Route.get('me/newtoken', 'UserController.newToken').middleware('auth:jwt');
+    // User info
+    router.get('me', [UserController, 'me']).use(middleware.auth());
+    router.put('me', [UserController, 'updateMe']).use(middleware.auth());
+    router
+      .get('me/newtoken', [UserController, 'newToken'])
+      .use(middleware.auth());
 
-  // // Service info
-  Route.post('service', 'ServiceController.create').middleware('auth:jwt');
-  Route.put('service/reorder', 'ServiceController.reorder').middleware(
-    'auth:jwt',
-  );
-  Route.put('service/:id', 'ServiceController.edit').middleware('auth:jwt');
-  Route.delete('service/:id', 'ServiceController.delete').middleware(
-    'auth:jwt',
-  );
-  Route.get('me/services', 'ServiceController.list').middleware('auth:jwt');
-  Route.get('recipe', 'ServiceController.list').middleware('auth:jwt');
-  Route.get('icon/:id', 'ServiceController.icon');
+    // // Service info
+    router
+      .post('service', [ServiceController, 'create'])
+      .use(middleware.auth());
+    router
+      .put('service/reorder', [ServiceController, 'reorder'])
+      .use(middleware.auth());
+    router
+      .put('service/:id', [ServiceController, 'edit'])
+      .use(middleware.auth());
+    router
+      .delete('service/:id', [ServiceController, 'delete'])
+      .use(middleware.auth());
+    router
+      .get('me/services', [ServiceController, 'list'])
+      .use(middleware.auth());
+    router.get('recipe', [ServiceController, 'list']).use(middleware.auth());
+    router.get('icon/:id', [ServiceController, 'icon']);
 
-  // Recipe store
-  Route.get('recipes', 'RecipeController.list');
-  Route.get('recipes/search', 'RecipeController.search');
-  Route.get('recipes/popular', 'RecipeController.popularRecipes');
-  Route.get('recipes/download/:recipe', 'RecipeController.download');
-  Route.post('recipes/update', 'RecipeController.update');
+    // Recipe store
+    router.get('recipes', [RecipeController, 'list']);
+    router.get('recipes/search', [RecipeController, 'search']);
+    router.get('recipes/popular', [RecipeController, 'popularRecipes']);
+    router.get('recipes/download/:recipe', [RecipeController, 'download']);
+    router.post('recipes/update', [RecipeController, 'update']);
 
-  // // Workspaces
-  Route.put('workspace/:id', 'WorkspaceController.edit').middleware('auth:jwt');
-  Route.delete('workspace/:id', 'WorkspaceController.delete').middleware(
-    'auth:jwt',
-  );
-  Route.post('workspace', 'WorkspaceController.create').middleware('auth:jwt');
-  Route.get('workspace', 'WorkspaceController.list').middleware('auth:jwt');
+    // // Workspaces
+    router
+      .put('workspace/:id', [WorkspaceController, 'edit'])
+      .use(middleware.auth());
+    router
+      .delete('workspace/:id', [WorkspaceController, 'delete'])
+      .use(middleware.auth());
+    router
+      .post('workspace', [WorkspaceController, 'create'])
+      .use(middleware.auth());
+    router
+      .get('workspace', [WorkspaceController, 'list'])
+      .use(middleware.auth());
 
-  // Static responses
-  Route.get('features/:mode?', 'Api/Static/FeaturesController.show');
-  Route.get('services', 'Api/Static/EmptyController.show');
-  Route.get('news', 'Api/Static/EmptyController.show');
-  Route.get(
-    'announcements/:version',
-    'Api/Static/AnnouncementsController.show',
-  );
-}).prefix('/v1');
+    // Static responses
+    router.get('features/:mode?', [FeaturesController, 'show']);
+    router.get('services', [EmptyController, 'show']);
+    router.get('news', [EmptyController, 'show']);
+    router.get('announcements/:version', [AnnouncementsController, 'show']);
+  })
+  .prefix('/v1');

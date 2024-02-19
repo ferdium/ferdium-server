@@ -1,7 +1,7 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, validator } from '@ioc:Adonis/Core/Validator';
-import Service from 'App/Models/Service';
-import Workspace from 'App/Models/Workspace';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, validator } from '@adonisjs/validator';
+import Service from '#app/Models/Service';
+import Workspace from '#app/Models/Workspace';
 import { v4 as uuidv4 } from 'uuid';
 
 const importSchema = schema.create({
@@ -16,17 +16,11 @@ export default class TransferController {
   /**
    * Display the transfer page
    */
-  public async show({ view }: HttpContextContract) {
+  public async show({ view }: HttpContext) {
     return view.render('dashboard/transfer');
   }
 
-  public async import({
-    auth,
-    request,
-    response,
-    session,
-    view,
-  }: HttpContextContract) {
+  public async import({ auth, request, response, session, view }: HttpContext) {
     let file;
     try {
       file = await validator.validate({

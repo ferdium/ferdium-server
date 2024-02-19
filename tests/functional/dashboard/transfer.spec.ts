@@ -1,6 +1,6 @@
 import { test } from '@japa/runner';
 import { readFileSync } from 'node:fs';
-import UserFactory from 'Database/factories/UserFactory';
+import UserFactory from '#database/factories/UserFactory';
 
 test.group('Dashboard / Transfer page', () => {
   test('redirects to /user/login when accessing /user/transfer as guest', async ({

@@ -1,5 +1,5 @@
-import Token from 'App/Models/Token';
-import Factory from '@ioc:Adonis/Lucid/Factory';
+import Token from '#app/Models/Token';
+import Factory from '@adonisjs/lucid/factories';
 import { DateTime } from 'luxon';
 
 export default Factory.define(Token, async ({ faker }) => ({

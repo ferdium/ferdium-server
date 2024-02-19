@@ -1,12 +1,12 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, rules, validator } from '@adonisjs/validator';
 import crypto from 'node:crypto';
 
 export default class AccountController {
   /**
    * Shows the user account page
    */
-  public async show({ auth, view }: HttpContextContract) {
+  public async show({ auth, view }: HttpContext) {
     return view.render('dashboard/account', {
       username: auth.user?.username,
       email: auth.user?.email,
@@ -17,13 +17,7 @@ export default class AccountController {
   /**
    * Stores user account data
    */
-  public async store({
-    auth,
-    request,
-    response,
-    session,
-    view,
-  }: HttpContextContract) {
+  public async store({ auth, request, response, session, view }: HttpContext) {
     try {
       await validator.validate({
         schema: schema.create({
