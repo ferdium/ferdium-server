@@ -73,7 +73,7 @@ The server will be launched at [http://localhost:3333/](http://localhost:3333/) 
 
 ## Configuration
 
-Container images are configured using parameters passed at runtime (such as those above). An explanaition of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
+Container images are configured using parameters passed at runtime (such as those above). An explanation of the default parameters is included below, but please see [the Docker documentation](https://docs.docker.com/get-started/overview/) for additional information.
 
 <strike>If any environment parameter is not passed to the container, its value will be taken from the `/config/config.txt` file.</strike>
 **Warning, the use of `config.txt` is now deprecated. Please make sure to pass the correct environment variables to your container at runtime. **
@@ -138,7 +138,7 @@ If you are an existing Ferdium-server user using the built-in `SQlite` database,
 | `-e DATA_DIR=/app/database` | existing Ferdium-server users who use the built-in sqlite database should add this environment variable to ensure data persistence |
 | `-v <path to data on host>=/app/databases` | existing Ferdium-server users who use the built-in sqlite database should use the volume name `/app/database` |
 
-If you are an existing Ferdium-server user who uses an external database or different variables for the built-in `SQlite` database, you should updatae your parameterse acordingly. For example, if you aree using an exterenal MariaDB or MySql database your unique parameters might look like this:
+If you are an existing Ferdium-server user who uses an external database or different variables for the built-in `SQlite` database, you should update your parameterse acordingly. For example, if you are using an external MariaDB or MySql database your unique parameters might look like this:
 | Parameter | Function |
 | :----: | --- |
 | `-e DB_CONNECTION=mysql` | for specifying the database being used |
@@ -148,7 +148,7 @@ If you are an existing Ferdium-server user who uses an external database or diff
 | `-e DB_PASSWORD=ferdiumpw` | for specifying the database password|
 | `-e DB_DATABASE=adonis` | for specifying the database to be used|
 | `-v <path to database>:/app/database` | this will store Ferdium-server's database on the docker host for persistence |
-| `-v <path to recipes>:/app/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
+| `-v <path to recipes>:/app/build/recipes` | this will store Ferdium-server's recipes on the docker host for persistence |
 
 **In either case, please be sure to pass the correct variables to the new Ferdium-server container in order maintain access to your existing database.**
 

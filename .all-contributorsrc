@@ -130,6 +130,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/4040241?v=4",
       "profile": "http://lnhrdt.com",
       "contributions": ["infra"]
+    },
+    {
+      "login": "fabolhak",
+      "name": "Fabian H.",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20029691?v=4",
+      "profile": "https://github.com/fabolhak",
+      "contributions": ["doc"]
     }
-  ]
+  ],
+  "commitType": "docs"
 }

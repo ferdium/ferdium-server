@@ -4,6 +4,14 @@ import router from '@adonisjs/core/services/router';
 const UserController = () => import('#controllers/Http/UserController');
 const ServiceController = () => import('#controllers/Http/ServiceController');
 const RecipeController = () => import('#controllers/Http/RecipeController');
+const WorkspaceController = () =>
+  import('#controllers/Http/WorkspaceController');
+const FeaturesController = () =>
+  import('#controllers/Http/Api/Static/FeaturesController');
+const EmptyController = () =>
+  import('#controllers/Http/Api/Static/EmptyController');
+const AnnouncementsController = () =>
+  import('#controllers/Http/Api/Static/AnnouncementsController');
 
 router
   .group(() => {
@@ -46,23 +54,22 @@ router
 
     // // Workspaces
     router
-      .put('workspace/:id', 'WorkspaceController.edit')
+      .put('workspace/:id', [WorkspaceController, 'edit'])
       .middleware('auth:jwt');
     router
-      .delete('workspace/:id', 'WorkspaceController.delete')
+      .delete('workspace/:id', [WorkspaceController, 'delete'])
       .middleware('auth:jwt');
     router
-      .post('workspace', 'WorkspaceController.create')
+      .post('workspace', [WorkspaceController, 'create'])
       .middleware('auth:jwt');
-    router.get('workspace', 'WorkspaceController.list').middleware('auth:jwt');
+    router
+      .get('workspace', [WorkspaceController, 'list'])
+      .middleware('auth:jwt');
 
     // Static responses
-    router.get('features/:mode?', 'Api/Static/FeaturesController.show');
-    router.get('services', 'Api/Static/EmptyController.show');
-    router.get('news', 'Api/Static/EmptyController.show');
-    router.get(
-      'announcements/:version',
-      'Api/Static/AnnouncementsController.show',
-    );
+    router.get('features/:mode?', [FeaturesController, 'show']);
+    router.get('services', [EmptyController, 'show']);
+    router.get('news', [EmptyController, 'show']);
+    router.get('announcements/:version', [AnnouncementsController, 'show']);
   })
   .prefix('/v1');

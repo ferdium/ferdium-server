@@ -1,7 +1,27 @@
 import router from '@adonisjs/core/services/router';
+const HealthController = () => import('#controllers/Http/HealthController');
+const LoginController = () =>
+  import('#controllers/Http/Dashboard/LoginController');
+const ForgotPasswordController = () =>
+  import('#controllers/Http/Dashboard/ForgotPasswordController');
+const ResetPasswordController = () =>
+  import('#controllers/Http/Dashboard/ResetPasswordController');
+const AccountController = () =>
+  import('#controllers/Http/Dashboard/AccountController');
+const DataController = () =>
+  import('#controllers/Http/Dashboard/DataController');
+const ExportController = () =>
+  import('#controllers/Http/Dashboard/ExportController');
+const TransferController = () =>
+  import('#controllers/Http/Dashboard/TransferController');
+const DeleteController = () =>
+  import('#controllers/Http/Dashboard/DeleteController');
+const LogOutController = () =>
+  import('#controllers/Http/Dashboard/LogOutController');
+const UserController = () => import('#controllers/Http/UserController');
 
 // Health check
-router.get('health', 'HealthController.index');
+router.get('health', [HealthController, 'index']);
 
 // Legal documents
 router.get('terms', ({ response }) => response.redirect('/terms.html'));
@@ -17,40 +37,34 @@ router
         // Guest troutes
         router
           .group(() => {
-            router.get('login', 'Dashboard/LoginController.show');
-            router.post('login', 'Dashboard/LoginController.login').as('login');
+            router.get('login', [LoginController, 'show']);
+            router.post('login', [LoginController, 'login']).as('login');
 
             // Reset password
-            router.get('forgot', 'Dashboard/ForgotPasswordController.show');
-            router.post(
-              'forgot',
-              'Dashboard/ForgotPasswordController.forgotPassword',
-            );
+            router.get('forgot', [ForgotPasswordController, 'show']);
+            router.post('forgot', [ForgotPasswordController, 'forgotPassword']);
 
-            router.get('reset', 'Dashboard/ResetPasswordController.show');
-            router.post(
-              'reset',
-              'Dashboard/ResetPasswordController.resetPassword',
-            );
+            router.get('reset', [ResetPasswordController, 'show']);
+            router.post('reset', [ResetPasswordController, 'resetPassword']);
           })
           .middleware(['dashboard', 'guest']);
 
         // Authenticated routes
         router
           .group(() => {
-            router.get('account', 'Dashboard/AccountController.show');
-            router.post('account', 'Dashboard/AccountController.store');
+            router.get('account', [AccountController, 'show']);
+            router.post('account', [AccountController, 'store']);
 
-            router.get('data', 'Dashboard/DataController.show');
-            router.get('export', 'Dashboard/ExportController.show');
+            router.get('data', [DataController, 'show']);
+            router.get('export', [ExportController, 'show']);
 
-            router.get('transfer', 'Dashboard/TransferController.show');
-            router.post('transfer', 'Dashboard/TransferController.import');
+            router.get('transfer', [TransferController, 'show']);
+            router.post('transfer', [TransferController, 'import']);
 
-            router.get('delete', 'Dashboard/DeleteController.show');
-            router.post('delete', 'Dashboard/DeleteController.delete');
+            router.get('delete', [DeleteController, 'show']);
+            router.post('delete', [DeleteController, 'delete']);
 
-            router.get('logout', 'Dashboard/LogOutController.logout');
+            router.get('logout', [LogOutController, 'logout']);
 
             router.get('*', ({ response }) =>
               response.redirect('/user/account'),
@@ -62,7 +76,7 @@ router
 
     // Franz/Ferdi account import
     router.get('import', ({ view }) => view.render('others/import'));
-    router.post('import', 'UserController.import');
+    router.post('import', [UserController, 'import']);
 
     // 404 handler
     router.get('/*', ({ response }) => response.redirect('/'));

@@ -1,6 +1,6 @@
-import { Config } from '@adonisjs/core/config';
 import emitter from '@adonisjs/core/services/emitter';
 import mail from '@adonisjs/mail/services/main';
+import config from '@adonisjs/core/services/config';
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +19,9 @@ emitter.on('forgot::password', async ({ user, token }) => {
       message
         .subject('[Ferdium] Forgot Password')
         .to(user.email)
-        .from(Config.get('dasshboard.mailFrom'))
+        .from(config.get('dasshboard.mailFrom'))
         .textView('emails.forgot-password', {
-          appUrl: Config.get('app.url'),
+          appUrl: config.get('app.url'),
           username: user.username,
           token,
         });

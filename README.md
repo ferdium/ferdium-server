@@ -8,7 +8,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-17-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-18-default.svg?logo=github' alt='Contributors'/></a>
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -175,29 +175,32 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href='https://pogonip.pw/' title='nick: code'><img src='https://avatars.githubusercontent.com/u/5242865?v=4' alt='HuggableSquare' style='width:100px;'/></a></td>
-    <td align="center"><a href='http://code-addict.pl' title='Michał Kostewicz: code'><img src='https://avatars.githubusercontent.com/u/6313392?v=4' alt='k0staa' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://gitlab.com/cromefire_' title='Cromefire_: code'><img src='https://avatars.githubusercontent.com/u/26320625?v=4' alt='cromefire' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://omkaragrawal.dev' title='OMKAR AGRAWAL: code'><img src='https://avatars.githubusercontent.com/u/10913160?v=4' alt='Omkaragrawal' style='width:100px;'/></a></td>
-    <td align="center"><a href='http://www.nathanaelhoun.fr' title='Nathanaël Houn: review'><img src='https://avatars.githubusercontent.com/u/45119518?v=4' alt='nathanaelhoun' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/ericreeves' title='Eric Reeves: infra'><img src='https://avatars.githubusercontent.com/u/1744930?v=4' alt='ericreeves' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/SpecialAro' title='André Oliveira: infra, design'><img src='https://avatars.githubusercontent.com/u/37463445?v=4' alt='SpecialAro' style='width:100px;'/></a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href='https://mydarkstar.net' title='mydarkstar: review'><img src='https://avatars.githubusercontent.com/u/17343993?v=4' alt='mydarkstar' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://santhosh.cyou' title='Santhosh C: code'><img src='https://avatars.githubusercontent.com/u/20743451?v=4' alt='santhosh-chinnasamy' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/vraravam' title='Vijay Aravamudhan: review, code'><img src='https://avatars.githubusercontent.com/u/69629?v=4' alt='vraravam' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/dqos' title='Tamer: design'><img src='https://avatars.githubusercontent.com/u/8611981?v=4' alt='dqos' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/Gibby' title='Gibby: infra, doc'><img src='https://avatars.githubusercontent.com/u/503761?v=4' alt='Gibby' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/palepinkdot' title='MG: review'><img src='https://avatars.githubusercontent.com/u/55257671?v=4' alt='palepinkdot' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://github.com/xthursdayx' title='thursday: infra'><img src='https://avatars.githubusercontent.com/u/18044308?v=4' alt='xthursdayx' style='width:100px;'/></a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href='https://vantezzen.io/' title='Bennett: code'><img src='https://avatars.githubusercontent.com/u/10333196?v=4' alt='vantezzen' style='width:100px;'/></a></td>
-    <td align="center"><a href='https://gitlab.com/reggermont/' title='Romain Eggermont: infra'><img src='https://avatars.githubusercontent.com/u/14902909?v=4' alt='reggermont' style='width:100px;'/></a></td>
-    <td align="center"><a href='http://lnhrdt.com' title='Leonhardt Koepsell: infra'><img src='https://avatars.githubusercontent.com/u/4040241?v=4' alt='lnhrdt' style='width:100px;'/></a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href='https://pogonip.pw/' title='nick: code'><img src='https://avatars.githubusercontent.com/u/5242865?v=4' alt='HuggableSquare' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='http://code-addict.pl' title='Michał Kostewicz: code'><img src='https://avatars.githubusercontent.com/u/6313392?v=4' alt='k0staa' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://gitlab.com/cromefire_' title='Cromefire_: code'><img src='https://avatars.githubusercontent.com/u/26320625?v=4' alt='cromefire' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://omkaragrawal.dev' title='OMKAR AGRAWAL: code'><img src='https://avatars.githubusercontent.com/u/10913160?v=4' alt='Omkaragrawal' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='http://www.nathanaelhoun.fr' title='Nathanaël Houn: review'><img src='https://avatars.githubusercontent.com/u/45119518?v=4' alt='nathanaelhoun' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/ericreeves' title='Eric Reeves: infra'><img src='https://avatars.githubusercontent.com/u/1744930?v=4' alt='ericreeves' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/SpecialAro' title='André Oliveira: infra, design'><img src='https://avatars.githubusercontent.com/u/37463445?v=4' alt='SpecialAro' style='width:100px;'/></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href='https://mydarkstar.net' title='mydarkstar: review'><img src='https://avatars.githubusercontent.com/u/17343993?v=4' alt='mydarkstar' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://santhosh.cyou' title='Santhosh C: code'><img src='https://avatars.githubusercontent.com/u/20743451?v=4' alt='santhosh-chinnasamy' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/vraravam' title='Vijay Aravamudhan: review, code'><img src='https://avatars.githubusercontent.com/u/69629?v=4' alt='vraravam' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/dqos' title='Tamer: design'><img src='https://avatars.githubusercontent.com/u/8611981?v=4' alt='dqos' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/Gibby' title='Gibby: infra, doc'><img src='https://avatars.githubusercontent.com/u/503761?v=4' alt='Gibby' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/palepinkdot' title='MG: review'><img src='https://avatars.githubusercontent.com/u/55257671?v=4' alt='palepinkdot' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/xthursdayx' title='thursday: infra'><img src='https://avatars.githubusercontent.com/u/18044308?v=4' alt='xthursdayx' style='width:100px;'/></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href='https://vantezzen.io/' title='Bennett: code'><img src='https://avatars.githubusercontent.com/u/10333196?v=4' alt='vantezzen' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://gitlab.com/reggermont/' title='Romain Eggermont: infra'><img src='https://avatars.githubusercontent.com/u/14902909?v=4' alt='reggermont' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='http://lnhrdt.com' title='Leonhardt Koepsell: infra'><img src='https://avatars.githubusercontent.com/u/4040241?v=4' alt='lnhrdt' style='width:100px;'/></a></td>
+      <td align="center" valign="top" width="14.28%"><a href='https://github.com/fabolhak' title='Fabian H.: doc'><img src='https://avatars.githubusercontent.com/u/20029691?v=4' alt='fabolhak' style='width:100px;'/></a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm';
 import User from './User.js';
-import { HasOne } from '@adonisjs/lucid/types/relations';
+import type { HasOne } from '@adonisjs/lucid/types/relations';
 
 export default class Token extends BaseModel {
   @column({ isPrimary: true })

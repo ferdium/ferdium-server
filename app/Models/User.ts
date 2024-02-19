@@ -11,7 +11,7 @@ import Service from './Service.js';
 import mail from '@adonisjs/mail/services/main';
 import { url } from '#config/app';
 import { mailFrom } from '#config/dashboard';
-import { HasMany } from '@adonisjs/lucid/types/relations';
+import type { HasMany } from '@adonisjs/lucid/types/relations';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
