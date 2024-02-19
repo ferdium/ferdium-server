@@ -6,7 +6,8 @@ import fs from 'fs-extra';
 export default class AnnouncementsController {
   public async show({ response, params }: HttpContext) {
     const announcement = path.join(
-      app.resourcesPath(),
+      app.appRoot.host,
+      'resources',
       'announcements',
       `${params.version}.json`,
     );

@@ -3,7 +3,6 @@ import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm';
 import hash from '@adonisjs/core/services/hash';
 import emitter from '@adonisjs/core/services/emitter';
 import moment from 'moment';
-import { Encryption } from '@adonisjs/core/encryption';
 import randtoken from 'rand-token';
 import Token from './Token.js';
 import Workspace from './Workspace.js';
@@ -12,6 +11,7 @@ import mail from '@adonisjs/mail/services/main';
 import { url } from '#config/app';
 import { mailFrom } from '#config/dashboard';
 import type { HasMany } from '@adonisjs/lucid/types/relations';
+import encryption from '@adonisjs/core/services/encryption';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -99,7 +99,7 @@ export default class User extends BaseModel {
       return row.token;
     }
 
-    const token = Encryption.encrypt(randtoken.generate(16));
+    const token = encryption.encrypt(randtoken.generate(16));
 
     await user.related('tokens').create({ type, token });
 

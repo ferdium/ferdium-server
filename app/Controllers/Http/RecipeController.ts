@@ -51,7 +51,7 @@ export default class RecipesController {
   // List official and custom recipes
   public async list({ response }: HttpContext) {
     const officialRecipes = fs.readJsonSync(
-      path.join(app.appRoot, 'recipes', 'all.json'),
+      path.join(app.appRoot.host, 'recipes', 'all.json'),
     );
     const customRecipesArray = await Recipe.all();
     const customRecipes = customRecipesArray.map(recipe => ({
@@ -113,7 +113,7 @@ export default class RecipesController {
     // Compress files to .tar.gz file
     const source = app.tmpPath('recipe');
     const destination = path.join(
-      app.appRoot,
+      app.appRoot.host,
       `/recipes/archives/${data.id}.tar.gz`,
     );
 
@@ -186,7 +186,7 @@ export default class RecipesController {
   public popularRecipes({ response }: HttpContext) {
     return response.send(
       fs
-        .readJsonSync(path.join(app.appRoot, 'recipes', 'all.json'))
+        .readJsonSync(path.join(app.appRoot.host, 'recipes', 'all.json'))
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((recipe: any) => recipe.featured),
     );
@@ -197,7 +197,7 @@ export default class RecipesController {
     const updates = [];
     const recipes = request.all();
     const allJson = fs.readJsonSync(
-      path.join(app.appRoot, 'recipes', 'all.json'),
+      path.join(app.appRoot.host, 'recipes', 'all.json'),
     );
 
     for (const recipe of Object.keys(recipes)) {

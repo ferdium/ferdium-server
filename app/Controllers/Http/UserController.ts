@@ -292,7 +292,8 @@ export default class UsersController {
           'x-franz-source': 'Web',
         },
       });
-      const content = await rawResponse.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const content: any = await rawResponse.json();
 
       if (!content.message || content.message !== 'Successfully logged in') {
         const errorMessage =

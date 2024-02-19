@@ -12,6 +12,7 @@ import { apiClient } from '@japa/api-client';
 import app from '@adonisjs/core/services/app';
 import type { Config } from '@japa/runner/types';
 import testUtils from '@adonisjs/core/services/test_utils';
+import { authApiClient } from '@adonisjs/auth/plugins/api_client';
 
 import { fakeCsrfField } from './utils.js';
 
@@ -31,6 +32,7 @@ export const plugins: Config['plugins'] = [
   assert(),
   apiClient(),
   pluginAdonisJS(app),
+  authApiClient(app),
 ];
 
 /*

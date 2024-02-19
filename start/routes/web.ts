@@ -1,3 +1,4 @@
+import { middleware } from '#start/kernel';
 import router from '@adonisjs/core/services/router';
 const HealthController = () => import('#controllers/Http/HealthController');
 const LoginController = () =>
@@ -47,7 +48,8 @@ router
             router.get('reset', [ResetPasswordController, 'show']);
             router.post('reset', [ResetPasswordController, 'resetPassword']);
           })
-          .middleware(['dashboard', 'guest']);
+          .use(middleware.dashboard())
+          .use(middleware.guest());
 
         // Authenticated routes
         router
@@ -70,7 +72,8 @@ router
               response.redirect('/user/account'),
             );
           })
-          .middleware(['dashboard', 'auth:web']);
+          .use(middleware.dashboard())
+          .use(middleware.auth());
       })
       .prefix('user');
 
@@ -81,4 +84,4 @@ router
     // 404 handler
     router.get('/*', ({ response }) => response.redirect('/'));
   })
-  .middleware(['dashboard']);
+  .use(middleware.dashboard());
