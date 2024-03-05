@@ -44,7 +44,6 @@ export default mailConfig({
     */
     smtp: {
       driver: 'smtp',
-      name: Env.get('APP_URL'),
       port: Env.get('SMTP_PORT', '2525'),
       host: Env.get('SMTP_HOST', 'localhost'),
       secure: JSON.parse(Env.get('MAIL_SSL', 'false')),
