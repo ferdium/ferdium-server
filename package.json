@@ -80,7 +80,7 @@
     "luxon": "3.4.4",
     "moment": "2.30.1",
     "mysql": "2.18.1",
-    "node-fetch": "2",
+    "node-fetch": "3",
     "pg": "8.11.3",
     "phc-bcrypt": "1.0.8",
     "proxy-addr": "2.0.7",
