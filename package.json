@@ -3,13 +3,13 @@
   "version": "2.0.6",
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
-    "node": "20.11.1",
+    "node": "20.12.0",
     "pnpm": "8.15.5",
     "python": "3.12.2"
   },
   "engine-strict": true,
   "volta": {
-    "node": "20.11.1",
+    "node": "20.12.0",
     "pnpm": "8.15.5",
     "python": "3.12.2"
   },
@@ -45,7 +45,7 @@
     "@types/source-map-support": "0.5.10",
     "@types/targz": "1.0.4",
     "@types/uuid": "9.0.8",
-    "@typescript-eslint/eslint-plugin": "7.3.1",
+    "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.3.1",
     "adonis-preset-ts": "2.1.0",
     "cross-env": "7.0.3",

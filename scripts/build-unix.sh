@@ -68,6 +68,15 @@ fi
 
 # -----------------------------------------------------------------------------
 # Ensure that the system dependencies are at the correct version - fail if not
+# Check node version
+EXPECTED_NODE_VERSION=$(cat .nvmrc)
+ACTUAL_NODE_VERSION=$(node -v)
+if [ "v$EXPECTED_NODE_VERSION" != "$ACTUAL_NODE_VERSION" ]; then
+  fail_with_docs "You are not running the expected version of node!
+    expected: [v$EXPECTED_NODE_VERSION]
+    actual  : [$ACTUAL_NODE_VERSION]"
+fi
+
 # Check python version
 EXPECTED_PYTHON_VERSION=$(node -p 'require("./package.json").engines.python')
 ACTUAL_PYTHON_VERSION=$(python --version | sed -e "s/Python //")
@@ -79,8 +88,6 @@ fi
 
 # -----------------------------------------------------------------------------
 # Ensure that the system dependencies are at the correct version - recover if not
-# If 'asdf' is installed, reshim for new nodejs if necessary
-command_exists asdf && asdf reshim nodejs
 
 # Check pnpm version
 EXPECTED_PNPM_VERSION=$(node -p 'require("./recipes/package.json").engines.pnpm')
@@ -88,9 +95,6 @@ ACTUAL_PNPM_VERSION=$(pnpm --version || true) # in case the pnpm executable itse
 if [[ "$ACTUAL_PNPM_VERSION" != "$EXPECTED_PNPM_VERSION" ]]; then
   npm i -gf pnpm@$EXPECTED_PNPM_VERSION
 fi
-
-# If 'asdf' is installed, reshim for new nodejs if necessary
-command_exists asdf && asdf reshim nodejs
 
 ENV_FILE=".env"
 if [[ ! -s $ENV_FILE ]]; then

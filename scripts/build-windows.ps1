@@ -92,6 +92,14 @@ if ($env:CLEAN -eq "true")
 
 # -----------------------------------------------------------------------------
 # Ensure that the system dependencies are at the correct version - fail if not
+# Check node version
+EXPECTED_NODE_VERSION=(Get-Content .nvmrc)
+ACTUAL_NODE_VERSION=(node -v)
+if ([System.Version]$ACTUAL_NODE_VERSION -ne [System.Version]$EXPECTED_NODE_VERSION) {
+  fail_with_docs "You are not running the expected version of node!
+    expected: [v$EXPECTED_NODE_VERSION]
+    actual  : [$ACTUAL_NODE_VERSION]"
+}
 # Check python version
 $EXPECTED_PYTHON_VERSION = (Get-Content package.json | ConvertFrom-Json).engines.python
 $ACTUAL_PYTHON_VERSION = (python --version).trim("Python ")
