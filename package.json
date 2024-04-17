@@ -32,7 +32,7 @@
     "prepare-code": "pnpm typecheck && pnpm lint:fix && pnpm reformat-files && pnpm test"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "5.9.5",
+    "@adonisjs/assembler": "7.5.0",
     "@japa/preset-adonis": "1.2.0",
     "@japa/runner": "2.5.1",
     "@symfony/webpack-encore": "4.6.1",
