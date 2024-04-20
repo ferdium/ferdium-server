@@ -1,9 +1,9 @@
 import { GuardsList } from '@ioc:Adonis/Addons/Auth';
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { HttpContext } from '@adonisjs/core/http';
 import { AuthenticationException } from '@adonisjs/auth/build/standalone';
 import * as jose from 'jose';
-import { appKey } from 'Config/app';
-import User from 'App/Models/User';
+import { appKey } from '#config/app';
+import User from '#models/User';
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -27,9 +27,9 @@ export default class AuthMiddleware {
    * during the current request.
    */
   protected async authenticate(
-    auth: HttpContextContract['auth'],
+    auth: HttpContext['auth'],
     guards: (keyof GuardsList)[],
-    request: HttpContextContract['request'],
+    request: HttpContext['request'],
   ) {
     /**
      * Hold reference to the guard last attempted within the for loop. We pass
@@ -94,8 +94,9 @@ export default class AuthMiddleware {
   /**
    * Handle request
    */
+  // eslint-disable-next-line consistent-return
   public async handle(
-    { request, auth, response }: HttpContextContract,
+    { request, auth, response }: HttpContext,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[],
   ) {

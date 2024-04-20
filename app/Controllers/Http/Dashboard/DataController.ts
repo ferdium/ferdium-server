@@ -1,10 +1,10 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContext } from '@adonisjs/core/http';
 
 export default class DataController {
   /**
    * Display the data page
    */
-  public async show({ view, auth }: HttpContextContract) {
+  public async show({ view, auth }: HttpContext) {
     const { user } = auth;
 
     const services = await user?.related('services').query();

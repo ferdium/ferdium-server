@@ -1,6 +1,6 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { validator, schema } from '@ioc:Adonis/Core/Validator';
-import Workspace from 'App/Models/Workspace';
+import type { HttpContext } from '@adonisjs/core/http';
+import { validator, schema } from '@adonisjs/validator';
+import Workspace from '#app/Models/Workspace';
 import { v4 as uuid } from 'uuid';
 
 const createSchema = schema.create({
@@ -17,7 +17,7 @@ const deleteSchema = schema.create({
 
 export default class WorkspaceController {
   // Create a new workspace for user
-  public async create({ request, response, auth }: HttpContextContract) {
+  public async create({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -67,7 +67,7 @@ export default class WorkspaceController {
     });
   }
 
-  public async edit({ request, response, auth, params }: HttpContextContract) {
+  public async edit({ request, response, auth, params }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -113,12 +113,7 @@ export default class WorkspaceController {
     });
   }
 
-  public async delete({
-    request,
-    response,
-    auth,
-    params,
-  }: HttpContextContract) {
+  public async delete({ request, response, auth, params }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -155,7 +150,7 @@ export default class WorkspaceController {
   }
 
   // List all workspaces a user has created
-  public async list({ request, response, auth }: HttpContextContract) {
+  public async list({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 

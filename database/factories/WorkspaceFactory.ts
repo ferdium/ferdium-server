@@ -1,5 +1,5 @@
-import Workspace from 'App/Models/Workspace';
-import Factory from '@ioc:Adonis/Lucid/Factory';
+import Workspace from '#app/Models/Workspace';
+import Factory from '@adonisjs/lucid/factories';
 
 export default Factory.define(Workspace, ({ faker }) => ({
   name: faker.internet.userName(),

@@ -1,26 +1,21 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-import User from 'App/Models/User';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, rules, validator } from '@adonisjs/validator';
+import User from '#app/Models/User';
 import crypto from 'node:crypto';
-import { handleVerifyAndReHash } from '../../../../helpers/PasswordHash';
+import { handleVerifyAndReHash } from '../../../../helpers/PasswordHash.js';
 
 export default class LoginController {
   /**
    * Display the login form
    */
-  public async show({ view }: HttpContextContract) {
+  public async show({ view }: HttpContext) {
     return view.render('dashboard/login');
   }
 
   /**
    * Login a user
    */
-  public async login({
-    request,
-    response,
-    auth,
-    session,
-  }: HttpContextContract) {
+  public async login({ request, response, auth, session }: HttpContext) {
     try {
       await validator.validate({
         schema: schema.create({

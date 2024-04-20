@@ -1,12 +1,13 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import Application from '@ioc:Adonis/Core/Application';
+import type { HttpContext } from '@adonisjs/core/http';
+import app from '@adonisjs/core/services/app';
 import path from 'node:path';
 import fs from 'fs-extra';
 
 export default class AnnouncementsController {
-  public async show({ response, params }: HttpContextContract) {
+  public async show({ response, params }: HttpContext) {
     const announcement = path.join(
-      Application.resourcesPath(),
+      app.appRoot.host,
+      'resources',
       'announcements',
       `${params.version}.json`,
     );

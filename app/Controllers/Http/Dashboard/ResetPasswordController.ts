@@ -1,6 +1,6 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema, rules, validator } from '@ioc:Adonis/Core/Validator';
-import Token from 'App/Models/Token';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema, rules, validator } from '@adonisjs/validator';
+import Token from '#app/Models/Token';
 import moment from 'moment';
 import crypto from 'node:crypto';
 
@@ -8,7 +8,7 @@ export default class ResetPasswordController {
   /**
    * Display the reset password form
    */
-  public async show({ view, request }: HttpContextContract) {
+  public async show({ view, request }: HttpContext) {
     const { token } = request.qs();
 
     if (token) {
@@ -29,7 +29,7 @@ export default class ResetPasswordController {
     request,
     session,
     view,
-  }: HttpContextContract) {
+  }: HttpContext) {
     try {
       await validator.validate({
         schema: schema.create({

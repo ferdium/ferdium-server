@@ -1,49 +1,48 @@
 /*
 |--------------------------------------------------------------------------
-| Application middleware
+| HTTP kernel file
 |--------------------------------------------------------------------------
 |
-| This file is used to define middleware for HTTP requests. You can register
-| middleware as a `closure` or an IoC container binding. The bindings are
-| preferred, since they keep this file clean.
+| The HTTP kernel file is used to register the middleware with the server
+| or the router.
 |
 */
 
-import Server from '@ioc:Adonis/Core/Server';
+import router from '@adonisjs/core/services/router';
+import server from '@adonisjs/core/services/server';
 
-/*
-|--------------------------------------------------------------------------
-| Global middleware
-|--------------------------------------------------------------------------
-|
-| An array of global middleware, that will be executed in the order they
-| are defined for every HTTP requests.
-|
-*/
-Server.middleware.register([
-  () => import('@ioc:Adonis/Core/BodyParser'),
-  () => import('@ioc:Adonis/Addons/Shield'),
+/**
+ * The error handler is used to convert an exception
+ * to a HTTP response.
+ */
+server.errorHandler(() => import('#exceptions/handler'));
+
+/**
+ * The server middleware stack runs middleware on all the HTTP
+ * requests, even if there is no route registered for
+ * the request URL.
+ */
+server.use([
+  () => import('@adonisjs/core/bodyparser_middleware'),
+  () => import('@adonisjs/shield/shield_middleware'),
+  () => import('@adonisjs/cors/cors_middleware'),
+  () => import('#middleware/container_bindings_middleware'),
+  () => import('#middleware/force_json_response_middleware'),
 ]);
 
-/*
-|--------------------------------------------------------------------------
-| Named middleware
-|--------------------------------------------------------------------------
-|
-| Named middleware are defined as key-value pair. The value is the namespace
-| or middleware function and key is the alias. Later you can use these
-| alias on individual routes. For example:
-|
-| { auth: () => import('App/Middleware/Auth') }
-|
-| and then use it as follows
-|
-| Route.get('dashboard', 'UserController.dashboard').middleware('auth')
-|
-*/
-Server.middleware.registerNamed({
-  auth: () => import('App/Middleware/Auth'),
-  dashboard: () => import('App/Middleware/Dashboard'),
-  guest: () => import('App/Middleware/AllowGuestOnly'),
-  shield: () => import('@ioc:Adonis/Addons/Shield'),
+/**
+ * The router middleware stack runs middleware on all the HTTP
+ * requests with a registered route.
+ */
+router.use([() => import('@adonisjs/core/bodyparser_middleware')]);
+
+/**
+ * Named middleware collection must be explicitly assigned to
+ * the routes or the routes group.
+ */
+export const middleware = router.named({
+  auth: () => import('#app/Middleware/Auth'),
+  dashboard: () => import('#app/Middleware/Dashboard'),
+  guest: () => import('#app/Middleware/AllowGuestOnly'),
+  shield: () => import('@adonisjs/shield/shield_middleware'),
 });

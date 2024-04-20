@@ -1,6 +1,6 @@
 import { test } from '@japa/runner';
-import User from 'App/Models/User';
-import UserFactory from 'Database/factories/UserFactory';
+import User from '#app/Models/User';
+import UserFactory from '#database/factories/UserFactory';
 
 test.group('Dashboard / Delete account page', () => {
   test('redirects to /user/login when accessing /user/delete as guest', async ({

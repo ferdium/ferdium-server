@@ -1,5 +1,5 @@
-import User from 'App/Models/User';
-import Hash from '@ioc:Adonis/Core/Hash';
+import User from '#app/Models/User';
+import hash from '@adonisjs/core/services/hash';
 
 export async function handleVerifyAndReHash(
   user: User,
@@ -10,8 +10,8 @@ export async function handleVerifyAndReHash(
   let isMatchedPassword = false;
 
   isMatchedPassword = await (usesLegacyHasher
-    ? Hash.use('legacy').verify(user.password, passwordToTest)
-    : Hash.verify(user.password, passwordToTest));
+    ? hash.use('legacy').verify(user.password, passwordToTest)
+    : hash.verify(user.password, passwordToTest));
 
   // TODO: For some reason this is not working (user can't login after re-hashing)
   // rehash user password

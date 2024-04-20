@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
-import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm';
-import User from './User';
+import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm';
+import User from './User.js';
+import type { HasOne } from '@adonisjs/lucid/types/relations';
 
 export default class Token extends BaseModel {
   @column({ isPrimary: true })

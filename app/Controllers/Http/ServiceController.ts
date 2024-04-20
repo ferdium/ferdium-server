@@ -1,11 +1,11 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { schema } from '@ioc:Adonis/Core/Validator';
-import Service from 'App/Models/Service';
-import { url } from 'Config/app';
+import type { HttpContext } from '@adonisjs/core/http';
+import { schema } from '@adonisjs/validator';
+import Service from '#app/Models/Service';
+import { url } from '#config/app';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs-extra';
 import path from 'node:path';
-import Application from '@ioc:Adonis/Core/Application';
+import app from '@adonisjs/core/services/app';
 import sanitize from 'sanitize-filename';
 
 const createSchema = schema.create({
@@ -15,7 +15,7 @@ const createSchema = schema.create({
 
 export default class ServiceController {
   // Create a new service for user
-  public async create({ request, response, auth }: HttpContextContract) {
+  public async create({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -76,7 +76,7 @@ export default class ServiceController {
   }
 
   // List all services a user has created
-  public async list({ request, response, auth }: HttpContextContract) {
+  public async list({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -110,7 +110,7 @@ export default class ServiceController {
         iconUrl: settings.iconId
           ? `${url}/v1/icon/${settings.iconId}`
           : // eslint-disable-next-line unicorn/no-null
-          null,
+            null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
@@ -121,12 +121,7 @@ export default class ServiceController {
     return response.send(servicesArray);
   }
 
-  public async delete({
-    request,
-    params,
-    auth,
-    response,
-  }: HttpContextContract) {
+  public async delete({ request, params, auth, response }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -147,7 +142,7 @@ export default class ServiceController {
   }
 
   // TODO: Test if icon upload works
-  public async edit({ request, response, auth, params }: HttpContextContract) {
+  public async edit({ request, response, auth, params }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -182,11 +177,11 @@ export default class ServiceController {
         iconId = uuid() + uuid();
       } while (
         // eslint-disable-next-line no-await-in-loop
-        await fs.exists(path.join(Application.tmpPath('uploads'), iconId))
+        await fs.exists(path.join(app.tmpPath('uploads'), iconId))
       );
       iconId = `${iconId}.${icon.extname}`;
 
-      await icon.move(Application.tmpPath('uploads'), {
+      await icon.move(app.tmpPath('uploads'), {
         name: iconId,
         overwrite: true,
       });
@@ -235,11 +230,11 @@ export default class ServiceController {
     };
 
     if (settings.customIcon === 'delete') {
-      fs.remove(
-        path.join(Application.tmpPath('uploads'), settings.iconId),
-      ).catch(error => {
-        console.error(error);
-      });
+      fs.remove(path.join(app.tmpPath('uploads'), settings.iconId)).catch(
+        error => {
+          console.error(error);
+        },
+      );
 
       settings.iconId = undefined;
       settings.customIconVersion = undefined;
@@ -274,7 +269,7 @@ export default class ServiceController {
   }
 
   // TODO: Test if this works
-  public async reorder({ request, response, auth }: HttpContextContract) {
+  public async reorder({ request, response, auth }: HttpContext) {
     // @ts-expect-error Property 'user' does not exist on type 'HttpContextContract'.
     const user = auth.user ?? request.user;
 
@@ -333,7 +328,7 @@ export default class ServiceController {
         iconUrl: settings.iconId
           ? `${url}/v1/icon/${settings.iconId}`
           : // eslint-disable-next-line unicorn/no-null
-          null,
+            null,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
@@ -345,24 +340,24 @@ export default class ServiceController {
   }
 
   // TODO: Test if this works
-  public async icon({ params, response }: HttpContextContract) {
+  public async icon({ params, response }: HttpContext) {
     let { id } = params;
 
     id = sanitize(id);
     if (id === '') {
       return response.status(404).send({
-        status: 'Icon doesn\'t exist',
+        status: "Icon doesn't exist",
       });
     }
 
-    const iconPath = path.join(Application.tmpPath('uploads'), id);
+    const iconPath = path.join(app.tmpPath('uploads'), id);
 
     try {
       await fs.access(iconPath);
     } catch {
       // File not available.
       return response.status(404).send({
-        status: 'Icon doesn\'t exist',
+        status: "Icon doesn't exist",
       });
     }
 

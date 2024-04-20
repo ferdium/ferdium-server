@@ -6,11 +6,9 @@
  */
 
 import proxyAddr from 'proxy-addr';
-import Env from '@ioc:Adonis/Core/Env';
-import { ServerConfig } from '@ioc:Adonis/Core/Server';
-import { LoggerConfig } from '@ioc:Adonis/Core/Logger';
-import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler';
-import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
+import env from '#start/env';
+import { ValidatorConfig } from '@adonisjs/validator/types';
+import { defineConfig } from '@adonisjs/core/http';
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +23,18 @@ import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
 | be decrypted.
 |
 */
-export const appKey: string = Env.get('APP_KEY');
+export const appKey: string = env.get('APP_KEY');
 
-export const url: string = Env.get('APP_URL');
+export const url = env.get('APP_URL');
 
 // TODO: this is parsed as string to be coherent with the previous version of the code we add (before migrating to AdonisJS 5)
-export const isRegistrationEnabled: string = Env.get('IS_REGISTRATION_ENABLED');
-export const connectWithFranz: string = Env.get('CONNECT_WITH_FRANZ');
-export const isCreationEnabled: string = Env.get('IS_CREATION_ENABLED');
+export const isRegistrationEnabled = env.get('IS_REGISTRATION_ENABLED');
+export const connectWithFranz = env.get('CONNECT_WITH_FRANZ');
+export const isCreationEnabled = env.get('IS_CREATION_ENABLED');
 export const jwtUsePEM: boolean =
-  Env.get('JWT_USE_PEM', false) ||
-  (Env.get('JWT_PUBLIC_KEY', '') !== '' &&
-    Env.get('JWT_PRIVATE_KEY', '') !== '');
+  env.get('JWT_USE_PEM', false) ||
+  (env.get('JWT_PUBLIC_KEY', '') !== '' &&
+    env.get('JWT_PRIVATE_KEY', '') !== '');
 /*
 |--------------------------------------------------------------------------
 | Http server configuration
@@ -46,7 +44,7 @@ export const jwtUsePEM: boolean =
 | the config properties to make keep server secure.
 |
 */
-export const http: ServerConfig = {
+export const http = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Allow method spoofing
@@ -119,86 +117,14 @@ export const http: ServerConfig = {
     secure: false,
     sameSite: false,
   },
-
-  /*
-  |--------------------------------------------------------------------------
-  | Force Content Negotiation
-  |--------------------------------------------------------------------------
-  |
-  | The internals of the framework relies on the content negotiation to
-  | detect the best possible response type for a given HTTP request.
-  |
-  | However, it is a very common these days that API servers always wants to
-  | make response in JSON regardless of the existence of the `Accept` header.
-  |
-  | By setting `forceContentNegotiationTo = 'application/json'`, you negotiate
-  | with the server in advance to always return JSON without relying on the
-  | client to set the header explicitly.
-  |
-  */
-  forceContentNegotiationTo: 'application/json',
-};
-
-/*
-|--------------------------------------------------------------------------
-| Logger
-|--------------------------------------------------------------------------
-*/
-export const logger: LoggerConfig = {
-  /*
-  |--------------------------------------------------------------------------
-  | Application name
-  |--------------------------------------------------------------------------
-  |
-  | The name of the application you want to add to the log. It is recommended
-  | to always have app name in every log line.
-  |
-  | The `APP_NAME` environment variable is automatically set by AdonisJS by
-  | reading the `name` property from the `package.json` file.
-  |
-  */
-  name: Env.get('APP_NAME', 'Ferdium-server'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | Toggle logger
-  |--------------------------------------------------------------------------
-  |
-  | Enable or disable logger application wide
-  |
-  */
-  enabled: true,
-
-  /*
-  |--------------------------------------------------------------------------
-  | Logging level
-  |--------------------------------------------------------------------------
-  |
-  | The level from which you want the logger to flush logs. It is recommended
-  | to make use of the environment variable, so that you can define log levels
-  | at deployment level and not code level.
-  |
-  */
-  level: Env.get('LOG_LEVEL', 'info'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | Pretty print
-  |--------------------------------------------------------------------------
-  |
-  | It is highly advised NOT to use `prettyPrint` in production, since it
-  | can have huge impact on performance.
-  |
-  */
-  prettyPrint: Env.get('NODE_ENV') === 'development',
-};
+});
 
 /*
 |--------------------------------------------------------------------------
 | Profiler
 |--------------------------------------------------------------------------
 */
-export const profiler: ProfilerConfig = {
+export const profiler = {
   /*
   |--------------------------------------------------------------------------
   | Toggle profiler

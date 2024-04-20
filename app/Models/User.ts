@@ -1,22 +1,17 @@
 import { DateTime } from 'luxon';
-import {
-  BaseModel,
-  beforeSave,
-  column,
-  HasMany,
-  hasMany,
-} from '@ioc:Adonis/Lucid/Orm';
-import Hash from '@ioc:Adonis/Core/Hash';
-import Event from '@ioc:Adonis/Core/Event';
+import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm';
+import hash from '@adonisjs/core/services/hash';
+import emitter from '@adonisjs/core/services/emitter';
 import moment from 'moment';
-import Encryption from '@ioc:Adonis/Core/Encryption';
 import randtoken from 'rand-token';
-import Token from './Token';
-import Workspace from './Workspace';
-import Service from './Service';
-import Mail from '@ioc:Adonis/Addons/Mail';
-import { url } from 'Config/app';
-import { mailFrom } from 'Config/dashboard';
+import Token from './Token.js';
+import Workspace from './Workspace.js';
+import Service from './Service.js';
+import mail from '@adonisjs/mail/services/main';
+import { url } from '#config/app';
+import { mailFrom } from '#config/dashboard';
+import type { HasMany } from '@adonisjs/lucid/types/relations';
+import encryption from '@adonisjs/core/services/encryption';
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -47,7 +42,7 @@ export default class User extends BaseModel {
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
-      user.password = await Hash.make(user.password);
+      user.password = await hash.make(user.password);
     }
   }
 
@@ -69,7 +64,7 @@ export default class User extends BaseModel {
   public async forgotPassword(): Promise<void> {
     const token = await this.generateToken(this, 'forgot_password');
 
-    await Mail.send(message => {
+    await mail.send(message => {
       message
         .from(mailFrom)
         .to(this.email)
@@ -81,7 +76,7 @@ export default class User extends BaseModel {
         });
     });
 
-    await Event.emit('forgot:password', {
+    await emitter.emit('forgot:password', {
       user: this,
       token,
     });
@@ -104,7 +99,7 @@ export default class User extends BaseModel {
       return row.token;
     }
 
-    const token = Encryption.encrypt(randtoken.generate(16));
+    const token = encryption.encrypt(randtoken.generate(16));
 
     await user.related('tokens').create({ type, token });
 

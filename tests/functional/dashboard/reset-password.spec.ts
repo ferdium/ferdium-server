@@ -1,7 +1,7 @@
 import { test } from '@japa/runner';
-import Token from 'App/Models/Token';
-import UserFactory from 'Database/factories/UserFactory';
-import TokenFactory from 'Database/factories/TokenFactory';
+import Token from '#app/Models/Token';
+import UserFactory from '#database/factories/UserFactory';
+import TokenFactory from '#database/factories/TokenFactory';
 
 test.group('Dashboard / Reset password page', () => {
   test('returns a `Invalid token` message when opening without a token', async ({

@@ -6,8 +6,8 @@
  */
 
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth';
-import Env from '@ioc:Adonis/Core/Env';
-import { appKey, jwtUsePEM } from './app';
+import env from '#start/env';
+import { appKey, jwtUsePEM } from './app.js';
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     /*
@@ -163,7 +163,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     /*
@@ -226,7 +226,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
     jwt: {
@@ -234,15 +234,14 @@ const authConfig: AuthConfig = {
       secret: jwtUsePEM ? undefined : appKey,
       algorithmJwt: jwtUsePEM ? undefined : 'HS256',
       publicKey: jwtUsePEM
-        ? Env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n')
+        ? env.get('JWT_PUBLIC_KEY', '').replaceAll('\\n', '\n')
         : undefined,
       privateKey: jwtUsePEM
-        ? Env.get('JWT_PRIVATE_KEY', '').replaceAll('\\n', '\n')
+        ? env.get('JWT_PRIVATE_KEY', '').replaceAll('\\n', '\n')
         : undefined,
       persistJwt: true,
       // TODO: We should improve the following implementation as this is a security concern.
       // The following ts-expect-error is to set exp to undefined (JWT with no expiration)
-      // @ts-expect-error
       jwtDefaultExpire: undefined,
       refreshTokenDefaultExpire: '10d',
       tokenProvider: {
@@ -254,7 +253,7 @@ const authConfig: AuthConfig = {
         driver: 'lucid',
         identifierKey: 'id',
         uids: [],
-        model: () => import('App/Models/User'),
+        model: () => import('#app/Models/User'),
       },
     },
   },

@@ -1,4 +1,4 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema';
+import { BaseSchema } from '@adonisjs/lucid/schema';
 
 export default class extends BaseSchema {
   public async up(): Promise<void> {

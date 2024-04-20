@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column } from '@adonisjs/lucid/orm';
 
 export default class Recipe extends BaseModel {
   @column({ isPrimary: true })

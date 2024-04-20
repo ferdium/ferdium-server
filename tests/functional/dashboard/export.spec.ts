@@ -1,5 +1,5 @@
 import { test } from '@japa/runner';
-import UserFactory from 'Database/factories/UserFactory';
+import UserFactory from '#database/factories/UserFactory';
 
 test.group('Dashboard / Export page', () => {
   test('redirects to /user/login when accessing /user/transfer as guest', async ({

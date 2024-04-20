@@ -1,7 +1,7 @@
-import User from 'App/Models/User';
-import Factory from '@ioc:Adonis/Lucid/Factory';
-import WorkspaceFactory from './WorkspaceFactory';
-import ServiceFactory from './ServiceFactory';
+import User from '#app/Models/User';
+import Factory from '@adonisjs/lucid/factories';
+import WorkspaceFactory from './WorkspaceFactory.js';
+import ServiceFactory from './ServiceFactory.js';
 import crypto from 'node:crypto';
 
 const hashedPassword = crypto
