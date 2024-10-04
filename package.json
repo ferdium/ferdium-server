@@ -3,17 +3,17 @@
   "version": "2.0.6",
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
-    "node": "20.17.0",
-    "pnpm": "9.9.0",
-    "python": "3.12.4"
+    "node": "20.18.0",
+    "pnpm": "9.12.0",
+    "python": "3.12.7"
   },
   "engine-strict": true,
   "volta": {
-    "node": "20.17.0",
-    "pnpm": "9.9.0",
-    "python": "3.12.4"
+    "node": "20.18.0",
+    "pnpm": "9.12.0",
+    "python": "3.12.7"
   },
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "pnpm@9.12.0",
   "homepage": "https://github.com/ferdium/ferdium-server",
   "license": "MIT License",
   "scripts": {
