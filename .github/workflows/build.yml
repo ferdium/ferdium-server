@@ -1,26 +1,32 @@
-name: AdonisJS check
+name: Builds
 
 on:
+  # Push to any tracked branches
+  push:
+    branches: [main]
+  # PRs only on main branch
   pull_request:
     branches: [main]
+  # Manual trigger from the UI
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message for build'
+        required: true
 
 jobs:
-  adonis-js-check:
+  build:
+    name: Ferdium Server Build
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-
       - name: Use Node.js specified in the '.nvmrc' file
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: 'pnpm'
-
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Install node dependencies recursively
         uses: nick-fields/retry@v3
         with:
@@ -28,15 +34,9 @@ jobs:
           timeout_minutes: 15
           max_attempts: 3
           retry_on: error
-
-      - name: Run typecheck
-        run: pnpm typecheck
-
-      - name: Run linter
-        run: pnpm lint
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Run build
-        run: pnpm run build
+      - name: Check code style and formatting
+        run: |
+          pnpm typecheck
+          pnpm lint
+          pnpm test
+          pnpm run build
