@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments();
       table.string('username', 80).notNullable();
       table.string('email', 254).notNullable().unique();
-      table.string('password', 254).notNullable();
+      table.string('password', 60).notNullable();
       table.json('settings');
       table.timestamps();
     });
