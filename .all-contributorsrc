@@ -178,6 +178,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "mazzz1y",
+      "name": "Dmitry R.",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17034108?v=4",
+      "profile": "https://github.com/mazzz1y",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"
