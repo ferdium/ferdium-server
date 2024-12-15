@@ -47,8 +47,8 @@ const databaseConfig: DatabaseConfig = {
         afterCreate: (conn, cb) => {
           conn.run('PRAGMA foreign_keys=true', cb);
         },
-        min: Env.get('DB_POOL_MIN', 2),
-        max: Env.get('DB_POOL_MAX', 20),
+        min: Number.parseInt(Env.get('DB_POOL_MIN', '2'), 10),
+        max: Number.parseInt(Env.get('DB_POOL_MAX', '20'), 10),
       },
       migrations: {
         naturalSort: true,
