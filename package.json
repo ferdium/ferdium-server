@@ -1,6 +1,6 @@
 {
   "name": "ferdium-server",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
     "node": "20.18.0",
