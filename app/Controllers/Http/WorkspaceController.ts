@@ -96,6 +96,7 @@ export default class WorkspaceController {
       .update({
         name: data.name,
         services: JSON.stringify(data.services),
+        iconUrl: data.iconUrl,
       });
 
     // Get updated row
@@ -171,6 +172,7 @@ export default class WorkspaceController {
       workspacesArray = workspaces.map((workspace: any) => ({
         id: workspace.workspaceId,
         name: workspace.name,
+        iconUrl: workspace.iconUrl,
         order: workspace.order,
         services:
           typeof workspace.services === 'string'
