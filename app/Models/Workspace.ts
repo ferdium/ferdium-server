@@ -33,6 +33,9 @@ export default class Workspace extends BaseModel {
   @column()
   public data: string;
 
+  @column()
+  public iconUrl: string;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
