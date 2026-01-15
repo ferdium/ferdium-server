@@ -25,7 +25,7 @@ NODE_ENV=development
 if [ ! -d "/app/recipes/.git" ]; # When we mount an existing volume (ferdium-recipes-vol:/app/recipes) if this is only /app/recipes it is always true
 then
     echo '**** Generating recipes for first run ****'
-    git clone --branch main https://github.com/ferdium/ferdium-recipes recipes
+    git clone --depth 1 --branch main https://github.com/ferdium/ferdium-recipes recipes
 else
     echo '**** Updating recipes ****'
     chown -R root /app/recipes # Fixes ownership problem when doing git pull -r
