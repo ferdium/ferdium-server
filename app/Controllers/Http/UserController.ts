@@ -91,7 +91,11 @@ export default class UsersController {
     }
 
     // Generate new auth token
-    const token = await auth.use('jwt').login(user, { payload: {} });
+    const token = await auth.use('jwt').login(user, {
+      payload: {
+        nonce: crypto.randomUUID(),
+      },
+    });
 
     return response.send({
       message: 'Successfully created account',
@@ -140,7 +144,11 @@ export default class UsersController {
     }
 
     // Generate token
-    const token = await auth.use('jwt').login(user, { payload: {} });
+    const token = await auth.use('jwt').login(user, {
+      payload: {
+        nonce: crypto.randomUUID(),
+      },
+    });
 
     return response.send({
       message: 'Successfully logged in',
@@ -228,7 +236,11 @@ export default class UsersController {
       return response.send('Missing or invalid api token');
     }
 
-    const token = await auth.use('jwt').generate(user, { payload: {} });
+    const token = await auth.use('jwt').generate(user, {
+      payload: {
+        nonce: crypto.randomUUID(),
+      },
+    });
 
     return response.send({
       token: token.accessToken,

@@ -110,6 +110,9 @@
       "aws-sdk",
       "bcrypt",
       "sqlite3"
-    ]
+    ],
+    "patchedDependencies": {
+      "adonis5-jwt@1.1.7": "patches/adonis5-jwt@1.1.7.patch"
+    }
   }
 }
