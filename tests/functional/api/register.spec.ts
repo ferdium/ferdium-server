@@ -10,7 +10,7 @@ function createBasicAuthHeader(email: string, password: string) {
   return `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`;
 }
 
-test.group('API / Auth', () => {
+test.group('API / Auth token uniqueness', () => {
   test('returns unique persisted JWTs for repeated login requests', async ({
     client,
     assert,
