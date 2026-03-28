@@ -19,10 +19,16 @@ type SqlitePoolCallback = (
   connection: SqliteConnection,
 ) => void;
 
-const sqliteBusyTimeout = Number.parseInt(
-  Env.get('DB_BUSY_TIMEOUT', '5000'),
-  10,
+const SQLITE_BUSY_TIMEOUT_DEFAULT = 5000;
+const sqliteBusyTimeoutEnv = Env.get(
+  'DB_BUSY_TIMEOUT',
+  SQLITE_BUSY_TIMEOUT_DEFAULT.toString(),
 );
+const sqliteBusyTimeoutParsed = Number.parseInt(sqliteBusyTimeoutEnv, 10);
+const sqliteBusyTimeout =
+  Number.isFinite(sqliteBusyTimeoutParsed) && sqliteBusyTimeoutParsed > 0
+    ? sqliteBusyTimeoutParsed
+    : SQLITE_BUSY_TIMEOUT_DEFAULT;
 
 function configureSqliteConnection(
   conn: SqliteConnection,
