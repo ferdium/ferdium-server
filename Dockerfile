@@ -8,6 +8,7 @@ ENV CI=true
 
 COPY package*.json ./
 COPY .npmrc ./
+COPY patches ./patches
 
 RUN npm i -gf "pnpm@$(node -p 'require("./package.json").engines.pnpm')" && pnpm -v
 RUN pnpm install --config.build-from-source=sqlite --config.sqlite=/usr/local
