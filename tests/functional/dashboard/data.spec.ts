@@ -26,6 +26,22 @@ test.group('Dashboard / Data page', () => {
     );
   });
 
+  test('handles concurrent requests without exhausting the database connection pool', async ({
+    client,
+  }) => {
+    const user = await UserFactory.with('services', 10)
+      .with('workspaces', 10)
+      .create();
+    const responses = await Promise.all(
+      Array.from({ length: 25 }, () => client.get('/user/data').loginAs(user)),
+    );
+
+    for (const response of responses) {
+      response.assertStatus(200);
+      response.assertTextIncludes(user.email);
+    }
+  });
+
   // TODO: Add test to include services.
   // TODO: Add test to include workspaces.
 });

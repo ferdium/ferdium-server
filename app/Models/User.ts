@@ -88,9 +88,8 @@ export default class User extends BaseModel {
   }
 
   private async generateToken(user: User, type: string): Promise<string> {
-    const query = user
-      .related('tokens')
-      .query()
+    const query = Token.query()
+      .where('user_id', user.id)
       .where('type', type)
       .where('is_revoked', false)
       .where(
@@ -106,7 +105,7 @@ export default class User extends BaseModel {
 
     const token = Encryption.encrypt(randtoken.generate(16));
 
-    await user.related('tokens').create({ type, token });
+    await Token.create({ user_id: user.id, type, token });
 
     return token;
   }
