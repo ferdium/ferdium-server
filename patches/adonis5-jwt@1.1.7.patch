@@ -1,0 +1,90 @@
+diff --git a/build/lib/Guards/JwtGuard.js b/build/lib/Guards/JwtGuard.js
+index e369820d726e37c4d924d18d879e847e3accf669..058180d34043122c46711f551cab0442de66d28a 100644
+--- a/build/lib/Guards/JwtGuard.js
++++ b/build/lib/Guards/JwtGuard.js
+@@ -216,27 +216,37 @@ class JWTGuard extends Base_1.BaseGuard {
+         /**
+          * Generate a JWT and refresh token
+          */
+-        const tokenInfo = await this.generateTokenForPersistance(expiresIn, refreshTokenExpiresIn, payload, rememberMe);
+         let providerToken;
+-        if (!this.config.persistJwt) {
+-            /**
+-             * Persist refresh token ONLY to the database.
+-             */
+-            providerToken = new ProviderToken_1.ProviderToken(name, tokenInfo.refreshTokenHash, userId, this.tokenType);
+-            providerToken.expiresAt = tokenInfo.refreshTokenExpiresAt;
+-            providerToken.meta = meta;
+-            await this.tokenProvider.write(providerToken);
+-        }
+-        else {
+-            /**
+-             * Persist JWT token and refresh token to the database
+-             */
+-            providerToken = new JwtProviderToken_1.JwtProviderToken(name, tokenInfo.accessTokenHash, userId, this.tokenType);
+-            providerToken.expiresAt = tokenInfo.expiresAt;
+-            providerToken.refreshToken = tokenInfo.refreshTokenHash;
+-            providerToken.refreshTokenExpiresAt = tokenInfo.refreshTokenExpiresAt;
+-            providerToken.meta = meta;
+-            await this.tokenProvider.write(providerToken);
++        let tokenInfo;
++        for (let attempts = 0; attempts < 3; attempts++) {
++            tokenInfo = await this.generateTokenForPersistance(expiresIn, refreshTokenExpiresIn, payload, rememberMe);
++            if (!this.config.persistJwt) {
++                /**
++                 * Persist refresh token ONLY to the database.
++                 */
++                providerToken = new ProviderToken_1.ProviderToken(name, tokenInfo.refreshTokenHash, userId, this.tokenType);
++                providerToken.expiresAt = tokenInfo.refreshTokenExpiresAt;
++                providerToken.meta = meta;
++            }
++            else {
++                /**
++                 * Persist JWT token and refresh token to the database
++                 */
++                providerToken = new JwtProviderToken_1.JwtProviderToken(name, tokenInfo.accessTokenHash, userId, this.tokenType);
++                providerToken.expiresAt = tokenInfo.expiresAt;
++                providerToken.refreshToken = tokenInfo.refreshTokenHash;
++                providerToken.refreshTokenExpiresAt = tokenInfo.refreshTokenExpiresAt;
++                providerToken.meta = meta;
++            }
++            try {
++                await this.tokenProvider.write(providerToken);
++                break;
++            }
++            catch (error) {
++                if (attempts === 2 || !this.isUniqueConstraintError(error)) {
++                    throw error;
++                }
++            }
+         }
+         /**
+          * Construct a new API Token instance
+@@ -337,7 +347,8 @@ class JWTGuard extends Base_1.BaseGuard {
+         }
+         let accessTokenBuilder = new jose_1.SignJWT({ data: payload, ...payload })
+             .setProtectedHeader({ alg: this.config.algorithmJwt || "RS256", typ: "JWT" })
+-            .setIssuedAt();
++            .setIssuedAt()
++            .setJti((0, uuid_1.v4)());
+         if (this.config.issuer) {
+             accessTokenBuilder = accessTokenBuilder.setIssuer(this.config.issuer);
+         }
+@@ -377,6 +388,17 @@ class JWTGuard extends Base_1.BaseGuard {
+     generateHash(token) {
+         return (0, crypto_1.createHash)("sha256").update(token).digest("hex");
+     }
++    /**
++     * Detect duplicate token persistence errors across supported databases.
++     */
++    isUniqueConstraintError(error) {
++        const code = error?.code;
++        const message = error?.message;
++        return code === "SQLITE_CONSTRAINT" || code === "ER_DUP_ENTRY" || code === "23505"
++            || (typeof message === "string" && (message.includes("UNIQUE constraint failed")
++                || message.includes("duplicate key value violates unique constraint")
++                || message.includes("Duplicate entry")));
++    }
+     /**
+      * Converts expiry duration to an absolute date/time value
+      */

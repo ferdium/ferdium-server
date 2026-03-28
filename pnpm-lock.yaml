@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  adonis5-jwt@1.1.7:
+    hash: b1d39457aff2a7bd4496aab6a43ff0d1fb3045ba08cf3d2286641c19d2e72d24
+    path: patches/adonis5-jwt@1.1.7.patch
+
 importers:
 
   .:
@@ -34,7 +39,7 @@ importers:
         version: 6.2.0(@adonisjs/core@5.9.0)
       adonis5-jwt:
         specifier: github:SpecialAro/adonis5-jwt#34941c10adcf89583a40767552b994ea499b92e3
-        version: https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/34941c10adcf89583a40767552b994ea499b92e3
+        version: https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/34941c10adcf89583a40767552b994ea499b92e3(patch_hash=b1d39457aff2a7bd4496aab6a43ff0d1fb3045ba08cf3d2286641c19d2e72d24)
       aws-sdk:
         specifier: 2.1672.0
         version: 2.1672.0
@@ -1672,6 +1677,7 @@ packages:
 
   acorn-import-assertions@1.9.0:
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
 
@@ -8079,7 +8085,7 @@ snapshots:
 
   adonis-preset-ts@2.1.0: {}
 
-  adonis5-jwt@https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/34941c10adcf89583a40767552b994ea499b92e3:
+  adonis5-jwt@https://codeload.github.com/SpecialAro/adonis5-jwt/tar.gz/34941c10adcf89583a40767552b994ea499b92e3(patch_hash=b1d39457aff2a7bd4496aab6a43ff0d1fb3045ba08cf3d2286641c19d2e72d24):
     dependencies:
       jose: 4.14.6
       ts-morph: 16.0.0
