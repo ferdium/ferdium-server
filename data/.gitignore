@@ -1,1 +1,4 @@
 ferdium.sqlite
+ferdium.sqlite-shm
+ferdium.sqlite-wal
+ferdium-*.log

@@ -19,7 +19,33 @@ type SqlitePoolCallback = (
   connection: SqliteConnection,
 ) => void;
 
+const SQLITE_JOURNAL_MODE_VALUES = new Set([
+  'DELETE',
+  'TRUNCATE',
+  'PERSIST',
+  'MEMORY',
+  'WAL',
+  'OFF',
+]);
+const SQLITE_SYNCHRONOUS_VALUES = new Set(['OFF', 'NORMAL', 'FULL', 'EXTRA']);
 const SQLITE_BUSY_TIMEOUT_DEFAULT = 5000;
+const SQLITE_JOURNAL_MODE_DEFAULT = 'WAL';
+const SQLITE_SYNCHRONOUS_DEFAULT = 'FULL';
+
+function getSqlitePragmaValue(
+  envName: string,
+  defaultValue: string,
+  allowedValues: Set<string>,
+) {
+  const configuredValue = Env.get(envName, defaultValue).trim().toUpperCase();
+
+  if (!allowedValues.has(configuredValue)) {
+    return defaultValue;
+  }
+
+  return configuredValue;
+}
+
 const sqliteBusyTimeoutEnv = Env.get(
   'DB_BUSY_TIMEOUT',
   SQLITE_BUSY_TIMEOUT_DEFAULT.toString(),
@@ -29,6 +55,16 @@ const sqliteBusyTimeout =
   Number.isFinite(sqliteBusyTimeoutParsed) && sqliteBusyTimeoutParsed > 0
     ? sqliteBusyTimeoutParsed
     : SQLITE_BUSY_TIMEOUT_DEFAULT;
+const sqliteJournalMode = getSqlitePragmaValue(
+  'DB_SQLITE_JOURNAL_MODE',
+  SQLITE_JOURNAL_MODE_DEFAULT,
+  SQLITE_JOURNAL_MODE_VALUES,
+);
+const sqliteSynchronous = getSqlitePragmaValue(
+  'DB_SQLITE_SYNCHRONOUS',
+  SQLITE_SYNCHRONOUS_DEFAULT,
+  SQLITE_SYNCHRONOUS_VALUES,
+);
 
 function configureSqliteConnection(
   conn: SqliteConnection,
@@ -40,27 +76,30 @@ function configureSqliteConnection(
       return;
     }
 
-    conn.run('PRAGMA journal_mode = WAL', (journalModeError: Error | null) => {
-      if (journalModeError) {
-        cb(journalModeError, conn);
-        return;
-      }
+    conn.run(
+      `PRAGMA journal_mode = ${sqliteJournalMode}`,
+      (journalModeError: Error | null) => {
+        if (journalModeError) {
+          cb(journalModeError, conn);
+          return;
+        }
 
-      conn.run(
-        'PRAGMA synchronous = NORMAL',
-        (synchronousError: Error | null) => {
-          if (synchronousError) {
-            cb(synchronousError, conn);
-            return;
-          }
+        conn.run(
+          `PRAGMA synchronous = ${sqliteSynchronous}`,
+          (synchronousError: Error | null) => {
+            if (synchronousError) {
+              cb(synchronousError, conn);
+              return;
+            }
 
-          conn.run(
-            `PRAGMA busy_timeout = ${sqliteBusyTimeout}`,
-            (busyTimeoutError: Error | null) => cb(busyTimeoutError, conn),
-          );
-        },
-      );
-    });
+            conn.run(
+              `PRAGMA busy_timeout = ${sqliteBusyTimeout}`,
+              (busyTimeoutError: Error | null) => cb(busyTimeoutError, conn),
+            );
+          },
+        );
+      },
+    );
   });
 }
 

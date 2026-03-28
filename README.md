@@ -117,6 +117,9 @@ Ferdium-server's configuration is saved inside an `.env` file. Besides AdonisJS'
 - `CONNECT_WITH_FRANZ` (`true` or `false`, default: `true`): Whether to enable connections to the Franz server. By enabling this option, Ferdium-server can:
   - Show the full Franz recipe library instead of only custom recipes
   - Import Franz accounts
+- `DB_SQLITE_JOURNAL_MODE` (`DELETE`, `TRUNCATE`, `PERSIST`, `MEMORY`, `WAL`, or `OFF`, default: `WAL`): SQLite journal mode. `WAL` improves concurrency for the default single-file deployment.
+- `DB_SQLITE_SYNCHRONOUS` (`OFF`, `NORMAL`, `FULL`, or `EXTRA`, default: `FULL`): SQLite synchronous mode. `FULL` is the safer default for production durability. `NORMAL` reduces write latency but can lose the last committed transactions on sudden power loss.
+- `DB_BUSY_TIMEOUT` (milliseconds, default: `5000`): How long SQLite should wait for a locked database before failing a query.
 </details>
 <details>
 <summary>Importing your Franz/Ferdi account</summary>
