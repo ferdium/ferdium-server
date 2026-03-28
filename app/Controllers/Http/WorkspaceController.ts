@@ -39,8 +39,8 @@ export default class WorkspaceController {
     }
 
     // Get new, unused uuid
-    let workspaceId;
-    let existingWorkspace;
+    let workspaceId: string;
+    let existingWorkspace: Workspace | null;
     do {
       workspaceId = uuid();
       // eslint-disable-next-line no-await-in-loop
