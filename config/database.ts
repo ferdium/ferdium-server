@@ -10,6 +10,54 @@ import path from 'node:path';
 import Env from '@ioc:Adonis/Core/Env';
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database';
 
+interface SqliteConnection {
+  run: (query: string, callback: (error: Error | null) => void) => void;
+}
+
+type SqlitePoolCallback = (
+  error: Error | null,
+  connection: SqliteConnection,
+) => void;
+
+const sqliteBusyTimeout = Number.parseInt(
+  Env.get('DB_BUSY_TIMEOUT', '5000'),
+  10,
+);
+
+function configureSqliteConnection(
+  conn: SqliteConnection,
+  cb: SqlitePoolCallback,
+) {
+  return conn.run('PRAGMA foreign_keys = ON', (error: Error | null) => {
+    if (error) {
+      cb(error, conn);
+      return;
+    }
+
+    conn.run('PRAGMA journal_mode = WAL', (journalModeError: Error | null) => {
+      if (journalModeError) {
+        cb(journalModeError, conn);
+        return;
+      }
+
+      conn.run(
+        'PRAGMA synchronous = NORMAL',
+        (synchronousError: Error | null) => {
+          if (synchronousError) {
+            cb(synchronousError, conn);
+            return;
+          }
+
+          conn.run(
+            `PRAGMA busy_timeout = ${sqliteBusyTimeout}`,
+            (busyTimeoutError: Error | null) => cb(busyTimeoutError, conn),
+          );
+        },
+      );
+    });
+  });
+}
+
 const databaseConfig: DatabaseConfig = {
   /*
   |--------------------------------------------------------------------------
@@ -44,11 +92,11 @@ const databaseConfig: DatabaseConfig = {
         ),
       },
       pool: {
-        afterCreate: (conn, cb) => {
-          conn.run('PRAGMA foreign_keys=true', cb);
-        },
-        min: Number.parseInt(Env.get('DB_POOL_MIN', '2'), 10),
-        max: Number.parseInt(Env.get('DB_POOL_MAX', '20'), 10),
+        afterCreate: configureSqliteConnection,
+        // SQLite is a single-file database. Keeping one shared connection
+        // avoids starving the pool with blocked readers/writers under load.
+        min: 1,
+        max: 1,
       },
       migrations: {
         naturalSort: true,

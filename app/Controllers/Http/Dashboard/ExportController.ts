@@ -1,4 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import Service from 'App/Models/Service';
+import Workspace from 'App/Models/Workspace';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function deepParseToJSON(obj: any): Record<string, unknown> {
@@ -37,8 +39,13 @@ export default class ExportController {
    */
   public async show({ auth, response }: HttpContextContract) {
     const user = auth.user!;
-    const services = await user.related('services').query();
-    const workspaces = await user.related('workspaces').query();
+    const services = await Service.query()
+      .where('userId', user.id)
+      .orderBy('id', 'asc');
+    const workspaces = await Workspace.query()
+      .where('userId', user.id)
+      .orderBy('order', 'asc')
+      .orderBy('id', 'asc');
 
     const exportData = {
       username: user.username,

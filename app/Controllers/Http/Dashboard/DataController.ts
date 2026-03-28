@@ -1,4 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import Service from 'App/Models/Service';
+import Workspace from 'App/Models/Workspace';
 
 export default class DataController {
   /**
@@ -7,8 +9,16 @@ export default class DataController {
   public async show({ view, auth }: HttpContextContract) {
     const { user } = auth;
 
-    const services = await user?.related('services').query();
-    const workspaces = await user?.related('workspaces').query();
+    let services: Service[] = [];
+    let workspaces: Workspace[] = [];
+
+    if (user) {
+      services = await Service.query().where('userId', user.id).orderBy('id', 'asc');
+      workspaces = await Workspace.query()
+        .where('userId', user.id)
+        .orderBy('order', 'asc')
+        .orderBy('id', 'asc');
+    }
 
     return view.render('dashboard/data', {
       username: user?.username,

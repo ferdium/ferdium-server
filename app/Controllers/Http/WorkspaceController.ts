@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { validator, schema } from '@ioc:Adonis/Core/Validator';
+import Database from '@ioc:Adonis/Lucid/Database';
 import Workspace from 'App/Models/Workspace';
 import { v4 as uuid } from 'uuid';
 
@@ -39,15 +40,20 @@ export default class WorkspaceController {
 
     // Get new, unused uuid
     let workspaceId;
+    let existingWorkspace;
     do {
       workspaceId = uuid();
-    } while (
-      // eslint-disable-next-line unicorn/no-await-expression-member, no-await-in-loop
-      (await Workspace.query().where('workspaceId', workspaceId)).length > 0
-    );
+      // eslint-disable-next-line no-await-in-loop
+      existingWorkspace = await Workspace.query()
+        .where('workspaceId', workspaceId)
+        .first();
+    } while (existingWorkspace);
 
-    // eslint-disable-next-line unicorn/no-await-expression-member
-    const order = (await user.related('workspaces').query()).length;
+    const workspaceCount = await Database.from('workspaces')
+      .where('userId', user.id)
+      .count('* as total')
+      .first();
+    const order = Number(workspaceCount?.total ?? 0);
 
     await Workspace.create({
       userId: user.id,
@@ -163,7 +169,10 @@ export default class WorkspaceController {
       return response.unauthorized('Missing or invalid api token');
     }
 
-    const workspaces = await user.related('workspaces').query();
+    const workspaces = await Workspace.query()
+      .where('userId', user.id)
+      .orderBy('order', 'asc')
+      .orderBy('id', 'asc');
     // Convert to array with all data Franz wants
     let workspacesArray: object[] = [];
     if (workspaces) {

@@ -13,6 +13,10 @@ const createSchema = schema.create({
   recipeId: schema.string(),
 });
 
+async function loadUserServices(userId: number) {
+  return Service.query().where('userId', userId).orderBy('id', 'asc');
+}
+
 export default class ServiceController {
   // Create a new service for user
   public async create({ request, response, auth }: HttpContextContract) {
@@ -85,7 +89,7 @@ export default class ServiceController {
     }
 
     const { id } = user;
-    const services = await user.related('services').query();
+    const services = await loadUserServices(user.id);
 
     // Convert to array with all data Franz wants
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -94,6 +98,11 @@ export default class ServiceController {
         typeof service.settings === 'string'
           ? JSON.parse(service.settings)
           : service.settings;
+      // eslint-disable-next-line unicorn/no-null
+      let iconUrl: string | null = null;
+      if (settings.iconId) {
+        iconUrl = `${url}/v1/icon/${settings.iconId}`;
+      }
 
       return {
         customRecipe: false,
@@ -107,10 +116,7 @@ export default class ServiceController {
         spellcheckerLanguage: '',
         workspaces: [],
         ...settings,
-        iconUrl: settings.iconId
-          ? `${url}/v1/icon/${settings.iconId}`
-          : // eslint-disable-next-line unicorn/no-null
-          null,
+        iconUrl,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
@@ -309,7 +315,7 @@ export default class ServiceController {
     }
 
     // Get new services
-    const services = await user.related('services').query();
+    const services = await loadUserServices(user.id);
     // Convert to array with all data Franz wants
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const servicesArray = services.map((service: any) => {
@@ -317,6 +323,11 @@ export default class ServiceController {
         typeof service.settings === 'string'
           ? JSON.parse(service.settings)
           : service.settings;
+      // eslint-disable-next-line unicorn/no-null
+      let iconUrl: string | null = null;
+      if (settings.iconId) {
+        iconUrl = `${url}/v1/icon/${settings.iconId}`;
+      }
 
       return {
         customRecipe: false,
@@ -330,10 +341,7 @@ export default class ServiceController {
         spellcheckerLanguage: '',
         workspaces: [],
         ...settings,
-        iconUrl: settings.iconId
-          ? `${url}/v1/icon/${settings.iconId}`
-          : // eslint-disable-next-line unicorn/no-null
-          null,
+        iconUrl,
         id: service.serviceId,
         name: service.name,
         recipeId: service.recipeId,
