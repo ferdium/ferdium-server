@@ -46,7 +46,10 @@ Route.group(() => {
   }).prefix('user');
 
   // Franz/Ferdi account import
-  Route.get('import', ({ view }) => view.render('others/import'));
+  Route.get('import', ({ view }) => {
+    const { connectWithFranz } = require('../config/app');
+    return view.render('others/import', { connectWithFranz: connectWithFranz !== 'false' });
+  });
   Route.post('import', 'UserController.import');
 
   // 404 handler
