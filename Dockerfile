@@ -1,4 +1,4 @@
-FROM node:22.18.0-alpine as builder
+FROM node:24.18.1-alpine as builder
 
 WORKDIR /server-build
 
@@ -18,7 +18,7 @@ COPY . .
 RUN pnpm build
 
 # ---- RUNTIME IMAGE ----------------------------------------------------------
-FROM node:22.18.0-alpine
+FROM node:24.18.1-alpine
 
 WORKDIR /app
 LABEL maintainer="ferdium"

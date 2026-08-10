@@ -1,0 +1,19 @@
+allowedDeprecatedVersions:
+  '@npmcli/move-file': 1.1.2
+  '@types/pino-pretty': 5.0.0
+  '@types/pino-std-serializers': 4.0.0
+  cuid: 2.1.8
+  querystring: 0.2.0
+  resolve-url: 0.2.1
+  source-map-resolve: 0.5.3
+  source-map-url: 0.4.1
+  stable: 0.1.8
+  urix: 0.1.0
+
+allowBuilds:
+  aws-sdk: true
+  bcrypt: true
+  sqlite3: true
+
+patchedDependencies:
+  adonis5-jwt@1.1.7: patches/adonis5-jwt@1.1.7.patch

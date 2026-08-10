@@ -3,21 +3,21 @@
   "version": "2.0.13",
   "description": "Ferdium server to replace the default Franz/Ferdi server.",
   "engines": {
-    "node": "22.18.0",
-    "pnpm": "10.14.0",
+    "node": "24.18.1",
+    "pnpm": "11.20.0",
     "python": "3.12.7"
   },
   "engine-strict": true,
   "volta": {
-    "node": "22.18.0",
-    "pnpm": "10.14.0",
+    "node": "24.18.1",
+    "pnpm": "11.20.0",
     "python": "3.12.7"
   },
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@11.20.0",
   "homepage": "https://github.com/ferdium/ferdium-server",
   "license": "MIT License",
   "scripts": {
-    "prepare": "is-ci || husky install",
+    "prepare": "is-ci || husky",
     "dev": "cross-env-shell ENV_PATH=.env.development node ace serve --watch",
     "migrate": "cross-env-shell ENV_PATH=.env.development node ace migration:run",
     "refresh": "cross-env-shell ENV_PATH=.env.development node ace migration:refresh",
@@ -92,27 +92,5 @@
     "sqlite3": "5.1.6",
     "targz": "1.0.1",
     "uuid": "9.0.1"
-  },
-  "pnpm": {
-    "allowedDeprecatedVersions": {
-      "@npmcli/move-file": "1.1.2",
-      "@types/pino-pretty": "5.0.0",
-      "@types/pino-std-serializers": "4.0.0",
-      "cuid": "2.1.8",
-      "querystring": "0.2.0",
-      "resolve-url": "0.2.1",
-      "source-map-resolve": "0.5.3",
-      "source-map-url": "0.4.1",
-      "stable": "0.1.8",
-      "urix": "0.1.0"
-    },
-    "onlyBuiltDependencies": [
-      "aws-sdk",
-      "bcrypt",
-      "sqlite3"
-    ],
-    "patchedDependencies": {
-      "adonis5-jwt@1.1.7": "patches/adonis5-jwt@1.1.7.patch"
-    }
   }
 }
