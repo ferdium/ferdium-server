@@ -1,4 +1,4 @@
-FROM node:22.18.0-alpine as builder
+FROM node:22.18.0-alpine AS builder
 
 WORKDIR /server-build
 
@@ -17,6 +17,23 @@ COPY . .
 
 RUN pnpm build
 
+# ---- RECIPES IMAGE ----------------------------------------------------------
+FROM node:22.18.0-alpine AS recipes
+
+# needed for simple-git repository checks, even though this isn't a git repository
+RUN apk add --no-cache git
+
+WORKDIR /recipes
+
+ENV CI=true
+ENV NODE_ENV=development
+
+RUN wget -qO- https://github.com/ferdium/ferdium-recipes/archive/refs/heads/main.tar.gz | tar xz --strip-components=1
+
+RUN npm i -gf "pnpm@$(node -p 'require("./package.json").engines.pnpm')" && pnpm -v
+RUN pnpm install
+RUN pnpm package
+
 # ---- RUNTIME IMAGE ----------------------------------------------------------
 FROM node:22.18.0-alpine
 
@@ -33,6 +50,10 @@ RUN apk add --no-cache sqlite-libs curl su-exec python3 make g++ py3-pip git py3
 
 COPY --from=builder /server-build /app
 RUN npm i -g @adonisjs/cli
+
+# TODO: Do we need to copy more things over?
+COPY --from=recipes /recipes/archives /app/recipes/archives
+COPY --from=recipes /recipes/all.json /recipes/featured.json /app/recipes/
 
 HEALTHCHECK --start-period=5s --interval=30s --retries=5 --timeout=3s CMD curl -sSf http://localhost:${PORT}/health
 
