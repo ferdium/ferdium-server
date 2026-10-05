@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { schema } from '@ioc:Adonis/Core/Validator';
 import Service from 'App/Models/Service';
-import { url } from 'Config/app';
+import { getAppUrl } from 'Config/app';
 import { v4 as uuid } from 'uuid';
 import * as fs from 'fs-extra';
 import path from 'node:path';
@@ -90,6 +90,7 @@ export default class ServiceController {
 
     const { id } = user;
     const services = await loadUserServices(user.id);
+    const appUrl = getAppUrl(request.hostname());
 
     // Convert to array with all data Franz wants
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,7 +102,7 @@ export default class ServiceController {
       // eslint-disable-next-line unicorn/no-null
       let iconUrl: string | null = null;
       if (settings.iconId) {
-        iconUrl = `${url}/v1/icon/${settings.iconId}`;
+        iconUrl = `${appUrl}/v1/icon/${settings.iconId}`;
       }
 
       return {
@@ -162,6 +163,7 @@ export default class ServiceController {
     }
 
     const { id } = params;
+    const appUrl = getAppUrl(request.hostname());
     const service = await Service.query()
       .where('serviceId', id)
       .where('userId', user.id)
@@ -224,7 +226,7 @@ export default class ServiceController {
           id,
           name: service.name,
           ...newSettings,
-          iconUrl: `${url}/v1/icon/${newSettings.iconId}`,
+          iconUrl: `${appUrl}/v1/icon/${newSettings.iconId}`,
           userId: user.id,
         },
         status: ['updated'],
@@ -272,7 +274,7 @@ export default class ServiceController {
         id,
         name: serviceUpdated.name,
         ...settings,
-        iconUrl: `${url}/v1/icon/${settings.iconId}`,
+        iconUrl: `${appUrl}/v1/icon/${settings.iconId}`,
         userId: user.id,
       },
       status: ['updated'],
@@ -289,6 +291,7 @@ export default class ServiceController {
     }
 
     const data = request.all();
+    const appUrl = getAppUrl(request.hostname());
 
     for (const service of Object.keys(data)) {
       // Get current settings from db
@@ -326,7 +329,7 @@ export default class ServiceController {
       // eslint-disable-next-line unicorn/no-null
       let iconUrl: string | null = null;
       if (settings.iconId) {
-        iconUrl = `${url}/v1/icon/${settings.iconId}`;
+        iconUrl = `${appUrl}/v1/icon/${settings.iconId}`;
       }
 
       return {

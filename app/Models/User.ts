@@ -15,7 +15,7 @@ import Token from './Token';
 import Workspace from './Workspace';
 import Service from './Service';
 import Mail from '@ioc:Adonis/Addons/Mail';
-import { url } from 'Config/app';
+import { url } from 'Config/app'; // Primary URL for emails
 import { mailFrom } from 'Config/dashboard';
 
 export default class User extends BaseModel {

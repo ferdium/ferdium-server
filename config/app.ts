@@ -27,7 +27,49 @@ import { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
 */
 export const appKey: string = Env.get('APP_KEY');
 
-export const url: string = Env.get('APP_URL');
+// Parse APP_URL(S) - supports both single URL and comma-separated multiple URLs
+function parseAppUrls(): string[] {
+  const appUrls = Env.get('APP_URLS');
+  const appUrl = Env.get('APP_URL');
+
+  if (appUrls) {
+    return appUrls.split(',').map((u: string) => u.trim()).filter(Boolean);
+  }
+
+  if (appUrl) {
+    return [appUrl];
+  }
+
+  throw new Error('Either APP_URL or APP_URLS must be defined');
+}
+
+export const urls: string[] = parseAppUrls();
+export const url: string = urls[0]; // Primary URL for backward compatibility
+
+/**
+ * Get the appropriate app URL based on the request hostname.
+ * Falls back to the primary URL if no match or no request provided.
+ *
+ * @param requestHostname - Optional hostname from the incoming request
+ * @returns The matching URL or primary URL
+ */
+export function getAppUrl(requestHostname?: string): string {
+  if (!requestHostname) {
+    return url;
+  }
+
+  // Try to find a URL that matches the request hostname
+  const matchingUrl = urls.find(u => {
+    try {
+      const urlObj = new URL(u);
+      return urlObj.hostname === requestHostname;
+    } catch {
+      return false;
+    }
+  });
+
+  return matchingUrl || url;
+}
 
 // TODO: this is parsed as string to be coherent with the previous version of the code we add (before migrating to AdonisJS 5)
 export const isRegistrationEnabled: string = Env.get('IS_REGISTRATION_ENABLED');

@@ -20,6 +20,8 @@ export default Env.rules({
 
   APP_KEY: Env.schema.string(),
   APP_NAME: Env.schema.string(),
+  APP_URL: Env.schema.string.optional(),
+  APP_URLS: Env.schema.string.optional(),
 
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
 });
